@@ -1,11 +1,10 @@
 import type { NextConfig } from "next";
 
+const isDev = process.env.NODE_ENV === "development";
+
 const nextConfig: NextConfig = {
-  /* config options here */
   reactStrictMode: true,
-  experimental: {
-    allowDevelopmentBuild: true,
-  },
+  experimental: isDev ? { allowDevelopmentBuild: true } : {},
   eslint: {
     ignoreDuringBuilds: true,
   },
