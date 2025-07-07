@@ -1,7 +1,5 @@
 import Head from 'next/head'
 import React, { useState } from 'react'
-// @ts-ignore – external hook package; ensure it's installed in project
-import { useFormspark } from '@formspark/use-formspark'
 import { Header } from '../components/mmm/Header'
 import { Container } from '../components/mmm/Container'
 import { Button } from '../components/mmm/Button'
@@ -423,7 +421,6 @@ export default function ActionPlanPage() {
   const [step, setStep] = useState(0)
   const [formState, setFormState] = useState<FormState>(initialState)
   const [submitting, setSubmitting] = useState(false)
-  const [submitToFs, submittingFs] = useFormspark({ formId: 'phcmKSgAi' })
   const [submitted, setSubmitted] = useState(false)
 
   const totalSteps = 5
@@ -464,9 +461,13 @@ export default function ActionPlanPage() {
       const finalState = { ...formState, maturityScore: score }
       setSubmitting(true)
       try {
-        await submitToFs(finalState)
+        await fetch('/api/lead', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(finalState),
+        })
       } catch (err) {
-        console.warn('Formspark error', err)
+        console.warn('Formspark proxy error', err)
       }
       setSubmitting(false)
       setFormState(finalState)
