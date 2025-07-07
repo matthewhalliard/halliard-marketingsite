@@ -44,3 +44,19 @@ a {
     color-scheme: dark;
   }
 }
+
+@layer utilities {
+  .bg-dots {
+    background-image: radial-gradient(rgba(38,50,133,0.04) 1px, transparent 1px);
+    background-size: 18px 18px;
+    background-position: 0 0;
+  }
+
+  .bg-site {
+    background-image:
+      radial-gradient(72.6% 100% at 100% 0, rgba(211,228,255,0.6) 0%, rgba(255,255,255,0) 70%),
+      radial-gradient(rgba(38,50,133,0.04) 1px, transparent 1px);
+    background-size: auto, 18px 18px;
+    background-position: top right, 0 0;
+  }
+}
