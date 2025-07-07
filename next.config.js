@@ -4,13 +4,4 @@ module.exports = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-  // Redirect the root path to the Framer-generated static homepage
-  async rewrites() {
-    return [
-      {
-        source: '/',
-        destination: '/home-framer.html',
-      },
-    ];
-  },
 }; 
