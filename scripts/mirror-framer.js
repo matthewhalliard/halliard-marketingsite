@@ -43,6 +43,38 @@ async function downloadAndStore(url) {
   return "/" + path.relative(PUBLIC_DIR, localPath).replace(/\\/g, "/");
 }
 
+// Add helper to extract and replace URLs inside raw text (CSS/inline)
+/**
+ * Replace all Framer CDN URLs inside the given text with local mirrored paths.
+ * Downloads any missing assets on-demand.
+ *
+ * @param {string} text CSS or HTML attribute value containing URLs
+ * @returns {Promise<string>} rewritten text with local URLs
+ */
+async function rewriteInlineUrls(text) {
+  const urlRegex = /(https:\/\/(?:framerusercontent\.com|app\.framerstatic\.com)[^"'()\s]+)(?=["')\s])/g;
+  const unique = new Set();
+  let match;
+  while ((match = urlRegex.exec(text)) !== null) {
+    unique.add(match[1]);
+  }
+  const replacements = new Map();
+  for (const remote of unique) {
+    try {
+      const local = await downloadAndStore(remote);
+      replacements.set(remote, local);
+    } catch (err) {
+      console.error("⚠️  Failed to mirror", remote, "->", err.message);
+    }
+  }
+  if (!replacements.size) return text;
+  let output = text;
+  for (const [remote, local] of replacements) {
+    output = output.split(remote).join(local);
+  }
+  return output;
+}
+
 (async () => {
   await fs.mkdir(MIRROR_DIR, { recursive: true });
 
@@ -65,6 +97,36 @@ async function downloadAndStore(url) {
         changed = true;
       } catch (err) {
         console.error("⚠️  Failed to mirror", value, "->", err.message);
+      }
+    }
+
+    // ------------------------------------------------------------------
+    // 1. Mirror URLs inside <style> elements (e.g. @font-face src, background-image)
+    // ------------------------------------------------------------------
+    const styleTags = root.querySelectorAll("style");
+    for (const styleTag of styleTags) {
+      const original = styleTag.innerHTML;
+      const rewritten = await rewriteInlineUrls(original);
+      if (rewritten !== original) {
+        styleTag.set_content(rewritten);
+        changed = true;
+      }
+    }
+
+    // ------------------------------------------------------------------
+    // 2. Mirror framer search index JSON referenced via <meta name="framer-search-index" content="...">
+    // ------------------------------------------------------------------
+    const metaSearch = root.querySelectorAll("meta[name='framer-search-index']");
+    for (const meta of metaSearch) {
+      const contentUrl = meta.getAttribute("content");
+      if (contentUrl && needsMirror(contentUrl)) {
+        try {
+          const local = await downloadAndStore(contentUrl);
+          meta.setAttribute("content", local);
+          changed = true;
+        } catch (err) {
+          console.error("⚠️  Failed to mirror", contentUrl, "->", err.message);
+        }
       }
     }
 
