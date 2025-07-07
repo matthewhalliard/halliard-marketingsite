@@ -8,7 +8,7 @@ export function Hero() {
       <Container className="pt-32 pb-16 text-center lg:pt-40">
         <h1 className="mx-auto max-w-4xl font-display text-5xl font-medium tracking-tight text-slate-900 sm:text-7xl">
           Finally, an MMM That{' '}
-          <span className="relative whitespace-nowrap text-primary">
+          <span className="relative text-primary sm:whitespace-nowrap">
             <svg
               aria-hidden="true"
               viewBox="0 0 418 42"
