@@ -12,6 +12,7 @@ module.exports = {
         secondary: "rgb(26,106,180)", // token-3f9632c2
         background: "rgb(255,255,255)", // token-0610871f
         "background-dark": "rgb(0,28,56)",
+        tint: "rgb(211,228,255)", // light brand tint used on home page
       },
       fontFamily: {
         sans: ["var(--font-inter)", "sans-serif"],

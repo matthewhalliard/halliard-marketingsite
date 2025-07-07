@@ -32,7 +32,7 @@ export function FAQSection() {
     <section
       id="faq"
       aria-label="Frequently asked questions"
-      className="py-20 sm:py-32"
+      className="py-10 sm:py-16"
     >
       <Container>
         <div className="mx-auto max-w-2xl md:text-center">

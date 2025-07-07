@@ -10,6 +10,7 @@
     "mirror-framer": "node scripts/mirror-framer.js"
   },
   "dependencies": {
+    "@formspark/use-formspark": "^0.1.42",
     "@headlessui/react": "^2.0.0",
     "@heroicons/react": "^2.2.0",
     "clsx": "^2.1.0",

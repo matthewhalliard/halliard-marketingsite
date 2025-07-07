@@ -64,53 +64,55 @@ function MobileNavigation() {
         transition
         className="absolute inset-x-0 top-full mt-4 flex origin-top flex-col rounded-2xl bg-white p-4 text-lg tracking-tight text-slate-900 shadow-xl ring-1 ring-slate-900/5 data-closed:scale-95 data-closed:opacity-0 data-enter:duration-150 data-enter:ease-out data-leave:duration-100 data-leave:ease-in"
       >
-        <MobileNavLink href="#problem">Problem</MobileNavLink>
-        <MobileNavLink href="#solution">Solution</MobileNavLink>
-        <MobileNavLink href="#features">Features</MobileNavLink>
-        <MobileNavLink href="#testimonials">Testimonials</MobileNavLink>
-        <MobileNavLink href="#use-cases">Use Cases</MobileNavLink>
-        <MobileNavLink href="#faq">FAQ</MobileNavLink>
+        <MobileNavLink href="/mmm#problem">Problem</MobileNavLink>
+        <MobileNavLink href="/mmm#solution">Solution</MobileNavLink>
+        <MobileNavLink href="/mmm#features">Features</MobileNavLink>
+        <MobileNavLink href="/mmm#testimonials">Testimonials</MobileNavLink>
+        <MobileNavLink href="/mmm#use-cases">Use Cases</MobileNavLink>
+        <MobileNavLink href="/mmm#faq">FAQ</MobileNavLink>
       </PopoverPanel>
     </Popover>
   )
 }
 
-export function Header() {
+export function Header({ hideLinks = false } = {}) {
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-sm border-b border-gray-100">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white/70 backdrop-blur-sm border-b border-gray-100">
       <Container>
         <nav className="relative flex justify-between items-center py-6">
           <div className="flex items-center md:gap-x-12">
-            <Link href="#" aria-label="Home">
+            <Link href="/mmm" aria-label="Home">
               <img 
                 src="https://framerusercontent.com/images/s97qQgHpRGf1STgb6vDMgqYNU4.png?scale-down-to=512" 
                 alt="Halliard" 
-                className="h-10 w-auto"
+                className="h-8 w-auto"
               />
             </Link>
+            {!hideLinks && (
             <div className="hidden md:flex md:gap-x-6">
-              <Link href="#problem" className="inline-block rounded-lg px-2 py-1 text-sm text-slate-700 hover:bg-slate-100 hover:text-slate-900">
+              <Link href="/mmm#problem" className="inline-block rounded-lg px-2 py-1 text-sm text-slate-700 hover:bg-slate-100 hover:text-slate-900">
                 Problem
               </Link>
-              <Link href="#solution" className="inline-block rounded-lg px-2 py-1 text-sm text-slate-700 hover:bg-slate-100 hover:text-slate-900">
+              <Link href="/mmm#solution" className="inline-block rounded-lg px-2 py-1 text-sm text-slate-700 hover:bg-slate-100 hover:text-slate-900">
                 Solution
               </Link>
-              <Link href="#features" className="inline-block rounded-lg px-2 py-1 text-sm text-slate-700 hover:bg-slate-100 hover:text-slate-900">
+              <Link href="/mmm#features" className="inline-block rounded-lg px-2 py-1 text-sm text-slate-700 hover:bg-slate-100 hover:text-slate-900">
                 Features
               </Link>
-              <Link href="#testimonials" className="inline-block rounded-lg px-2 py-1 text-sm text-slate-700 hover:bg-slate-100 hover:text-slate-900">
+              <Link href="/mmm#testimonials" className="inline-block rounded-lg px-2 py-1 text-sm text-slate-700 hover:bg-slate-100 hover:text-slate-900">
                 Testimonials
               </Link>
-              <Link href="#use-cases" className="inline-block rounded-lg px-2 py-1 text-sm text-slate-700 hover:bg-slate-100 hover:text-slate-900">
+              <Link href="/mmm#use-cases" className="inline-block rounded-lg px-2 py-1 text-sm text-slate-700 hover:bg-slate-100 hover:text-slate-900">
                 Use Cases
               </Link>
-              <Link href="#faq" className="inline-block rounded-lg px-2 py-1 text-sm text-slate-700 hover:bg-slate-100 hover:text-slate-900">
+              <Link href="/mmm#faq" className="inline-block rounded-lg px-2 py-1 text-sm text-slate-700 hover:bg-slate-100 hover:text-slate-900">
                 FAQ
               </Link>
             </div>
+            )}
           </div>
           <div className="flex items-center gap-x-5 md:gap-x-8">
-            <Button href="/demo" color="blue">
+            <Button href="/schedule-demo" color="blue">
               <span>
                 Schedule Demo
               </span>

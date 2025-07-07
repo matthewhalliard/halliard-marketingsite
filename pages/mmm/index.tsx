@@ -9,10 +9,7 @@ import { UseCasesSection } from '../../components/mmm/UseCasesSection'
 import { FAQSection } from '../../components/mmm/FAQSection'
 import { CallToAction } from '../../components/mmm/CallToAction'
 
-export const disableNavbar = true;
-export const fullWidth = true;
-
-export default function MMMLandingPage() {
+function MMMLandingPage() {
   return (
     <>
       <Head>
@@ -35,4 +32,11 @@ export default function MMMLandingPage() {
       </main>
     </>
   )
-} 
+}
+
+// Tell the custom _app/layout to hide site navbar and use full width for this page
+(MMMLandingPage as any).disableNavbar = true;
+(MMMLandingPage as any).fullWidth = true;
+(MMMLandingPage as any).siteBg = true;
+
+export default MMMLandingPage; 

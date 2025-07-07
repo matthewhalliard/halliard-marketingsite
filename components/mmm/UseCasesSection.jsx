@@ -69,11 +69,11 @@ export function UseCasesSection() {
     <section
       id="use-cases"
       aria-label="Use cases"
-      className="pt-20 pb-14 sm:pt-32 sm:pb-20 lg:pb-32 bg-gray-50"
+      className="pt-10 pb-7 sm:pt-16 sm:pb-10 lg:pb-16"
     >
       <Container>
         <div className="mx-auto max-w-2xl md:text-center">
-          <h2 className="font-display text-3xl tracking-tight text-[#1F1F1F] sm:text-4xl">
+          <h2 className="font-display text-3xl tracking-tight text-slate-900 sm:text-4xl">
             Built for How You Work
           </h2>
         </div>
@@ -81,7 +81,7 @@ export function UseCasesSection() {
         <div className="mt-16">
           {/* For Brands */}
           <div className="mb-16">
-            <h3 className="text-2xl font-bold text-[#1F1F1F] mb-8 text-center">For Brands</h3>
+            <h3 className="text-2xl font-bold text-slate-900 mb-8 text-center">For Brands</h3>
             <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
               {useCases.brands.map((useCase, index) => (
                 <div key={index} className="rounded-2xl bg-white p-8 shadow-lg">
@@ -90,10 +90,10 @@ export function UseCasesSection() {
                   <ul className="space-y-2">
                     {useCase.features.map((feature, featureIndex) => (
                       <li key={featureIndex} className="flex items-start">
-                        <svg className="h-5 w-5 text-[#1F3FFF] mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="h-5 w-5 text-primary mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                         </svg>
-                        <span className="text-sm text-[#4B4B4B]">{feature}</span>
+                        <span className="text-sm text-slate-600">{feature}</span>
                       </li>
                     ))}
                   </ul>
@@ -104,7 +104,7 @@ export function UseCasesSection() {
 
           {/* For Agencies */}
           <div>
-            <h3 className="text-2xl font-bold text-[#1F1F1F] mb-8 text-center">For Agencies</h3>
+            <h3 className="text-2xl font-bold text-slate-900 mb-8 text-center">For Agencies</h3>
             <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
               {useCases.agencies.map((useCase, index) => (
                 <div key={index} className="rounded-2xl bg-white p-8 shadow-lg">

@@ -1,4 +1,5 @@
 import { Container } from './Container'
+import Image from 'next/image'
 
 export function SolutionSection() {
   const steps = [
@@ -36,18 +37,24 @@ export function SolutionSection() {
     }
   ]
 
+  const imageMap = {
+    '1': '/images/mmm/step1-mmm-integration.png',
+    '2': '/images/mmm/step2-channel-dashboard.png',
+    '3': '/images/mmm/step3-geo-lift-wizard.png',
+  }
+
   return (
     <section
       id="solution"
       aria-label="Halliard's solution"
-      className="pt-20 pb-14 sm:pt-32 sm:pb-20 lg:pb-32"
+      className="pt-10 pb-7 sm:pt-16 sm:pb-10 lg:pb-16"
     >
       <Container>
         <div className="mx-auto max-w-2xl md:text-center">
-          <h2 className="font-display text-3xl tracking-tight text-[#1F1F1F] sm:text-4xl">
+          <h2 className="font-display text-3xl tracking-tight text-slate-900 sm:text-4xl">
             Halliard's Unified Measurement Platform
           </h2>
-          <p className="mt-4 text-lg tracking-tight text-[#4B4B4B]">
+          <p className="mt-4 text-lg tracking-tight text-slate-600">
             Connect your existing MMM or let us build one. Validate every channel. Make confident budget decisions.
           </p>
         </div>
@@ -57,7 +64,7 @@ export function SolutionSection() {
             <div key={step.number} className={`grid grid-cols-1 gap-8 lg:grid-cols-2 ${index % 2 === 1 ? 'lg:grid-flow-row-dense' : ''}`}>
               <div className={`${index % 2 === 1 ? 'lg:col-start-2' : ''}`}>
                 <div className="flex items-center mb-4">
-                  <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#1F3FFF] text-white font-bold text-lg">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white font-bold text-lg">
                     {step.number}
                   </span>
                   <h3 className="ml-4 text-2xl font-bold text-[#1F1F1F]">{step.title}</h3>
@@ -65,21 +72,25 @@ export function SolutionSection() {
                 <div className="space-y-4">
                   {step.features.map((feature) => (
                     <div key={feature.title} className="flex items-start">
-                      <svg className="h-6 w-6 text-[#1F3FFF] mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="h-6 w-6 text-primary mr-2 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                       </svg>
                       <div>
-                        <span className="font-semibold text-[#1F1F1F]">{feature.title}:</span>{' '}
-                        <span className="text-[#4B4B4B]">{feature.description}</span>
+                        <span className="font-semibold text-slate-900">{feature.title}:</span>{' '}
+                        <span className="text-slate-600">{feature.description}</span>
                       </div>
                     </div>
                   ))}
                 </div>
               </div>
-              <div className={`rounded-2xl bg-gray-100 p-8 ${index % 2 === 1 ? 'lg:col-start-1' : ''}`}>
-                <div className="h-64 flex items-center justify-center">
-                  <p className="text-sm text-[#4B4B4B] text-center">{step.screenshot}</p>
-                </div>
+              <div className={`rounded-2xl bg-gray-100 p-4 ${index % 2 === 1 ? 'lg:col-start-1' : ''}`}>
+                <Image
+                  src={imageMap[step.number]}
+                  alt={step.title}
+                  width={960}
+                  height={540}
+                  className="rounded-lg shadow-md w-full h-auto"
+                />
               </div>
             </div>
           ))}
