@@ -32,4 +32,9 @@ export default function UnmeasurablePage() {
       </main>
     </>
   )
-} 
+}
+
+// Hide site navbar and use full width like other landers
+(UnmeasurablePage as any).disableNavbar = true;
+(UnmeasurablePage as any).fullWidth = true;
+(UnmeasurablePage as any).siteBg = true; 
