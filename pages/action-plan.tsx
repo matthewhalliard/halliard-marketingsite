@@ -5,6 +5,7 @@ import { Container } from '../components/mmm/Container'
 import { Button } from '../components/mmm/Button'
 import clsx from 'clsx'
 import { Disclosure } from '@headlessui/react'
+import Script from 'next/script'
 
 // -----------------------------------------------------------------------------
 // Reusable Step Wrapper component (defined outside main page to keep identity)
@@ -425,6 +426,16 @@ export default function ActionPlanPage() {
 
   const totalSteps = 5
 
+  // Google Ads conversion tracking function
+  const fireActionPlanConversion = () => {
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', 'conversion', {
+        'send_to': 'AW-672346912/d-VaCIzdx-waEKDmzMAC',
+        'value': 100.0,
+        'currency': 'USD'
+      });
+    }
+  };
 
   // ---------------------------------------------------------------------------
   // Validation helpers
@@ -466,6 +477,10 @@ export default function ActionPlanPage() {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(finalState),
         })
+        
+        // Fire Google Ads conversion after successful submission
+        fireActionPlanConversion();
+        
       } catch (err) {
         console.warn('Formspark proxy error', err)
       }
@@ -688,6 +703,27 @@ export default function ActionPlanPage() {
           content="Answer 5 quick questions to get your marketing measurement maturity score and a tailored action plan."
         />
       </Head>
+      
+      {/* Google Ads conversion tracking script */}
+      <Script id="action-plan-conversion" strategy="afterInteractive">
+        {`
+          function gtag_report_conversion(url) {
+            var callback = function () {
+              if (typeof(url) != 'undefined') {
+                window.location = url;
+              }
+            };
+            gtag('event', 'conversion', {
+                'send_to': 'AW-672346912/d-VaCIzdx-waEKDmzMAC',
+                'value': 100.0,
+                'currency': 'USD',
+                'event_callback': callback
+            });
+            return false;
+          }
+        `}
+      </Script>
+      
       <Header hideLinks />
       <main className="pt-32 flex flex-col min-h-screen">
         {!submitted ? stepComponents[step] : renderResults()}
