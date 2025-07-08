@@ -1,4 +1,5 @@
 import { Container } from '../mmm/Container'
+import Image from 'next/image'
 
 export function SolutionSection() {
   return (
@@ -13,12 +14,12 @@ export function SolutionSection() {
           </p>
         </div>
 
-        <div className="mx-auto mt-16 max-w-4xl">
-          <h3 className="text-2xl font-bold tracking-tight text-slate-900 mb-8 text-center">
-            How Geo-Lift Testing Works
-          </h3>
-          
-          <div className="space-y-8">
+        <div className="mx-auto mt-16 max-w-5xl lg:flex lg:items-start lg:gap-12">
+          <div className="flex-1">
+            <h3 className="text-2xl font-bold tracking-tight text-slate-900 mb-8 lg:text-left text-center">
+              How Geo-Lift Testing Works
+            </h3>
+            <div className="space-y-8">
             {['Market Selection','Clean Experiment','Measure Lift','Prove Causation'].map((title, idx) => (
               <div key={title} className="flex gap-4 items-start">
                 <div className="flex-shrink-0 w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center font-bold text-lg">
@@ -37,6 +38,16 @@ export function SolutionSection() {
                 </div>
               </div>
             ))}
+            </div>
+          </div>
+          <div className="flex-1 mt-12 lg:mt-0 flex justify-center">
+            <Image
+              src="/images/mmm/dma-map.png"
+              alt="US DMA map"
+              width={350}
+              height={350}
+              className="rounded-lg shadow-md w-full max-w-md h-auto"
+            />
           </div>
         </div>
 
