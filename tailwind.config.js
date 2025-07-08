@@ -13,11 +13,20 @@ module.exports = {
         background: "rgb(255,255,255)", // token-0610871f
         "background-dark": "rgb(0,28,56)",
         tint: "rgb(211,228,255)", // light brand tint used on home page
+        'halliard-blue': '#1F3FFF',
       },
       fontFamily: {
         sans: ["var(--font-inter)", "sans-serif"],
         mono: ["var(--font-fragment)", "monospace"],
         display: ["var(--font-lexend)", "sans-serif"],
+      },
+      borderRadius: {
+        '4xl': '2rem',
+      },
+      fontSize: {
+        '7xl': ['4.5rem', { lineHeight: '1.1' }],
+        '8xl': ['6rem', { lineHeight: '1' }],
+        '9xl': ['8rem', { lineHeight: '1' }],
       },
     },
   },
