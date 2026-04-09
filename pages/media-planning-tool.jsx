@@ -320,9 +320,40 @@ function MidPageCTA() {
   )
 }
 
-// Testimonials section — placeholder for real quotes
-// TODO: Get testimonial from Lisa at Lewis Media Partners
-// Re-add this section once we have real, attributed quotes
+function TestimonialSection() {
+  return (
+    <section className="py-16 sm:py-24 bg-slate-50">
+      <Container className="">
+        <div className="mx-auto max-w-3xl">
+          <div className="rounded-2xl bg-white p-8 sm:p-12 shadow-lg border border-tint">
+            <div className="flex items-center gap-4 mb-8">
+              <img
+                src="/images/testimonials/lewis-media-logo.png"
+                alt="Lewis Media Partners"
+                className="h-8 w-auto"
+              />
+            </div>
+            <blockquote className="text-xl sm:text-2xl font-medium text-slate-800 leading-relaxed">
+              &ldquo;Halliard gave our planners a better way to build media plans and our clients a clearer
+              picture of what their spend is doing. That&rsquo;s been really valuable for us.&rdquo;
+            </blockquote>
+            <div className="mt-8 flex items-center gap-4">
+              <img
+                src="/images/testimonials/lisa-matulis.jpg"
+                alt="Lisa Matulis"
+                className="w-12 h-12 rounded-full object-cover"
+              />
+              <div>
+                <p className="text-sm font-semibold text-slate-900">Lisa Matulis</p>
+                <p className="text-sm text-slate-500">Group Client Lead, Lewis Media Partners</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Container>
+    </section>
+  )
+}
 
 function ComparisonTable() {
   const features = [
@@ -523,6 +554,7 @@ export default function MediaPlanningToolPage() {
         <PainSection />
         <SolutionSection />
         <MidPageCTA />
+        <TestimonialSection />
         <ComparisonTable />
         <WhoItsFor />
         <CTAFooter />
