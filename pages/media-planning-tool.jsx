@@ -435,24 +435,7 @@ function WhoItsFor() {
               ))}
             </div>
           </div>
-          <div className="rounded-2xl bg-slate-50 p-8 border border-slate-200">
-            <p className="text-sm font-semibold text-slate-500 uppercase tracking-wide mb-5">
-              Halliard is NOT for
-            </p>
-            <div className="space-y-4">
-              {[
-                'Creative-only agencies with no media buying',
-                'Pure performance / programmatic shops focused on a single channel',
-                'Freelancers or solo media planners',
-                'Holding company agencies with existing enterprise tooling',
-              ].map((item) => (
-                <div key={item} className="flex items-start gap-3 text-slate-500">
-                  <span className="text-base flex-shrink-0 mt-0.5">✗</span>
-                  <p className="text-sm">{item}</p>
-                </div>
-              ))}
-            </div>
-          </div>
+
         </div>
       </Container>
     </section>
@@ -475,9 +458,7 @@ function CTAFooter() {
           <p className="mt-2 font-display text-3xl tracking-tight text-white/80 sm:text-4xl">
             Help them see what it is doing.
           </p>
-          <p className="mt-6 text-base text-white/70 font-medium tracking-wide uppercase">
-            Now onboarding a limited number of agencies.
-          </p>
+
           <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
             <Button href={SIGN_UP_URL} variant="solid" color="white">
               Start Planning Free
