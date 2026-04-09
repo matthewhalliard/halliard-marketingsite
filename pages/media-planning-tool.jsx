@@ -91,27 +91,11 @@ function Hero() {
             Used by media teams managing $50M+ in annual spend
           </p>
 
-          <div className="mx-auto mt-10 max-w-2xl rounded-2xl bg-white shadow-lg p-6 text-left border border-tint">
-            <p className="text-slate-700 italic">
-              "We replaced 14 spreadsheets and three Slack channels with Halliard. Our planners spend time
-              planning, not formatting. Client presentations went from half a day to 45 minutes."
-            </p>
-            <div className="mt-4 flex items-center gap-3">
-              <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-semibold text-sm flex-shrink-0">
-                SM
-              </div>
-              <div>
-                <p className="text-sm font-semibold text-slate-900">Media Director</p>
-                <p className="text-xs text-slate-500">Independent Agency, 85 people</p>
-              </div>
-            </div>
-          </div>
-
           {/* Product screenshot */}
           <div className="mx-auto mt-16 max-w-5xl">
             <div className="rounded-xl border border-tint shadow-2xl overflow-hidden">
               <img
-                src="/images/product/flighting.png"
+                src="/images/product/flighting.webp"
                 alt="Halliard media planning platform — flight planner with channel logos, budget allocation, and Gantt timeline"
                 className="w-full"
               />
@@ -177,7 +161,7 @@ function SolutionSection() {
       number: '01',
       Icon: CalendarDaysIcon,
       title: 'Plan',
-      image: '/images/product/flighting.png',
+      image: '/images/product/flighting.webp',
       description:
         'Build visual media flowcharts in minutes, not hours. Drag flights across channels, see budget roll-ups in real time, and share client-ready plans in one click.',
       features: [
@@ -191,7 +175,7 @@ function SolutionSection() {
       number: '02',
       Icon: ScaleIcon,
       title: 'Compare',
-      image: '/images/product/compare.png',
+      image: '/images/product/compare.webp',
       description:
         'Run three budget scenarios side-by-side. See how shifting spend between channels affects reach, frequency, and revenue — instantly.',
       features: [
@@ -205,7 +189,7 @@ function SolutionSection() {
       number: '03',
       Icon: BoltIcon,
       title: 'Optimize',
-      image: '/images/product/response-curves.png',
+      image: '/images/product/response-curves.webp',
       description:
         'See the diminishing returns curve for every channel. Know exactly where your next dollar has the most impact — and where to stop spending.',
       features: [
@@ -219,7 +203,7 @@ function SolutionSection() {
       number: '04',
       Icon: ChartBarSquareIcon,
       title: 'Measure',
-      image: '/images/product/measurement.png',
+      image: '/images/product/measurement.webp',
       description:
         'Connect your data sources — Snowflake, BigQuery, Domo — and see what\'s actually working. Platform metrics vs. MMM-attributed revenue, side by side.',
       features: [
@@ -233,7 +217,7 @@ function SolutionSection() {
       number: '05',
       Icon: CurrencyDollarIcon,
       title: 'Buy',
-      image: '/images/product/buying.png',
+      image: '/images/product/buying.webp',
       description:
         'Track every media buy from submission to delivery. See pacing in real time, catch overspend before it happens, and keep fees transparent.',
       features: [
@@ -247,7 +231,7 @@ function SolutionSection() {
       number: '06',
       Icon: ClockIcon,
       title: 'Collaborate',
-      image: '/images/product/changelog.png',
+      image: '/images/product/changelog.webp',
       description:
         'Every edit is tracked. Every approval is logged. Know exactly who changed what, when — and roll back if something goes wrong.',
       features: [
@@ -339,6 +323,73 @@ function MidPageCTA() {
 // Testimonials section — placeholder for real quotes
 // TODO: Get testimonial from Lisa at Lewis Media Partners
 // Re-add this section once we have real, attributed quotes
+
+function ComparisonTable() {
+  const features = [
+    { name: 'Visual flowcharting', halliard: true, excel: false, mediaocean: true, strata: 'Partial' },
+    { name: 'Scenario comparison', halliard: true, excel: false, mediaocean: false, strata: false },
+    { name: 'Response curves (MMM)', halliard: true, excel: false, mediaocean: false, strata: false },
+    { name: 'Measurement dashboard', halliard: true, excel: false, mediaocean: 'Partial', strata: false },
+    { name: 'Real-time pacing', halliard: true, excel: false, mediaocean: true, strata: true },
+    { name: 'Version history & audit', halliard: true, excel: false, mediaocean: true, strata: 'Partial' },
+    { name: 'Free plan available', halliard: true, excel: true, mediaocean: false, strata: false },
+    { name: 'Built for independents', halliard: true, excel: 'N/A', mediaocean: false, strata: 'Partial' },
+  ]
+
+  const prices = { halliard: 'Free to start', excel: 'Free', mediaocean: 'Enterprise ($$$)', strata: 'Enterprise ($$)' }
+
+  function Cell({ value, highlighted }) {
+    if (value === true) return <span className="text-green-600 font-bold text-lg">✓</span>
+    if (value === false) return <span className="text-red-400 font-bold text-lg">✗</span>
+    return <span className={`text-xs font-medium ${highlighted ? 'text-primary' : 'text-slate-500'}`}>{value}</span>
+  }
+
+  return (
+    <section className="py-16 sm:py-24 bg-slate-50">
+      <Container>
+        <div className="mx-auto max-w-2xl text-center mb-12">
+          <h2 className="font-display text-3xl tracking-tight text-slate-900 sm:text-4xl">
+            Halliard vs. the alternatives
+          </h2>
+          <p className="mt-4 text-lg text-slate-600">
+            One platform that replaces the patchwork. See how Halliard stacks up.
+          </p>
+        </div>
+        <div className="mx-auto max-w-4xl overflow-x-auto">
+          <table className="w-full border-collapse text-sm">
+            <thead>
+              <tr>
+                <th className="sticky left-0 z-10 bg-slate-50 text-left py-4 pr-4 pl-2 font-semibold text-slate-700 min-w-[180px]">Feature</th>
+                <th className="py-4 px-4 text-center font-semibold text-primary bg-primary/5 border-x border-primary/10 min-w-[120px]">Halliard</th>
+                <th className="py-4 px-4 text-center font-semibold text-slate-600 min-w-[120px]">Excel / Sheets</th>
+                <th className="py-4 px-4 text-center font-semibold text-slate-600 min-w-[120px]">Mediaocean</th>
+                <th className="py-4 px-4 text-center font-semibold text-slate-600 min-w-[120px]">Strata</th>
+              </tr>
+            </thead>
+            <tbody>
+              {features.map((f, i) => (
+                <tr key={f.name} className={i % 2 === 0 ? 'bg-white' : 'bg-slate-50/50'}>
+                  <td className="sticky left-0 z-10 py-3.5 pr-4 pl-2 font-medium text-slate-800" style={{ backgroundColor: i % 2 === 0 ? '#fff' : 'rgb(248 250 252 / 0.5)' }}>{f.name}</td>
+                  <td className="py-3.5 px-4 text-center bg-primary/5 border-x border-primary/10"><Cell value={f.halliard} highlighted /></td>
+                  <td className="py-3.5 px-4 text-center"><Cell value={f.excel} /></td>
+                  <td className="py-3.5 px-4 text-center"><Cell value={f.mediaocean} /></td>
+                  <td className="py-3.5 px-4 text-center"><Cell value={f.strata} /></td>
+                </tr>
+              ))}
+              <tr className="border-t-2 border-slate-200">
+                <td className="sticky left-0 z-10 bg-white py-4 pr-4 pl-2 font-semibold text-slate-900">Price</td>
+                <td className="py-4 px-4 text-center bg-primary/5 border-x border-primary/10 font-semibold text-primary text-xs">Free to start</td>
+                <td className="py-4 px-4 text-center text-xs text-slate-500 font-medium">Free</td>
+                <td className="py-4 px-4 text-center text-xs text-slate-500 font-medium">Enterprise ($$$)</td>
+                <td className="py-4 px-4 text-center text-xs text-slate-500 font-medium">Enterprise ($$)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </Container>
+    </section>
+  )
+}
 
 function WhoItsFor() {
   return (
@@ -437,9 +488,34 @@ export default function MediaPlanningToolPage() {
         <meta property="og:url" content="https://halliardmedia.com/media-planning-tool" />
         <meta
           property="og:image"
-          content="https://framerusercontent.com/images/s97qQgHpRGf1STgb6vDMgqYNU4.png"
+          content="/images/product/flighting.webp"
         />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Media Planning Tool & Software for Independent Agencies | Halliard" />
+        <meta name="twitter:description" content="Stop planning in Excel. Build flowcharts, track spend, and prove results — all in one platform. Free to start." />
+        <meta name="twitter:image" content="/images/product/flighting.webp" />
         <link rel="canonical" href="https://halliardmedia.com/media-planning-tool" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "SoftwareApplication",
+              "name": "Halliard",
+              "applicationCategory": "BusinessApplication",
+              "operatingSystem": "Web",
+              "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "USD"
+              },
+              "description": "Media planning tool for independent agencies. Build flowcharts, compare scenarios, measure results.",
+              "url": "https://app.halliardmedia.com/sign-up"
+            })
+          }}
+        />
       </Head>
       <Header />
       <main>
@@ -447,6 +523,7 @@ export default function MediaPlanningToolPage() {
         <PainSection />
         <SolutionSection />
         <MidPageCTA />
+        <ComparisonTable />
         <WhoItsFor />
         <CTAFooter />
       </main>
