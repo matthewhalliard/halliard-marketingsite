@@ -552,9 +552,9 @@ export default function MediaPlanningToolPage() {
       <main>
         <Hero />
         <PainSection />
+        <TestimonialSection />
         <SolutionSection />
         <MidPageCTA />
-        <TestimonialSection />
         <ComparisonTable />
         <WhoItsFor />
         <CTAFooter />
