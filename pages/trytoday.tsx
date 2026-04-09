@@ -53,6 +53,21 @@ export default function TryToday() {
           _subject: `Demo request from ${name} at ${company}`,
         }),
       })
+      // Fire Google Ads conversion
+      if (typeof window !== 'undefined' && (window as any).gtag) {
+        (window as any).gtag('event', 'conversion', {
+          'send_to': 'AW-672346912/qEmHCJ6L_pgcEKDmzMAC',
+          'value': 200.0,
+          'currency': 'USD',
+        })
+      }
+      // Fire PostHog event
+      if (typeof window !== 'undefined' && (window as any).posthog) {
+        (window as any).posthog.capture('demo_request_submitted', {
+          name, email, company, role,
+          source: 'trytoday',
+        })
+      }
       setSubmitted(true)
     } catch {
       // Still show success — Formspark may have received it
