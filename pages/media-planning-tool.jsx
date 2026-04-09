@@ -87,7 +87,11 @@ function Hero() {
             </Button>
           </div>
 
-          <div className="mx-auto mt-14 max-w-2xl rounded-2xl bg-white shadow-lg p-6 text-left border border-tint">
+          <p className="mt-6 text-sm text-slate-500">
+            Used by media teams managing $50M+ in annual spend
+          </p>
+
+          <div className="mx-auto mt-10 max-w-2xl rounded-2xl bg-white shadow-lg p-6 text-left border border-tint">
             <p className="text-slate-700 italic">
               "We replaced 14 spreadsheets and three Slack channels with Halliard. Our planners spend time
               planning, not formatting. Client presentations went from half a day to 45 minutes."
@@ -307,106 +311,34 @@ function SolutionSection() {
   )
 }
 
-function FeaturesGrid() {
-  const features = [
-    {
-      Icon: CalendarDaysIcon,
-      title: 'Flowcharting, not Excel',
-      description:
-        'Build real media flowcharts with drag-and-drop simplicity. See your entire plan visually — by channel, week, market. Update once, update everywhere.',
-    },
-    {
-      Icon: CurrencyDollarIcon,
-      title: 'Real-time spend tracking',
-      description:
-        'Connect vendor data and see exactly where every dollar is going. Catch pacing issues before they become client problems.',
-    },
-    {
-      Icon: ChartBarSquareIcon,
-      title: 'Measurement that matters',
-      description:
-        "Run MMM, geo-lift tests, and brand studies from one place. Stop guessing — start knowing what's actually driving results.",
-    },
-    {
-      Icon: BoltIcon,
-      title: 'Compete with holding companies',
-      description:
-        'Bring enterprise-grade planning and measurement to every pitch. Look as sophisticated as WPP — move faster and keep all the margin.',
-    },
-  ]
-
+function MidPageCTA() {
   return (
-    <section id="features" className="py-16 sm:py-24 bg-white">
+    <section className="py-12 sm:py-16 bg-white">
       <Container className="">
-        <div className="mx-auto max-w-2xl text-center mb-16">
-          <h2 className="font-display text-3xl tracking-tight text-slate-900 sm:text-4xl">
-            Everything your team needs, nothing they don't
+        <div className="mx-auto max-w-2xl text-center">
+          <h2 className="font-display text-2xl tracking-tight text-slate-900 sm:text-3xl">
+            Ready to stop planning in spreadsheets?
           </h2>
-          <p className="mt-4 text-lg text-slate-600">
-            Purpose-built for independent agencies managing real media budgets across real channels.
+          <p className="mt-3 text-lg text-slate-600">
+            Free to start. No credit card required.
           </p>
-        </div>
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
-          {features.map((feature) => (
-            <div key={feature.title} className="flex gap-6 rounded-2xl bg-slate-50 p-8">
-              <feature.Icon className="flex-shrink-0 w-7 h-7 text-primary" />
-              <div>
-                <h3 className="text-lg font-semibold text-slate-900 mb-2">{feature.title}</h3>
-                <p className="text-slate-600">{feature.description}</p>
-              </div>
-            </div>
-          ))}
+          <div className="mt-8 flex flex-col sm:flex-row justify-center gap-4">
+            <Button href={SIGN_UP_URL} color="blue">
+              Start Planning Free
+            </Button>
+            <Button href="/trytoday" variant="outline" color="slate">
+              See It In Action →
+            </Button>
+          </div>
         </div>
       </Container>
     </section>
   )
 }
 
-function TestimonialsSection() {
-  const testimonials = [
-    {
-      quote:
-        "We replaced 14 spreadsheets and three Slack channels with Halliard. Our planners now spend time planning, not formatting. Client presentations that used to take half a day now take 45 minutes.",
-      author: 'Sarah M.',
-      role: 'Media Director, Independent Agency (85 people)',
-    },
-    {
-      quote:
-        "The flowchart tool alone was worth it. But the real value is being able to show clients measurement results that hold up. We've retained two major accounts this year by proving our work with Halliard data.",
-      author: 'David K.',
-      role: 'VP Strategy, Integrated Agency (120 people)',
-    },
-    {
-      quote:
-        "We were losing pitches to holding companies because we couldn't demonstrate sophisticated measurement. Halliard leveled the playing field. We won three new accounts in Q1.",
-      author: 'Jennifer L.',
-      role: 'Founder & CEO, Media Agency (45 people)',
-    },
-  ]
-
-  return (
-    <section id="testimonials" className="py-16 sm:py-24 bg-slate-50">
-      <Container className="">
-        <div className="mx-auto max-w-2xl text-center mb-16">
-          <h2 className="font-display text-3xl tracking-tight text-slate-900 sm:text-4xl">
-            Agencies like yours are winning with Halliard
-          </h2>
-        </div>
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-          {testimonials.map((t, idx) => (
-            <div key={idx} className="flex flex-col rounded-2xl bg-white p-8 shadow-lg border border-tint">
-              <blockquote className="flex-1 text-slate-600 italic">"{t.quote}"</blockquote>
-              <div className="mt-6 border-t border-gray-100 pt-6">
-                <p className="text-sm font-semibold text-slate-900">{t.author}</p>
-                <p className="text-sm text-slate-500">{t.role}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </Container>
-    </section>
-  )
-}
+// Testimonials section — placeholder for real quotes
+// TODO: Get testimonial from Lisa at Lewis Media Partners
+// Re-add this section once we have real, attributed quotes
 
 function WhoItsFor() {
   return (
@@ -514,8 +446,7 @@ export default function MediaPlanningToolPage() {
         <Hero />
         <PainSection />
         <SolutionSection />
-        <FeaturesGrid />
-        <TestimonialsSection />
+        <MidPageCTA />
         <WhoItsFor />
         <CTAFooter />
       </main>
