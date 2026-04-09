@@ -357,17 +357,17 @@ function TestimonialSection() {
 
 function ComparisonTable() {
   const features = [
-    { name: 'Visual flowcharting', halliard: true, excel: false, bionic: true, camphouse: true },
-    { name: 'Scenario comparison', halliard: true, excel: false, bionic: false, camphouse: 'Partial' },
-    { name: 'Response curves (MMM)', halliard: true, excel: false, bionic: false, camphouse: false },
-    { name: 'Measurement dashboard', halliard: true, excel: false, bionic: false, camphouse: 'Partial' },
-    { name: 'Real-time pacing', halliard: true, excel: false, bionic: true, camphouse: true },
-    { name: 'Version history & audit', halliard: true, excel: false, bionic: 'Partial', camphouse: true },
-    { name: 'Free plan available', halliard: true, excel: true, bionic: false, camphouse: false },
-    { name: 'Built for independents', halliard: true, excel: 'N/A', bionic: true, camphouse: false },
+    { name: 'Visual flowcharting', halliard: true, excel: false, bionic: true, camphouse: true, mint: true },
+    { name: 'Scenario comparison', halliard: true, excel: false, bionic: false, camphouse: 'Partial', mint: 'Partial' },
+    { name: 'Response curves (MMM)', halliard: true, excel: false, bionic: false, camphouse: false, mint: false },
+    { name: 'Measurement dashboard', halliard: true, excel: false, bionic: false, camphouse: 'Partial', mint: true },
+    { name: 'Real-time pacing', halliard: true, excel: false, bionic: true, camphouse: true, mint: true },
+    { name: 'Version history & audit', halliard: true, excel: false, bionic: 'Partial', camphouse: true, mint: true },
+    { name: 'Free plan available', halliard: true, excel: true, bionic: false, camphouse: false, mint: false },
+    { name: 'Built for independents', halliard: true, excel: 'N/A', bionic: true, camphouse: false, mint: false },
   ]
 
-  const prices = { halliard: 'Free to start', excel: 'Free', bionic: 'From $199/user', camphouse: 'Custom pricing' }
+  const prices = { halliard: 'Free to start', excel: 'Free', bionic: 'From $199/user', camphouse: 'Custom pricing', mint: 'Enterprise' }
 
   function Cell({ value, highlighted }) {
     if (value === true) return <span className="text-green-600 font-bold text-lg">✓</span>
@@ -395,6 +395,7 @@ function ComparisonTable() {
                 <th className="py-4 px-4 text-center font-semibold text-slate-600 min-w-[120px]">Excel / Sheets</th>
                 <th className="py-4 px-4 text-center font-semibold text-slate-600 min-w-[120px]">Bionic</th>
                 <th className="py-4 px-4 text-center font-semibold text-slate-600 min-w-[120px]">Camphouse</th>
+                <th className="py-4 px-4 text-center font-semibold text-slate-600 min-w-[120px]">MINT</th>
               </tr>
             </thead>
             <tbody>
@@ -405,6 +406,7 @@ function ComparisonTable() {
                   <td className="py-3.5 px-4 text-center"><Cell value={f.excel} /></td>
                   <td className="py-3.5 px-4 text-center"><Cell value={f.bionic} /></td>
                   <td className="py-3.5 px-4 text-center"><Cell value={f.camphouse} /></td>
+                  <td className="py-3.5 px-4 text-center"><Cell value={f.mint} /></td>
                 </tr>
               ))}
               <tr className="border-t-2 border-slate-200">
@@ -413,6 +415,7 @@ function ComparisonTable() {
                 <td className="py-4 px-4 text-center text-xs text-slate-500 font-medium">Free</td>
                 <td className="py-4 px-4 text-center text-xs text-slate-500 font-medium">{prices.bionic}</td>
                 <td className="py-4 px-4 text-center text-xs text-slate-500 font-medium">{prices.camphouse}</td>
+                <td className="py-4 px-4 text-center text-xs text-slate-500 font-medium">{prices.mint}</td>
               </tr>
             </tbody>
           </table>
