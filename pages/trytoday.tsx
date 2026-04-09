@@ -81,10 +81,10 @@ export default function TryToday() {
               In the meantime, you can start planning for free — no credit card required.
             </p>
             <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
-              <Button href={SIGN_UP_URL} color="blue">
+              <Button href={SIGN_UP_URL} color="blue" className="">
                 Start Planning Free
               </Button>
-              <Button href="/media-planning-tool" variant="outline" color="slate">
+              <Button href="/media-planning-tool" variant="outline" color="slate" className="">
                 ← Back to Features
               </Button>
             </div>
