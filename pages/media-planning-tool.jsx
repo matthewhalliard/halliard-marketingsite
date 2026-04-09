@@ -357,17 +357,17 @@ function TestimonialSection() {
 
 function ComparisonTable() {
   const features = [
-    { name: 'Visual flowcharting', halliard: true, excel: false, mediaocean: true, strata: 'Partial' },
-    { name: 'Scenario comparison', halliard: true, excel: false, mediaocean: false, strata: false },
-    { name: 'Response curves (MMM)', halliard: true, excel: false, mediaocean: false, strata: false },
-    { name: 'Measurement dashboard', halliard: true, excel: false, mediaocean: 'Partial', strata: false },
-    { name: 'Real-time pacing', halliard: true, excel: false, mediaocean: true, strata: true },
-    { name: 'Version history & audit', halliard: true, excel: false, mediaocean: true, strata: 'Partial' },
-    { name: 'Free plan available', halliard: true, excel: true, mediaocean: false, strata: false },
-    { name: 'Built for independents', halliard: true, excel: 'N/A', mediaocean: false, strata: 'Partial' },
+    { name: 'Visual flowcharting', halliard: true, excel: false, bionic: true, camphouse: true },
+    { name: 'Scenario comparison', halliard: true, excel: false, bionic: false, camphouse: 'Partial' },
+    { name: 'Response curves (MMM)', halliard: true, excel: false, bionic: false, camphouse: false },
+    { name: 'Measurement dashboard', halliard: true, excel: false, bionic: false, camphouse: 'Partial' },
+    { name: 'Real-time pacing', halliard: true, excel: false, bionic: true, camphouse: true },
+    { name: 'Version history & audit', halliard: true, excel: false, bionic: 'Partial', camphouse: true },
+    { name: 'Free plan available', halliard: true, excel: true, bionic: false, camphouse: false },
+    { name: 'Built for independents', halliard: true, excel: 'N/A', bionic: true, camphouse: false },
   ]
 
-  const prices = { halliard: 'Free to start', excel: 'Free', mediaocean: 'Enterprise ($$$)', strata: 'Enterprise ($$)' }
+  const prices = { halliard: 'Free to start', excel: 'Free', bionic: 'From $199/user', camphouse: 'Custom pricing' }
 
   function Cell({ value, highlighted }) {
     if (value === true) return <span className="text-green-600 font-bold text-lg">✓</span>
@@ -393,8 +393,8 @@ function ComparisonTable() {
                 <th className="sticky left-0 z-10 bg-slate-50 text-left py-4 pr-4 pl-2 font-semibold text-slate-700 min-w-[180px]">Feature</th>
                 <th className="py-4 px-4 text-center font-semibold text-primary bg-primary/5 border-x border-primary/10 min-w-[120px]">Halliard</th>
                 <th className="py-4 px-4 text-center font-semibold text-slate-600 min-w-[120px]">Excel / Sheets</th>
-                <th className="py-4 px-4 text-center font-semibold text-slate-600 min-w-[120px]">Mediaocean</th>
-                <th className="py-4 px-4 text-center font-semibold text-slate-600 min-w-[120px]">Strata</th>
+                <th className="py-4 px-4 text-center font-semibold text-slate-600 min-w-[120px]">Bionic</th>
+                <th className="py-4 px-4 text-center font-semibold text-slate-600 min-w-[120px]">Camphouse</th>
               </tr>
             </thead>
             <tbody>
@@ -403,16 +403,16 @@ function ComparisonTable() {
                   <td className="sticky left-0 z-10 py-3.5 pr-4 pl-2 font-medium text-slate-800" style={{ backgroundColor: i % 2 === 0 ? '#fff' : 'rgb(248 250 252 / 0.5)' }}>{f.name}</td>
                   <td className="py-3.5 px-4 text-center bg-primary/5 border-x border-primary/10"><Cell value={f.halliard} highlighted /></td>
                   <td className="py-3.5 px-4 text-center"><Cell value={f.excel} /></td>
-                  <td className="py-3.5 px-4 text-center"><Cell value={f.mediaocean} /></td>
-                  <td className="py-3.5 px-4 text-center"><Cell value={f.strata} /></td>
+                  <td className="py-3.5 px-4 text-center"><Cell value={f.bionic} /></td>
+                  <td className="py-3.5 px-4 text-center"><Cell value={f.camphouse} /></td>
                 </tr>
               ))}
               <tr className="border-t-2 border-slate-200">
                 <td className="sticky left-0 z-10 bg-white py-4 pr-4 pl-2 font-semibold text-slate-900">Price</td>
                 <td className="py-4 px-4 text-center bg-primary/5 border-x border-primary/10 font-semibold text-primary text-xs">Free to start</td>
                 <td className="py-4 px-4 text-center text-xs text-slate-500 font-medium">Free</td>
-                <td className="py-4 px-4 text-center text-xs text-slate-500 font-medium">Enterprise ($$$)</td>
-                <td className="py-4 px-4 text-center text-xs text-slate-500 font-medium">Enterprise ($$)</td>
+                <td className="py-4 px-4 text-center text-xs text-slate-500 font-medium">{prices.bionic}</td>
+                <td className="py-4 px-4 text-center text-xs text-slate-500 font-medium">{prices.camphouse}</td>
               </tr>
             </tbody>
           </table>
