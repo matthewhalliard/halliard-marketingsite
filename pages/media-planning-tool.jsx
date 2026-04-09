@@ -123,24 +123,18 @@ function PainSection() {
   const pains = [
     {
       Icon: TableCellsIcon,
-      iconBg: 'bg-red-50',
-      iconColor: 'text-red-500',
       title: 'Spreadsheet Chaos',
       description:
         'Flowcharts in PowerPoint. Budgets in Excel. Contacts in email. Notes in Slack. No single source of truth — and it collapses every time a client changes something.',
     },
     {
       Icon: MagnifyingGlassIcon,
-      iconBg: 'bg-red-50',
-      iconColor: 'text-red-500',
       title: 'Blind Spending',
       description:
         "You're placing millions across TV, digital, OOH, and audio — but you can't tell the client if it's actually working. Platform numbers lie. Attribution is broken.",
     },
     {
       Icon: UserGroupIcon,
-      iconBg: 'bg-red-50',
-      iconColor: 'text-red-500',
       title: 'No Proof It Worked',
       description:
         "The campaign ended. The results are... complicated. You can't definitively show the client what drove their sales lift. And they're asking hard questions.",
@@ -162,9 +156,7 @@ function PainSection() {
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
           {pains.map((pain) => (
             <div key={pain.title} className="rounded-2xl border border-red-100 bg-red-50/50 p-8">
-              <div className={`flex items-center justify-center w-12 h-12 rounded-xl ${pain.iconBg} mb-4`}>
-                <pain.Icon className={`w-6 h-6 ${pain.iconColor}`} />
-              </div>
+              <pain.Icon className="w-8 h-8 text-red-400 mb-4" />
               <h3 className="text-lg font-semibold text-slate-900 mb-2">{pain.title}</h3>
               <p className="text-slate-600">{pain.description}</p>
             </div>
@@ -180,8 +172,6 @@ function SolutionSection() {
     {
       number: '01',
       Icon: CalendarDaysIcon,
-      iconBg: 'bg-amber-50',
-      iconColor: 'text-amber-600',
       title: 'Plan',
       image: '/images/product/flighting.png',
       description:
@@ -196,8 +186,6 @@ function SolutionSection() {
     {
       number: '02',
       Icon: ScaleIcon,
-      iconBg: 'bg-violet-50',
-      iconColor: 'text-violet-600',
       title: 'Compare',
       image: '/images/product/compare.png',
       description:
@@ -212,8 +200,6 @@ function SolutionSection() {
     {
       number: '03',
       Icon: BoltIcon,
-      iconBg: 'bg-blue-50',
-      iconColor: 'text-blue-600',
       title: 'Optimize',
       image: '/images/product/response-curves.png',
       description:
@@ -228,8 +214,6 @@ function SolutionSection() {
     {
       number: '04',
       Icon: ChartBarSquareIcon,
-      iconBg: 'bg-emerald-50',
-      iconColor: 'text-emerald-600',
       title: 'Measure',
       image: '/images/product/measurement.png',
       description:
@@ -244,8 +228,6 @@ function SolutionSection() {
     {
       number: '05',
       Icon: CurrencyDollarIcon,
-      iconBg: 'bg-sky-50',
-      iconColor: 'text-sky-600',
       title: 'Buy',
       image: '/images/product/buying.png',
       description:
@@ -260,8 +242,6 @@ function SolutionSection() {
     {
       number: '06',
       Icon: ClockIcon,
-      iconBg: 'bg-rose-50',
-      iconColor: 'text-rose-600',
       title: 'Collaborate',
       image: '/images/product/changelog.png',
       description:
@@ -292,9 +272,7 @@ function SolutionSection() {
             <div key={step.title} className="relative rounded-2xl bg-white p-8 shadow-lg border border-tint">
               <div className="flex items-center gap-4 mb-6">
                 <span className="font-display text-4xl font-bold text-primary/20">{step.number}</span>
-                <div className={`flex items-center justify-center w-10 h-10 rounded-xl ${step.iconBg}`}>
-                  <step.Icon className={`w-6 h-6 ${step.iconColor}`} />
-                </div>
+                <step.Icon className="w-7 h-7 text-primary" />
               </div>
               <h3 className="text-xl font-semibold text-slate-900 mb-3">{step.title}</h3>
               {step.image && (
@@ -333,32 +311,24 @@ function FeaturesGrid() {
   const features = [
     {
       Icon: CalendarDaysIcon,
-      iconBg: 'bg-primary/10',
-      iconColor: 'text-primary',
       title: 'Flowcharting, not Excel',
       description:
         'Build real media flowcharts with drag-and-drop simplicity. See your entire plan visually — by channel, week, market. Update once, update everywhere.',
     },
     {
       Icon: CurrencyDollarIcon,
-      iconBg: 'bg-primary/10',
-      iconColor: 'text-primary',
       title: 'Real-time spend tracking',
       description:
         'Connect vendor data and see exactly where every dollar is going. Catch pacing issues before they become client problems.',
     },
     {
       Icon: ChartBarSquareIcon,
-      iconBg: 'bg-primary/10',
-      iconColor: 'text-primary',
       title: 'Measurement that matters',
       description:
         "Run MMM, geo-lift tests, and brand studies from one place. Stop guessing — start knowing what's actually driving results.",
     },
     {
       Icon: BoltIcon,
-      iconBg: 'bg-primary/10',
-      iconColor: 'text-primary',
       title: 'Compete with holding companies',
       description:
         'Bring enterprise-grade planning and measurement to every pitch. Look as sophisticated as WPP — move faster and keep all the margin.',
@@ -379,9 +349,7 @@ function FeaturesGrid() {
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
           {features.map((feature) => (
             <div key={feature.title} className="flex gap-6 rounded-2xl bg-slate-50 p-8">
-              <div className={`flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-xl ${feature.iconBg}`}>
-                <feature.Icon className={`w-6 h-6 ${feature.iconColor}`} />
-              </div>
+              <feature.Icon className="flex-shrink-0 w-7 h-7 text-primary" />
               <div>
                 <h3 className="text-lg font-semibold text-slate-900 mb-2">{feature.title}</h3>
                 <p className="text-slate-600">{feature.description}</p>
