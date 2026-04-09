@@ -200,6 +200,48 @@ function SolutionSection() {
         'Revenue impact forecasting',
       ],
     },
+    {
+      number: '04',
+      icon: '📊',
+      title: 'Measure',
+      image: '/images/product/measurement.png',
+      description:
+        'Connect your data sources — Snowflake, BigQuery, Domo — and see what\'s actually working. Platform metrics vs. MMM-attributed revenue, side by side.',
+      features: [
+        'Snowflake, BigQuery & Domo integrations',
+        'Funnel-stage performance (Awareness → Conversion)',
+        'MMM revenue attribution per channel',
+        'Blended CPM & ROAS tracking',
+      ],
+    },
+    {
+      number: '05',
+      icon: '💰',
+      title: 'Buy',
+      image: '/images/product/buying.png',
+      description:
+        'Track every media buy from submission to delivery. See pacing in real time, catch overspend before it happens, and keep fees transparent.',
+      features: [
+        'Vendor-level buy tracking & status',
+        'Real-time pacing with color-coded alerts',
+        'Fee transparency (agency, DSP, data, verification)',
+        'Weekly spend allocation & reconciliation',
+      ],
+    },
+    {
+      number: '06',
+      icon: '📝',
+      title: 'Collaborate',
+      image: '/images/product/changelog.png',
+      description:
+        'Every edit is tracked. Every approval is logged. Know exactly who changed what, when — and roll back if something goes wrong.',
+      features: [
+        'Full version history with diff viewer',
+        'User-level audit trail',
+        'Approval workflows & status tracking',
+        'Change summaries in plain English',
+      ],
+    },
   ]
 
   return (
@@ -207,14 +249,14 @@ function SolutionSection() {
       <Container className="">
         <div className="mx-auto max-w-2xl text-center mb-16">
           <h2 className="font-display text-3xl tracking-tight text-slate-900 sm:text-4xl">
-            Plan it. Compare it. Optimize it.
+            Six tools. One platform. Zero spreadsheets.
           </h2>
           <p className="mt-4 text-lg text-slate-600">
-            Halliard connects your planning, scenario modeling, and measurement into a single workflow
-            built for how agencies actually operate.
+            From flowcharts to buying to measurement — everything your agency needs to plan, execute,
+            and prove media campaigns. Built for how you actually work.
           </p>
         </div>
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
           {steps.map((step) => (
             <div key={step.title} className="relative rounded-2xl bg-white p-8 shadow-lg border border-tint">
               <div className="flex items-center gap-4 mb-6">
