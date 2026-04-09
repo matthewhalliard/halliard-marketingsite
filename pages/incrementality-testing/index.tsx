@@ -8,7 +8,6 @@ import {
   ChartBarIcon,
 } from '@heroicons/react/24/outline'
 
-const SIGN_UP_URL = 'https://app.halliardmedia.com/sign-up'
 
 const PLUS_PATTERN = "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%231a6ab4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")"
 
@@ -31,9 +30,6 @@ function Header() {
             >
               Schedule a Demo
             </Link>
-            <Button href={SIGN_UP_URL} color="blue" className="">
-              Start Planning Free
-            </Button>
           </div>
         </nav>
       </Container>
@@ -72,9 +68,6 @@ function Hero() {
           <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4">
             <Button href="/trytoday" color="blue" className="">
               Schedule a Demo
-            </Button>
-            <Button href={SIGN_UP_URL} variant="outline" color="slate" className="">
-              Start Planning Free →
             </Button>
           </div>
 
@@ -302,9 +295,6 @@ function CTAFooter() {
           <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
             <Button href="/trytoday" variant="solid" color="white" className="">
               Schedule a Demo
-            </Button>
-            <Button href={SIGN_UP_URL} variant="outline" color="white" className="">
-              Start Planning Free →
             </Button>
           </div>
         </div>
