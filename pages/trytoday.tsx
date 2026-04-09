@@ -19,7 +19,7 @@ function Header() {
             />
           </Link>
           <div className="flex items-center gap-x-4">
-            <Button href={SIGN_UP_URL} color="blue">
+            <Button href={SIGN_UP_URL} color="blue" className="">
               Start Planning Free
             </Button>
           </div>
