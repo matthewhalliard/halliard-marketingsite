@@ -1,11 +1,11 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import { Button } from '../../components/mmm/Button'
-import { Container } from '../../components/mmm/Container'
+import { Button } from '../components/mmm/Button'
+import { Container } from '../components/mmm/Container'
 import {
-  ArrowsRightLeftIcon,
-  ShieldCheckIcon,
-  ChartBarIcon,
+  EyeSlashIcon,
+  BanknotesIcon,
+  PresentationChartBarIcon,
 } from '@heroicons/react/24/outline'
 
 const SIGN_UP_URL = 'https://app.halliardmedia.com/sign-up'
@@ -49,10 +49,10 @@ function Hero() {
       <Container className="relative pt-32 pb-16 text-center lg:pt-40">
         <div className="mx-auto max-w-3xl">
           <p className="inline-flex items-center gap-2 rounded-full bg-tint px-4 py-1.5 text-sm font-medium text-primary mb-6">
-            <span>🔬</span> Causal measurement for agencies
+            <span>🎯</span> Brand measurement for agencies
           </p>
           <h1 className="font-display text-5xl font-medium tracking-tight text-slate-900 sm:text-6xl lg:text-7xl">
-            Prove Your Media{' '}
+            Brand Studies Your Clients Can{' '}
             <span className="relative text-primary">
               <svg
                 aria-hidden="true"
@@ -62,12 +62,12 @@ function Hero() {
               >
                 <path d="M203.371.916c-26.013-2.078-76.686 1.963-124.73 9.946L67.3 12.749C35.421 18.062 18.2 21.766 6.004 25.934 1.244 27.561.828 27.778.874 28.61c.07 1.214.828 1.121 9.595-1.176 9.072-2.377 17.15-3.92 39.246-7.496C123.565 7.986 157.869 4.492 195.942 5.046c7.461.108 19.25 1.696 19.17 2.582-.107 1.183-7.874 4.31-25.75 10.366-21.992 7.45-35.43 12.534-36.701 13.884-2.173 2.308-.202 4.407 4.442 4.734 2.654.187 3.263.157 15.593-.78 35.401-2.686 57.944-3.488 88.365-3.143 46.327.526 75.721 2.23 130.788 7.584 19.787 1.924 20.814 1.98 24.557 1.332l.066-.011c1.201-.203 1.53-1.825.399-2.335-2.911-1.31-4.893-1.604-22.048-3.261-57.509-5.556-87.871-7.36-132.059-7.842-23.239-.254-33.617-.116-50.627.674-11.629.54-42.371 2.494-46.696 2.967-2.359.259 8.133-3.625 26.504-9.81 23.239-7.825 27.934-10.149 28.304-14.005.417-4.348-3.529-6-16.878-7.066Z" />
               </svg>
-              <span className="relative">Actually Works</span>
+              <span className="relative">Actually Afford</span>
             </span>
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg tracking-tight text-slate-700">
-            Geo-lift tests that show causal impact — not just correlation. Know exactly which channels
-            drive real business results.
+            Traditional brand lift studies cost $40-50K. Halliard delivers the same insights for $5-10K —
+            fast turnaround, actionable results.
           </p>
           <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4">
             <Button href="/trytoday" color="blue" className="">
@@ -76,16 +76,6 @@ function Hero() {
             <Button href={SIGN_UP_URL} variant="outline" color="slate" className="">
               Start Planning Free →
             </Button>
-          </div>
-
-          <div className="mx-auto mt-16 max-w-5xl">
-            <div className="rounded-xl border border-tint shadow-2xl overflow-hidden">
-              <img
-                src="/images/product/measurement.webp"
-                alt="Halliard measurement dashboard showing channel performance and attribution"
-                className="w-full"
-              />
-            </div>
           </div>
         </div>
       </Container>
@@ -96,22 +86,22 @@ function Hero() {
 function PainSection() {
   const pains = [
     {
-      Icon: ArrowsRightLeftIcon,
-      title: 'Correlation Isn\'t Causation',
+      Icon: EyeSlashIcon,
+      title: 'No One Measures Brand',
       description:
-        'Your attribution model says paid social drove 40% of conversions. But what happens when you turn it off? Incrementality testing tells you the truth.',
+        'Everyone measures performance. Almost no one measures brand. But brand is what makes performance work — and your clients are starting to notice.',
     },
     {
-      Icon: ShieldCheckIcon,
-      title: 'Clients Want Proof',
+      Icon: BanknotesIcon,
+      title: 'Traditional Studies Are Too Expensive',
       description:
-        'CFOs are asking hard questions. "Guarantee me how much I\'m gonna get back for every dollar I spend with you." Geo-lift tests give you the answer.',
+        '$40-50K for a single brand lift study means only your biggest clients get measured. Halliard makes it accessible for every client.',
     },
     {
-      Icon: ChartBarIcon,
-      title: '60% Still Use Click Attribution',
+      Icon: PresentationChartBarIcon,
+      title: 'Agencies Can\'t Sell What They Can\'t Measure',
       description:
-        'Despite 15 years of outcomes-based messaging, most campaigns still rely on click-based attribution. It\'s time to measure what matters.',
+        'Brand investment is the hardest line item to defend. Give your clients aided/unaided awareness, consideration, and preference data — and watch retention improve.',
     },
   ]
 
@@ -120,10 +110,10 @@ function PainSection() {
       <Container className="">
         <div className="mx-auto max-w-2xl text-center mb-16">
           <h2 className="font-display text-3xl tracking-tight text-slate-900 sm:text-4xl">
-            Attribution is broken. You know it.
+            Brand is the hardest line item to defend
           </h2>
           <p className="mt-4 text-lg text-slate-600">
-            Every platform claims credit for the same conversion. Incrementality testing is the only way to know what&rsquo;s actually driving results.
+            CFOs cut what they can&rsquo;t measure. Without brand studies, your clients&rsquo; brand budgets are always first on the chopping block.
           </p>
         </div>
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
@@ -143,27 +133,25 @@ function PainSection() {
 function FeaturesSection() {
   const features = [
     {
-      title: 'Geo-Lift Testing',
-      image: null,
+      title: 'Fast, Affordable Brand Measurement',
       description:
-        'Run media in test markets, hold out control markets. Measure the true lift your advertising creates — no modeling assumptions required.',
+        'Survey-based brand studies measuring aided/unaided awareness, consideration, preference, and competitive positioning. Results in weeks, not months.',
       bullets: [
-        'Scientific test vs. control market design',
-        'Measure true incremental lift per channel',
-        'No reliance on cookies, pixels, or platform data',
-        'Statistically rigorous results you can present to clients',
+        'Aided & unaided brand awareness',
+        'Consideration & preference tracking',
+        'Competitive positioning analysis',
+        'Results in 3-4 weeks',
       ],
     },
     {
-      title: 'Connected to MMM & Planning',
-      image: '/images/product/response-curves.webp',
+      title: 'Actionable Insights',
       description:
-        'Incrementality results validate your MMM models and feed back into planning decisions. A closed loop from test to plan.',
+        'Allen & Allen brand study revealed a critical female consideration gap — immediately actionable. Don\'t just measure the brand, learn what to fix.',
       bullets: [
-        'Validate MMM response curves with real experiments',
-        'Feed results directly into your media plan',
-        'Continuous learning loop across campaigns',
-        'One platform for plan, measure, and optimize',
+        'Demographic breakdowns that reveal gaps',
+        'Creative strategy recommendations',
+        'Pre/post campaign measurement',
+        'Presentation-ready reporting',
       ],
     },
   ]
@@ -173,20 +161,15 @@ function FeaturesSection() {
       <Container className="">
         <div className="mx-auto max-w-2xl text-center mb-16">
           <h2 className="font-display text-3xl tracking-tight text-slate-900 sm:text-4xl">
-            Real experiments. Real answers.
+            Brand measurement that drives action
           </h2>
           <p className="mt-4 text-lg text-slate-600">
-            Geo-lift tests give you causal proof of what your media spend is doing — and what it isn&rsquo;t.
+            Not just a report that sits on a shelf. Brand studies that tell you what to do next.
           </p>
         </div>
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
           {features.map((feature) => (
             <div key={feature.title} className="rounded-2xl bg-white p-8 shadow-lg border border-tint">
-              {feature.image && (
-                <div className="mb-6 rounded-lg border border-tint overflow-hidden shadow-sm">
-                  <img src={feature.image} alt={feature.title} className="w-full" />
-                </div>
-              )}
               <h3 className="text-xl font-semibold text-slate-900 mb-3">{feature.title}</h3>
               <p className="text-slate-600 mb-6">{feature.description}</p>
               <ul className="space-y-2">
@@ -207,9 +190,45 @@ function FeaturesSection() {
   )
 }
 
-function TestimonialSection() {
+function CaseStudySection() {
   return (
     <section className="py-16 sm:py-24 bg-white">
+      <Container className="">
+        <div className="mx-auto max-w-3xl">
+          <div className="rounded-2xl bg-gradient-to-br from-primary/5 to-secondary/5 p-8 sm:p-12 border border-tint">
+            <p className="text-sm font-semibold text-primary uppercase tracking-wide mb-4">Case Study</p>
+            <h3 className="font-display text-2xl font-medium text-slate-900 sm:text-3xl">
+              Allen &amp; Allen
+            </h3>
+            <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-6">
+              <div className="text-center sm:text-left">
+                <p className="font-display text-4xl font-bold text-primary">76%</p>
+                <p className="mt-1 text-sm text-slate-600">Aided awareness</p>
+              </div>
+              <div className="text-center sm:text-left">
+                <p className="font-display text-4xl font-bold text-primary">Gap</p>
+                <p className="mt-1 text-sm text-slate-600">Female consideration identified</p>
+              </div>
+              <div className="text-center sm:text-left">
+                <p className="font-display text-4xl font-bold text-primary">Acted</p>
+                <p className="mt-1 text-sm text-slate-600">Creative strategy adjusted immediately</p>
+              </div>
+            </div>
+            <p className="mt-8 text-slate-700 leading-relaxed">
+              The brand study revealed strong overall awareness but a critical gap in female consideration.
+              The client immediately adjusted their creative strategy based on the findings — turning
+              measurement into action in days, not months.
+            </p>
+          </div>
+        </div>
+      </Container>
+    </section>
+  )
+}
+
+function TestimonialSection() {
+  return (
+    <section className="py-16 sm:py-24 bg-slate-50">
       <Container className="">
         <div className="mx-auto max-w-3xl">
           <div className="rounded-2xl bg-white p-8 sm:p-12 shadow-lg border border-tint">
@@ -244,7 +263,7 @@ function TestimonialSection() {
 
 function PricingSection() {
   return (
-    <section className="py-16 sm:py-24 bg-slate-50">
+    <section className="py-16 sm:py-24 bg-white">
       <Container className="">
         <div className="mx-auto max-w-2xl text-center mb-12">
           <h2 className="font-display text-3xl tracking-tight text-slate-900 sm:text-4xl">
@@ -253,16 +272,17 @@ function PricingSection() {
         </div>
         <div className="mx-auto max-w-lg">
           <div className="rounded-2xl bg-white p-8 sm:p-12 shadow-lg border border-tint text-center">
-            <p className="font-display text-5xl font-bold text-primary">$15,000</p>
-            <p className="mt-2 text-lg font-semibold text-slate-900">per test</p>
+            <p className="text-sm font-medium text-slate-500 uppercase tracking-wide">From</p>
+            <p className="font-display text-5xl font-bold text-primary">$5,000</p>
+            <p className="mt-2 text-lg font-semibold text-slate-900">per study</p>
             <div className="mt-6 border-t border-slate-100 pt-6">
               <ul className="space-y-3 text-left">
                 {[
-                  'Test design & market selection',
-                  'Geo-lift experiment execution',
-                  'Statistical analysis & reporting',
-                  'Presentation-ready results',
-                  'Integration with MMM & planning',
+                  'Survey design & methodology',
+                  'Panel fielding & data collection',
+                  'Full analysis & insights',
+                  'Presentation-ready reporting',
+                  'Demographic & competitive breakdowns',
                 ].map((item) => (
                   <li key={item} className="flex items-center gap-2 text-sm text-slate-700">
                     <svg className="h-4 w-4 flex-shrink-0 text-primary" viewBox="0 0 20 20" fill="currentColor">
@@ -294,10 +314,10 @@ function CTAFooter() {
       <Container className="relative">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="font-display text-3xl tracking-tight text-white sm:text-4xl">
-            Stop guessing. Start proving.
+            Every client deserves to know their brand.
           </h2>
           <p className="mt-2 font-display text-3xl tracking-tight text-white/80 sm:text-4xl">
-            Your clients deserve real answers.
+            Now they can afford to.
           </p>
           <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
             <Button href="/trytoday" variant="solid" color="white" className="">
@@ -313,33 +333,34 @@ function CTAFooter() {
   )
 }
 
-export default function IncrementalityTestingPage() {
+export default function BrandStudiesPage() {
   return (
     <>
       <Head>
-        <title>Incrementality Testing & Geo-Lift for Agencies | Halliard</title>
+        <title>Brand Studies for Agencies | Affordable Brand Lift Measurement | Halliard</title>
         <meta
           name="description"
-          content="Prove your media actually works with geo-lift tests. Measure true incremental impact — not just correlation. Built for independent agencies."
+          content="Brand lift studies your clients can actually afford. Traditional studies cost $40-50K — Halliard delivers the same insights for $5-10K. Fast turnaround, actionable results."
         />
-        <meta property="og:title" content="Incrementality Testing & Geo-Lift for Agencies | Halliard" />
-        <meta property="og:description" content="Geo-lift tests that show causal impact — not just correlation. Know exactly which channels drive real business results." />
+        <meta property="og:title" content="Brand Studies for Agencies | Affordable Brand Lift Measurement | Halliard" />
+        <meta property="og:description" content="Traditional brand lift studies cost $40-50K. Halliard delivers the same insights for $5-10K — fast turnaround, actionable results." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://halliardmedia.com/incrementality-testing" />
+        <meta property="og:url" content="https://halliardmedia.com/brand-studies" />
         <meta property="og:image" content="/images/product/measurement.webp" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Incrementality Testing & Geo-Lift for Agencies | Halliard" />
-        <meta name="twitter:description" content="Geo-lift tests that show causal impact — not just correlation. Know exactly which channels drive real business results." />
+        <meta name="twitter:title" content="Brand Studies for Agencies | Affordable Brand Lift Measurement | Halliard" />
+        <meta name="twitter:description" content="Traditional brand lift studies cost $40-50K. Halliard delivers the same insights for $5-10K." />
         <meta name="twitter:image" content="/images/product/measurement.webp" />
-        <link rel="canonical" href="https://halliardmedia.com/incrementality-testing" />
+        <link rel="canonical" href="https://halliardmedia.com/brand-studies" />
       </Head>
       <Header />
       <main>
         <Hero />
         <PainSection />
         <FeaturesSection />
+        <CaseStudySection />
         <TestimonialSection />
         <PricingSection />
         <CTAFooter />
@@ -348,6 +369,6 @@ export default function IncrementalityTestingPage() {
   )
 }
 
-IncrementalityTestingPage.disableNavbar = true
-IncrementalityTestingPage.fullWidth = true
-IncrementalityTestingPage.siteBg = true
+BrandStudiesPage.disableNavbar = true
+BrandStudiesPage.fullWidth = true
+BrandStudiesPage.siteBg = true
