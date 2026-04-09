@@ -69,6 +69,21 @@ export default function OOHLanding() {
           _subject: `OOH Impact Request: ${form.company}`,
         }),
       })
+      // Fire Google Ads conversion
+      if (typeof window !== 'undefined' && (window as any).gtag) {
+        (window as any).gtag('event', 'conversion', {
+          'send_to': 'AW-672346912/qEmHCJ6L_pgcEKDmzMAC',
+          'value': 200.0,
+          'currency': 'USD',
+        })
+      }
+      // Fire PostHog event
+      if (typeof window !== 'undefined' && (window as any).posthog) {
+        (window as any).posthog.capture('demo_request_submitted', {
+          ...form,
+          source: 'ooh-landing',
+        })
+      }
       setSubmitted(true)
     } catch {
       alert('Something went wrong. Please try again.')
