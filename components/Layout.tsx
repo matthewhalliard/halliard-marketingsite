@@ -56,7 +56,7 @@ export default function Layout({ title = "Halliard | Ultrafast Media Planning To
 
       {!hideNavbar && <Navbar />}
       <main className={fullWidth ? "w-full" : "mx-auto max-w-7xl px-4"}>{children}</main>
-      <Footer />
+      {!fullWidth && <Footer />}
     </>
   );
 } 
