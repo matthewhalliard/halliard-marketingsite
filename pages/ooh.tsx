@@ -5,7 +5,7 @@ import { useState } from 'react'
 function Logo() {
   return (
     <Link href="/" className="flex items-center">
-      <img src="/halliard-logo.png" alt="Halliard" className="h-7 w-auto" />
+      <img src="/halliard-logo.png" alt="Halliard" className="h-7 w-auto brightness-0 invert" />
     </Link>
   )
 }
