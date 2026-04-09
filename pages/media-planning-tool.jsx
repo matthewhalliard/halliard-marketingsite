@@ -429,7 +429,7 @@ function WhoItsFor() {
   return (
     <section className="py-16 sm:py-24 bg-white">
       <Container className="">
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16 items-center">
+        <div className="mx-auto max-w-2xl">
           <div>
             <h2 className="font-display text-3xl tracking-tight text-slate-900 sm:text-4xl">
               Built for independent agencies managing real media budgets
