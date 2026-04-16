@@ -75,7 +75,7 @@ function LeadCaptureForm({ id, heading, subheading }: { id?: string; heading?: s
             {heading || 'Get Your Free Channel Efficiency Analysis'}
           </h2>
           <p className="text-sm text-slate-400 mb-8">
-            {subheading || 'See where your media dollars are working — and where they\'re wasted.'}
+            {subheading || 'See where your media dollars are working - and where they\'re wasted.'}
           </p>
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
@@ -125,10 +125,10 @@ function LeadCaptureForm({ id, heading, subheading }: { id?: string; heading?: s
               >
                 <option value="" disabled>Select range</option>
                 <option value="<50k">Under $50,000</option>
-                <option value="50k-100k">$50,000 – $100,000</option>
-                <option value="100k-250k">$100,000 – $250,000</option>
-                <option value="250k-500k">$250,000 – $500,000</option>
-                <option value="500k-1m">$500,000 – $1M</option>
+                <option value="50k-100k">$50,000 - $100,000</option>
+                <option value="100k-250k">$100,000 - $250,000</option>
+                <option value="250k-500k">$250,000 - $500,000</option>
+                <option value="500k-1m">$500,000 - $1M</option>
                 <option value="1m+">$1M+</option>
               </select>
             </div>
@@ -186,8 +186,8 @@ function Hero() {
                 <span className="text-blue-400">1/10th the Cost</span>
               </h1>
               <p className="mx-auto mt-6 max-w-2xl text-lg text-slate-300">
-                Not correlation — <strong className="text-white">causation.</strong> Traditional MMM costs $50–250K and takes 3–6 months.
-                Halliard delivers causal MMM for <strong className="text-white">$25K</strong>, model in hand in <strong className="text-white">3–4 weeks</strong> — built for independent agencies, not just Fortune 500s.
+                Not correlation - <strong className="text-white">causation.</strong> Traditional MMM costs $50-250K and takes 3-6 months.
+                Halliard delivers causal MMM for <strong className="text-white">$25K</strong>, model in hand in <strong className="text-white">3-4 weeks</strong> - built for independent agencies, not just Fortune 500s.
               </p>
 
               <div className="mt-10 space-y-4">
@@ -195,19 +195,19 @@ function Hero() {
                   <svg className="h-5 w-5 text-blue-400 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                   </svg>
-                  <span className="text-slate-200">Causal inference — isolates true channel impact, not just correlations</span>
+                  <span className="text-slate-200">Causal inference - isolates true channel impact, not just correlations</span>
                 </div>
                 <div className="flex items-start gap-3">
                   <svg className="h-5 w-5 text-blue-400 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                   </svg>
-                  <span className="text-slate-200">Model delivered in 3–4 weeks, not 3–6 months</span>
+                  <span className="text-slate-200">Model delivered in 3-4 weeks, not 3-6 months</span>
                 </div>
                 <div className="flex items-start gap-3">
                   <svg className="h-5 w-5 text-blue-400 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                   </svg>
-                  <span className="text-slate-200">$25K transparent pricing — no "request a demo" gatekeeping</span>
+                  <span className="text-slate-200">$25K transparent pricing - no "request a demo" gatekeeping</span>
                 </div>
               </div>
             </div>
@@ -228,7 +228,7 @@ function StatsSection() {
   const stats = [
     { number: '6', label: 'Models Delivered', sublabel: 'across real agency clients' },
     { number: '$200K+', label: 'Misallocated Spend Found', sublabel: 'reallocated to channels that work' },
-    { number: '3–4 wks', label: 'Model Turnaround', sublabel: 'not 3–6 months' },
+    { number: '3-4 wks', label: 'Model Turnaround', sublabel: 'not 3-6 months' },
   ]
 
   return (
@@ -251,11 +251,11 @@ function StatsSection() {
 /* ─── Client Logo Strip ─── */
 function ClientLogos() {
   const clients = [
-    { name: 'YMCA', logo: null },
-    { name: 'VCU', logo: null },
-    { name: 'Invest529', logo: null },
-    { name: 'ABLEnow', logo: null },
-    { name: 'Allen & Allen', logo: null },
+    { name: 'YMCA', logo: '/images/client-logos/ymca.png' },
+    { name: 'VCU', logo: '/images/client-logos/vcu.png' },
+    { name: 'Invest529', logo: '/images/client-logos/invest529.png' },
+    { name: 'ABLEnow', logo: '/images/client-logos/ablenow.png' },
+    { name: 'Allen & Allen', logo: '/images/client-logos/allen-allen.png' },
     { name: 'Lewis Media Partners', logo: '/images/testimonials/lewis-media-logo.png' },
   ]
 
@@ -267,21 +267,12 @@ function ClientLogos() {
         </p>
         <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6">
           {clients.map((client) =>
-            client.logo ? (
-              <img
+            <img
                 key={client.name}
                 src={client.logo}
                 alt={client.name}
                 className="h-8 w-auto grayscale opacity-60 hover:opacity-100 hover:grayscale-0 transition-all"
               />
-            ) : (
-              <span
-                key={client.name}
-                className="text-lg font-semibold text-slate-400 hover:text-slate-700 transition-colors tracking-tight"
-              >
-                {client.name}
-              </span>
-            )
           )}
         </div>
       </Container>
@@ -302,13 +293,13 @@ function PainSection() {
       Icon: CurrencyDollarIcon,
       title: 'Too Expensive for Most Clients',
       description:
-        'Only 2 out of 200+ agencies use MMM. Traditional providers charge $50–250K and hide pricing behind "get a demo." Your mid-market clients deserve real measurement too.',
+        'Only 2 out of 200+ agencies use MMM. Traditional providers charge $50-250K and hide pricing behind "get a demo." Your mid-market clients deserve real measurement too.',
     },
     {
       Icon: QuestionMarkCircleIcon,
       title: 'Gut Feel Planning',
       description:
-        'Without causal measurement, you\'re guessing which channels work. Response curves show you exactly where diminishing returns kick in — and where your next dollar has the most impact.',
+        'Without causal measurement, you\'re guessing which channels work. Response curves show you exactly where diminishing returns kick in - and where your next dollar has the most impact.',
     },
   ]
 
@@ -320,7 +311,7 @@ function PainSection() {
             You can&rsquo;t optimize what you can&rsquo;t measure
           </h2>
           <p className="mt-4 text-lg text-slate-600">
-            Most agencies rely on platform metrics that double-count conversions. Causal MMM cuts through the noise — but until now, it was only for the biggest spenders.
+            Most agencies rely on platform metrics that double-count conversions. Causal MMM cuts through the noise - but until now, it was only for the biggest spenders.
           </p>
         </div>
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
@@ -345,10 +336,10 @@ function ZeroContributionSection() {
         <div className="mx-auto max-w-3xl text-center">
           <p className="text-sm font-semibold uppercase tracking-widest text-blue-400 mb-4">Real Results</p>
           <h2 className="font-display text-3xl tracking-tight text-white sm:text-4xl">
-            We found channels with <span className="text-blue-400">zero measurable impact</span> — and cut them.
+            We found channels with <span className="text-blue-400">zero measurable impact</span> - and cut them.
           </h2>
           <p className="mt-6 text-lg text-slate-300 max-w-2xl mx-auto">
-            For one client, our causal model revealed that three channels — niche display, programmatic trade desk, and specialty publications — were generating
+            For one client, our causal model revealed that three channels - niche display, programmatic trade desk, and specialty publications - were generating
             zero incremental conversions. That spend was reallocated to channels with proven causal impact, saving six figures annually.
           </p>
         </div>
@@ -388,7 +379,7 @@ function FeaturesSection() {
             Causal MMM that connects to your workflow
           </h2>
           <p className="mt-4 text-lg text-slate-600">
-            Response curves, attribution dashboards, and planning tools — all in one platform. No more exporting CSVs between systems.
+            Response curves, attribution dashboards, and planning tools - all in one platform. No more exporting CSVs between systems.
           </p>
         </div>
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
@@ -413,17 +404,17 @@ function HowItWorks() {
     {
       step: '1',
       title: 'Share your data',
-      description: 'Media spend by channel plus business outcomes (sales, leads, web traffic). No new tracking or pixels required — just the data you already have.',
+      description: 'Media spend by channel plus business outcomes (sales, leads, web traffic). No new tracking or pixels required - just the data you already have.',
     },
     {
       step: '2',
       title: 'We build your causal model',
-      description: 'Our Bayesian model isolates the true causal contribution of every channel, controlling for seasonality, trends, and confounders. Delivered in 3–4 weeks.',
+      description: 'Our Bayesian model isolates the true causal contribution of every channel, controlling for seasonality, trends, and confounders. Delivered in 3-4 weeks.',
     },
     {
       step: '3',
       title: 'You get actionable results',
-      description: 'Channel response curves, spend reallocation recommendations, and a clear picture of what\'s actually driving your business — not what platforms claim.',
+      description: 'Channel response curves, spend reallocation recommendations, and a clear picture of what\'s actually driving your business - not what platforms claim.',
     },
   ]
 
@@ -511,7 +502,7 @@ function PricingSection() {
                   'Channel response curves',
                   'Spend reallocation recommendations',
                   'Integration with Halliard planning tool',
-                  'Delivered in 3–4 weeks',
+                  'Delivered in 3-4 weeks',
                   'Reruns available at reduced cost',
                 ].map((item) => (
                   <li key={item} className="flex items-center gap-2 text-sm text-slate-700">
@@ -577,10 +568,10 @@ export default function MMMPage() {
         <title>Causal Marketing Mix Modeling for Agencies | $25K MMM | Halliard</title>
         <meta
           name="description"
-          content="Causal marketing mix modeling at 1/10th the cost. Traditional MMM costs $50-250K and takes months. Halliard delivers causal MMM for $25K in 3-4 weeks — built for independent agencies."
+          content="Causal marketing mix modeling at 1/10th the cost. Traditional MMM costs $50-250K and takes months. Halliard delivers causal MMM for $25K in 3-4 weeks - built for independent agencies."
         />
         <meta property="og:title" content="Causal Marketing Mix Modeling for Agencies | $25K MMM | Halliard" />
-        <meta property="og:description" content="Not correlation — causation. Traditional MMM costs $50-250K. Halliard delivers causal MMM for $25K in 3-4 weeks. Built for independent agencies." />
+        <meta property="og:description" content="Not correlation - causation. Traditional MMM costs $50-250K. Halliard delivers causal MMM for $25K in 3-4 weeks. Built for independent agencies." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://halliardmedia.com/mmm" />
         <meta property="og:image" content="/images/product/response-curves.webp" />
@@ -588,7 +579,7 @@ export default function MMMPage() {
         <meta property="og:image:height" content="630" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Causal Marketing Mix Modeling for Agencies | $25K MMM | Halliard" />
-        <meta name="twitter:description" content="Not correlation — causation. Halliard delivers causal MMM for $25K in 3-4 weeks." />
+        <meta name="twitter:description" content="Not correlation - causation. Halliard delivers causal MMM for $25K in 3-4 weeks." />
         <meta name="twitter:image" content="/images/product/response-curves.webp" />
         <link rel="canonical" href="https://halliardmedia.com/mmm" />
       </Head>
