@@ -71,6 +71,18 @@ export default function PlanPage() {
   const [emailSubmitting, setEmailSubmitting] = useState(false)
   const [emailSubmitted, setEmailSubmitted] = useState(false)
 
+  // Capture UTM params once on mount so we can include them in every event
+  const utmRef = useRef<Record<string, string>>({})
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    const params = new URLSearchParams(window.location.search)
+    const utms: Record<string, string> = {}
+    for (const [k, v] of params.entries()) {
+      if (k.startsWith('utm_') || k === 'gclid' || k === 'fbclid') utms[k] = v
+    }
+    utmRef.current = utms
+  }, [])
+
   const stepTimerRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const resultRef = useRef<HTMLDivElement | null>(null)
 
@@ -143,6 +155,7 @@ export default function PlanPage() {
           industry: data.summary?.industry,
           inference_mode: data.summary?.inferenceMode,
           budget: data.summary?.budget,
+          ...utmRef.current,
         })
       }
 
@@ -178,6 +191,7 @@ export default function PlanPage() {
           brand_name: summary?.brandName,
           industry: summary?.industry,
           budget: summary?.budget,
+          ...utmRef.current,
           _subject: `Plan generator lead: ${summary?.brandName || url}`,
         }),
       })
@@ -192,6 +206,7 @@ export default function PlanPage() {
         ;(window as any).posthog.capture('sample_plan_email_captured', {
           email, source: 'plan-lead-magnet',
           brand: summary?.brandName, industry: summary?.industry,
+          ...utmRef.current,
         })
       }
       setEmailSubmitted(true)
