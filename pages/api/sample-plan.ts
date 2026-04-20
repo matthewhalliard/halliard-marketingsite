@@ -6,8 +6,9 @@ export const config = {
   api: {
     responseLimit: '2mb',
   },
-  // Cap execution at 30s; keep on Node runtime (not Edge — resvg + satori need Node)
-  maxDuration: 30,
+  // Cap execution at 60s — AI inference path needs Firecrawl (~3s) + Claude (~2s) +
+  // logo fetches + render. Plenty of headroom.
+  maxDuration: 60,
 }
 
 const MAX_URL_LEN = 200
@@ -81,8 +82,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     res.setHeader('Content-Type', 'image/png')
     res.setHeader('Cache-Control', 'public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800')
     res.setHeader('X-Halliard-Brand', summary.brandName)
-    res.setHeader('X-Halliard-Industry', summary.industryKey)
+    res.setHeader('X-Halliard-Industry', summary.industry)
     res.setHeader('X-Halliard-Budget', String(summary.budget))
+    res.setHeader('X-Halliard-Mode', summary.inferenceMode)
     return res.status(200).send(png)
   } catch (err: any) {
     console.error('sample-plan generation error:', err)

@@ -10,21 +10,23 @@ interface PlanSummary {
   hostname: string
   brandName: string
   industry: string
-  industryKey: string
+  targetAudience?: string
+  rationale?: string
   budget: number
   reach: string
   frequency: string
   response: string
-  channelMix: { audio: number; video: number; digital: number }
+  channelMix: { audio: number; video: number; digital: number; ooh?: number }
+  inferenceMode?: 'ai' | 'heuristic'
 }
 
 type Stage = 'idle' | 'analyzing' | 'ready' | 'error'
 
 const ANALYSIS_STEPS = [
-  'Fetching your site…',
-  'Identifying category…',
+  'Crawling your website…',
+  'Understanding your brand…',
   'Sizing your audience…',
-  'Selecting channel mix…',
+  'Choosing the right channels…',
   'Building reach & frequency curve…',
   'Rendering your plan…',
 ]
@@ -136,7 +138,8 @@ export default function PlanPage() {
         ;(window as any).posthog.capture('sample_plan_generated', {
           url: normalized,
           brand: data.summary?.brandName,
-          industry: data.summary?.industryKey,
+          industry: data.summary?.industry,
+          inference_mode: data.summary?.inferenceMode,
           budget: data.summary?.budget,
         })
       }
@@ -186,7 +189,7 @@ export default function PlanPage() {
       if (typeof window !== 'undefined' && (window as any).posthog) {
         ;(window as any).posthog.capture('sample_plan_email_captured', {
           email, source: 'plan-lead-magnet',
-          brand: summary?.brandName, industry: summary?.industryKey,
+          brand: summary?.brandName, industry: summary?.industry,
         })
       }
       setEmailSubmitted(true)
@@ -351,6 +354,30 @@ export default function PlanPage() {
                 <Stat label="Reach" value={summary.reach} />
                 <Stat label="Avg. Frequency" value={summary.frequency} />
               </div>
+
+              {/* AI rationale (when available) */}
+              {(summary.targetAudience || summary.rationale) && (
+                <div className="mb-6 bg-gradient-to-br from-slate-50 to-white border border-slate-200 rounded-xl p-5 sm:p-6">
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-primary/10 text-primary text-[10px] font-bold tracking-widest uppercase">
+                      <svg className="w-3 h-3" viewBox="0 0 20 20" fill="currentColor"><path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" /></svg>
+                      AI Analysis
+                    </span>
+                  </div>
+                  {summary.targetAudience && (
+                    <div className="mb-3">
+                      <div className="text-[10px] font-bold tracking-widest text-slate-400 uppercase mb-1">Target audience</div>
+                      <div className="text-slate-800 text-sm leading-relaxed">{summary.targetAudience}</div>
+                    </div>
+                  )}
+                  {summary.rationale && (
+                    <div>
+                      <div className="text-[10px] font-bold tracking-widest text-slate-400 uppercase mb-1">Why this mix</div>
+                      <div className="text-slate-800 text-sm leading-relaxed">{summary.rationale}</div>
+                    </div>
+                  )}
+                </div>
+              )}
 
               {/* The rendered plan */}
               <div className="rounded-2xl overflow-hidden shadow-2xl shadow-slate-900/20 bg-slate-900">
