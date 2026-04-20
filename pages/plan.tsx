@@ -96,10 +96,11 @@ export default function PlanPage() {
   }
 
   const isValidUrl = (raw: string): boolean => {
-    const normalized = normalizeUrl(raw)
+    const normalized = raw.startsWith('http://') || raw.startsWith('https://') ? raw : `https://${raw.trim()}`
     try {
       const u = new URL(normalized)
-      return !!u.hostname && u.hostname.includes('.')
+      // Hostname must have a dot and at least 2-char TLD
+      return !!u.hostname && /\.[a-z]{2,}$/i.test(u.hostname)
     } catch {
       return false
     }
@@ -107,12 +108,13 @@ export default function PlanPage() {
 
   const handleSubmit = async (e?: React.FormEvent) => {
     if (e) e.preventDefault()
-    const normalized = normalizeUrl(url)
-    if (!isValidUrl(normalized)) {
+    const raw = url.trim()
+    if (!isValidUrl(raw)) {
       setErrorMsg("That doesn't look like a valid URL. Try something like nike.com.")
       setStage('error')
       return
     }
+    const normalized = normalizeUrl(raw)
 
     setErrorMsg(null)
     setSummary(null)
@@ -248,7 +250,8 @@ export default function PlanPage() {
                     setUrl(e.target.value)
                     if (stage === 'error') setStage('idle')
                   }}
-                  className="flex-1 py-3 bg-transparent text-slate-900 placeholder-slate-400 focus:outline-none text-base"
+                  className="flex-1 py-3 bg-transparent text-slate-900 placeholder-slate-400 text-base border-0 ring-0 focus:ring-0 focus:outline-none focus:border-0 shadow-none focus:shadow-none appearance-none"
+                  style={{ boxShadow: 'none', outline: 'none' }}
                   disabled={stage === 'analyzing'}
                 />
               </div>
