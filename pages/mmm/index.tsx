@@ -218,7 +218,7 @@ function QuizCtaCard() {
         </Link>
         <p className="mt-3 text-center text-xs text-slate-400">
           Already know you're ready?{' '}
-          <a href="#bottom-form" className="text-slate-600 hover:text-slate-900 underline underline-offset-2">
+          <a href="/schedule-demo" className="text-slate-600 hover:text-slate-900 underline underline-offset-2">
             Skip the quiz and book a call
           </a>
         </p>
@@ -287,7 +287,7 @@ function Hero() {
 /* ─── Stats Section ─── */
 function StatsSection() {
   const stats = [
-    { number: '6', label: 'Models Delivered', sublabel: 'across real agency clients' },
+    { number: '$25K', label: 'Flat Pricing', sublabel: 'no enterprise contract, no gotchas' },
     { number: '$200K+', label: 'Misallocated Spend Found', sublabel: 'reallocated to channels that work' },
     { number: '3-4 wks', label: 'Model Turnaround', sublabel: 'not 3-6 months' },
   ]
@@ -576,16 +576,17 @@ function PricingSection() {
               </ul>
             </div>
             <div className="mt-8">
-              <a
-                href="#bottom-form"
-                onClick={(e) => {
-                  e.preventDefault()
-                  document.getElementById('bottom-form')?.scrollIntoView({ behavior: 'smooth' })
+              <Link
+                href="/mmm-quiz"
+                onClick={() => {
+                  if (typeof window !== 'undefined' && (window as any).posthog) {
+                    ;(window as any).posthog.capture?.('mmm_pricing_quiz_cta_clicked', { source: '/mmm' })
+                  }
                 }}
                 className="inline-flex w-full items-center justify-center rounded-full bg-primary py-2 px-4 text-sm font-semibold text-white hover:bg-primary/90 transition-colors"
               >
-                Get Your Free Channel Efficiency Analysis →
-              </a>
+                Take the MMM Readiness Quiz →
+              </Link>
             </div>
           </div>
         </div>
@@ -594,27 +595,38 @@ function PricingSection() {
   )
 }
 
-/* ─── Bottom CTA with Form ─── */
+/* ─── Bottom CTA ─ drives to quiz ─── */
 function CTAFooter() {
+  const onClick = () => {
+    if (typeof window !== 'undefined' && (window as any).posthog) {
+      ;(window as any).posthog.capture?.('mmm_footer_quiz_cta_clicked', { source: '/mmm' })
+    }
+  }
   return (
     <section className="relative overflow-hidden bg-slate-900 py-20 sm:py-28">
       <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(59,130,246,0.15),_transparent_60%)]" />
       <Container className="relative">
-        <div className="mx-auto max-w-2xl text-center mb-12">
-          <h2 className="font-display text-3xl tracking-tight text-white sm:text-4xl">
+        <div className="mx-auto max-w-2xl text-center">
+          <h2 className="font-display text-3xl tracking-tight text-white sm:text-5xl">
             Your clients spend millions on media.
           </h2>
-          <p className="mt-2 font-display text-3xl tracking-tight text-white/80 sm:text-4xl">
-            Show them what it&rsquo;s actually doing.
+          <p className="mt-3 font-display text-3xl tracking-tight text-white/80 sm:text-5xl">
+            Show them what it's actually doing.
           </p>
-        </div>
-        <div className="mx-auto max-w-lg">
-          <LeadCaptureForm
-            id="bottom-form"
-            heading="Get Your Free Channel Efficiency Analysis"
-            subheading="Tell us about your media spend and we'll show you what a causal model can uncover."
-          />
+
+          <div className="mt-10 inline-flex flex-col items-center gap-3">
+            <Link
+              href="/mmm-quiz"
+              onClick={onClick}
+              className="inline-flex items-center justify-center rounded-xl bg-white text-primary text-base font-semibold px-8 py-4 shadow-lg shadow-blue-500/20 hover:bg-slate-100 transition-colors"
+            >
+              Take the MMM Readiness Quiz →
+            </Link>
+            <p className="text-sm text-slate-400">
+              2 minutes · 10 questions · Get your personalized score
+            </p>
+          </div>
         </div>
       </Container>
     </section>
