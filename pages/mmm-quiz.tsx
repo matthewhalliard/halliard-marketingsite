@@ -26,7 +26,7 @@ interface QuizSummary {
   }
 }
 
-type Stage = 'intro' | 'questions' | 'scoring' | 'result' | 'error'
+type Stage = 'questions' | 'email_gate' | 'scoring' | 'result' | 'error'
 
 const SCORING_STEPS = [
   'Reviewing your answers…',
@@ -60,9 +60,10 @@ function Header() {
 }
 
 export default function MmmQuizPage() {
-  const [stage, setStage] = useState<Stage>('intro')
+  const [stage, setStage] = useState<Stage>('questions')
   const [qIdx, setQIdx] = useState(0)
   const [answers, setAnswers] = useState<Record<string, string>>({})
+  const [finalAnswers, setFinalAnswers] = useState<Record<string, string> | null>(null)
   const [scoringStepIdx, setScoringStepIdx] = useState(0)
   const [summary, setSummary] = useState<QuizSummary | null>(null)
   const [narrative, setNarrative] = useState<Narrative | null>(null)
@@ -130,12 +131,15 @@ export default function MmmQuizPage() {
   const totalQ = QUIZ_QUESTIONS.length
   const progressPct = useMemo(() => Math.round((Object.keys(answers).length / totalQ) * 100), [answers, totalQ])
 
-  const startQuiz = () => {
+  // Auto-start tracking on first mount (no intro screen anymore)
+  const startedRef = useRef(false)
+  useEffect(() => {
+    if (startedRef.current) return
+    startedRef.current = true
     startTimeRef.current = Date.now()
     track('mmm_quiz_started')
-    setStage('questions')
-    setQIdx(0)
-  }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const selectAnswer = async (optionId: string) => {
     const q = QUIZ_QUESTIONS[qIdx]
@@ -148,13 +152,16 @@ export default function MmmQuizPage() {
       elapsed_ms: Date.now() - startTimeRef.current,
     })
 
-    // Advance
     if (qIdx < totalQ - 1) {
-      // small delay for micro-animation feel
       setTimeout(() => setQIdx(qIdx + 1), 160)
     } else {
-      // last question — go to scoring
-      setTimeout(() => submitQuiz(newAnswers), 200)
+      // Last question answered — go to email gate (not scoring yet)
+      setFinalAnswers(newAnswers)
+      track('mmm_quiz_completed', { total_time_ms: Date.now() - startTimeRef.current })
+      setTimeout(() => {
+        setStage('email_gate')
+        track('mmm_quiz_email_gate_shown')
+      }, 200)
     }
   }
 
@@ -162,9 +169,8 @@ export default function MmmQuizPage() {
     if (qIdx > 0) setQIdx(qIdx - 1)
   }
 
-  const submitQuiz = async (finalAnswers: Record<string, string>) => {
+  const submitQuiz = async (quizAnswers: Record<string, string>) => {
     setStage('scoring')
-    track('mmm_quiz_completed', { total_time_ms: Date.now() - startTimeRef.current })
 
     const minTheaterMs = 3200
     const start = Date.now()
@@ -172,7 +178,7 @@ export default function MmmQuizPage() {
       const apiRes = await fetch('/api/mmm-quiz-result', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ answers: finalAnswers }),
+        body: JSON.stringify({ answers: quizAnswers }),
       })
       if (!apiRes.ok) {
         const j = await apiRes.json().catch(() => ({}))
@@ -203,50 +209,45 @@ export default function MmmQuizPage() {
     }
   }
 
-  const handleEmailSubmit = async (e: React.FormEvent) => {
+  // Email gate: captured BEFORE score reveals. Identifies person + submits lead +
+  // fires Google Ads conversion, then scores + reveals.
+  const handleGateEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return
+    if (!finalAnswers) return
     setEmailSubmitting(true)
-    track('mmm_quiz_email_submit_started', { total: summary?.total, tier: summary?.tier?.label })
+    track('mmm_quiz_email_submit_started', { gate: true })
+
     try {
+      if (typeof window !== 'undefined' && (window as any).posthog) {
+        ;(window as any).posthog.identify?.(email, {
+          email,
+          first_email_source: 'mmm-quiz',
+        })
+      }
       await fetch('/api/lead', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           email,
           source: 'mmm-quiz',
-          total_score: summary?.total,
-          tier: summary?.tier?.label,
-          is_qualified: summary?.profile?.isQualified,
-          estimated_budget: summary?.profile?.estimatedBudget,
+          stage: 'pre-score',
           ...utmRef.current,
-          _subject: `MMM Quiz lead: ${email} — score ${summary?.total}/100 (${summary?.tier?.label})`,
+          _subject: `MMM Quiz email captured: ${email}`,
         }),
       })
+      track('mmm_quiz_email_captured', { gate: true })
       if (typeof window !== 'undefined' && (window as any).gtag) {
         ;(window as any).gtag('event', 'conversion', {
           send_to: 'AW-672346912/qEmHCJ6L_pgcEKDmzMAC',
-          value: summary?.profile?.isQualified ? 400.0 : 100.0,
-          currency: 'USD',
+          value: 200.0, currency: 'USD',
         })
       }
-      track('mmm_quiz_email_captured', {
-        total: summary?.total, tier: summary?.tier?.label,
-        is_qualified: summary?.profile?.isQualified,
-      })
-      if (typeof window !== 'undefined' && (window as any).posthog) {
-        ;(window as any).posthog.identify?.(email, {
-          email,
-          first_email_source: 'mmm-quiz',
-          first_mmm_quiz_score: summary?.total,
-          first_mmm_quiz_tier: summary?.tier?.label,
-        })
-      }
-      setEmailSubmitted(true)
     } catch {
-      setEmailSubmitted(true)
+      // Don't block scoring on lead submission failure
     }
-    setEmailSubmitting(false)
+    setEmailSubmitted(true)
+    await submitQuiz(finalAnswers)
   }
 
   const bookCallClick = (location: string) => () => {
@@ -263,45 +264,22 @@ export default function MmmQuizPage() {
       </Head>
       <Header />
       <main className="pt-28 pb-24 bg-gradient-to-b from-white via-slate-50 to-white min-h-screen">
-        {/* INTRO */}
-        {stage === 'intro' && (
-          <Container className="max-w-2xl">
-            <div className="text-center">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-semibold tracking-wide mb-6 uppercase">
-                <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
-                Free · 2 minutes · No signup required
-              </div>
-              <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-medium tracking-tight text-slate-900 leading-[1.05]">
-                Is your marketing ready<br />
-                for <span className="text-primary">MMM?</span>
-              </h1>
-              <p className="mt-6 text-lg text-slate-600 max-w-xl mx-auto">
-                10 quick questions. Get a personalized <strong>readiness score</strong>, the 3 things
-                you should unlock before investing in marketing mix modeling, and a peer
-                benchmark vs. 800+ other advertisers.
-              </p>
-              <button
-                onClick={startQuiz}
-                className="mt-10 inline-flex items-center justify-center px-8 py-4 rounded-xl bg-primary text-white text-base font-semibold hover:bg-secondary transition-colors shadow-lg shadow-blue-500/20"
-              >
-                Start the quiz →
-              </button>
-              <p className="mt-4 text-xs text-slate-400">
-                No email required to see your score. Most people finish in under 2 minutes.
-              </p>
-            </div>
-
-            <div className="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-5">
-              <Feature num="1" title="Answer 10 questions" body="All multiple-choice. No data uploads, no free text. Takes under 2 minutes." />
-              <Feature num="2" title="Get your score" body="Personalized MMM readiness score across 4 dimensions: data, mix, scale, measurement." />
-              <Feature num="3" title="See your unlocks" body="The 3 specific things we'd fix to get you ready for an MMM engagement." />
-            </div>
-          </Container>
-        )}
-
-        {/* QUESTIONS */}
+        {/* QUESTIONS (auto-starts — no intro screen) */}
         {stage === 'questions' && currentQ && (
           <Container className="max-w-2xl">
+            {/* Header only on first question */}
+            {qIdx === 0 && (
+              <div className="text-center mb-10">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-semibold tracking-wide mb-5 uppercase">
+                  <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+                  MMM Readiness Quiz · 2 minutes
+                </div>
+                <h1 className="font-display text-3xl sm:text-4xl font-medium tracking-tight text-slate-900">
+                  Is your marketing ready for <span className="text-primary">MMM?</span>
+                </h1>
+              </div>
+            )}
+
             {/* Progress */}
             <div className="mb-8">
               <div className="flex items-center justify-between text-xs font-semibold text-slate-500 mb-2 tracking-wide">
@@ -366,8 +344,55 @@ export default function MmmQuizPage() {
                 ← Back
               </button>
               <div className="text-xs text-slate-400">
-                Your answers are not saved until you submit an email at the end.
+                Halliard · MMM in 4 weeks, $25K flat
               </div>
+            </div>
+          </Container>
+        )}
+
+        {/* EMAIL GATE — after last question, before scoring */}
+        {stage === 'email_gate' && (
+          <Container className="max-w-xl">
+            <div className="bg-white rounded-2xl border border-slate-200 shadow-xl shadow-slate-200/50 p-8 sm:p-10">
+              <div className="text-center">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-50 text-green-700 text-xs font-semibold tracking-wide mb-5 uppercase">
+                  ✓ All 10 answers in
+                </div>
+                <h2 className="font-display text-3xl sm:text-4xl font-medium tracking-tight text-slate-900">
+                  Where should we send<br />your report?
+                </h2>
+                <p className="mt-4 text-slate-600">
+                  We'll show you your score right now. We'll also email you a PDF copy
+                  plus a peer benchmark vs. advertisers like you.
+                </p>
+              </div>
+
+              <form onSubmit={handleGateEmailSubmit} className="mt-8 space-y-4">
+                <input
+                  type="email"
+                  placeholder="you@yourcompany.com"
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                  required
+                  autoFocus
+                  className="w-full rounded-xl px-5 py-4 text-base text-slate-900 placeholder-slate-400 border border-slate-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                />
+                <button
+                  type="submit"
+                  disabled={emailSubmitting || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)}
+                  className={`w-full rounded-xl px-6 py-4 text-base font-semibold text-white transition-colors ${
+                    emailSubmitting || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+                      ? 'bg-slate-300 cursor-not-allowed'
+                      : 'bg-primary hover:bg-secondary cursor-pointer'
+                  }`}
+                >
+                  {emailSubmitting ? 'Scoring your quiz…' : 'Show me my score →'}
+                </button>
+              </form>
+
+              <p className="mt-5 text-center text-xs text-slate-400">
+                We won't spam you. Unsubscribe anytime. Your answers are confidential.
+              </p>
             </div>
           </Container>
         )}
@@ -430,81 +455,26 @@ export default function MmmQuizPage() {
                 <img src={pngDataUrl} alt={`MMM Readiness Report — ${summary.total}/100`} className="w-full h-auto block" />
               </div>
 
-              {/* CTA + email capture */}
+              {/* CTA block (email already captured at gate) */}
               <div className="mt-10 bg-gradient-to-br from-primary to-secondary rounded-2xl p-8 sm:p-10 text-white">
-                {!emailSubmitted ? (
-                  <>
-                    <h3 className="font-display text-2xl sm:text-3xl font-medium tracking-tight">
-                      {summary.profile.isQualified
-                        ? "Let's build your MMM."
-                        : "Get the detailed report."}
-                    </h3>
-                    <p className="mt-2 text-white/80 text-lg">
-                      {narrative.ctaLine}
-                    </p>
-
-                    <div className="mt-6 flex flex-col sm:flex-row gap-3">
-                      {summary.profile.isQualified ? (
-                        <a
-                          href={BOOK_CALL_URL}
-                          onClick={bookCallClick('results_primary')}
-                          className="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-white text-primary font-semibold hover:bg-slate-100 transition-colors"
-                        >
-                          Book a 20-min scoping call →
-                        </a>
-                      ) : (
-                        <a
-                          href="#email-form"
-                          className="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-white text-primary font-semibold hover:bg-slate-100 transition-colors"
-                        >
-                          Get the full report →
-                        </a>
-                      )}
-                    </div>
-
-                    <div id="email-form" className="mt-8 pt-8 border-t border-white/20">
-                      <p className="text-sm text-white/70 mb-3">
-                        Email me a PDF copy of this report — plus a peer benchmark against advertisers like you.
-                      </p>
-                      <form onSubmit={handleEmailSubmit} className="flex flex-col sm:flex-row gap-3">
-                        <input
-                          type="email"
-                          placeholder="you@yourcompany.com"
-                          value={email}
-                          onChange={e => setEmail(e.target.value)}
-                          required
-                          className="flex-1 rounded-xl px-4 py-3 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-white"
-                        />
-                        <button
-                          type="submit"
-                          disabled={emailSubmitting || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)}
-                          className={`rounded-xl px-6 py-3 font-semibold transition-colors ${
-                            emailSubmitting || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-                              ? 'bg-white/30 text-white/60 cursor-not-allowed'
-                              : 'bg-slate-900 text-white hover:bg-slate-800'
-                          }`}
-                        >
-                          {emailSubmitting ? 'Sending…' : 'Email me the report'}
-                        </button>
-                      </form>
-                    </div>
-                  </>
-                ) : (
-                  <div className="text-center py-4">
-                    <div className="text-4xl mb-3">📬</div>
-                    <h3 className="font-display text-2xl font-medium">Report sent.</h3>
-                    <p className="mt-2 text-white/80">
-                      Check <strong>{email}</strong> for your MMM readiness report.
-                    </p>
-                    {summary.profile.isQualified && (
-                      <a
-                        href={BOOK_CALL_URL}
-                        onClick={bookCallClick('after_email_capture')}
-                        className="mt-6 inline-flex items-center justify-center px-6 py-3 rounded-xl bg-white text-primary font-semibold hover:bg-slate-100 transition-colors"
-                      >
-                        Book a scoping call →
-                      </a>
-                    )}
+                <h3 className="font-display text-2xl sm:text-3xl font-medium tracking-tight">
+                  {summary.profile.isQualified
+                    ? "Let's build your MMM."
+                    : 'Work through the unlocks and come back.'}
+                </h3>
+                <p className="mt-2 text-white/80 text-lg">{narrative.ctaLine}</p>
+                <p className="mt-4 text-sm text-white/70">
+                  A copy of your report is on its way to <strong>{email}</strong>.
+                </p>
+                {summary.profile.isQualified && (
+                  <div className="mt-6 flex flex-col sm:flex-row gap-3">
+                    <a
+                      href={BOOK_CALL_URL}
+                      onClick={bookCallClick('results_primary')}
+                      className="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-white text-primary font-semibold hover:bg-slate-100 transition-colors"
+                    >
+                      Book a 20-min scoping call →
+                    </a>
                   </div>
                 )}
               </div>
@@ -526,7 +496,10 @@ export default function MmmQuizPage() {
                 <button
                   onClick={() => {
                     track('mmm_quiz_retake_clicked', { previous_total: summary.total })
-                    setStage('intro'); setAnswers({}); setQIdx(0); setSummary(null); setNarrative(null); setPngDataUrl(null); setEmail(''); setEmailSubmitted(false)
+                    setStage('questions'); setAnswers({}); setFinalAnswers(null); setQIdx(0)
+                    setSummary(null); setNarrative(null); setPngDataUrl(null); setEmailSubmitted(false)
+                    startedRef.current = false
+                    startTimeRef.current = Date.now()
                     window.scrollTo({ top: 0, behavior: 'smooth' })
                   }}
                   className="text-sm text-slate-600 hover:text-slate-900 underline underline-offset-4"
@@ -545,7 +518,10 @@ export default function MmmQuizPage() {
             <h2 className="font-display text-2xl font-medium text-slate-900">Something broke.</h2>
             <p className="mt-3 text-slate-600">{errorMsg}</p>
             <button
-              onClick={() => { setStage('intro'); setAnswers({}); setQIdx(0); setErrorMsg(null) }}
+              onClick={() => {
+                setStage('questions'); setAnswers({}); setFinalAnswers(null); setQIdx(0); setErrorMsg(null)
+                startedRef.current = false
+              }}
               className="mt-6 inline-flex items-center justify-center px-6 py-3 rounded-xl bg-primary text-white font-semibold hover:bg-secondary transition-colors"
             >
               Try again
