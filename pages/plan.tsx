@@ -106,9 +106,9 @@ export default function PlanPage() {
     }
   }
 
-  const handleSubmit = async (e?: React.FormEvent) => {
+  const handleSubmit = async (e?: React.FormEvent, urlOverride?: string) => {
     if (e) e.preventDefault()
-    const raw = url.trim()
+    const raw = (urlOverride ?? url).trim()
     if (!isValidUrl(raw)) {
       setErrorMsg("That doesn't look like a valid URL. Try something like nike.com.")
       setStage('error')
@@ -287,8 +287,7 @@ export default function PlanPage() {
                   type="button"
                   onClick={() => {
                     setUrl(ex)
-                    // Defer submit to let state settle
-                    setTimeout(() => handleSubmit(), 50)
+                    handleSubmit(undefined, ex)
                   }}
                   className="px-3 py-1.5 rounded-full bg-white border border-slate-200 text-xs text-slate-600 hover:bg-slate-50 hover:border-slate-300 transition-colors"
                 >
