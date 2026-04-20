@@ -166,6 +166,67 @@ function Header() {
   )
 }
 
+/* ─── Quiz CTA card (primary hero CTA) ─── */
+function QuizCtaCard() {
+  const onClick = () => {
+    if (typeof window !== 'undefined' && (window as any).posthog) {
+      ;(window as any).posthog.capture?.('mmm_hero_quiz_cta_clicked', { source: '/mmm' })
+    }
+  }
+  return (
+    <div className="relative">
+      <div className="absolute -inset-1 rounded-3xl bg-gradient-to-br from-blue-500 to-blue-400 opacity-40 blur-xl" />
+      <div className="relative bg-white rounded-2xl border border-blue-200 shadow-2xl shadow-blue-500/20 p-8 sm:p-10">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-semibold tracking-wide uppercase mb-5">
+          ✨ Free tool
+        </div>
+        <h2 className="font-display text-3xl font-medium tracking-tight text-slate-900 leading-tight">
+          Is your marketing ready<br />for MMM?
+        </h2>
+        <p className="mt-4 text-slate-600 text-base leading-relaxed">
+          Take the 2-minute quiz. Get a personalized <strong className="text-slate-900">readiness score</strong>,
+          benchmark against 800+ advertisers, and see the top 3 things to unlock before your first MMM.
+        </p>
+
+        <ul className="mt-5 space-y-2">
+          <li className="flex items-center gap-2 text-sm text-slate-700">
+            <svg className="w-4 h-4 text-blue-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+            </svg>
+            10 questions, all multiple-choice
+          </li>
+          <li className="flex items-center gap-2 text-sm text-slate-700">
+            <svg className="w-4 h-4 text-blue-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+            </svg>
+            Score + peer benchmark in under 2 minutes
+          </li>
+          <li className="flex items-center gap-2 text-sm text-slate-700">
+            <svg className="w-4 h-4 text-blue-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+            </svg>
+            No email required to see your score
+          </li>
+        </ul>
+
+        <Link
+          href="/mmm-quiz"
+          onClick={onClick}
+          className="mt-7 inline-flex w-full items-center justify-center px-6 py-4 rounded-xl bg-blue-600 text-white text-base font-semibold hover:bg-blue-700 transition-colors shadow-lg shadow-blue-500/30"
+        >
+          Take the MMM Readiness Quiz →
+        </Link>
+        <p className="mt-3 text-center text-xs text-slate-400">
+          Already know you're ready?{' '}
+          <a href="#bottom-form" className="text-slate-600 hover:text-slate-900 underline underline-offset-2">
+            Skip the quiz and book a call
+          </a>
+        </p>
+      </div>
+    </div>
+  )
+}
+
 /* ─── Hero with inline form ─── */
 function Hero() {
   return (
@@ -212,9 +273,9 @@ function Hero() {
               </div>
             </div>
 
-            {/* Right: Form */}
+            {/* Right: MMM Readiness Quiz CTA (primary) */}
             <div className="mt-12 lg:mt-0">
-              <LeadCaptureForm id="hero-form" />
+              <QuizCtaCard />
             </div>
           </div>
         </Container>
