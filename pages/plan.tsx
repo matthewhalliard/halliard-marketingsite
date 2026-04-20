@@ -72,6 +72,8 @@ export default function PlanPage() {
   const [emailSubmitted, setEmailSubmitted] = useState(false)
 
   // Capture UTM params once on mount so we can include them in every event
+  // Capture UTMs + register as person props so all events downstream
+  // (even in app.halliardmedia.com) get tied to the right attribution.
   const utmRef = useRef<Record<string, string>>({})
   useEffect(() => {
     if (typeof window === 'undefined') return
@@ -81,10 +83,46 @@ export default function PlanPage() {
       if (k.startsWith('utm_') || k === 'gclid' || k === 'fbclid') utms[k] = v
     }
     utmRef.current = utms
+
+    const ph = (window as any).posthog
+    if (ph && Object.keys(utms).length > 0) {
+      // Persist attribution onto the person. `register` adds these to every
+      // event for the session; `people.set_once` locks the FIRST-touch attribution.
+      ph.register?.(utms)
+      ph.people?.set_once?.({
+        first_utm_source: utms.utm_source,
+        first_utm_medium: utms.utm_medium,
+        first_utm_campaign: utms.utm_campaign,
+        first_utm_content: utms.utm_content,
+        first_utm_term: utms.utm_term,
+        first_gclid: utms.gclid,
+        first_landing_page: '/plan',
+      })
+      ph.people?.set?.({
+        last_utm_source: utms.utm_source,
+        last_utm_medium: utms.utm_medium,
+        last_utm_campaign: utms.utm_campaign,
+        last_utm_content: utms.utm_content,
+        last_landing_page: '/plan',
+      })
+    }
+
+    // Explicit pageview so we have a named event for the funnel top
+    if (ph) {
+      ph.capture?.('plan_page_viewed', { ...utms, landing_page: '/plan' })
+    }
   }, [])
 
   const stepTimerRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const resultRef = useRef<HTMLDivElement | null>(null)
+  const resultViewedRef = useRef(false) // fire plan_result_viewed only once per reveal
+
+  // Lightweight event helper
+  const track = (event: string, props: Record<string, unknown> = {}) => {
+    if (typeof window === 'undefined') return
+    const ph = (window as any).posthog
+    ph?.capture?.(event, { ...utmRef.current, ...props })
+  }
 
   useEffect(() => {
     if (stage !== 'analyzing') {
@@ -99,6 +137,31 @@ export default function PlanPage() {
       if (stepTimerRef.current) clearInterval(stepTimerRef.current)
     }
   }, [stage])
+
+  // Fire plan_result_viewed when >=50% of the result section enters viewport
+  useEffect(() => {
+    if (stage !== 'ready' || !resultRef.current || resultViewedRef.current) return
+    const el = resultRef.current
+    const obs = new IntersectionObserver(
+      entries => {
+        for (const entry of entries) {
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.5 && !resultViewedRef.current) {
+            resultViewedRef.current = true
+            track('plan_result_viewed', {
+              brand: summary?.brandName,
+              industry: summary?.industry,
+              budget: summary?.budget,
+            })
+            obs.disconnect()
+          }
+        }
+      },
+      { threshold: [0.5] },
+    )
+    obs.observe(el)
+    return () => obs.disconnect()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [stage, summary])
 
   const normalizeUrl = (raw: string): string => {
     const trimmed = raw.trim()
@@ -124,9 +187,24 @@ export default function PlanPage() {
     if (!isValidUrl(raw)) {
       setErrorMsg("That doesn't look like a valid URL. Try something like nike.com.")
       setStage('error')
+      if (typeof window !== 'undefined' && (window as any).posthog) {
+        ;(window as any).posthog.capture('plan_generation_invalid_url', {
+          input: raw.slice(0, 100), ...utmRef.current,
+        })
+      }
       return
     }
     const normalized = normalizeUrl(raw)
+
+    // Submission intent event (captures every attempt, including failures below)
+    if (typeof window !== 'undefined' && (window as any).posthog) {
+      ;(window as any).posthog.capture('plan_generation_started', {
+        url: normalized,
+        source: urlOverride ? 'example_chip' : 'manual_input',
+        ...utmRef.current,
+      })
+    }
+    const genStart = Date.now()
 
     setErrorMsg(null)
     setSummary(null)
@@ -146,18 +224,17 @@ export default function PlanPage() {
         throw new Error(j.error || `Request failed (${apiRes.status})`)
       }
       const data = await apiRes.json()
+      const latencyMs = Date.now() - genStart
 
       // PostHog tracking — mirrors the pattern from trytoday.tsx
-      if (typeof window !== 'undefined' && (window as any).posthog) {
-        ;(window as any).posthog.capture('sample_plan_generated', {
-          url: normalized,
-          brand: data.summary?.brandName,
-          industry: data.summary?.industry,
-          inference_mode: data.summary?.inferenceMode,
-          budget: data.summary?.budget,
-          ...utmRef.current,
-        })
-      }
+      track('sample_plan_generated', {
+        url: normalized,
+        brand: data.summary?.brandName,
+        industry: data.summary?.industry,
+        inference_mode: data.summary?.inferenceMode,
+        budget: data.summary?.budget,
+        generation_latency_ms: latencyMs,
+      })
 
       const elapsed = Date.now() - start
       const waitMore = Math.max(0, minTheaterMs - elapsed)
@@ -166,6 +243,7 @@ export default function PlanPage() {
       setSummary(data.summary)
       setPngDataUrl(`data:${data.pngMime};base64,${data.pngBase64}`)
       setStage('ready')
+      resultViewedRef.current = false
 
       // Scroll to result on mobile
       setTimeout(() => resultRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 150)
@@ -173,12 +251,24 @@ export default function PlanPage() {
       console.error(err)
       setErrorMsg(err?.message || 'Something went wrong generating your plan.')
       setStage('error')
+      if (typeof window !== 'undefined' && (window as any).posthog) {
+        ;(window as any).posthog.capture('plan_generation_failed', {
+          url: normalized,
+          error: String(err?.message || err).slice(0, 200),
+          latency_ms: Date.now() - genStart,
+          ...utmRef.current,
+        })
+      }
     }
   }
 
   const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return
+    track('plan_email_submit_started', {
+      brand: summary?.brandName,
+      industry: summary?.industry,
+    })
     setEmailSubmitting(true)
     try {
       await fetch('/api/lead', {
@@ -202,11 +292,17 @@ export default function PlanPage() {
           currency: 'USD',
         })
       }
+      track('sample_plan_email_captured', {
+        email, source: 'plan-lead-magnet',
+        brand: summary?.brandName, industry: summary?.industry,
+      })
+      // Identify the person so we can follow them across to app.halliardmedia.com
       if (typeof window !== 'undefined' && (window as any).posthog) {
-        ;(window as any).posthog.capture('sample_plan_email_captured', {
-          email, source: 'plan-lead-magnet',
-          brand: summary?.brandName, industry: summary?.industry,
-          ...utmRef.current,
+        ;(window as any).posthog.identify?.(email, {
+          email,
+          first_email_source: 'plan-lead-magnet',
+          first_plan_brand: summary?.brandName,
+          first_plan_industry: summary?.industry,
         })
       }
       setEmailSubmitted(true)
@@ -301,6 +397,7 @@ export default function PlanPage() {
                   key={ex}
                   type="button"
                   onClick={() => {
+                    track('plan_example_clicked', { example: ex })
                     setUrl(ex)
                     handleSubmit(undefined, ex)
                   }}
@@ -419,6 +516,11 @@ export default function PlanPage() {
                     <div className="mt-6 flex flex-col sm:flex-row gap-3">
                       <a
                         href={SIGN_UP_URL}
+                        onClick={() => track('plan_signup_cta_clicked', {
+                          location: 'results_primary',
+                          brand: summary?.brandName,
+                          industry: summary?.industry,
+                        })}
                         className="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-white text-primary font-semibold hover:bg-slate-100 transition-colors"
                       >
                         Start Planning Free →
@@ -458,6 +560,11 @@ export default function PlanPage() {
                     </p>
                     <a
                       href={SIGN_UP_URL}
+                      onClick={() => track('plan_signup_cta_clicked', {
+                        location: 'after_email_capture',
+                        brand: summary?.brandName,
+                        industry: summary?.industry,
+                      })}
                       className="mt-6 inline-flex items-center justify-center px-6 py-3 rounded-xl bg-white text-primary font-semibold hover:bg-slate-100 transition-colors"
                     >
                       Open it in Halliard →
@@ -475,7 +582,11 @@ export default function PlanPage() {
 
               <div className="mt-12 text-center">
                 <button
-                  onClick={() => { setStage('idle'); setUrl(''); setSummary(null); setPngDataUrl(null); window.scrollTo({ top: 0, behavior: 'smooth' }) }}
+                  onClick={() => {
+                    track('plan_try_another_clicked', { previous_brand: summary?.brandName })
+                    setStage('idle'); setUrl(''); setSummary(null); setPngDataUrl(null)
+                    window.scrollTo({ top: 0, behavior: 'smooth' })
+                  }}
                   className="text-sm text-slate-600 hover:text-slate-900 underline underline-offset-4"
                 >
                   ← Try another URL
