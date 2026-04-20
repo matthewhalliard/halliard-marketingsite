@@ -10,13 +10,16 @@
     "mirror-framer": "node scripts/mirror-framer.js"
   },
   "dependencies": {
+    "@fontsource/inter": "^5.2.8",
     "@formspark/use-formspark": "^0.1.42",
     "@headlessui/react": "^2.0.0",
     "@heroicons/react": "^2.2.0",
+    "@resvg/resvg-js": "^2.6.2",
     "clsx": "^2.1.0",
     "next": "^16.2.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "satori": "^0.26.0",
     "sharp": "^0.34.5"
   },
   "devDependencies": {
