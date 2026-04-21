@@ -1,14 +1,5 @@
 {
   "users": {
-    "a.alshershary@gmail.com": {
-      "status": "skipped_junk",
-      "signed_up_at": "2026-04-20T22:12:29.357000+00:00",
-      "enrichment": {
-        "category": "student_or_junk",
-        "company_name": "Unknown",
-        "personal_sentence": "Welcome to Halliard. Let's see if we're a fit for what you're building."
-      }
-    },
     "adsavants@gmail.com": {
       "status": "skipped_junk",
       "signed_up_at": "2026-04-20T13:43:59.681000Z",
@@ -34,6 +25,42 @@
         "category": "student_or_junk",
         "company_name": "",
         "personal_sentence": "Welcome to Halliard\u2014curious to hear what brought you here."
+      }
+    },
+    "a.alshershary@gmail.com": {
+      "status": "in_flow",
+      "signed_up_at": "2026-04-20T22:12:29.357000+00:00",
+      "enrichment": {
+        "category": "brand",
+        "company_name": "LIFECARE TPA Germany GmbH",
+        "personal_sentence": "LIFECARE TPA is a healthcare administrator\u2014curious how you're thinking about media planning."
+      },
+      "first_name": "Abdulhamid",
+      "scheduled": {
+        "day0": {
+          "id": "5256f728-6bea-486d-ad53-422a71cff471",
+          "at": "2026-04-21T21:15:52Z",
+          "subject": "Welcome to Halliard \u2014 quick note from the founder",
+          "sent": false
+        },
+        "day3": {
+          "id": "e1940ca5-0a19-46ab-a4aa-4de4e9f9cd7c",
+          "at": "2026-04-23T22:12:29Z",
+          "subject": "How's it going with Halliard?",
+          "sent": false
+        },
+        "day7": {
+          "id": "2de26293-d9fc-428c-9e04-2aebd2eb04ce",
+          "at": "2026-04-27T22:12:29Z",
+          "subject": "Is Halliard a fit for what you do?",
+          "sent": false
+        },
+        "day14": {
+          "id": "61c3c051-a842-428f-9e0e-2e706b9c1c33",
+          "at": "2026-05-04T22:12:29Z",
+          "subject": "Closing your Halliard account",
+          "sent": false
+        }
       }
     }
   },
