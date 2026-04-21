@@ -35,8 +35,9 @@ type SignupRow = {
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const token = (req.query.token as string) || req.headers['x-admin-token']
-  if (!token || token !== process.env.ADMIN_DASH_TOKEN) {
+  const token = ((req.query.token as string) || (req.headers['x-admin-token'] as string) || '').trim()
+  const expected = (process.env.ADMIN_DASH_TOKEN || '').trim()
+  if (!token || !expected || token !== expected) {
     return res.status(401).json({ error: 'unauthorized' })
   }
 
