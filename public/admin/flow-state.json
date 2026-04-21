@@ -1,1 +1,41 @@
-{"users":{},"last_poll":null}
+{
+  "users": {
+    "a.alshershary@gmail.com": {
+      "status": "skipped_junk",
+      "signed_up_at": "2026-04-20T22:12:29.357000+00:00",
+      "enrichment": {
+        "category": "student_or_junk",
+        "company_name": "Unknown",
+        "personal_sentence": "Welcome to Halliard. Let's see if we're a fit for what you're building."
+      }
+    },
+    "adsavants@gmail.com": {
+      "status": "skipped_junk",
+      "signed_up_at": "2026-04-20T13:43:59.681000Z",
+      "enrichment": {
+        "category": "student_or_junk",
+        "company_name": "Unknown",
+        "personal_sentence": "Welcome to Halliard\u2014let's see if we're a fit for what you're building."
+      }
+    },
+    "jason.wertheimer@mbww.com": {
+      "status": "skipped_competitor",
+      "signed_up_at": "2026-04-17T14:03:47.623000+00:00",
+      "enrichment": {
+        "category": "competitor",
+        "company_name": "Omnicom Media",
+        "personal_sentence": "Omnicom's already got Omni and massive scale\u2014curious what drew you to explore Halliard."
+      }
+    },
+    "anaskhan1972@gmail.com": {
+      "status": "skipped_junk",
+      "signed_up_at": "2026-04-16T08:33:49.394000+00:00",
+      "enrichment": {
+        "category": "student_or_junk",
+        "company_name": "",
+        "personal_sentence": "Welcome to Halliard\u2014curious to hear what brought you here."
+      }
+    }
+  },
+  "last_poll": "2026-04-21T16:10:52.759501+00:00"
+}
