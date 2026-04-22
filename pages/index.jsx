@@ -57,10 +57,10 @@ function Hero() {
       <Container className="relative pt-32 pb-16 text-center lg:pt-40">
         <div className="mx-auto max-w-3xl">
           <p className="inline-flex items-center gap-2 rounded-full bg-tint px-4 py-1.5 text-sm font-medium text-primary mb-6">
-            <span>🏆</span> Built for independent agencies
+            <span>🏆</span> For media teams running real budgets
           </p>
           <h1 className="font-display text-5xl font-medium tracking-tight text-slate-900 sm:text-6xl lg:text-7xl">
-            The Media Planning Tool Your Agency{' '}
+            The Media Planning Platform Your Team{' '}
             <span className="relative text-primary">
               <svg
                 aria-hidden="true"
@@ -74,8 +74,8 @@ function Hero() {
             </span>
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg tracking-tight text-slate-700">
-            Stop planning in Excel. Build flowcharts, track spend, and prove results — all in one
-            platform.{' '}
+            For independent agencies and in-house marketing teams. Build flowcharts, track spend,
+            and prove results — all in one platform.{' '}
             <span className="font-semibold text-slate-900">Free to start.</span>
           </p>
           <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4">
@@ -432,25 +432,29 @@ function WhoItsFor() {
         <div className="mx-auto max-w-2xl">
           <div>
             <h2 className="font-display text-3xl tracking-tight text-slate-900 sm:text-4xl">
-              Built for independent agencies managing real media budgets
+              Built for teams managing real media budgets
             </h2>
             <p className="mt-4 text-lg text-slate-600">
-              Halliard is designed for agencies between 30 and 300 people — large enough to have complex
-              media operations, lean enough to need everything to work.
+              Halliard works for both sides of the brief — the agencies running plans for clients,
+              and the in-house marketers running plans for their own brand.
             </p>
             <div className="mt-8 space-y-5">
               {[
                 {
                   label: 'Independent agencies, 30–300 people',
-                  sub: 'Not built for freelancers or holding company mega-agencies',
+                  sub: 'Large enough for complex media operations, lean enough to need everything to work',
                 },
                 {
-                  label: 'Cross-channel media — TV, digital, OOH, audio, social',
-                  sub: 'You manage a real media mix, not just one channel',
+                  label: 'In-house marketing teams at mid-market brands',
+                  sub: 'You plan and measure your own media — across TV, digital, OOH, audio, and social',
                 },
                 {
-                  label: 'Client budgets that deserve real measurement',
-                  sub: "Your clients spend millions. They're starting to ask hard questions.",
+                  label: 'Cross-channel media with real budgets behind it',
+                  sub: 'You manage a real media mix — and the numbers have to hold up to scrutiny',
+                },
+                {
+                  label: 'Spend that deserves real measurement',
+                  sub: "Platform metrics are not the same as business impact. You need both, side by side.",
                 },
               ].map((item) => (
                 <div key={item.label} className="flex items-start gap-3">
@@ -505,18 +509,18 @@ export default function MediaPlanningToolPage() {
   return (
     <>
       <Head>
-        <title>Media Planning Tool & Software for Independent Agencies | Halliard</title>
+        <title>Media Planning Software for Agencies & In-House Marketing Teams | Halliard</title>
         <meta
           name="description"
-          content="The media planning tool built for independent agencies. Build flowcharts, track spend in real time, and prove results with MMM and incrementality testing. Free to start."
+          content="The media planning platform for agencies and in-house marketing teams. Build flowcharts, track spend in real time, and prove results with MMM and incrementality testing. Free to start."
         />
         <meta
           property="og:title"
-          content="Media Planning Tool & Software for Independent Agencies | Halliard"
+          content="Media Planning Software for Agencies & In-House Marketing Teams | Halliard"
         />
         <meta
           property="og:description"
-          content="Stop planning in Excel. Build flowcharts, track spend, and prove results — all in one platform. Free to start."
+          content="For independent agencies and in-house marketing teams. Build flowcharts, track spend, and prove results — all in one platform. Free to start."
         />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://halliardmedia.com/media-planning-tool" />
@@ -527,8 +531,8 @@ export default function MediaPlanningToolPage() {
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Media Planning Tool & Software for Independent Agencies | Halliard" />
-        <meta name="twitter:description" content="Stop planning in Excel. Build flowcharts, track spend, and prove results — all in one platform. Free to start." />
+        <meta name="twitter:title" content="Media Planning Software for Agencies & In-House Marketing Teams | Halliard" />
+        <meta name="twitter:description" content="For independent agencies and in-house marketing teams. Build flowcharts, track spend, and prove results — all in one platform. Free to start." />
         <meta name="twitter:image" content="/images/product/flighting.webp" />
         <link rel="canonical" href="https://halliardmedia.com/media-planning-tool" />
         <script
@@ -545,7 +549,7 @@ export default function MediaPlanningToolPage() {
                 "price": "0",
                 "priceCurrency": "USD"
               },
-              "description": "Media planning tool for independent agencies. Build flowcharts, compare scenarios, measure results.",
+              "description": "Media planning platform for independent agencies and in-house marketing teams. Build flowcharts, compare scenarios, measure results.",
               "url": "https://app.halliardmedia.com/sign-up"
             })
           }}
