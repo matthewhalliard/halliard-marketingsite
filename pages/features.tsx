@@ -226,34 +226,6 @@ function IntegrationsStrip() {
   )
 }
 
-function SecuritySection() {
-  const items = [
-    { title: 'SSO & SAML', desc: 'Enterprise SSO on the Agency plan. Okta, Azure AD, Google Workspace.' },
-    { title: 'Role-based access', desc: 'Planner, approver, admin, and view-only roles across every account and plan.' },
-    { title: 'Full audit trail', desc: 'Every edit, approval, and rollback logged. Audit-ready on day one.' },
-    { title: 'Your data stays yours', desc: 'Warehouse connections stay in your account. We don\u2019t resell or model on your data.' },
-  ]
-  return (
-    <section className="py-20 bg-slate-50 border-t border-slate-100">
-      <Container className="">
-        <div className="mx-auto max-w-3xl text-center mb-12">
-          <h3 className="font-display text-3xl font-medium text-slate-900">
-            Built for agencies and marketing teams that take security seriously.
-          </h3>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {items.map((i) => (
-            <div key={i.title} className="bg-white border border-slate-200 rounded-xl p-6">
-              <h4 className="text-base font-semibold text-slate-900 mb-2">{i.title}</h4>
-              <p className="text-sm text-slate-600">{i.desc}</p>
-            </div>
-          ))}
-        </div>
-      </Container>
-    </section>
-  )
-}
-
 function FinalCTA() {
   return (
     <section className="py-20 bg-white">
@@ -293,7 +265,6 @@ export default function FeaturesPage() {
         <Hero />
         <FeatureSections />
         <IntegrationsStrip />
-        <SecuritySection />
         <FinalCTA />
       </main>
     </>
