@@ -26,14 +26,14 @@ function Hero() {
             <span>🏢</span> For independent agencies, 30–300 people
           </p>
           <h1 className="font-display text-5xl font-medium tracking-tight text-slate-900 sm:text-6xl lg:text-7xl">
-            The planning stack built for{' '}
+            Build better plans.{' '}
             <span className="relative text-primary">
-              <span className="relative">independents</span>
+              <span className="relative">Win more clients.</span>
             </span>
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg tracking-tight text-slate-700">
-            You don't have a 40-person ops team. You don't want enterprise contracts. You just need your planners to stop
-            fighting spreadsheets and start building plans your clients actually understand.
+            The media planning platform for independent agencies. One tool to plan, buy, measure, and prove — so your
+            team spends less time in spreadsheets and more time on the work that wins accounts.
           </p>
           <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4">
             <Button href={SIGN_UP_URL} color="blue" className="">
@@ -53,21 +53,21 @@ function PainSection() {
   const pains = [
     {
       Icon: PuzzlePieceIcon,
-      title: 'You\'re stitching 8+ tools together',
+      title: 'One place for the whole plan.',
       description:
-        'Flowcharts in PowerPoint. Budgets in Excel. Notes in Slack. Buys in a different platform. No single source of truth — and every client change breaks everything.',
+        'Replace the PowerPoint flowcharts, the Excel budgets, the Slack notes, and the separate buy tracker. Every plan, every channel, every client — in one tool your team actually uses.',
     },
     {
       Icon: ScaleIcon,
-      title: 'Enterprise tools don\'t fit you',
+      title: 'Power without the enterprise overhead.',
       description:
-        'Bionic, MediaOcean, Camphouse — built for holding companies with procurement teams and dedicated admins. You need power without the overhead.',
+        'Everything Bionic, MediaOcean, and Camphouse give holding companies — without the procurement process, the six-figure contract, or the admin team you don\'t have.',
     },
     {
       Icon: UsersIcon,
-      title: 'Junior planners burn out on mechanics',
+      title: 'Your planners, thinking strategy again.',
       description:
-        'Your best people should be thinking strategy, not rebuilding flowcharts in PowerPoint for the fourth time this week. Halliard handles the mechanics so they can focus on the work that wins.',
+        'Junior planners stop rebuilding flowcharts in PowerPoint. Senior planners get out of reconciliation hell. Everyone on your team spends more time on the work that grows the account.',
     },
   ]
 
@@ -76,10 +76,11 @@ function PainSection() {
       <Container className="">
         <div className="mx-auto max-w-3xl text-center mb-16">
           <h2 className="font-display text-4xl font-medium text-slate-900 sm:text-5xl">
-            Independent agencies have a specific problem.
+            Run a leaner shop without running it ragged.
           </h2>
           <p className="mt-4 text-lg text-slate-700">
-            You're large enough to run complex media operations, lean enough that every inefficiency shows up on the P&L.
+            Halliard gives independent agencies the planning stack they\'ve been building themselves — only this time
+            it works, it scales, and it doesn\'t require a full-time admin.
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -100,18 +101,21 @@ function SolutionSection() {
   const wins = [
     {
       Icon: BoltIcon,
-      title: 'Build plans in minutes, not days',
-      description: 'Drag flights across channels. Budget roll-ups auto-calculate. Client-ready exports in one click.',
+      title: 'Plans your clients can actually read.',
+      description:
+        'Drag flights across channels. See budget, reach, and frequency update in real time. Export a client-ready deck that tells the story without a twenty-slide walkthrough.',
     },
     {
       Icon: ChartBarSquareIcon,
-      title: 'Show clients what works',
-      description: 'Platform metrics plus MMM-attributed revenue, side by side. No more "it\'s complicated" when the CMO asks.',
+      title: 'Prove the work when the CMO asks.',
+      description:
+        'Platform metrics and MMM-attributed revenue, side by side. Answer “did it work” with numbers instead of a hedge — and keep the account when the review comes.',
     },
     {
       Icon: CheckCircleIcon,
-      title: 'Scale without adding headcount',
-      description: 'Version history, approvals, audit trail. Run more accounts with the team you have.',
+      title: 'Take on more without hiring more.',
+      description:
+        'Version history, approvals, and audit trail so senior planners can oversee more accounts. New hires get productive in a week, not a quarter.',
     },
   ]
 
@@ -120,10 +124,11 @@ function SolutionSection() {
       <Container className="">
         <div className="mx-auto max-w-3xl text-center mb-16">
           <h2 className="font-display text-4xl font-medium text-slate-900 sm:text-5xl">
-            One platform. Six tools. Zero spreadsheets.
+            Plan. Buy. Measure. Prove.
           </h2>
           <p className="mt-4 text-lg text-slate-700">
-            Everything your agency needs to plan, execute, and prove media campaigns — built for how independents actually work.
+            Every step of a campaign, in one platform — so your team stops stitching tools together and starts
+            delivering work clients notice.
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -165,7 +170,7 @@ function FinalCTA() {
       <Container className="">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="font-display text-4xl font-medium text-slate-900 sm:text-5xl">
-            Stop planning in spreadsheets.
+            Spend less time in spreadsheets. Win more pitches.
           </h2>
           <p className="mt-4 text-lg text-slate-700">
             Free to start. No credit card. No demo call required.

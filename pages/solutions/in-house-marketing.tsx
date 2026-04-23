@@ -26,14 +26,14 @@ function Hero() {
             <span>📊</span> For in-house marketing teams
           </p>
           <h1 className="font-display text-5xl font-medium tracking-tight text-slate-900 sm:text-6xl lg:text-7xl">
-            Own your media plan.{' '}
+            Plan your media.{' '}
             <span className="relative text-primary">
-              <span className="relative">Prove the ROI.</span>
+              <span className="relative">Prove what it did.</span>
             </span>
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-lg tracking-tight text-slate-700">
-            You plan and measure your own media across TV, digital, OOH, audio, and social. Stop duct-taping spreadsheets
-            together before every budget meeting — and start walking into the CFO's office with numbers that hold up.
+            One platform to plan every channel, track every dollar, and show the impact in the numbers your leadership
+            actually cares about. Built for marketing teams that own their own media.
           </p>
           <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4">
             <Button href={SIGN_UP_URL} color="blue" className="">
@@ -53,21 +53,21 @@ function PainSection() {
   const pains = [
     {
       Icon: CurrencyDollarIcon,
-      title: 'The CFO wants proof',
+      title: 'Show finance what the money did.',
       description:
-        "Platform metrics say your campaign worked. Sales data says maybe. You need to show business impact — not impressions — and you need to show it in the language finance speaks.",
+        'Your leadership wants business impact, not impressions. Halliard translates media performance into revenue contribution, incremental lift, and ROAS — the metrics that hold up in the budget review.',
     },
     {
       Icon: EyeIcon,
-      title: 'Your agency controls the narrative',
+      title: 'Get your own view of your own media.',
       description:
-        "You're paying millions to run media, and your agency owns the plan, the buying, and the reporting. You want your own view — your own source of truth — without firing your agency.",
+        'See the plan, the pacing, and the results yourself — without chasing your agency for a deck. Halliard is your source of truth for what\'s running, what it\'s costing, and what it\'s doing.',
     },
     {
       Icon: ArrowsRightLeftIcon,
-      title: 'Cross-channel is a mess',
+      title: 'Every channel, one plan.',
       description:
-        "TV plans live in one place. Digital in another. OOH in a third. Nobody can tell you the real blended CPM, blended reach, or where to shift spend for the best return.",
+        'TV, CTV, digital, OOH, audio, social — planned together in one flowchart. See blended reach, blended CPM, and where the next dollar has the most impact. No more stitching exports from six different vendors.',
     },
   ]
 
@@ -76,10 +76,10 @@ function PainSection() {
       <Container className="">
         <div className="mx-auto max-w-3xl text-center mb-16">
           <h2 className="font-display text-4xl font-medium text-slate-900 sm:text-5xl">
-            In-house marketing has a different problem.
+            Your media runs better when you can see all of it.
           </h2>
           <p className="mt-4 text-lg text-slate-700">
-            You're not selling plans to clients. You're defending the plan to your own executives.
+            Halliard gives you one place to plan every channel, track every dollar, and prove the impact.
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -100,21 +100,21 @@ function SolutionSection() {
   const wins = [
     {
       Icon: ChartBarSquareIcon,
-      title: 'One plan, every channel',
+      title: 'Plan every channel in one flowchart.',
       description:
-        'TV, CTV, digital, OOH, audio, social — all in one visual flowchart. See blended reach, frequency, and budget in real time.',
+        'Drag flights across TV, CTV, digital, OOH, audio, and social. Budget roll-ups update in real time. Export a plan your CMO can read in thirty seconds.',
     },
     {
       Icon: PresentationChartLineIcon,
-      title: 'MMM without the six-figure contract',
+      title: 'Marketing mix modeling, included.',
       description:
-        'Marketing mix modeling built into the platform. See which channels actually drive revenue — no $500K consulting engagement needed.',
+        'See which channels actually drive revenue and where diminishing returns kick in. No six-figure consulting engagement, no separate vendor — the MMM is built into the platform.',
     },
     {
       Icon: ShieldCheckIcon,
-      title: 'Your source of truth, not your agency\'s',
+      title: 'Connect your data. See the truth.',
       description:
-        'Pull in your own sales, CRM, and platform data. Compare what the agency says to what the numbers say. Version-controlled, audit-ready.',
+        'Plug in Snowflake, BigQuery, Domo, or your CRM. Compare platform metrics against MMM-attributed revenue, side by side. Every version tracked, every change audited.',
     },
   ]
 
@@ -123,10 +123,10 @@ function SolutionSection() {
       <Container className="">
         <div className="mx-auto max-w-3xl text-center mb-16">
           <h2 className="font-display text-4xl font-medium text-slate-900 sm:text-5xl">
-            Built to hold up in the boardroom.
+            Everything you need to run the media you own.
           </h2>
           <p className="mt-4 text-lg text-slate-700">
-            Halliard gives in-house marketing teams the same tools enterprise agencies use — without the enterprise price tag.
+            The same capabilities enterprise agencies use — priced for a team, not a holding company.
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -149,7 +149,7 @@ function FinalCTA() {
       <Container className="">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="font-display text-4xl font-medium text-slate-900 sm:text-5xl">
-            Your next budget meeting shouldn't be a guessing game.
+            Walk into your next budget meeting with the numbers.
           </h2>
           <p className="mt-4 text-lg text-slate-700">
             Free to start. No credit card. No demo call required.
