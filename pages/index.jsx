@@ -15,6 +15,14 @@ import {
 } from '@heroicons/react/24/outline'
 
 const SIGN_UP_URL = 'https://app.halliardmedia.com/sign-up'
+const SIGN_IN_URL = 'https://app.halliardmedia.com/sign-in'
+
+const SOLUTIONS_LINKS = [
+  { href: '/solutions/independent-agencies', label: 'For Independent Agencies' },
+  { href: '/solutions/in-house-marketing', label: 'For In-House Marketing Teams' },
+  { href: '/mmm', label: 'Marketing Mix Modeling' },
+  { href: '/brand-studies', label: 'Brand Studies' },
+]
 
 function Header() {
   return (
@@ -29,12 +37,37 @@ function Header() {
             />
           </Link>
           <div className="flex items-center gap-x-4">
-            <Link
-              href="/trytoday"
+            <div className="relative group hidden sm:block">
+              <button
+                type="button"
+                className="inline-flex items-center gap-1 text-sm text-slate-600 hover:text-slate-900"
+                aria-haspopup="true"
+              >
+                Solutions
+                <svg className="h-3 w-3" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <path d="M3 4.5l3 3 3-3" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </button>
+              <div className="absolute right-0 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity">
+                <div className="w-64 rounded-lg border border-gray-100 bg-white shadow-lg py-2">
+                  {SOLUTIONS_LINKS.map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className="block px-4 py-2 text-sm text-slate-700 hover:bg-gray-50 hover:text-primary"
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <a
+              href={SIGN_IN_URL}
               className="hidden sm:inline text-sm text-slate-600 hover:text-slate-900"
             >
-              See it in action
-            </Link>
+              Sign in
+            </a>
             <Button href={SIGN_UP_URL} color="blue">
               Start Planning Free
             </Button>
