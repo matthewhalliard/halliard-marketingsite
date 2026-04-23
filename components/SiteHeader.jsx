@@ -25,6 +25,12 @@ export default function SiteHeader() {
                 className="h-8 w-auto"
               />
             </Link>
+            <Link
+              href="/features"
+              className="hidden sm:inline text-sm text-slate-600 hover:text-slate-900"
+            >
+              Features
+            </Link>
             <div className="relative group hidden sm:block">
               <button
                 type="button"
