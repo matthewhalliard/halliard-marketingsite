@@ -31,6 +31,12 @@ export default function SiteHeader() {
             >
               Features
             </Link>
+            <Link
+              href="/pricing"
+              className="hidden sm:inline text-sm text-slate-600 hover:text-slate-900"
+            >
+              Pricing
+            </Link>
             <div className="relative group hidden sm:block">
               <button
                 type="button"
