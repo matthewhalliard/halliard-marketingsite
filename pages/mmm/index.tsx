@@ -148,24 +148,6 @@ function LeadCaptureForm({ id, heading, subheading }: { id?: string; heading?: s
 }
 
 /* ─── Header ─── */
-function Header() {
-  return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/70 backdrop-blur-sm border-b border-gray-100">
-      <Container className="">
-        <nav className="relative flex justify-between items-center py-5">
-          <Link href="/" aria-label="Home">
-            <img
-              src="https://framerusercontent.com/images/s97qQgHpRGf1STgb6vDMgqYNU4.png?scale-down-to=512"
-              alt="Halliard"
-              className="h-8 w-auto"
-            />
-          </Link>
-        </nav>
-      </Container>
-    </header>
-  )
-}
-
 /* ─── Quiz CTA card (primary hero CTA) ─── */
 function QuizCtaCard() {
   const onClick = () => {
@@ -656,7 +638,6 @@ export default function MMMPage() {
         <meta name="twitter:image" content="/images/product/response-curves.webp" />
         <link rel="canonical" href="https://halliardmedia.com/mmm" />
       </Head>
-      <Header />
       <main>
         <Hero />
         <StatsSection />
@@ -681,6 +662,5 @@ export default function MMMPage() {
   )
 }
 
-MMMPage.disableNavbar = true
 MMMPage.fullWidth = true
 MMMPage.siteBg = true

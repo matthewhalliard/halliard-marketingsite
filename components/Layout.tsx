@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { ReactNode } from "react";
-import Navbar from "./Navbar";
+import SiteHeader from "./SiteHeader";
 import Footer from "./Footer";
 import Script from "next/script";
 
@@ -54,7 +54,7 @@ export default function Layout({ title = "Halliard | Ultrafast Media Planning To
         referrerPolicy="strict-origin-when-cross-origin"
       />
 
-      {!hideNavbar && <Navbar />}
+      {!hideNavbar && <SiteHeader />}
       <main className={fullWidth ? "w-full" : "mx-auto max-w-7xl px-4"}>{children}</main>
       {!fullWidth && <Footer />}
     </>

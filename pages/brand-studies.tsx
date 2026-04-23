@@ -11,32 +11,6 @@ import {
 
 const PLUS_PATTERN = "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%231a6ab4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")"
 
-function Header() {
-  return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/70 backdrop-blur-sm border-b border-gray-100">
-      <Container className="">
-        <nav className="relative flex justify-between items-center py-5">
-          <Link href="/" aria-label="Home">
-            <img
-              src="https://framerusercontent.com/images/s97qQgHpRGf1STgb6vDMgqYNU4.png?scale-down-to=512"
-              alt="Halliard"
-              className="h-8 w-auto"
-            />
-          </Link>
-          <div className="flex items-center gap-x-4">
-            <Link
-              href="/trytoday"
-              className="hidden sm:inline text-sm text-slate-600 hover:text-slate-900"
-            >
-              Schedule a Demo
-            </Link>
-          </div>
-        </nav>
-      </Container>
-    </header>
-  )
-}
-
 function Hero() {
   return (
     <div className="relative overflow-hidden">
@@ -345,7 +319,6 @@ export default function BrandStudiesPage() {
         <meta name="twitter:image" content="/images/product/measurement.webp" />
         <link rel="canonical" href="https://halliardmedia.com/brand-studies" />
       </Head>
-      <Header />
       <main>
         <Hero />
         <PainSection />
@@ -359,6 +332,5 @@ export default function BrandStudiesPage() {
   )
 }
 
-BrandStudiesPage.disableNavbar = true
 BrandStudiesPage.fullWidth = true
 BrandStudiesPage.siteBg = true

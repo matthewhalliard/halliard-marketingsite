@@ -6,29 +6,6 @@ import { Container } from '../components/mmm/Container'
 
 const SIGN_UP_URL = 'https://app.halliardmedia.com/sign-up'
 
-function Header() {
-  return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/70 backdrop-blur-sm border-b border-gray-100">
-      <Container className="">
-        <nav className="relative flex justify-between items-center py-5">
-          <Link href="/" aria-label="Home">
-            <img
-              src="https://framerusercontent.com/images/s97qQgHpRGf1STgb6vDMgqYNU4.png?scale-down-to=512"
-              alt="Halliard"
-              className="h-8 w-auto"
-            />
-          </Link>
-          <div className="flex items-center gap-x-4">
-            <Button href={SIGN_UP_URL} color="blue" className="">
-              Start Planning Free
-            </Button>
-          </div>
-        </nav>
-      </Container>
-    </header>
-  )
-}
-
 export default function TryToday() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -82,7 +59,6 @@ export default function TryToday() {
         <Head>
           <title>Thanks! | Halliard</title>
         </Head>
-        <Header />
         <main className="pt-32 pb-20">
           <Container className="max-w-xl text-center">
             <div className="text-5xl mb-6">🎉</div>
@@ -118,7 +94,6 @@ export default function TryToday() {
           content="Request a personalized demo of Halliard's media planning platform. See flowcharting, scenario comparison, and measurement in action."
         />
       </Head>
-      <Header />
       <main className="pt-32 pb-20">
         <Container className="max-w-xl">
           <div className="text-center mb-10">
@@ -217,6 +192,5 @@ export default function TryToday() {
   )
 }
 
-(TryToday as any).disableNavbar = true;
 (TryToday as any).fullWidth = true;
 (TryToday as any).siteBg = true;
