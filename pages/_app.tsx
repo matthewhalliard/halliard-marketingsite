@@ -15,15 +15,25 @@ export default function App({ Component, pageProps }: AppProps) {
   const fullWidth = (Component as any).fullWidth ?? false;
   const siteBg = (Component as any).siteBg ?? false;
 
-  // Global click tracker: fire Meta Pixel InitiateCheckout when a user
-  // clicks any link that points at the Halliard sign-up URL.
+  // Global sign-up CTA click tracker. Any click on a link pointing at
+  // app.halliardmedia.com/sign-up fires both InitiateCheckout (funnel
+  // intent signal) and CompleteRegistration (optimization target for
+  // Meta ads, since the actual app sign-up doesn't have the pixel yet).
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       const target = (e.target as HTMLElement | null)?.closest('a[href]');
       if (!target) return;
       const href = (target as HTMLAnchorElement).href || '';
       if (href.includes('app.halliardmedia.com/sign-up')) {
-        trackPixel('InitiateCheckout', { content_name: 'signup_click', source: 'marketing_site' });
+        trackPixel('InitiateCheckout', {
+          content_name: 'signup_click',
+          source: 'marketing_site',
+        });
+        trackPixel('CompleteRegistration', {
+          content_name: 'signup_click',
+          source: 'marketing_site',
+          status: 'click',
+        });
       }
     };
     document.addEventListener('click', handler, { capture: true });
