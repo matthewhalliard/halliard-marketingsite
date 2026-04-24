@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { Button } from '../components/mmm/Button'
 import { Container } from '../components/mmm/Container'
+import { PixelViewContent } from '@/components/PixelViewContent'
 
 const SIGN_UP_URL = 'https://app.halliardmedia.com/sign-up'
 
@@ -262,6 +263,7 @@ export default function FeaturesPage() {
         />
       </Head>
       <main>
+        <PixelViewContent name="features" category="product" />
         <Hero />
         <FeatureSections />
         <IntegrationsStrip />

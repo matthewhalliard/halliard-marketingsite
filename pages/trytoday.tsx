@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import Link from 'next/link'
 import { Button } from '../components/mmm/Button'
 import { Container } from '../components/mmm/Container'
+import { trackPixel } from '@/lib/meta-pixel'
 
 const SIGN_UP_URL = 'https://app.halliardmedia.com/sign-up'
 
@@ -45,6 +46,8 @@ export default function TryToday() {
           source: 'trytoday',
         })
       }
+      // Fire Meta Pixel Lead event
+      trackPixel('Lead', { content_name: 'demo_request', source: 'trytoday' })
       setSubmitted(true)
     } catch {
       // Still show success — Formspark may have received it

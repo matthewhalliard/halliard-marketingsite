@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useState } from 'react'
 import { Container } from '../../components/mmm/Container'
+import { PixelViewContent } from '@/components/PixelViewContent'
 import {
   ExclamationTriangleIcon,
   CurrencyDollarIcon,
@@ -639,6 +640,7 @@ export default function MMMPage() {
         <link rel="canonical" href="https://halliardmedia.com/mmm" />
       </Head>
       <main>
+        <PixelViewContent name="mmm" category="product" />
         <Hero />
         <StatsSection />
         <ClientLogos />

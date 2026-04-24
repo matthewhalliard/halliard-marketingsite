@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import { useState } from 'react'
+import { PixelViewContent } from '@/components/PixelViewContent'
 
 function Logo() {
   return (
@@ -101,6 +102,7 @@ export default function OOHLanding() {
           content="Can't prove your billboard and outdoor advertising ROI? Get a free OOH Impact Snapshot powered by Marketing Mix Modeling. No pixels, no tracking — just math."
         />
       </Head>
+      <PixelViewContent name="ooh" category="product" />
 
       {/* Hero */}
       <section className="relative overflow-hidden bg-slate-900 pt-8 pb-20 sm:pt-12 sm:pb-32">

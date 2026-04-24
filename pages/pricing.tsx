@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { Button } from '../components/mmm/Button'
 import { Container } from '../components/mmm/Container'
+import { PixelViewContent } from '@/components/PixelViewContent'
 import {
   CheckIcon,
   ChartBarSquareIcon,
@@ -347,6 +348,7 @@ export default function PricingPage() {
         />
       </Head>
       <main>
+        <PixelViewContent name="pricing" category="commercial" />
         <Hero />
         <FreePlan />
         <PlatformTiers />

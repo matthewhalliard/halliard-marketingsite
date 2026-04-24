@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { Button } from '../components/mmm/Button'
 import { Container } from '../components/mmm/Container'
+import { PixelViewContent } from '@/components/PixelViewContent'
 import {
   EyeSlashIcon,
   BanknotesIcon,
@@ -320,6 +321,7 @@ export default function BrandStudiesPage() {
         <link rel="canonical" href="https://halliardmedia.com/brand-studies" />
       </Head>
       <main>
+        <PixelViewContent name="brand-studies" category="product" />
         <Hero />
         <PainSection />
         <FeaturesSection />
