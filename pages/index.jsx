@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { Button } from '../components/mmm/Button'
 import { Container } from '../components/mmm/Container'
+import { trackCta } from '../lib/track'
 import {
   CalendarDaysIcon,
   ScaleIcon,
@@ -50,10 +51,19 @@ function Hero() {
             <span className="font-semibold text-slate-900">Free to start.</span>
           </p>
           <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4">
-            <Button href={SIGN_UP_URL} color="blue">
+            <Button
+              href={SIGN_UP_URL}
+              color="blue"
+              onClick={() => trackCta('start_free', 'hero')}
+            >
               Start Planning Free
             </Button>
-            <Button href="/trytoday" variant="outline" color="slate">
+            <Button
+              href="/trytoday"
+              variant="outline"
+              color="slate"
+              onClick={() => trackCta('see_in_action', 'hero')}
+            >
               See It In Action →
             </Button>
           </div>
@@ -278,10 +288,19 @@ function MidPageCTA() {
             Free to start. No credit card required.
           </p>
           <div className="mt-8 flex flex-col sm:flex-row justify-center gap-4">
-            <Button href={SIGN_UP_URL} color="blue">
+            <Button
+              href={SIGN_UP_URL}
+              color="blue"
+              onClick={() => trackCta('start_free', 'mid_cta')}
+            >
               Start Planning Free
             </Button>
-            <Button href="/trytoday" variant="outline" color="slate">
+            <Button
+              href="/trytoday"
+              variant="outline"
+              color="slate"
+              onClick={() => trackCta('see_in_action', 'mid_cta')}
+            >
               See It In Action →
             </Button>
           </div>
@@ -463,10 +482,20 @@ function CTAFooter() {
           </p>
 
           <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
-            <Button href={SIGN_UP_URL} variant="solid" color="white">
+            <Button
+              href={SIGN_UP_URL}
+              variant="solid"
+              color="white"
+              onClick={() => trackCta('start_free', 'bottom_cta')}
+            >
               Start Planning Free
             </Button>
-            <Button href="/trytoday" variant="outline" color="white">
+            <Button
+              href="/trytoday"
+              variant="outline"
+              color="white"
+              onClick={() => trackCta('see_in_action', 'bottom_cta')}
+            >
               See It In Action →
             </Button>
           </div>

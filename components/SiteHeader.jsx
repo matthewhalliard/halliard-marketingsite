@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { Button } from './mmm/Button'
 import { Container } from './mmm/Container'
+import { trackCta } from '../lib/track'
 
 const SIGN_UP_URL = 'https://app.halliardmedia.com/sign-up'
 const SIGN_IN_URL = 'https://app.halliardmedia.com/sign-in'
@@ -70,7 +71,12 @@ export default function SiteHeader() {
             >
               Sign in
             </a>
-            <Button href={SIGN_UP_URL} color="blue" className="">
+            <Button
+              href={SIGN_UP_URL}
+              color="blue"
+              className=""
+              onClick={() => trackCta('start_free', 'navbar')}
+            >
               Start Planning Free
             </Button>
           </div>
