@@ -71,7 +71,16 @@
         "company_name": "Unknown",
         "personal_sentence": "We're built for independent media agencies\u2014if that's you, let's talk."
       }
+    },
+    "lamagnolianights@gmail.com": {
+      "status": "skipped_student_or_junk",
+      "signed_up_at": "2026-04-28T16:46:46.512000+00:00",
+      "enrichment": {
+        "category": "student_or_junk",
+        "company_name": "Classy Cajuns Co.",
+        "personal_sentence": "We couldn't find much online about Classy Cajuns Co.\u2014mind sharing what you're working on?"
+      }
     }
   },
-  "last_poll": "2026-04-28T16:15:15.559571+00:00"
+  "last_poll": "2026-04-28T17:15:22.199837+00:00"
 }
