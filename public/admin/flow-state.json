@@ -80,7 +80,43 @@
         "company_name": "Classy Cajuns Co.",
         "personal_sentence": "We couldn't find much online about Classy Cajuns Co.\u2014mind sharing what you're working on?"
       }
+    },
+    "sraichle@dietz.digital": {
+      "status": "in_flow",
+      "signed_up_at": "2026-04-29T15:36:21.189000Z",
+      "enrichment": {
+        "category": "agency",
+        "company_name": "dietz.digital",
+        "personal_sentence": "Dietz.digital does creative + digital work for major brands\u2014curious how Halliard fits into your media planning."
+      },
+      "first_name": "",
+      "scheduled": {
+        "day0": {
+          "id": "9fbd3804-c967-4ac9-8250-29667c7e4239",
+          "at": "2026-04-29T16:17:17Z",
+          "subject": "Welcome to Halliard \u2014 quick note from the founder",
+          "sent": false
+        },
+        "day3": {
+          "id": "94c884f6-ec1c-48b5-a1ea-f8bd6a113760",
+          "at": "2026-05-02T15:36:21Z",
+          "subject": "How's it going with Halliard?",
+          "sent": false
+        },
+        "day7": {
+          "id": "df27f423-3f06-46ea-9be7-21fcd5e3a692",
+          "at": "2026-05-06T15:36:21Z",
+          "subject": "Is Halliard a fit for what you do?",
+          "sent": false
+        },
+        "day14": {
+          "id": "b37ba44c-b135-455e-abdb-4bfb6a0fa465",
+          "at": "2026-05-13T15:36:21Z",
+          "subject": "Closing your Halliard account",
+          "sent": false
+        }
+      }
     }
   },
-  "last_poll": "2026-04-29T15:15:17.964804+00:00"
+  "last_poll": "2026-04-29T16:15:19.088346+00:00"
 }
