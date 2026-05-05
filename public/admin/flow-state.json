@@ -28,7 +28,7 @@
       }
     },
     "a.alshershary@gmail.com": {
-      "status": "in_flow",
+      "status": "awaiting_shutdown",
       "signed_up_at": "2026-04-20T22:12:29.357000+00:00",
       "enrichment": {
         "category": "brand",
@@ -61,7 +61,8 @@
           "subject": "Closing your Halliard account",
           "sent": false
         }
-      }
+      },
+      "shutdown_flagged": true
     },
     "lotticommunications@gmail.com": {
       "status": "skipped_student_or_junk",
@@ -125,7 +126,43 @@
         "company_name": "SlipStitch",
         "personal_sentence": "The domain is parked and unclaimed\u2014we'd love to hear what you're building."
       }
+    },
+    "lilygbehar@gmail.com": {
+      "status": "in_flow",
+      "signed_up_at": "2026-05-05T21:40:55.446000+00:00",
+      "enrichment": {
+        "category": "unknown",
+        "company_name": "MORPH X ALASKA AIRLINES DATA",
+        "personal_sentence": "Not sure what MORPH X does yet\u2014curious to learn more about your media planning work."
+      },
+      "first_name": "lily",
+      "scheduled": {
+        "day0": {
+          "id": "ea26d007-f110-4483-9224-54731e91a9d2",
+          "at": "2026-05-05T22:17:17Z",
+          "subject": "Welcome to Halliard \u2014 quick note from the founder",
+          "sent": false
+        },
+        "day3": {
+          "id": "59f3c1f7-bb9e-4385-9f1d-4c082bfd5a44",
+          "at": "2026-05-08T21:40:55Z",
+          "subject": "How's it going with Halliard?",
+          "sent": false
+        },
+        "day7": {
+          "id": "c61d85a9-007f-4810-84b3-93d2b0c10e92",
+          "at": "2026-05-12T21:40:55Z",
+          "subject": "Is Halliard a fit for what you do?",
+          "sent": false
+        },
+        "day14": {
+          "id": "c62147fb-bb61-4b8a-a843-d710a9d65d02",
+          "at": "2026-05-19T21:40:55Z",
+          "subject": "Closing your Halliard account",
+          "sent": false
+        }
+      }
     }
   },
-  "last_poll": "2026-05-05T21:15:14.716610+00:00"
+  "last_poll": "2026-05-05T22:15:19.848985+00:00"
 }
