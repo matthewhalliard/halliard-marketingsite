@@ -34,6 +34,115 @@ function scrollToBooking() {
   if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
 }
 
+// Tracks iframe engagement: fires Meta Lead + PostHog events when the visitor
+// either (a) views the calendar long enough OR (b) clicks INTO the iframe
+// (best available cross-origin signal that they're actively booking).
+function useCalendarEngagementTracking(
+  iframeRef: React.RefObject<HTMLIFrameElement | null>,
+) {
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    if (!iframeRef.current) return
+
+    let viewedFired = false
+    let engagedFired = false
+    let iframeInView = false
+    let inViewSince: number | null = null
+    const VIEWED_THRESHOLD_MS = 3000
+
+    function fireCalendarViewed() {
+      if (viewedFired) return
+      viewedFired = true
+      try {
+        const w = window as any
+        if (w.posthog) {
+          w.posthog.capture('calendar_viewed', { page: '/demo' })
+        }
+      } catch {}
+      trackPixel('Lead', {
+        content_name: 'calendar_viewed',
+        source: 'demo_lp',
+        engagement_tier: 'viewed',
+      })
+    }
+
+    function fireCalendarEngaged() {
+      if (engagedFired) return
+      engagedFired = true
+      try {
+        const w = window as any
+        if (w.posthog) {
+          w.posthog.capture('calendar_engaged', {
+            page: '/demo',
+            signal: 'iframe_click',
+          })
+        }
+        if (w.gtag) {
+          w.gtag('event', 'conversion', {
+            send_to: 'AW-672346912/qEmHCJ6L_pgcEKDmzMAC',
+            value: 50.0,
+            currency: 'USD',
+          })
+        }
+      } catch {}
+      // Strongest signal we can capture without Apps Script — fire as Lead
+      // so Meta optimizes against this. content_name lets us segment in CAPI.
+      trackPixel('Lead', {
+        content_name: 'calendar_engaged',
+        source: 'demo_lp',
+        engagement_tier: 'engaged',
+      })
+    }
+
+    // 1. IntersectionObserver — fires `calendar_viewed` after iframe is in
+    //    viewport for >3s. Runs continuously to track "is iframe in view"
+    //    so the blur listener below knows whether to count blur as engagement.
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+            iframeInView = true
+            if (inViewSince === null) {
+              inViewSince = Date.now()
+              setTimeout(() => {
+                if (iframeInView && !viewedFired) {
+                  fireCalendarViewed()
+                }
+              }, VIEWED_THRESHOLD_MS)
+            }
+          } else {
+            iframeInView = false
+            inViewSince = null
+          }
+        }
+      },
+      { threshold: [0, 0.5, 1] },
+    )
+    observer.observe(iframeRef.current)
+
+    // 2. window.blur listener — when user clicks INTO the iframe, the parent
+    //    window loses focus. If the iframe is also in the viewport, that's
+    //    the strongest possible signal short of an Apps Script webhook that
+    //    the user is actively engaging with the booking widget.
+    function onBlur() {
+      // Defer to next tick: document.activeElement may not have updated yet
+      setTimeout(() => {
+        if (!iframeInView) return
+        const active = document.activeElement as HTMLElement | null
+        if (active && active.tagName === 'IFRAME' && active === iframeRef.current) {
+          fireCalendarEngaged()
+        }
+      }, 50)
+    }
+    window.addEventListener('blur', onBlur)
+
+    return () => {
+      observer.disconnect()
+      window.removeEventListener('blur', onBlur)
+    }
+  }, [iframeRef])
+}
+
 function fireDemoIntent(location: string) {
   try {
     trackCta('demo_intent_click', location)
@@ -255,6 +364,9 @@ function ValueSection() {
 }
 
 function BookingSection() {
+  const iframeRef = React.useRef<HTMLIFrameElement>(null)
+  useCalendarEngagementTracking(iframeRef)
+
   return (
     <section id="book" className="bg-slate-50 py-20 scroll-mt-20">
       <Container className="">
@@ -270,6 +382,7 @@ function BookingSection() {
         <div className="mt-10 mx-auto max-w-3xl">
           <div className="rounded-xl border border-tint overflow-hidden bg-white shadow-sm">
             <iframe
+              ref={iframeRef}
               src={CALENDAR_EMBED_SRC}
               style={{ border: 0 }}
               width="100%"
