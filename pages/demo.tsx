@@ -23,8 +23,7 @@ function MinimalHeader() {
 }
 
 const CALENDAR_EMBED_SRC =
-  // TODO swap with the real iframe src from Google Appointment Schedule "Embed" share option
-  'https://calendar.google.com/calendar/appointments/schedules/AcZssZ3FnvqgzK-aKgcTvNmT8Et-d6Xxi1a07hUF13ufKd6OtSjRf9tUJyuP73kyK7ysyI8jebXoLYMF?gv=true'
+  'https://calendar.google.com/calendar/appointments/schedules/AcZssZ1jtM9RZtwp5-TuTTBbXg9Wkc9VEV1dLDUpVS-ajVsNJOoJSBGQDyd7hZ-S_x7mVHGYpZTRPHW2?gv=true'
 
 const PLUS_PATTERN =
   "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%231a6ab4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")"
