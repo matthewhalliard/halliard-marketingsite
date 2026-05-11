@@ -162,7 +162,16 @@
           "sent": false
         }
       }
+    },
+    "nb.3865@gmail.com": {
+      "status": "skipped_student_or_junk",
+      "signed_up_at": "2026-05-11T09:26:05.382000+00:00",
+      "enrichment": {
+        "category": "student_or_junk",
+        "company_name": "NB",
+        "personal_sentence": "We built Halliard for independent media agencies\u2014reach out if that's you."
+      }
     }
   },
-  "last_poll": "2026-05-11T09:15:13.572436+00:00"
+  "last_poll": "2026-05-11T10:15:17.399508+00:00"
 }
