@@ -171,7 +171,43 @@
         "company_name": "NB",
         "personal_sentence": "We built Halliard for independent media agencies\u2014reach out if that's you."
       }
+    },
+    "david.bigio@banmemedia.com": {
+      "status": "in_flow",
+      "signed_up_at": "2026-05-12T15:58:50.831000+00:00",
+      "enrichment": {
+        "category": "agency",
+        "company_name": "Banme Media, LLC",
+        "personal_sentence": "You're building research-first media strategy\u2014exactly what independent agencies need to compete."
+      },
+      "first_name": "David",
+      "scheduled": {
+        "day0": {
+          "id": "2191ddec-73f9-4d33-84aa-371eced1a364",
+          "at": "2026-05-12T16:17:18Z",
+          "subject": "Welcome to Halliard \u2014 quick note from the founder",
+          "sent": false
+        },
+        "day3": {
+          "id": "d057f943-f079-4fd7-817e-c3bf48309b91",
+          "at": "2026-05-15T15:58:50Z",
+          "subject": "How's it going with Halliard?",
+          "sent": false
+        },
+        "day7": {
+          "id": "c2f78564-665f-4dfd-9298-a8be62c630c8",
+          "at": "2026-05-19T15:58:50Z",
+          "subject": "Is Halliard a fit for what you do?",
+          "sent": false
+        },
+        "day14": {
+          "id": "05d2e882-4a34-4316-9b8f-42a86b14db67",
+          "at": "2026-05-26T15:58:50Z",
+          "subject": "Closing your Halliard account",
+          "sent": false
+        }
+      }
     }
   },
-  "last_poll": "2026-05-12T15:15:15.206886+00:00"
+  "last_poll": "2026-05-12T16:15:19.826517+00:00"
 }
