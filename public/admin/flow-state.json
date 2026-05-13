@@ -207,7 +207,43 @@
           "sent": false
         }
       }
+    },
+    "sjwendling@gmail.com": {
+      "status": "in_flow",
+      "signed_up_at": "2026-05-13T21:34:54.640000+00:00",
+      "enrichment": {
+        "category": "agency",
+        "company_name": "Wendling+",
+        "personal_sentence": "Wendling+ looks like a solid independent shop\u2014curious to see how Halliard fits your workflow."
+      },
+      "first_name": "Steve",
+      "scheduled": {
+        "day0": {
+          "id": "37cb51e0-b5a6-49e5-9f22-8c9d8b1a0796",
+          "at": "2026-05-13T22:17:15Z",
+          "subject": "Welcome to Halliard \u2014 quick note from the founder",
+          "sent": false
+        },
+        "day3": {
+          "id": "fa7d92e6-67ef-4531-ada3-4ba4c6f444be",
+          "at": "2026-05-16T21:34:54Z",
+          "subject": "How's it going with Halliard?",
+          "sent": false
+        },
+        "day7": {
+          "id": "0008e931-07bb-4f53-b052-01c3136439b5",
+          "at": "2026-05-20T21:34:54Z",
+          "subject": "Is Halliard a fit for what you do?",
+          "sent": false
+        },
+        "day14": {
+          "id": "cce3cbeb-4d15-4f86-8e14-f4688010d814",
+          "at": "2026-05-27T21:34:54Z",
+          "subject": "Closing your Halliard account",
+          "sent": false
+        }
+      }
     }
   },
-  "last_poll": "2026-05-13T21:15:12.666351+00:00"
+  "last_poll": "2026-05-13T22:15:16.323436+00:00"
 }
