@@ -122,10 +122,10 @@ function Hero() {
             <span className="text-primary">own buying agent.</span>
           </h1>
           <p className="mx-auto mt-7 max-w-2xl text-lg sm:text-xl tracking-tight text-slate-700 leading-relaxed">
-            Not a holdco DSP&rsquo;s agent. Not the exchange&rsquo;s agent.
+            Not a DSP&rsquo;s agent. Not the exchange&rsquo;s agent.
             <strong className="text-slate-900"> Your agency&rsquo;s agent.</strong>{' '}
-            Trained on your strategies, your definition of premium media, your brand-safety
-            rules &mdash; shopping every exchange on your client&rsquo;s behalf.
+            Trained on your strategies, your definition of premium media, and your brand-safety
+            rules. Shopping every exchange on your client&rsquo;s behalf.
           </p>
           <div className="mt-9 flex flex-col sm:flex-row justify-center gap-4">
             <Button
@@ -150,60 +150,96 @@ function Hero() {
 }
 
 // =============================================================================
-// "IT KNOWS YOUR AGENCY" — what the agent ingests
-// Diagram: agency icon in center, principles fanning out as labeled cards.
+// "IT KNOWS YOUR AGENCY" — iconed list of what the agent ingests.
+// Implemented as a responsive grid of icon-cards (not an SVG diagram).
 // =============================================================================
-function PrinciplesDiagram() {
-  const items = [
-    { x: 90, y: 60, label: 'Your channel strategies', sub: 'mix targets per client' },
-    { x: 540, y: 60, label: 'Your definition of premium media', sub: 'allow-lists, tier-1 placements' },
-    { x: 90, y: 180, label: 'Your brand-safety rules', sub: 'block-lists, content categories' },
-    { x: 540, y: 180, label: 'Your audience playbook', sub: 'priority segments, look-alikes' },
-    { x: 90, y: 300, label: 'Your frequency &amp; pacing rules', sub: 'per-user, per-flight caps' },
-    { x: 540, y: 300, label: 'Your performance history', sub: 'past response curves, learnings' },
-  ]
+const PRINCIPLE_ITEMS: Array<{ icon: React.ReactNode; title: string; body: string }> = [
+  {
+    title: 'Your channel strategies',
+    body: 'Mix targets per client, growth bets, channels you trust.',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M3 3v18h18" />
+        <path d="M7 14l4-4 3 3 5-7" />
+      </svg>
+    ),
+  },
+  {
+    title: 'Your definition of premium media',
+    body: 'Allow-lists, tier-1 placements, the inventory your clients pay for.',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M12 2l2.39 6.95H22l-6.2 4.5 2.39 6.95L12 16l-6.18 4.4 2.39-6.95L2 8.95h7.61L12 2z" />
+      </svg>
+    ),
+  },
+  {
+    title: 'Your brand-safety rules',
+    body: 'Block-lists, content categories, anything your clients flag as off-limits.',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+        <path d="M9 12l2 2 4-4" />
+      </svg>
+    ),
+  },
+  {
+    title: 'Your audience playbook',
+    body: 'Priority segments, look-alikes, custom 1st-party data per client.',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <circle cx="9" cy="8" r="3.2" />
+        <path d="M2.5 19c.6-3.4 3.4-5.5 6.5-5.5s5.9 2.1 6.5 5.5" />
+        <circle cx="17" cy="7" r="2.4" />
+        <path d="M14.7 13.5c2.6 0 5 1.6 5.5 4.2" />
+      </svg>
+    ),
+  },
+  {
+    title: 'Your frequency and pacing rules',
+    body: 'Per-user caps, per-flight pacing, weekday and daypart limits.',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="9" />
+        <path d="M12 7v5l3.5 2" />
+      </svg>
+    ),
+  },
+  {
+    title: 'Your performance history',
+    body: 'Past response curves, what worked for which client, what to repeat.',
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M21 21H4a1 1 0 01-1-1V3" />
+        <rect x="7" y="12" width="3" height="6" rx="0.5" />
+        <rect x="12" y="8" width="3" height="10" rx="0.5" />
+        <rect x="17" y="5" width="3" height="13" rx="0.5" />
+      </svg>
+    ),
+  },
+]
+
+function PrincipleCard({
+  icon,
+  title,
+  body,
+}: {
+  icon: React.ReactNode
+  title: string
+  body: string
+}) {
   return (
-    <svg
-      viewBox="0 0 900 400"
-      className="w-full h-auto"
-      role="img"
-      aria-label="What a Halliard buyer agent ingests from your agency: channel strategies, premium-media definition, brand-safety rules, audience playbook, frequency rules, performance history."
-    >
-      <defs>
-        <marker id="knows-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
-          <path d="M 0 0 L 10 5 L 0 10 z" fill="#1a6ab4" />
-        </marker>
-      </defs>
-
-      {/* Center agent */}
-      <g>
-        <rect x="365" y="160" width="170" height="80" rx="14" fill="#263285" />
-        <text x="450" y="190" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="12" fontWeight="700" fill="#d3e4ff" letterSpacing="1.5">YOUR AGENT</text>
-        <text x="450" y="215" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="16" fontWeight="700" fill="#ffffff">Halliard buyer</text>
-      </g>
-
-      {items.map((it, i) => {
-        // connector geometry: from card-edge to agent-edge
-        const fromX = it.x < 450 ? it.x + 280 : it.x
-        const fromY = it.y + 36
-        const toX = it.x < 450 ? 363 : 537
-        const toY = 200
-        return (
-          <g key={i}>
-            <rect x={it.x} y={it.y} width="280" height="72" rx="10" fill="#ffffff" stroke="#cbd5e1" strokeWidth="1.5" />
-            <rect x={it.x} y={it.y} width="5" height="72" rx="2" fill="#1a6ab4" />
-            <text x={it.x + 20} y={it.y + 31} fontFamily="Inter, system-ui" fontSize="14" fontWeight="600" fill="#0f172a" dangerouslySetInnerHTML={{ __html: it.label }} />
-            <text x={it.x + 20} y={it.y + 53} fontFamily="Inter, system-ui" fontSize="12" fill="#64748b">{it.sub}</text>
-            <line x1={fromX} y1={fromY} x2={toX} y2={toY} stroke="#cbd5e1" strokeWidth="1.5" />
-          </g>
-        )
-      })}
-
-      {/* Footer */}
-      <text x="450" y="370" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="13" fill="#64748b">
-        Your senior buyers&rsquo; playbook, codified once &mdash; executed on every impression.
-      </text>
-    </svg>
+    <div className="rounded-xl border border-tint bg-white p-5 sm:p-6 shadow-sm">
+      <div className="flex items-start gap-4">
+        <div className="flex h-10 w-10 flex-none items-center justify-center rounded-lg bg-tint text-primary">
+          <span className="block h-5 w-5">{icon}</span>
+        </div>
+        <div className="min-w-0">
+          <h3 className="text-base font-semibold text-slate-900">{title}</h3>
+          <p className="mt-1 text-sm text-slate-600 leading-relaxed">{body}</p>
+        </div>
+      </div>
+    </div>
   )
 }
 
@@ -223,12 +259,17 @@ function KnowsYourAgencySection() {
               Before the agent buys anything, it learns your agency. Your channel strategies,
               your premium-media list, your brand-safety guidelines, your audience priorities,
               your frequency rules, the performance data behind every past plan. It buys the
-              way your team would buy &mdash; just on every impression, all at once.
+              way your team would buy, just on every impression, all at once.
             </p>
           </div>
-          <div className="mt-12 rounded-2xl border border-tint bg-slate-50 p-6 sm:p-10 shadow-sm">
-            <PrinciplesDiagram />
+          <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+            {PRINCIPLE_ITEMS.map((it) => (
+              <PrincipleCard key={it.title} icon={it.icon} title={it.title} body={it.body} />
+            ))}
           </div>
+          <p className="mt-10 text-center text-sm text-slate-500">
+            Your senior buyers&rsquo; playbook, codified once. Executed on every impression.
+          </p>
         </div>
       </Container>
     </section>
@@ -249,26 +290,26 @@ function DspTaxDiagram() {
       role="img"
       aria-label="$100K of client media budget under a holdco DSP loses 20-25% to fees and bias. Under a Halliard buyer agent it loses ~5% take rate."
     >
-      {/* Left: Holdco DSP path */}
-      <text x="200" y="32" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="14" fontWeight="700" fill="#7f1d1d" letterSpacing="1.5">HOLDCO DSP</text>
+      {/* Left: DSP path */}
+      <text x="200" y="32" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="14" fontWeight="700" fill="#7f1d1d" letterSpacing="1.5">DSP</text>
       <text x="200" y="52" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="12" fill="#64748b">$100K client budget</text>
 
-      {/* Stacked bar — 280px tall total */}
+      {/* Stacked bar */}
       <g>
-        {/* DSP seat fee 18% */}
-        <rect x="120" y="80" width="160" height="50" fill="#dc2626" />
-        <text x="200" y="110" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="13" fontWeight="600" fill="#ffffff">DSP seat fee · 18%</text>
+        {/* DSP seat fee 15% */}
+        <rect x="120" y="80" width="160" height="42" fill="#dc2626" />
+        <text x="200" y="107" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="13" fontWeight="600" fill="#ffffff">DSP seat fee · 15%</text>
 
-        {/* Data fees 7% */}
-        <rect x="120" y="130" width="160" height="22" fill="#ea580c" />
-        <text x="200" y="146" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="11" fontWeight="600" fill="#ffffff">Data fees · 7%</text>
+        {/* Audience / data fees 10% */}
+        <rect x="120" y="122" width="160" height="28" fill="#ea580c" />
+        <text x="200" y="141" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="12" fontWeight="600" fill="#ffffff">Audience &amp; data fees · 10%</text>
 
         {/* Bias premium 5% */}
-        <rect x="120" y="152" width="160" height="16" fill="#f59e0b" />
-        <text x="200" y="165" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="10" fontWeight="600" fill="#ffffff">Owned-inventory premium · 5%</text>
+        <rect x="120" y="150" width="160" height="16" fill="#f59e0b" />
+        <text x="200" y="163" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="10" fontWeight="600" fill="#ffffff">Owned-inventory premium · 5%</text>
 
         {/* Working media 70% */}
-        <rect x="120" y="168" width="160" height="220" fill="#f1f5f9" stroke="#cbd5e1" />
+        <rect x="120" y="166" width="160" height="222" fill="#f1f5f9" stroke="#cbd5e1" />
         <text x="200" y="275" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="16" fontWeight="700" fill="#0f172a">$70K</text>
         <text x="200" y="295" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="12" fill="#64748b">working media · 70%</text>
       </g>
@@ -311,12 +352,13 @@ function DspTaxSection() {
               The DSP tax
             </p>
             <h2 className="mt-4 font-display text-3xl font-medium tracking-tight text-slate-900 sm:text-4xl">
-              Stop paying 20% to a vendor<br />that buys against you.
+              Stop paying 30% to a vendor<br />that buys against you.
             </h2>
             <p className="mx-auto mt-5 max-w-2xl text-lg text-slate-700 leading-relaxed">
-              Every holdco DSP charges 15&ndash;25% in fees &mdash; and prioritises the inventory
-              it makes the most fee on. A Halliard buyer agent runs on a flat take rate and
-              shops the open market on your client&rsquo;s behalf. Same client budget, more working media.
+              Every DSP charges 15 to 25% in fees on top of audience and data costs, and
+              prioritises the inventory it makes the most fee on. A Halliard buyer agent runs
+              on a flat take rate and shops the open market on your client&rsquo;s behalf. Same
+              client budget, more working media.
             </p>
           </div>
           <div className="mt-12 rounded-2xl border border-tint bg-white p-6 sm:p-10 shadow-sm">
@@ -336,7 +378,7 @@ function HowItWorksDiagram() {
   const STEPS = [
     {
       x: 30, label: 'You plan', step: '1',
-      sub: 'Strategy, channel mix, budget &mdash; in Halliard or imported from your stack.',
+      sub: 'Strategy, channel mix, budget. In Halliard or imported from your stack.',
     },
     {
       x: 240, label: 'Agent shops every exchange', step: '2',
@@ -344,7 +386,7 @@ function HowItWorksDiagram() {
     },
     {
       x: 480, label: 'Planner reviews recs', step: '3',
-      sub: 'Your buyer sees every line item the agent proposes &mdash; pick, swap, reject.',
+      sub: 'Your buyer sees every line item the agent proposes. Pick, swap, reject.',
     },
     {
       x: 690, label: 'Approved buys execute', step: '4',
@@ -413,7 +455,7 @@ function HowItWorksSection() {
             </h2>
             <p className="mx-auto mt-5 max-w-2xl text-lg text-slate-700 leading-relaxed">
               The agent never buys without a human approving the line item.
-              Your senior buyers spend their time on strategy and client conversations &mdash;
+              Your senior buyers spend their time on strategy and client conversations,
               not on platform UIs.
             </p>
           </div>
@@ -448,8 +490,8 @@ function ExchangesSection() {
             One agent. Every exchange.
           </h2>
           <p className="mx-auto mt-5 max-w-2xl text-lg text-slate-700 leading-relaxed">
-            Your buyer agent quotes inventory across the open market &mdash; not just a single
-            DSP&rsquo;s walled garden. Direct exchange access via PubMatic / ADCP, plus
+            Your buyer agent quotes inventory across the open market, not just a single
+            DSP&rsquo;s walled garden. Direct exchange access via PubMatic and ADCP, plus
             integrated buys on Meta, Google, and Amazon&rsquo;s self-serve surfaces.
           </p>
           <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
@@ -492,7 +534,7 @@ function ProofQuote() {
             We cancelled the wrong line item for two years.&rdquo;
           </p>
           <p className="mt-6 text-sm font-medium text-slate-700">
-            — Director of Strategy, independent agency
+            Director of Strategy, independent agency
           </p>
         </div>
       </Container>
@@ -542,7 +584,7 @@ function EnquirySection() {
       console.error('Enquiry submission failed', err)
       setStatus('error')
       setErrorMsg(
-        'Something went wrong — please email matthew@halliardmedia.com directly.',
+        'Something went wrong. Please email matthew@halliardmedia.com directly.',
       )
     }
   }
@@ -557,7 +599,7 @@ function EnquirySection() {
             </h2>
             <p className="mt-4 text-lg text-slate-700">
               We&rsquo;re onboarding a small cohort of independent agencies in 2026.
-              Tell us about your agency and what you&rsquo;re trying to solve &mdash;
+              Tell us about your agency and what you&rsquo;re trying to solve.
               Matthew will reply personally within 24 hours to schedule a call.
             </p>
           </div>
@@ -644,7 +686,7 @@ function EnquirySection() {
                   rows={3}
                   required
                   className="mt-1.5 block w-full rounded-md border border-slate-300 bg-white px-3 py-2.5 text-base text-slate-900 placeholder-slate-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-                  placeholder="One line is fine — e.g. 'we want to offer our clients their own buying agent' or 'we want to move buying off TTD'"
+                  placeholder="One line is fine. e.g. 'we want to offer our clients their own buying agent' or 'we want to move buying off TTD'"
                 />
               </div>
 
@@ -724,7 +766,7 @@ function AgenticPage() {
         <title>Your Client's Own Buying Agent | Halliard</title>
         <meta
           name="description"
-          content="Give your agency clients their own buying agent. Trained on your strategies, your premium-media definition, your brand-safety rules — shopping every exchange on their behalf."
+          content="Give your agency clients their own buying agent. Trained on your strategies, your premium-media definition, and your brand-safety rules. Shopping every exchange on their behalf."
         />
         <meta name="robots" content="noindex,follow" />
         <meta property="og:title" content="Your client's own buying agent | Halliard" />
