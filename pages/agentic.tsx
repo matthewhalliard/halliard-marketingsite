@@ -163,89 +163,356 @@ function Hero() {
   )
 }
 
+// =============================================================================
+// On-brand SVG diagrams. All use Halliard palette:
+//   primary navy   #263285 (Tailwind: primary)
+//   secondary blue #1a6ab4
+//   tint           #d3e4ff
+//   slate-900      #0f172a
+//   slate-700      #334155
+//   slate-300      #cbd5e1
+//   red accent     #dc2626 (only for "biased" / problem-state)
+// =============================================================================
+
+function BiasDiagram() {
+  // Shows: Holdco DSPs route money INTO their own inventory (red arrows)
+  // vs. Halliard agent routes money into the OPEN exchange (blue arrows).
+  return (
+    <svg
+      viewBox="0 0 800 460"
+      className="w-full h-auto"
+      role="img"
+      aria-label="Holdco DSPs route media spend into their own inventory. A Halliard buyer agent routes spend across the open exchange."
+    >
+      <defs>
+        <marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#dc2626" />
+        </marker>
+        <marker id="arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#1a6ab4" />
+        </marker>
+      </defs>
+
+      {/* Left column: BIASED */}
+      <text x="200" y="34" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="15" fontWeight="700" fill="#dc2626" letterSpacing="1.5">
+        BIASED STACK
+      </text>
+      <text x="200" y="56" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="13" fill="#64748b">
+        TTD / Amazon DSP / Google DV360
+      </text>
+
+      {/* Agency box (biased) */}
+      <rect x="100" y="86" width="200" height="58" rx="10" fill="#ffffff" stroke="#cbd5e1" strokeWidth="1.5" />
+      <text x="200" y="112" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="15" fontWeight="600" fill="#0f172a">Your agency</text>
+      <text x="200" y="131" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="12" fill="#64748b">$ media budget</text>
+
+      {/* Holdco DSP box */}
+      <rect x="100" y="182" width="200" height="58" rx="10" fill="#fef2f2" stroke="#fca5a5" strokeWidth="1.5" />
+      <text x="200" y="208" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="15" fontWeight="600" fill="#7f1d1d">Holdco DSP</text>
+      <text x="200" y="227" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="11" fill="#b91c1c">Takes 15-25% + recommends own inventory</text>
+
+      {/* Owned inventory boxes */}
+      <rect x="60" y="310" width="95" height="44" rx="8" fill="#ffffff" stroke="#fca5a5" strokeWidth="1.5" />
+      <text x="107" y="330" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="12" fontWeight="600" fill="#7f1d1d">Owned</text>
+      <text x="107" y="345" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="10" fill="#b91c1c">inventory A</text>
+
+      <rect x="165" y="310" width="95" height="44" rx="8" fill="#ffffff" stroke="#fca5a5" strokeWidth="1.5" />
+      <text x="212" y="330" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="12" fontWeight="600" fill="#7f1d1d">Owned</text>
+      <text x="212" y="345" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="10" fill="#b91c1c">inventory B</text>
+
+      <rect x="245" y="310" width="55" height="44" rx="8" fill="#ffffff" stroke="#e2e8f0" strokeWidth="1.5" strokeDasharray="4 3" />
+      <text x="272" y="330" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="11" fontWeight="600" fill="#94a3b8">Other</text>
+      <text x="272" y="345" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="9" fill="#94a3b8">crumbs</text>
+
+      {/* Arrows agency → DSP */}
+      <line x1="200" y1="144" x2="200" y2="177" stroke="#dc2626" strokeWidth="2.5" markerEnd="url(#arrow-red)" />
+      <text x="265" y="165" fontFamily="Inter, system-ui" fontSize="11" fontWeight="600" fill="#7f1d1d">$1.00</text>
+
+      {/* Arrows DSP → inventory (thick to owned, thin to other) */}
+      <line x1="170" y1="242" x2="125" y2="305" stroke="#dc2626" strokeWidth="4" markerEnd="url(#arrow-red)" />
+      <line x1="200" y1="242" x2="205" y2="305" stroke="#dc2626" strokeWidth="4" markerEnd="url(#arrow-red)" />
+      <line x1="230" y1="242" x2="265" y2="305" stroke="#fca5a5" strokeWidth="1.5" markerEnd="url(#arrow-red)" strokeDasharray="3 2" />
+
+      {/* Footer cost */}
+      <rect x="100" y="388" width="200" height="40" rx="6" fill="#fef2f2" stroke="#fca5a5" />
+      <text x="200" y="413" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="13" fontWeight="600" fill="#7f1d1d">Your client pays for the bias.</text>
+
+      {/* Divider */}
+      <line x1="400" y1="30" x2="400" y2="430" stroke="#e2e8f0" strokeWidth="1" strokeDasharray="4 4" />
+
+      {/* Right column: HALLIARD */}
+      <text x="600" y="34" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="15" fontWeight="700" fill="#263285" letterSpacing="1.5">
+        UNBIASED STACK
+      </text>
+      <text x="600" y="56" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="13" fill="#64748b">
+        Halliard buyer agent
+      </text>
+
+      {/* Agency box */}
+      <rect x="500" y="86" width="200" height="58" rx="10" fill="#ffffff" stroke="#cbd5e1" strokeWidth="1.5" />
+      <text x="600" y="112" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="15" fontWeight="600" fill="#0f172a">Your agency</text>
+      <text x="600" y="131" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="12" fill="#64748b">$ media budget</text>
+
+      {/* Halliard agent */}
+      <rect x="500" y="182" width="200" height="58" rx="10" fill="#d3e4ff" stroke="#263285" strokeWidth="1.5" />
+      <text x="600" y="208" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="15" fontWeight="600" fill="#263285">Halliard agent</text>
+      <text x="600" y="227" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="11" fill="#1a6ab4">Take rate. Buys to your principles.</text>
+
+      {/* Open exchange boxes — even distribution */}
+      <rect x="450" y="310" width="66" height="44" rx="8" fill="#ffffff" stroke="#1a6ab4" strokeWidth="1.5" />
+      <text x="483" y="330" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="11" fontWeight="600" fill="#263285">CTV</text>
+      <text x="483" y="344" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="9" fill="#1a6ab4">SSP</text>
+
+      <rect x="522" y="310" width="66" height="44" rx="8" fill="#ffffff" stroke="#1a6ab4" strokeWidth="1.5" />
+      <text x="555" y="330" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="11" fontWeight="600" fill="#263285">OLV</text>
+      <text x="555" y="344" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="9" fill="#1a6ab4">SSP</text>
+
+      <rect x="594" y="310" width="66" height="44" rx="8" fill="#ffffff" stroke="#1a6ab4" strokeWidth="1.5" />
+      <text x="627" y="330" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="11" fontWeight="600" fill="#263285">Audio</text>
+      <text x="627" y="344" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="9" fill="#1a6ab4">SSP</text>
+
+      <rect x="666" y="310" width="66" height="44" rx="8" fill="#ffffff" stroke="#1a6ab4" strokeWidth="1.5" />
+      <text x="699" y="330" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="11" fontWeight="600" fill="#263285">OOH</text>
+      <text x="699" y="344" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="9" fill="#1a6ab4">SSP</text>
+
+      {/* Arrows agency → agent */}
+      <line x1="600" y1="144" x2="600" y2="177" stroke="#1a6ab4" strokeWidth="2.5" markerEnd="url(#arrow-blue)" />
+      <text x="665" y="165" fontFamily="Inter, system-ui" fontSize="11" fontWeight="600" fill="#263285">$1.00</text>
+
+      {/* Arrows agent → exchange (even) */}
+      <line x1="540" y1="242" x2="495" y2="305" stroke="#1a6ab4" strokeWidth="2" markerEnd="url(#arrow-blue)" />
+      <line x1="580" y1="242" x2="560" y2="305" stroke="#1a6ab4" strokeWidth="2" markerEnd="url(#arrow-blue)" />
+      <line x1="620" y1="242" x2="630" y2="305" stroke="#1a6ab4" strokeWidth="2" markerEnd="url(#arrow-blue)" />
+      <line x1="660" y1="242" x2="700" y2="305" stroke="#1a6ab4" strokeWidth="2" markerEnd="url(#arrow-blue)" />
+
+      {/* Footer */}
+      <rect x="500" y="388" width="200" height="40" rx="6" fill="#d3e4ff" stroke="#263285" />
+      <text x="600" y="413" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="13" fontWeight="600" fill="#263285">Every $1 buys where the plan says.</text>
+    </svg>
+  )
+}
+
 function WhatIsItSection() {
   return (
-    <section className="bg-white py-16 border-b border-tint">
+    <section className="bg-white py-16 sm:py-20 border-b border-tint">
       <Container className="">
-        <div className="mx-auto max-w-4xl">
-          <h2 className="font-display text-3xl font-medium tracking-tight text-slate-900 text-center sm:text-4xl">
-            DSPs recommend their own inventory.<br />
-            <span className="text-primary">Your agent shouldn&rsquo;t.</span>
-          </h2>
-          <p className="mx-auto mt-6 max-w-2xl text-lg text-slate-700 text-center leading-relaxed">
-            Trade Desk, Amazon, Google &mdash; every holdco-grade buyer is recommending the
-            inventory it makes the most fee on. Independents pay that bias every time they buy.
-          </p>
-          <p className="mx-auto mt-4 max-w-2xl text-lg text-slate-700 text-center leading-relaxed">
-            A Halliard buyer agent buys against <em>your</em> media principles &mdash; brand safety,
-            audience strategy, channel mix, frequency caps &mdash; trained on how your senior
-            buyers actually buy. Direct exchange access via PubMatic / ADCP. Take rate, not seat licenses.
-          </p>
+        <div className="mx-auto max-w-5xl">
+          <div className="text-center">
+            <h2 className="font-display text-3xl font-medium tracking-tight text-slate-900 sm:text-4xl">
+              DSPs recommend their own inventory.<br />
+              <span className="text-primary">Your agent shouldn&rsquo;t.</span>
+            </h2>
+            <p className="mx-auto mt-6 max-w-2xl text-lg text-slate-700 leading-relaxed">
+              Trade Desk, Amazon, Google &mdash; every holdco-grade buyer is recommending the
+              inventory it makes the most fee on. A Halliard buyer agent works for your agency,
+              not for the exchange.
+            </p>
+          </div>
+          <div className="mt-12 rounded-2xl border border-tint bg-slate-50 p-6 sm:p-10 shadow-sm">
+            <BiasDiagram />
+          </div>
         </div>
       </Container>
     </section>
   )
 }
 
-const PILLARS: Array<{ title: string; body: string; img: string; alt: string }> = [
-  {
-    title: 'Plan — the intelligence layer',
-    body: 'Channel mix, reach &amp; frequency, scenario versions, MMM-grade response curves. The plan your senior strategists would build, in minutes, not weeks. Already in production with Lewis Media.',
-    img: '/images/product/flighting.webp',
-    alt: 'Halliard planner with channel-level budget allocation across 18 channels',
-  },
-  {
-    title: 'Buy — your agent on the exchange',
-    body: 'Your buyer agent inherits your team&rsquo;s principles, executes plans into the open exchange via PubMatic / ADCP, and respects every guardrail you set. Fees are a take rate on media &mdash; not a per-seat tax.',
-    img: '/images/product/compare.webp',
-    alt: 'Halliard scenario comparison showing strategy options side by side',
-  },
-  {
-    title: 'Measure — feedback into the next plan',
-    body: 'MMM-grade response curves and brand-study reads close the loop. The agent learns from outcomes; next quarter&rsquo;s plan starts from real attribution, not last year&rsquo;s spreadsheet.',
-    img: '/images/product/response-curves.webp',
-    alt: 'Halliard response curves dashboard showing channel-level marginal returns',
-  },
-]
-
-function PillarRow({
-  item,
-  reverse,
-}: {
-  item: { title: string; body: string; img: string; alt: string }
-  reverse?: boolean
-}) {
+// -----------------------------------------------------------------------------
+// Agent anatomy diagram — what a Halliard buyer agent IS.
+// Inputs: brand safety, audience strategy, channel mix, frequency caps,
+// historical performance → agent reasoning → execution on PubMatic/ADCP.
+// -----------------------------------------------------------------------------
+function AgentAnatomyDiagram() {
   return (
-    <div
-      className={`flex flex-col ${reverse ? 'lg:flex-row-reverse' : 'lg:flex-row'} items-center gap-10 lg:gap-16`}
+    <svg
+      viewBox="0 0 900 460"
+      className="w-full h-auto"
+      role="img"
+      aria-label="A Halliard buyer agent takes your agency's principles as inputs, reasons about every impression, and executes buys via PubMatic and ADCP."
     >
-      <div className="lg:flex-1">
-        <h3
-          className="font-display text-2xl sm:text-3xl font-medium text-slate-900"
-          dangerouslySetInnerHTML={{ __html: item.title }}
-        />
-        <p
-          className="mt-3 text-lg text-slate-700 leading-relaxed"
-          dangerouslySetInnerHTML={{ __html: item.body }}
-        />
-      </div>
-      <div className="lg:flex-1 w-full">
-        <div className="rounded-xl border border-tint shadow-lg overflow-hidden bg-white">
-          <img src={item.img} alt={item.alt} className="w-full h-auto" />
-        </div>
-      </div>
-    </div>
+      <defs>
+        <marker id="agent-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#1a6ab4" />
+        </marker>
+      </defs>
+
+      {/* LEFT — principles (5 stacked cards) */}
+      <text x="110" y="34" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="13" fontWeight="700" fill="#475569" letterSpacing="1.5">
+        YOUR PRINCIPLES
+      </text>
+
+      {[
+        { y: 60, label: 'Brand safety', sub: 'allow / block lists' },
+        { y: 132, label: 'Audience strategy', sub: 'priority segments, look-alikes' },
+        { y: 204, label: 'Channel mix', sub: 'CTV 40% / OLV 25% / Audio 20%…' },
+        { y: 276, label: 'Frequency caps', sub: 'per-user / per-flight' },
+        { y: 348, label: 'Performance history', sub: 'past response curves' },
+      ].map((p, i) => (
+        <g key={i}>
+          <rect x="20" y={p.y} width="200" height="58" rx="10" fill="#ffffff" stroke="#cbd5e1" strokeWidth="1.5" />
+          <rect x="20" y={p.y} width="5" height="58" rx="2" fill="#1a6ab4" />
+          <text x="38" y={p.y + 25} fontFamily="Inter, system-ui" fontSize="14" fontWeight="600" fill="#0f172a">{p.label}</text>
+          <text x="38" y={p.y + 45} fontFamily="Inter, system-ui" fontSize="11" fill="#64748b">{p.sub}</text>
+          {/* connector */}
+          <line x1="220" y1={p.y + 29} x2="350" y2="230" stroke="#cbd5e1" strokeWidth="1.5" />
+        </g>
+      ))}
+
+      {/* CENTER — the agent */}
+      <text x="450" y="34" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="13" fontWeight="700" fill="#263285" letterSpacing="1.5">
+        HALLIARD BUYER AGENT
+      </text>
+
+      <rect x="350" y="168" width="200" height="124" rx="16" fill="#263285" />
+      <rect x="350" y="168" width="200" height="124" rx="16" fill="#1a6ab4" opacity="0.18" />
+      <text x="450" y="203" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="15" fontWeight="700" fill="#ffffff">Reason</text>
+      <text x="450" y="229" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="15" fontWeight="700" fill="#ffffff">Bid</text>
+      <text x="450" y="255" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="15" fontWeight="700" fill="#ffffff">Buy</text>
+      <text x="450" y="281" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="11" fill="#d3e4ff">every impression, every second</text>
+
+      {/* Big arrow into agent */}
+      <line x1="320" y1="230" x2="345" y2="230" stroke="#1a6ab4" strokeWidth="3" markerEnd="url(#agent-arrow)" />
+
+      {/* Big arrow out of agent */}
+      <line x1="552" y1="230" x2="672" y2="230" stroke="#1a6ab4" strokeWidth="3" markerEnd="url(#agent-arrow)" />
+
+      {/* RIGHT — exchange */}
+      <text x="790" y="34" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="13" fontWeight="700" fill="#475569" letterSpacing="1.5">
+        OPEN EXCHANGE
+      </text>
+
+      <rect x="680" y="60" width="220" height="340" rx="14" fill="#f8fafc" stroke="#cbd5e1" strokeWidth="1.5" />
+
+      <text x="790" y="90" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="13" fontWeight="600" fill="#1a6ab4">via PubMatic / ADCP</text>
+      <line x1="700" y1="105" x2="880" y2="105" stroke="#e2e8f0" strokeWidth="1" />
+
+      {[
+        { y: 122, label: 'CTV inventory' },
+        { y: 158, label: 'Online video' },
+        { y: 194, label: 'Digital audio' },
+        { y: 230, label: 'Social' },
+        { y: 266, label: 'Display' },
+        { y: 302, label: 'OOH / DOOH' },
+        { y: 338, label: 'Direct deals' },
+      ].map((row, i) => (
+        <g key={i}>
+          <circle cx="702" cy={row.y + 8} r="4" fill="#1a6ab4" />
+          <text x="716" y={row.y + 13} fontFamily="Inter, system-ui" fontSize="13" fill="#0f172a">{row.label}</text>
+        </g>
+      ))}
+
+      {/* Footer label */}
+      <text x="450" y="420" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="13" fill="#64748b">
+        Every buy auditable, every reasoning logged. You stay in control.
+      </text>
+    </svg>
   )
 }
 
-function PillarsSection() {
+// -----------------------------------------------------------------------------
+// Plan → Buy → Measure loop diagram. A flywheel with feedback arrows.
+// -----------------------------------------------------------------------------
+function LoopDiagram() {
+  return (
+    <svg
+      viewBox="0 0 800 400"
+      className="w-full h-auto"
+      role="img"
+      aria-label="Plan to Buy to Measure flywheel: planning informs the buyer agent, buying produces outcomes, measurement feeds back into the next plan."
+    >
+      <defs>
+        <marker id="loop-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#263285" />
+        </marker>
+      </defs>
+
+      {/* PLAN node */}
+      <g>
+        <rect x="60" y="140" width="180" height="120" rx="14" fill="#d3e4ff" stroke="#263285" strokeWidth="1.5" />
+        <text x="150" y="170" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="12" fontWeight="700" fill="#263285" letterSpacing="1.5">1 · PLAN</text>
+        <text x="150" y="196" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="15" fontWeight="600" fill="#0f172a">Intelligence layer</text>
+        <text x="150" y="218" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="11" fill="#1a6ab4">channel mix · reach</text>
+        <text x="150" y="233" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="11" fill="#1a6ab4">response curves</text>
+        <text x="150" y="248" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="11" fill="#1a6ab4">scenario versions</text>
+      </g>
+
+      {/* BUY node */}
+      <g>
+        <rect x="310" y="140" width="180" height="120" rx="14" fill="#263285" />
+        <text x="400" y="170" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="12" fontWeight="700" fill="#d3e4ff" letterSpacing="1.5">2 · BUY</text>
+        <text x="400" y="196" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="15" fontWeight="600" fill="#ffffff">Your agent</text>
+        <text x="400" y="218" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="11" fill="#d3e4ff">your principles</text>
+        <text x="400" y="233" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="11" fill="#d3e4ff">PubMatic / ADCP</text>
+        <text x="400" y="248" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="11" fill="#d3e4ff">take-rate pricing</text>
+      </g>
+
+      {/* MEASURE node */}
+      <g>
+        <rect x="560" y="140" width="180" height="120" rx="14" fill="#d3e4ff" stroke="#263285" strokeWidth="1.5" />
+        <text x="650" y="170" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="12" fontWeight="700" fill="#263285" letterSpacing="1.5">3 · MEASURE</text>
+        <text x="650" y="196" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="15" fontWeight="600" fill="#0f172a">Feedback loop</text>
+        <text x="650" y="218" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="11" fill="#1a6ab4">MMM · incrementality</text>
+        <text x="650" y="233" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="11" fill="#1a6ab4">brand studies</text>
+        <text x="650" y="248" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="11" fill="#1a6ab4">attribution</text>
+      </g>
+
+      {/* Forward arrows */}
+      <line x1="240" y1="200" x2="305" y2="200" stroke="#263285" strokeWidth="2.5" markerEnd="url(#loop-arrow)" />
+      <line x1="490" y1="200" x2="555" y2="200" stroke="#263285" strokeWidth="2.5" markerEnd="url(#loop-arrow)" />
+
+      {/* Feedback arc — measure back to plan */}
+      <path d="M 650 260 Q 650 340 400 340 Q 150 340 150 260" fill="none" stroke="#263285" strokeWidth="2.5" markerEnd="url(#loop-arrow)" />
+      <text x="400" y="363" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="12" fontWeight="600" fill="#263285">feeds the next plan</text>
+
+      {/* Top labels for forward arrows */}
+      <text x="272" y="190" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="10" fontWeight="600" fill="#1a6ab4">approved plan</text>
+      <text x="522" y="190" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="10" fontWeight="600" fill="#1a6ab4">delivery + spend</text>
+
+      {/* Header */}
+      <text x="400" y="50" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="22" fontWeight="700" fill="#0f172a">One unbiased system</text>
+      <text x="400" y="78" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="14" fill="#64748b">Plan, buy, and measure all feed each other &mdash; with no vendor in the middle taking a cut on bias.</text>
+    </svg>
+  )
+}
+
+function DiagramsSection() {
   return (
     <section className="bg-white py-20">
       <Container className="">
-        <div className="mx-auto max-w-6xl space-y-20">
-          {PILLARS.map((item, i) => (
-            <PillarRow key={item.title} item={item} reverse={i % 2 === 1} />
-          ))}
+        <div className="mx-auto max-w-6xl">
+          {/* Agent anatomy */}
+          <div className="text-center">
+            <p className="inline-flex items-center gap-2 rounded-full bg-tint px-3 py-1 text-xs font-semibold uppercase tracking-wider text-primary">
+              How it works
+            </p>
+            <h2 className="mt-4 font-display text-3xl font-medium tracking-tight text-slate-900 sm:text-4xl">
+              Your agency&rsquo;s principles.<br />
+              Your agent&rsquo;s job.
+            </h2>
+            <p className="mx-auto mt-5 max-w-2xl text-lg text-slate-700">
+              The agent takes your senior buyers&rsquo; rules as inputs &mdash; brand safety, audience
+              strategy, channel mix, frequency caps, performance history &mdash; and executes
+              every impression accordingly via PubMatic / ADCP.
+            </p>
+          </div>
+          <div className="mt-10 rounded-2xl border border-tint bg-slate-50 p-6 sm:p-10 shadow-sm">
+            <AgentAnatomyDiagram />
+          </div>
+
+          {/* Plan / Buy / Measure loop */}
+          <div className="mt-24 text-center">
+            <h2 className="font-display text-3xl font-medium tracking-tight text-slate-900 sm:text-4xl">
+              Plan, Buy, Measure &mdash; one loop, one vendor.
+            </h2>
+            <p className="mx-auto mt-5 max-w-2xl text-lg text-slate-700">
+              Most agencies stitch together a planner, a DSP, an MMM vendor, and a brand-study
+              firm. Halliard ships them as one closed loop &mdash; so what you learn in measurement
+              actually shows up in next quarter&rsquo;s plan.
+            </p>
+          </div>
+          <div className="mt-10 rounded-2xl border border-tint bg-slate-50 p-6 sm:p-10 shadow-sm">
+            <LoopDiagram />
+          </div>
         </div>
       </Container>
     </section>
@@ -517,7 +784,7 @@ function AgenticPage() {
       <main className="pb-24 lg:pb-0">
         <Hero />
         <WhatIsItSection />
-        <PillarsSection />
+        <DiagramsSection />
         <ProofQuote />
         <EnquirySection />
         <StickyMobileCta />
