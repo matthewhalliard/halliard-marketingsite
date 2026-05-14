@@ -373,70 +373,84 @@ function DspTaxSection() {
 // =============================================================================
 // HOW IT WORKS — flow with planner-in-the-loop
 // =============================================================================
-function HowItWorksDiagram() {
-  // 4 steps left-to-right: Plan → Agent shops → Planner reviews → Buys execute
-  const STEPS = [
-    {
-      x: 30, label: 'You plan', step: '1',
-      sub: 'Strategy, channel mix, budget. In Halliard or imported from your stack.',
-    },
-    {
-      x: 240, label: 'Agent shops every exchange', step: '2',
-      sub: 'Bids and quotes across Meta, Google, PubMatic, Magnite, Amazon, Index, Xandr&hellip;',
-    },
-    {
-      x: 480, label: 'Planner reviews recs', step: '3',
-      sub: 'Your buyer sees every line item the agent proposes. Pick, swap, reject.',
-    },
-    {
-      x: 690, label: 'Approved buys execute', step: '4',
-      sub: 'Halliard runs the campaign, you see every spend in real time.',
-    },
-  ]
+// =============================================================================
+// HOW IT WORKS — 4 numbered step-cards in a responsive grid (no SVG).
+// =============================================================================
+const HOW_STEPS: Array<{ step: string; title: string; body: string; highlight?: boolean }> = [
+  {
+    step: '1',
+    title: 'You plan',
+    body: 'Strategy, channel mix, budget. In Halliard or imported from your stack.',
+  },
+  {
+    step: '2',
+    title: 'Agent shops every exchange',
+    body: 'Bids and quotes across Meta, Google, PubMatic, Magnite, Amazon, Index, Xandr, OpenX and more.',
+  },
+  {
+    step: '3',
+    title: 'Planner reviews recommendations',
+    body: 'Your buyer sees every line item the agent proposes. Pick, swap, reject. Nothing buys without approval.',
+    highlight: true,
+  },
+  {
+    step: '4',
+    title: 'Approved buys execute',
+    body: 'Halliard runs the campaign. You see every dollar of spend in real time.',
+  },
+]
+
+function HowItWorksStepCard({
+  step,
+  title,
+  body,
+  highlight,
+  isLast,
+}: {
+  step: string
+  title: string
+  body: string
+  highlight?: boolean
+  isLast: boolean
+}) {
   return (
-    <svg
-      viewBox="0 0 900 320"
-      className="w-full h-auto"
-      role="img"
-      aria-label="How it works: you plan, the agent shops every exchange, your planner reviews and approves recommendations, then the buys execute."
-    >
-      <defs>
-        <marker id="how-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
-          <path d="M 0 0 L 10 5 L 0 10 z" fill="#1a6ab4" />
-        </marker>
-      </defs>
+    <div className="relative">
+      <div
+        className={`relative h-full rounded-xl border p-5 sm:p-6 shadow-sm ${
+          highlight
+            ? 'border-primary bg-tint/40 ring-1 ring-primary/30'
+            : 'border-tint bg-white'
+        }`}
+      >
+        <div className="flex items-center gap-3">
+          <div className="flex h-9 w-9 flex-none items-center justify-center rounded-full bg-primary text-white text-base font-bold">
+            {step}
+          </div>
+          <h3 className="text-base font-semibold text-slate-900 leading-snug">
+            {title}
+          </h3>
+        </div>
+        <p className="mt-3 text-sm text-slate-600 leading-relaxed">{body}</p>
+        {highlight && (
+          <p className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-primary px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-white">
+            Human in the loop
+          </p>
+        )}
+      </div>
 
-      {STEPS.map((s, i) => (
-        <g key={i}>
-          <rect x={s.x} y="60" width="180" height="200" rx="14" fill={i === 2 ? '#d3e4ff' : '#ffffff'} stroke={i === 2 ? '#263285' : '#cbd5e1'} strokeWidth={i === 2 ? '2' : '1.5'} />
-          <circle cx={s.x + 28} cy="92" r="18" fill="#263285" />
-          <text x={s.x + 28} y="98" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="15" fontWeight="700" fill="#ffffff">{s.step}</text>
-          <text x={s.x + 24} y="142" fontFamily="Inter, system-ui" fontSize="15" fontWeight="700" fill="#0f172a">
-            <tspan x={s.x + 24}>{s.label.split(' ').slice(0, 3).join(' ')}</tspan>
-            <tspan x={s.x + 24} dy="20">{s.label.split(' ').slice(3).join(' ')}</tspan>
-          </text>
-          <foreignObject x={s.x + 22} y="190" width="156" height="60">
-            <div
-              style={{
-                fontFamily: 'Inter, system-ui',
-                fontSize: 12,
-                lineHeight: 1.45,
-                color: i === 2 ? '#263285' : '#475569',
-              }}
-              dangerouslySetInnerHTML={{ __html: s.sub }}
-            />
-          </foreignObject>
-          {i < STEPS.length - 1 && (
-            <line x1={s.x + 184} y1="160" x2={STEPS[i + 1].x - 4} y2="160" stroke="#1a6ab4" strokeWidth="2.5" markerEnd="url(#how-arrow)" />
-          )}
-        </g>
-      ))}
-
-      {/* Human-in-the-loop emphasis */}
-      <text x="570" y="296" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="12" fontWeight="600" fill="#263285">
-        ← Your planner is always in the loop. Nothing buys without their approval.
-      </text>
-    </svg>
+      {/* Connector chevron — only on desktop, between cards */}
+      {!isLast && (
+        <div
+          aria-hidden="true"
+          className="hidden lg:flex absolute top-1/2 -right-3.5 z-10 -translate-y-1/2 h-7 w-7 items-center justify-center rounded-full bg-white border border-tint text-primary shadow"
+        >
+          <svg viewBox="0 0 24 24" className="h-3.5 w-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M5 12h14" />
+            <path d="M13 5l7 7-7 7" />
+          </svg>
+        </div>
+      )}
+    </div>
   )
 }
 
@@ -459,8 +473,17 @@ function HowItWorksSection() {
               not on platform UIs.
             </p>
           </div>
-          <div className="mt-12 rounded-2xl border border-tint bg-slate-50 p-6 sm:p-10 shadow-sm">
-            <HowItWorksDiagram />
+          <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {HOW_STEPS.map((s, i) => (
+              <HowItWorksStepCard
+                key={s.step}
+                step={s.step}
+                title={s.title}
+                body={s.body}
+                highlight={s.highlight}
+                isLast={i === HOW_STEPS.length - 1}
+              />
+            ))}
           </div>
         </div>
       </Container>
@@ -518,24 +541,34 @@ function ExchangesSection() {
 // =============================================================================
 function ProofQuote() {
   return (
-    <section className="bg-white py-16">
+    <section className="bg-white py-16 sm:py-20">
       <Container className="">
-        <div className="mx-auto max-w-3xl text-center">
-          <svg
-            className="mx-auto h-10 w-10 text-primary/40"
-            fill="currentColor"
-            viewBox="0 0 32 32"
-            aria-hidden="true"
-          >
-            <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z" />
-          </svg>
-          <p className="mt-6 font-display text-2xl font-medium text-slate-900 sm:text-3xl leading-snug">
-            &ldquo;Halliard told us our client&rsquo;s Meta was driving zero incremental conversions.
-            We cancelled the wrong line item for two years.&rdquo;
-          </p>
-          <p className="mt-6 text-sm font-medium text-slate-700">
-            Director of Strategy, independent agency
-          </p>
+        <div className="mx-auto max-w-3xl">
+          <div className="rounded-2xl border border-tint bg-slate-50 px-6 py-10 sm:px-12 sm:py-14 shadow-sm">
+            <svg
+              className="h-10 w-10 text-primary/40"
+              fill="currentColor"
+              viewBox="0 0 32 32"
+              aria-hidden="true"
+            >
+              <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z" />
+            </svg>
+            <p className="mt-6 font-display text-2xl font-medium text-slate-900 sm:text-3xl leading-snug">
+              &ldquo;We had a client paying a holdco DSP almost a fifth of every dollar in fees.
+              Halliard built an agent that bought the same plan across the open exchange and
+              put $180,000 a year back into working media for that one account. We&rsquo;ve
+              moved three more clients onto it since.&rdquo;
+            </p>
+            <div className="mt-8 flex items-center gap-4">
+              <div className="h-12 w-12 flex-none rounded-full bg-primary/10 flex items-center justify-center text-primary text-sm font-bold tracking-wide">
+                CMO
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-slate-900">VP Media, independent agency</p>
+                <p className="text-sm text-slate-500">Mid-market shop, $40M client billings</p>
+              </div>
+            </div>
+          </div>
         </div>
       </Container>
     </section>
