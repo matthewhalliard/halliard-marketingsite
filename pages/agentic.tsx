@@ -495,17 +495,26 @@ function HowItWorksSection() {
 // EXCHANGES — where the agent shops
 // =============================================================================
 function ExchangesSection() {
-  // Use text-only chip grid (no logos to maintain — and avoids trademark issues
-  // with logo usage on a cold-paid LP).
-  const exchanges = [
-    'Meta', 'Google DV360', 'PubMatic', 'Magnite', 'Amazon DSP',
-    'Index Exchange', 'OpenX', 'Xandr', 'TripleLift',
-    'The Trade Desk', 'StackAdapt', 'Direct deals',
+  // Official vendor logos in /public/logos/vendors. All logos are used as
+  // nominative-fair-use references to compatible exchange platforms. We don't
+  // claim partnership, endorsement, or any commercial relationship with these
+  // brands beyond what's actually true.
+  const exchanges: Array<{ name: string; file: string; isPng?: boolean }> = [
+    { name: 'Meta', file: 'meta.svg' },
+    { name: 'Google', file: 'google.svg' },
+    { name: 'Amazon', file: 'amazon.svg' },
+    { name: 'The Trade Desk', file: 'ttd.svg' },
+    { name: 'PubMatic', file: 'pubmatic.svg' },
+    { name: 'Magnite', file: 'magnite.svg' },
+    { name: 'Index Exchange', file: 'index.png', isPng: true },
+    { name: 'OpenX', file: 'openx.svg' },
+    { name: 'TripleLift', file: 'triplelift.png', isPng: true },
+    { name: 'StackAdapt', file: 'stackadapt.svg' },
   ]
   return (
     <section className="bg-slate-50 py-16 sm:py-20 border-b border-tint">
       <Container className="">
-        <div className="mx-auto max-w-4xl text-center">
+        <div className="mx-auto max-w-5xl text-center">
           <p className="inline-flex items-center gap-2 rounded-full bg-tint px-3 py-1 text-xs font-semibold uppercase tracking-wider text-primary">
             Shops everywhere your buyers do
           </p>
@@ -517,18 +526,26 @@ function ExchangesSection() {
             DSP&rsquo;s walled garden. Direct exchange access via PubMatic and ADCP, plus
             integrated buys on Meta, Google, and Amazon&rsquo;s self-serve surfaces.
           </p>
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
-            {exchanges.map((name) => (
-              <span
-                key={name}
-                className="inline-flex items-center rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-800 shadow-sm"
+          <div className="mt-12 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
+            {exchanges.map((ex) => (
+              <div
+                key={ex.name}
+                className="flex h-20 items-center justify-center rounded-xl border border-tint bg-white px-4 py-3 shadow-sm"
               >
-                {name}
-              </span>
+                <img
+                  src={`/logos/vendors/${ex.file}`}
+                  alt={ex.name}
+                  className="max-h-9 w-auto max-w-full object-contain"
+                  loading="lazy"
+                />
+              </div>
             ))}
           </div>
           <p className="mt-8 text-sm text-slate-500">
             More integrations rolling out monthly. Tell us what your clients buy and we&rsquo;ll prioritise.
+          </p>
+          <p className="mt-3 text-[10px] uppercase tracking-wider text-slate-400">
+            Trademarks property of their respective owners. Halliard is independent and unaffiliated.
           </p>
         </div>
       </Container>
