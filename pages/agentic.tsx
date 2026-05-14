@@ -509,7 +509,6 @@ function ExchangesSection() {
     { name: 'Index Exchange', file: 'index.png', isPng: true },
     { name: 'OpenX', file: 'openx.svg' },
     { name: 'TripleLift', file: 'triplelift.png', isPng: true },
-    { name: 'StackAdapt', file: 'stackadapt.svg' },
   ]
   return (
     <section className="bg-slate-50 py-16 sm:py-20 border-b border-tint">
