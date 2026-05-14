@@ -222,7 +222,7 @@ function BiasDiagram() {
 
       <rect x="245" y="310" width="55" height="44" rx="8" fill="#ffffff" stroke="#e2e8f0" strokeWidth="1.5" strokeDasharray="4 3" />
       <text x="272" y="330" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="11" fontWeight="600" fill="#94a3b8">Other</text>
-      <text x="272" y="345" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="9" fill="#94a3b8">crumbs</text>
+      <text x="272" y="345" textAnchor="middle" fontFamily="Inter, system-ui" fontSize="9" fill="#94a3b8">inventory</text>
 
       {/* Arrows agency → DSP */}
       <line x1="200" y1="144" x2="200" y2="177" stroke="#dc2626" strokeWidth="2.5" markerEnd="url(#arrow-red)" />
