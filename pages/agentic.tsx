@@ -506,26 +506,23 @@ function ExchangesSection() {
     { name: 'The Trade Desk', file: 'ttd.svg' },
     { name: 'PubMatic', file: 'pubmatic.svg' },
     { name: 'Magnite', file: 'magnite.svg' },
-    { name: 'Index Exchange', file: 'index.png', isPng: true },
-    { name: 'OpenX', file: 'openx.svg' },
-    { name: 'TripleLift', file: 'triplelift.png', isPng: true },
   ]
   return (
     <section className="bg-slate-50 py-16 sm:py-20 border-b border-tint">
       <Container className="">
         <div className="mx-auto max-w-5xl text-center">
           <p className="inline-flex items-center gap-2 rounded-full bg-tint px-3 py-1 text-xs font-semibold uppercase tracking-wider text-primary">
-            Shops everywhere your buyers do
+            Built on agent-ready platforms
           </p>
           <h2 className="mt-4 font-display text-3xl font-medium tracking-tight text-slate-900 sm:text-4xl">
-            One agent. Every exchange.
+            One agent. Every agent-ready platform.
           </h2>
           <p className="mx-auto mt-5 max-w-2xl text-lg text-slate-700 leading-relaxed">
-            Your buyer agent quotes inventory across the open market, not just a single
-            DSP&rsquo;s walled garden. Direct exchange access via PubMatic and ADCP, plus
-            integrated buys on Meta, Google, and Amazon&rsquo;s self-serve surfaces.
+            Halliard plugs into the platforms that have already shipped real agentic
+            infrastructure. Each one exposes an MCP server, CLI, or agent runtime your
+            buyer agent can call directly. No screen-scraping. No glue code. Just buys.
           </p>
-          <div className="mt-12 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
+          <div className="mt-12 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
             {exchanges.map((ex) => (
               <div
                 key={ex.name}
@@ -541,7 +538,7 @@ function ExchangesSection() {
             ))}
           </div>
           <p className="mt-8 text-sm text-slate-500">
-            More integrations rolling out monthly. Tell us what your clients buy and we&rsquo;ll prioritise.
+            More integrations rolling out as platforms ship agent runtimes. Tell us what your clients buy and we&rsquo;ll prioritise.
           </p>
           <p className="mt-3 text-[10px] uppercase tracking-wider text-slate-400">
             Trademarks property of their respective owners. Halliard is independent and unaffiliated.
