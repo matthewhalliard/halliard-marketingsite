@@ -83,7 +83,7 @@
       }
     },
     "sraichle@dietz.digital": {
-      "status": "in_flow",
+      "status": "awaiting_shutdown",
       "signed_up_at": "2026-04-29T15:36:21.189000Z",
       "enrichment": {
         "category": "agency",
@@ -116,7 +116,8 @@
           "subject": "Closing your Halliard account",
           "sent": false
         }
-      }
+      },
+      "shutdown_flagged": true
     },
     "kim.dunn@slipstitchconsulting.com": {
       "status": "skipped_student_or_junk",
@@ -245,5 +246,5 @@
       }
     }
   },
-  "last_poll": "2026-05-14T15:15:15.612986+00:00"
+  "last_poll": "2026-05-14T16:15:14.149041+00:00"
 }
