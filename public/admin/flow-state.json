@@ -244,7 +244,16 @@
           "sent": false
         }
       }
+    },
+    "jonsonjohnlyndon@gmail.com": {
+      "status": "skipped_student_or_junk",
+      "signed_up_at": "2026-05-15T05:28:29.736000+00:00",
+      "enrichment": {
+        "category": "student_or_junk",
+        "company_name": "Unknown",
+        "personal_sentence": "Thanks for signing up\u2014let us know what you're working on and how we can help."
+      }
     }
   },
-  "last_poll": "2026-05-15T05:15:16.465367+00:00"
+  "last_poll": "2026-05-15T06:15:13.953246+00:00"
 }
