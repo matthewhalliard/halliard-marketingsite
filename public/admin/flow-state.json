@@ -262,7 +262,16 @@
         "company_name": "vf",
         "personal_sentence": "We built Halliard for independent media agencies\u2014if that's you, let's talk."
       }
+    },
+    "zaurismayil1975@gmail.com": {
+      "status": "skipped_student_or_junk",
+      "signed_up_at": "2026-05-20T05:57:36.509000+00:00",
+      "enrichment": {
+        "category": "student_or_junk",
+        "company_name": "newmedia",
+        "personal_sentence": "We're built for independent media agencies\u2014if that's you, let's talk."
+      }
     }
   },
-  "last_poll": "2026-05-20T05:15:13.164579+00:00"
+  "last_poll": "2026-05-20T06:15:13.997089+00:00"
 }
