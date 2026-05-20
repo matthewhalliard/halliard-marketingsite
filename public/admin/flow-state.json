@@ -316,7 +316,16 @@
           "sent": false
         }
       }
+    },
+    "ocservices.us@gmail.com": {
+      "status": "skipped_student_or_junk",
+      "signed_up_at": "2026-05-20T17:29:05.441000+00:00",
+      "enrichment": {
+        "category": "student_or_junk",
+        "company_name": "OneConnect Services",
+        "personal_sentence": "We couldn't find much about OneConnect Services online\u2014help us understand what you do."
+      }
     }
   },
-  "last_poll": "2026-05-20T17:15:11.525505+00:00"
+  "last_poll": "2026-05-20T18:15:16.377078+00:00"
 }
