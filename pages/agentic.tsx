@@ -115,17 +115,17 @@ function Hero() {
       <Container className="relative pt-28 pb-16 text-center lg:pt-32">
         <div className="mx-auto max-w-3xl">
           <p className="inline-flex items-center gap-2 rounded-full bg-tint px-4 py-1.5 text-sm font-medium text-primary mb-6">
-            <span>🤝</span> For independent agencies
+            <span>🚩</span> For independent agencies
           </p>
           <h1 className="font-display text-4xl font-medium tracking-tight text-slate-900 sm:text-5xl lg:text-[64px] lg:leading-[1.05]">
-            Tell your client they have their{' '}
+            Every independent agency needs its{' '}
             <span className="text-primary">own buying agent.</span>
           </h1>
           <p className="mx-auto mt-7 max-w-2xl text-lg sm:text-xl tracking-tight text-slate-700 leading-relaxed">
-            Not a DSP&rsquo;s agent. Not the exchange&rsquo;s agent.
+            Not a DSP&rsquo;s agent. Not a holdco&rsquo;s agent.
             <strong className="text-slate-900"> Your agency&rsquo;s agent.</strong>{' '}
-            Trained on your strategies, your definition of premium media, and your brand-safety
-            rules. Shopping every exchange on your client&rsquo;s behalf.
+            Trained on your playbook. Buying on the open market on your client&rsquo;s behalf.
+            Human-in-the-loop on every flight.
           </p>
           <div className="mt-9 flex flex-col sm:flex-row justify-center gap-4">
             <Button
@@ -136,7 +136,7 @@ function Hero() {
                 scrollToEnquiry()
               }}
             >
-              Talk to us about a pilot →
+              Join the 2026 pilot cohort →
             </Button>
           </div>
 
@@ -146,6 +146,42 @@ function Hero() {
         </div>
       </Container>
     </div>
+  )
+}
+
+// =============================================================================
+// MANIFESTO QUOTE BAND — ties /agentic to the editorial flag-planting post.
+// Single quote, attribution, link to full manifesto. No CTA competition.
+// =============================================================================
+function ManifestoQuoteBand() {
+  return (
+    <section className="bg-white py-12 sm:py-16 border-b border-tint">
+      <Container className="">
+        <div className="mx-auto max-w-3xl text-center">
+          <p className="text-xs font-semibold uppercase tracking-wider text-primary">
+            From the Halliard editorial · May 2026
+          </p>
+          <blockquote className="mt-5">
+            <p className="font-display text-2xl sm:text-3xl font-medium tracking-tight text-slate-900 leading-snug">
+              &ldquo;Independents don&rsquo;t need a platform&rsquo;s agent.
+              They need <span className="text-primary">their own.</span>&rdquo;
+            </p>
+          </blockquote>
+          <p className="mt-6 text-base text-slate-600 leading-relaxed">
+            The biggest media-buying decision your agency makes in 2026 is not
+            which DSP. It&rsquo;s which agent buys for you.
+          </p>
+          <p className="mt-5 text-sm">
+            <a
+              href="/manifesto/the-independents-agent"
+              className="text-primary underline hover:no-underline"
+            >
+              Read the full manifesto →
+            </a>
+          </p>
+        </div>
+      </Container>
+    </section>
   )
 }
 
@@ -641,12 +677,12 @@ function EnquirySection() {
         <div className="mx-auto max-w-2xl">
           <div className="text-center">
             <h2 className="font-display text-3xl font-medium tracking-tight text-slate-900 sm:text-4xl">
-              Talk to us about a pilot
+              Join the 2026 pilot cohort
             </h2>
             <p className="mt-4 text-lg text-slate-700">
-              We&rsquo;re onboarding a small cohort of independent agencies in 2026.
-              Tell us about your agency and what you&rsquo;re trying to solve.
-              Matthew will reply personally within 24 hours to schedule a call.
+              We&rsquo;re onboarding a small cohort of independent agencies through the back
+              half of 2026. Tell us about your shop and the agentic problem on your desk
+              right now. Halliard replies within twenty-four hours.
             </p>
           </div>
 
@@ -656,10 +692,13 @@ function EnquirySection() {
                 ✓
               </div>
               <h3 className="font-display text-xl font-medium text-slate-900">
-                Got it. Matthew will reply within 24 hours.
+                Got it. We&rsquo;ll reply within 24 hours.
               </h3>
               <p className="mt-2 text-sm text-slate-600">
-                If it&rsquo;s urgent, email <a className="text-primary underline" href="mailto:matthew@halliardmedia.com">matthew@halliardmedia.com</a>.
+                If it&rsquo;s urgent, email <a className="text-primary underline" href="mailto:pilot@halliardmedia.com">pilot@halliardmedia.com</a>.
+              </p>
+              <p className="mt-4 text-sm text-slate-600">
+                While you wait: <a className="text-primary underline" href="/manifesto/the-independents-agent">read the manifesto</a> &mdash; the worldview behind what we&rsquo;re building.
               </p>
             </div>
           ) : (
@@ -780,7 +819,7 @@ function StickyMobileCta() {
           }}
           className="w-full inline-flex items-center justify-center rounded-md bg-primary text-white font-medium py-3 px-4 text-base hover:bg-primary/90 active:bg-primary/80 transition"
         >
-          Talk to us about a pilot →
+          Join the 2026 pilot cohort →
         </button>
       </div>
     </div>
@@ -809,21 +848,22 @@ function AgenticPage() {
   return (
     <>
       <Head>
-        <title>Your Client's Own Buying Agent | Halliard</title>
+        <title>Your Agency&apos;s Own Buying Agent | Halliard</title>
         <meta
           name="description"
-          content="Give your agency clients their own buying agent. Trained on your strategies, your premium-media definition, and your brand-safety rules. Shopping every exchange on their behalf."
+          content="Every independent agency needs its own buying agent. Trained on your playbook. Buying on the open market on your client's behalf. Human-in-the-loop on every flight."
         />
         <meta name="robots" content="noindex,follow" />
-        <meta property="og:title" content="Your client's own buying agent | Halliard" />
+        <meta property="og:title" content="Your agency's own buying agent | Halliard" />
         <meta
           property="og:description"
-          content="Trained on your strategies, your premium-media list, your brand-safety rules. Shopping every exchange on your client's behalf. No DSP tax."
+          content="Not a DSP's agent. Not a holdco's agent. Your agency's agent. Trained on your playbook. Open-market buying. Human-in-the-loop on every flight."
         />
       </Head>
       <MinimalHeader />
       <main className="pb-24 lg:pb-0">
         <Hero />
+        <ManifestoQuoteBand />
         <KnowsYourAgencySection />
         <DspTaxSection />
         <HowItWorksSection />
