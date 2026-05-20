@@ -129,7 +129,7 @@
       }
     },
     "lilygbehar@gmail.com": {
-      "status": "in_flow",
+      "status": "awaiting_shutdown",
       "signed_up_at": "2026-05-05T21:40:55.446000+00:00",
       "enrichment": {
         "category": "unknown",
@@ -162,7 +162,8 @@
           "subject": "Closing your Halliard account",
           "sent": false
         }
-      }
+      },
+      "shutdown_flagged": true
     },
     "nb.3865@gmail.com": {
       "status": "skipped_student_or_junk",
@@ -327,5 +328,5 @@
       }
     }
   },
-  "last_poll": "2026-05-20T21:15:15.828580+00:00"
+  "last_poll": "2026-05-20T22:15:17.245125+00:00"
 }
