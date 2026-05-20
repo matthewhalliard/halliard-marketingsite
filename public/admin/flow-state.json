@@ -280,7 +280,43 @@
         "company_name": "Unknown",
         "personal_sentence": "We're built for independent media agencies\u2014if that's you, let's talk."
       }
+    },
+    "alexandre@nothanks.media": {
+      "status": "in_flow",
+      "signed_up_at": "2026-05-20T08:44:20.329000+00:00",
+      "enrichment": {
+        "category": "agency",
+        "company_name": "NO THANKS",
+        "personal_sentence": "Love the philosophy\u2014clarity over jargon is exactly what media planning needs."
+      },
+      "first_name": "",
+      "scheduled": {
+        "day0": {
+          "id": "48521e6e-0351-4e90-a5c7-66273ac706b8",
+          "at": "2026-05-20T09:17:16Z",
+          "subject": "Welcome to Halliard \u2014 quick note from the founder",
+          "sent": false
+        },
+        "day3": {
+          "id": "f83fdf2d-2c29-4af7-ac24-7f41721f15f6",
+          "at": "2026-05-23T08:44:20Z",
+          "subject": "How's it going with Halliard?",
+          "sent": false
+        },
+        "day7": {
+          "id": "c6c569a8-2bc9-4e0d-abe8-3b822319122f",
+          "at": "2026-05-27T08:44:20Z",
+          "subject": "Is Halliard a fit for what you do?",
+          "sent": false
+        },
+        "day14": {
+          "id": "29fae677-86e3-4a9d-af2b-e701e122698e",
+          "at": "2026-06-03T08:44:20Z",
+          "subject": "Closing your Halliard account",
+          "sent": false
+        }
+      }
     }
   },
-  "last_poll": "2026-05-20T08:15:13.201541+00:00"
+  "last_poll": "2026-05-20T09:15:17.234093+00:00"
 }
