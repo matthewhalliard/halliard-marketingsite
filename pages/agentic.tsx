@@ -695,7 +695,7 @@ function EnquirySection() {
                 Got it. We&rsquo;ll reply within 24 hours.
               </h3>
               <p className="mt-2 text-sm text-slate-600">
-                If it&rsquo;s urgent, email <a className="text-primary underline" href="mailto:pilot@halliardmedia.com">pilot@halliardmedia.com</a>.
+                If it&rsquo;s urgent, email <a className="text-primary underline" href="mailto:matthew@halliardmedia.com">matthew@halliardmedia.com</a>.
               </p>
               <p className="mt-4 text-sm text-slate-600">
                 While you wait: <a className="text-primary underline" href="/manifesto/the-independents-agent">read the manifesto</a> &mdash; the worldview behind what we&rsquo;re building.
