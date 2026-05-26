@@ -326,7 +326,16 @@
         "company_name": "OneConnect Services",
         "personal_sentence": "We couldn't find much about OneConnect Services online\u2014help us understand what you do."
       }
+    },
+    "acparisi@yahoo.com": {
+      "status": "skipped_student_or_junk",
+      "signed_up_at": "2026-05-26T17:11:10.035000+00:00",
+      "enrichment": {
+        "category": "student_or_junk",
+        "company_name": "Unknown",
+        "personal_sentence": "We're building better tools for media planning\u2014let us know if you have feedback."
+      }
     }
   },
-  "last_poll": "2026-05-26T16:15:12.797213+00:00"
+  "last_poll": "2026-05-26T17:15:12.843058+00:00"
 }
