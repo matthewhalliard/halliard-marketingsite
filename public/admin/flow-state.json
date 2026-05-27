@@ -175,7 +175,7 @@
       }
     },
     "david.bigio@banmemedia.com": {
-      "status": "in_flow",
+      "status": "awaiting_shutdown",
       "signed_up_at": "2026-05-12T15:58:50.831000+00:00",
       "enrichment": {
         "category": "agency",
@@ -208,7 +208,8 @@
           "subject": "Closing your Halliard account",
           "sent": false
         }
-      }
+      },
+      "shutdown_flagged": true
     },
     "sjwendling@gmail.com": {
       "status": "in_flow",
@@ -337,5 +338,5 @@
       }
     }
   },
-  "last_poll": "2026-05-27T15:15:12.175976+00:00"
+  "last_poll": "2026-05-27T16:15:15.818703+00:00"
 }
