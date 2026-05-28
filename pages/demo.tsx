@@ -46,9 +46,16 @@ function useCalendarEngagementTracking(
 
     let viewedFired = false
     let engagedFired = false
+    let bookedAssumedFired = false
     let iframeInView = false
     let inViewSince: number | null = null
+    let engagedAt: number | null = null
     const VIEWED_THRESHOLD_MS = 3000
+    // If the user has been actively engaged with the iframe for >= 30s and
+    // then leaves the page, treat it as "probably booked." Google Calendar
+    // is cross-origin so we cannot observe the booking confirmation directly;
+    // this is the strongest proxy short of an Apps Script webhook.
+    const BOOKED_ASSUMED_MIN_ENGAGE_MS = 30000
 
     function fireCalendarViewed() {
       if (viewedFired) return
@@ -69,6 +76,7 @@ function useCalendarEngagementTracking(
     function fireCalendarEngaged() {
       if (engagedFired) return
       engagedFired = true
+      engagedAt = Date.now()
       try {
         const w = window as any
         if (w.posthog) {
@@ -91,6 +99,39 @@ function useCalendarEngagementTracking(
         content_name: 'calendar_engaged',
         source: 'demo_lp',
         engagement_tier: 'engaged',
+      })
+    }
+
+    function fireDemoBookedAssumed(reason: string) {
+      if (bookedAssumedFired) return
+      if (!engagedFired || engagedAt === null) return
+      const dwell = Date.now() - engagedAt
+      if (dwell < BOOKED_ASSUMED_MIN_ENGAGE_MS) return
+      bookedAssumedFired = true
+      try {
+        const w = window as any
+        if (w.posthog) {
+          w.posthog.capture('demo_booked_assumed', {
+            page: '/demo',
+            reason,
+            engaged_dwell_ms: dwell,
+          })
+        }
+        if (w.gtag) {
+          // Higher-value conversion than calendar_engaged—strongest pre-confirm
+          // signal we can capture cross-origin
+          w.gtag('event', 'conversion', {
+            send_to: 'AW-672346912/qEmHCJ6L_pgcEKDmzMAC',
+            value: 150.0,
+            currency: 'USD',
+          })
+        }
+      } catch {}
+      trackPixel('Lead', {
+        content_name: 'demo_booked_assumed',
+        source: 'demo_lp',
+        engagement_tier: 'booked_assumed',
+        dwell_ms: dwell,
       })
     }
 
@@ -134,11 +175,28 @@ function useCalendarEngagementTracking(
         }
       }, 50)
     }
+
+    // Page-exit / visibility-change handlers: if the user engaged with the
+    // calendar for >30s and then leaves (close tab, navigate away, hide),
+    // assume they probably booked. We fire `demo_booked_assumed` as our
+    // best cross-origin proxy for booking completion.
+    function onPageHide() {
+      fireDemoBookedAssumed('pagehide')
+    }
+    function onVisibilityChange() {
+      if (document.visibilityState === 'hidden') {
+        fireDemoBookedAssumed('visibility_hidden')
+      }
+    }
     window.addEventListener('blur', onBlur)
+    window.addEventListener('pagehide', onPageHide)
+    document.addEventListener('visibilitychange', onVisibilityChange)
 
     return () => {
       observer.disconnect()
       window.removeEventListener('blur', onBlur)
+      window.removeEventListener('pagehide', onPageHide)
+      document.removeEventListener('visibilitychange', onVisibilityChange)
     }
   }, [iframeRef])
 }
@@ -363,9 +421,50 @@ function ValueSection() {
   )
 }
 
+// External link to the same Google Calendar appointment scheduler. Used as a
+// fallback when the embedded iframe fails to load (ad-blockers, slow networks,
+// third-party cookie blocking) and always shown as a redundant path.
+const CALENDAR_FALLBACK_HREF =
+  'https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ1jtM9RZtwp5-TuTTBbXg9Wkc9VEV1dLDUpVS-ajVsNJOoJSBGQDyd7hZ-S_x7mVHGYpZTRPHW2'
+
+function fireFallbackClick(reason: string) {
+  try {
+    const w = window as any
+    if (w.posthog) {
+      w.posthog.capture('demo_booking_fallback_click', { page: '/demo', reason })
+    }
+  } catch {}
+  trackPixel('Lead', {
+    content_name: 'demo_booking_fallback_click',
+    source: 'demo_lp',
+    engagement_tier: 'fallback',
+  })
+}
+
 function BookingSection() {
   const iframeRef = React.useRef<HTMLIFrameElement>(null)
+  const [iframeLoaded, setIframeLoaded] = useState(false)
+  const [iframeStuck, setIframeStuck] = useState(false)
   useCalendarEngagementTracking(iframeRef)
+
+  // If the iframe doesn't fire onLoad within 5s, surface a prominent
+  // fallback. Ad-blockers and third-party-cookie blocking are the most
+  // common reasons — either way, give the visitor a working path.
+  useEffect(() => {
+    if (iframeLoaded) return
+    const t = setTimeout(() => {
+      if (!iframeLoaded) {
+        setIframeStuck(true)
+        try {
+          const w = window as any
+          if (w.posthog) {
+            w.posthog.capture('demo_booking_iframe_stuck', { page: '/demo' })
+          }
+        } catch {}
+      }
+    }, 5000)
+    return () => clearTimeout(t)
+  }, [iframeLoaded])
 
   return (
     <section id="book" className="bg-slate-50 py-20 scroll-mt-20">
@@ -380,6 +479,23 @@ function BookingSection() {
           </p>
         </div>
         <div className="mt-10 mx-auto max-w-3xl">
+          {iframeStuck && (
+            <div className="mb-4 rounded-md border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
+              <p className="font-medium">Calendar didn&rsquo;t load.</p>
+              <p className="mt-1">
+                Looks like the embedded calendar is blocked.{' '}
+                <a
+                  href={CALENDAR_FALLBACK_HREF}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => fireFallbackClick('iframe_stuck_banner')}
+                  className="underline font-medium hover:text-amber-700"
+                >
+                  Open the scheduler in a new tab →
+                </a>
+              </p>
+            </div>
+          )}
           <div className="rounded-xl border border-tint overflow-hidden bg-white shadow-sm">
             <iframe
               ref={iframeRef}
@@ -390,6 +506,7 @@ function BookingSection() {
               frameBorder="0"
               title="Book a 15-min Halliard demo"
               onLoad={() => {
+                setIframeLoaded(true)
                 try {
                   if (typeof window !== 'undefined' && (window as any).posthog) {
                     ;(window as any).posthog.capture('demo_booking_iframe_loaded', {
@@ -402,6 +519,20 @@ function BookingSection() {
               }}
             />
           </div>
+          {/* Always-visible fallback link — ad-block-proof path to the same
+              scheduler, also useful on flaky mobile networks. */}
+          <p className="mt-4 text-center text-sm text-slate-500">
+            Calendar not loading?{' '}
+            <a
+              href={CALENDAR_FALLBACK_HREF}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => fireFallbackClick('always_visible_link')}
+              className="underline text-primary hover:text-primary/80"
+            >
+              Open in a new tab →
+            </a>
+          </p>
         </div>
       </Container>
     </section>
