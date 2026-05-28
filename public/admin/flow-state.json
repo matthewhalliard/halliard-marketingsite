@@ -212,7 +212,7 @@
       "shutdown_flagged": true
     },
     "sjwendling@gmail.com": {
-      "status": "in_flow",
+      "status": "awaiting_shutdown",
       "signed_up_at": "2026-05-13T21:34:54.640000+00:00",
       "enrichment": {
         "category": "agency",
@@ -245,7 +245,8 @@
           "subject": "Closing your Halliard account",
           "sent": false
         }
-      }
+      },
+      "shutdown_flagged": true
     },
     "jonsonjohnlyndon@gmail.com": {
       "status": "skipped_student_or_junk",
@@ -338,5 +339,5 @@
       }
     }
   },
-  "last_poll": "2026-05-28T21:15:14.830129+00:00"
+  "last_poll": "2026-05-28T22:15:17.582754+00:00"
 }
