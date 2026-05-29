@@ -337,7 +337,16 @@
         "company_name": "Unknown",
         "personal_sentence": "We're building better tools for media planning\u2014let us know if you have feedback."
       }
+    },
+    "nick@faircher.com": {
+      "status": "skipped_adtech",
+      "signed_up_at": "2026-05-29T14:56:53.868000+00:00",
+      "enrichment": {
+        "category": "adtech",
+        "company_name": "FairCher",
+        "personal_sentence": "FairCher's advertiser intelligence platform is a natural complement to media planning \u2014 curious how you see the two working together."
+      }
     }
   },
-  "last_poll": "2026-05-29T14:15:16.257640+00:00"
+  "last_poll": "2026-05-29T15:15:19.260176+00:00"
 }
