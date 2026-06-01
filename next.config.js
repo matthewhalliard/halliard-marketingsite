@@ -4,4 +4,14 @@ module.exports = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-}; 
+  async redirects() {
+    return [
+      // Canonicalize legacy /legal/* paths to current routes.
+      // LinkedIn Lead Gen forms and older link cards historically pointed at
+      // /legal/privacy and /legal/terms. Keep them working with permanent redirects.
+      { source: '/legal/privacy', destination: '/privacy', permanent: true },
+      { source: '/legal/terms', destination: '/terms', permanent: true },
+      { source: '/legal', destination: '/privacy', permanent: true },
+    ];
+  },
+};
