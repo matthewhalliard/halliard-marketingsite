@@ -34,6 +34,15 @@ export default function App({ Component, pageProps }: AppProps) {
           source: 'marketing_site',
           status: 'click',
         });
+        // OpenAI Ads conversion event (signup CTA click — same proxy as Meta
+        // CompleteRegistration above, since the app doesn't carry the pixel).
+        if (typeof (window as any).oaiq === 'function') {
+          (window as any).oaiq('measure', 'registration_completed', {
+            type: 'customer_action',
+            amount: 0,
+            currency: 'USD',
+          });
+        }
       }
     };
     document.addEventListener('click', handler, { capture: true });

@@ -34,6 +34,23 @@ export default function Document() {
             __html: `<img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1357860072487371&ev=PageView&noscript=1" />`,
           }}
         />
+        {/* OpenAI Ads Pixel (oaiq) */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `!function(w, d, s, u) {
+              if (w.oaiq) return;
+              var q = function() { q.q.push(arguments); };
+              q.q = [];
+              w.oaiq = q;
+              var j = d.createElement(s);
+              j.async = 1;
+              j.src = u;
+              var f = d.getElementsByTagName(s)[0];
+              f.parentNode.insertBefore(j, f);
+            }(window, document, "script", "https://bzrcdn.openai.com/sdk/oaiq.min.js");
+            oaiq("init", { pixelId: "SCqj8ir7TFB7kcFyvjPFiD" });`,
+          }}
+        />
         {/* Snitcher */}
         <script
           dangerouslySetInnerHTML={{
