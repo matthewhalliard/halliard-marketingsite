@@ -17,11 +17,13 @@
     "@heroicons/react": "^2.2.0",
     "@resvg/resvg-js": "^2.6.2",
     "clsx": "^2.1.0",
+    "motion": "^13.2.0",
     "next": "^16.2.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "satori": "^0.26.0",
-    "sharp": "^0.34.5"
+    "sharp": "^0.34.5",
+    "svix": "^1.96.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
