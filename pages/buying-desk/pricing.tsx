@@ -42,7 +42,7 @@ const DRIVERS = [
 ]
 
 export default function BuyingDeskPricingPage() {
-  const { track, href } = useLandingAttribution('/buying-desk/pricing')
+  const { track, href } = useLandingAttribution('/buying-desk/pricing', { posthog: 'halliard3' })
   return (
     <>
       <Head>

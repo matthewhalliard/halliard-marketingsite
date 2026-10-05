@@ -30,12 +30,38 @@ export const SOFT_BAND: React.CSSProperties = {
 
 const ATTRIBUTION_KEY = 'halliard_landing_attribution'
 
+// The new journey's own PostHog project, "Halliard3": the one the portal at
+// client.halliardmedia.com reports to. It must be the portal's key: PostHog's
+// cookie is set on .halliardmedia.com and named after the key, so only a shared
+// key makes a landing-page visitor and the account they sign up as one person.
+const HALLIARD3_KEY = 'phc_n4aY5ANpBjV97gm6oDPFKekmXkRo962Y2b3tKa88cdRS'
+
+/**
+ * Which PostHog projects a landing page reports to: `both` the site's old
+ * project and Halliard3 (/plan), or `halliard3` alone (the buying desk).
+ */
+export type PosthogTarget = 'both' | 'halliard3'
+
+/** The PostHog instances a page reports to, starting the Halliard3 one if needed. */
+function posthogs(target: PosthogTarget): any[] {
+  const ph = (window as any).posthog
+  if (!ph) return []
+  if (!ph.halliard3) {
+    ph.init(
+      HALLIARD3_KEY,
+      { api_host: 'https://us.i.posthog.com', defaults: '2026-08-30', person_profiles: 'identified_only' },
+      'halliard3',
+    )
+  }
+  return (target === 'both' ? [ph, ph.halliard3] : [ph.halliard3]).filter(Boolean)
+}
+
 /**
  * The visit's UTMs and click IDs, registered on the PostHog person (first
  * and last touch), a named page-view event, and a CTA click tracker. `href`
  * is the client sign-up carrying the same parameters.
  */
-export function useLandingAttribution(page: string) {
+export function useLandingAttribution(page: string, { posthog }: { posthog: PosthogTarget }) {
   const utmRef = useRef<Record<string, string>>({})
   const [utms, setUtms] = useState<Record<string, string>>({})
   const event = page.replace(/^\//, '').replace(/[^a-z0-9]+/gi, '_')
@@ -57,33 +83,35 @@ export function useLandingAttribution(page: string) {
     utmRef.current = found
     setUtms(found)
 
-    const ph = (window as any).posthog
-    if (ph && params.toString() && Object.keys(found).length > 0) {
-      // `register` adds these to every event for the session; `people.set_once`
-      // locks the FIRST-touch attribution.
-      ph.register?.(found)
-      ph.people?.set_once?.({
-        first_utm_source: found.utm_source,
-        first_utm_medium: found.utm_medium,
-        first_utm_campaign: found.utm_campaign,
-        first_utm_content: found.utm_content,
-        first_utm_term: found.utm_term,
-        first_gclid: found.gclid,
-        first_landing_page: page,
-      })
-      ph.people?.set?.({
-        last_utm_source: found.utm_source,
-        last_utm_medium: found.utm_medium,
-        last_utm_campaign: found.utm_campaign,
-        last_utm_content: found.utm_content,
-        last_landing_page: page,
-      })
+    const landedWithParams = params.toString() !== '' && Object.keys(found).length > 0
+    for (const ph of posthogs(posthog)) {
+      if (landedWithParams) {
+        // `register` adds these to every event for the session; `people.set_once`
+        // locks the FIRST-touch attribution.
+        ph.register?.(found)
+        ph.people?.set_once?.({
+          first_utm_source: found.utm_source,
+          first_utm_medium: found.utm_medium,
+          first_utm_campaign: found.utm_campaign,
+          first_utm_content: found.utm_content,
+          first_utm_term: found.utm_term,
+          first_gclid: found.gclid,
+          first_landing_page: page,
+        })
+        ph.people?.set?.({
+          last_utm_source: found.utm_source,
+          last_utm_medium: found.utm_medium,
+          last_utm_campaign: found.utm_campaign,
+          last_utm_content: found.utm_content,
+          last_landing_page: page,
+        })
+      }
+      ph.capture?.(`${event}_page_viewed`, { ...found, landing_page: page })
     }
-    ph?.capture?.(`${event}_page_viewed`, { ...found, landing_page: page })
-  }, [page, event])
+  }, [page, event, posthog])
 
   const track = (location: string) => {
-    ;(window as any).posthog?.capture?.(`${event}_signup_cta_clicked`, { ...utmRef.current, location })
+    for (const ph of posthogs(posthog)) ph.capture?.(`${event}_signup_cta_clicked`, { ...utmRef.current, location })
   }
   const qs = new URLSearchParams(utms).toString()
   return { utms, track, href: qs ? `${SIGN_UP_URL}?${qs}` : SIGN_UP_URL }

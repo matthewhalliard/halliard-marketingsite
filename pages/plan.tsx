@@ -123,7 +123,7 @@ const FEATURES: Feature[] = [
 ]
 
 export default function PlanPage() {
-  const { utms, track, href } = useLandingAttribution('/plan')
+  const { utms, track, href } = useLandingAttribution('/plan', { posthog: 'both' })
   const heroKey = heroFor(utms)
 
   const hero = HERO[heroKey]

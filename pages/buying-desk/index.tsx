@@ -130,7 +130,7 @@ const FEATURES: Feature[] = [
 ]
 
 export default function BuyingDeskPage() {
-  const { utms, track, href } = useLandingAttribution('/buying-desk')
+  const { utms, track, href } = useLandingAttribution('/buying-desk', { posthog: 'halliard3' })
   const hero = HERO[heroFor(utms)]
 
   return (
