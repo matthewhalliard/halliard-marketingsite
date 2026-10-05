@@ -47,10 +47,9 @@ const PLAN: Strategy[] = [
         name: 'CTV',
         halliardBuys: true,
         properties: [
-          { name: 'Hulu', icon: 'hulu', cpm: 32, fit: 88, spend: { balanced: 38000, reach: 46000 } },
-          { name: 'Peacock', icon: 'peacock', cpm: 28, fit: 82, spend: { balanced: 30000, reach: 34000 } },
-          { name: 'Paramount+', icon: 'paramount-plus', cpm: 27, fit: 76, spend: { balanced: 24000, reach: 20000 } },
-          { name: 'Tubi', icon: 'tubi', cpm: 18, fit: 63, spend: { balanced: 18000, reach: 10000 } },
+          { name: 'Paramount+', icon: 'paramount-plus', cpm: 27, fit: 86, spend: { balanced: 42000, reach: 48000 } },
+          { name: 'Pluto TV', icon: 'pluto', cpm: 20, fit: 80, spend: { balanced: 36000, reach: 40000 } },
+          { name: 'Tubi', icon: 'tubi', cpm: 18, fit: 66, spend: { balanced: 32000, reach: 22000 } },
         ],
       },
       {
@@ -241,7 +240,7 @@ export function PlanGridHero() {
 
       {/* Toolbar: the planner's reach <-> fit dial */}
       <div className="mt-3 flex items-center justify-between gap-3">
-        <span className="text-[11px] font-medium text-slate-500">Base plan · 2 strategies · 9 properties</span>
+        <span className="text-[11px] font-medium text-slate-500">Base plan · 2 strategies · 8 properties</span>
         <Dial mode={mode} />
       </div>
 

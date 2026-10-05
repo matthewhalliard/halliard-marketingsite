@@ -26,6 +26,15 @@ import { Container } from '../components/mmm/Container'
 import { Button } from '../components/mmm/Button'
 import { PlanGridHero } from '../components/plan/plan-grid-hero'
 import { AudienceScene, BriefScene, StrategyScene } from '../components/plan/step-visuals'
+import {
+  ApproveVisual,
+  BuyVisual,
+  ClientsVisual,
+  LedgerVisual,
+  LocalVisual,
+  PacingVisual,
+} from '../components/plan/feature-visuals'
+import { BuysOnBanner, LisaQuote } from '../components/plan/proof'
 
 // The client portal: sign up, tell us about you, send a first brief.
 const SIGN_UP_URL = 'https://client.halliardmedia.com/sign-up'
@@ -111,13 +120,13 @@ const STEPS: Step[] = [
   },
 ]
 
-const FEATURES: { icon: LucideIcon; title: string; body: string }[] = [
-  { icon: ShieldCheck, title: 'Nothing buys without you', body: 'Every line of a plan is approved by a person before a dollar is spent.' },
-  { icon: Timer, title: 'Pacing, checked every six hours', body: 'Once a plan is live, Halliard watches delivery and flags what drifts.' },
-  { icon: ScrollText, title: 'Every action on the record', body: 'What was bought, why, and what the platform said back. Show your client.' },
-  { icon: MapPin, title: 'Built for local', body: 'Catchments inside the DMA, ZIPs ranked on the brief, search sized by market.' },
-  { icon: Building2, title: 'One login, many clients', body: 'Agencies plan and buy for several advertisers and switch between them.' },
-  { icon: Radio, title: 'Buys on PubMatic and Meta', body: 'Approved plans go live through Halliard, with every fee shown.' },
+const FEATURES: { icon: LucideIcon; title: string; body: string; Visual: () => React.JSX.Element }[] = [
+  { icon: ShieldCheck, title: 'Nothing buys without you', body: 'Every line of a plan is approved by a person before a dollar is spent.', Visual: ApproveVisual },
+  { icon: Timer, title: 'Pacing, checked every six hours', body: 'Once a plan is live, Halliard watches delivery and flags what drifts.', Visual: PacingVisual },
+  { icon: ScrollText, title: 'Every action on the record', body: 'What was bought, why, and what the platform said back. Show your client.', Visual: LedgerVisual },
+  { icon: MapPin, title: 'Built for local', body: 'Catchments inside the DMA, ZIPs ranked on the brief, search sized by market.', Visual: LocalVisual },
+  { icon: Building2, title: 'One login, many clients', body: 'Agencies plan and buy for several advertisers and switch between them.', Visual: ClientsVisual },
+  { icon: Radio, title: 'Buys on PubMatic and Meta', body: 'Approved plans go live through Halliard, with every fee shown.', Visual: BuyVisual },
 ]
 
 const PLUS_PATTERN = "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%231a6ab4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")"
@@ -328,6 +337,13 @@ export default function PlanPage() {
           </Container>
         </section>
 
+        {/* WHERE HALLIARD CAN BUY */}
+        <section className="border-y border-tint/70 bg-white py-6">
+          <Container className="max-w-6xl">
+            <BuysOnBanner />
+          </Container>
+        </section>
+
         {/* HOW IT WORKS */}
         <section className="py-16 sm:py-24 bg-slate-50">
           <Container className="max-w-6xl">
@@ -370,8 +386,17 @@ export default function PlanPage() {
           </Container>
         </section>
 
-        {/* FEATURES */}
+        {/* SOCIAL PROOF */}
         <section className="py-16 sm:py-24 bg-white">
+          <Container className="">
+            <div className="mx-auto max-w-3xl">
+              <LisaQuote />
+            </div>
+          </Container>
+        </section>
+
+        {/* FEATURES */}
+        <section className="py-16 sm:py-24 bg-slate-50">
           <Container className="max-w-6xl">
             <SectionHeading
               eyebrow="Optional"
@@ -380,9 +405,14 @@ export default function PlanPage() {
             />
             <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {FEATURES.map(f => (
-                <div key={f.title} className="rounded-2xl bg-white p-8 shadow-lg border border-tint">
-                  <IconBadge icon={f.icon} />
-                  <h3 className="mt-5 font-display text-lg text-slate-900">{f.title}</h3>
+                <div key={f.title} className="rounded-2xl bg-white p-6 shadow-lg border border-tint">
+                  <f.Visual />
+                  <div className="mt-5 flex items-center gap-3">
+                    <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-tint text-primary">
+                      <f.icon className="h-4 w-4" aria-hidden />
+                    </span>
+                    <h3 className="font-display text-lg text-slate-900">{f.title}</h3>
+                  </div>
                   <p className="mt-2 text-slate-600 text-sm leading-relaxed">{f.body}</p>
                 </div>
               ))}
