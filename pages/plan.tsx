@@ -122,6 +122,12 @@ const FEATURES: { icon: LucideIcon; title: string; body: string }[] = [
   { icon: Radio, title: 'Buys on PubMatic and Meta', body: 'Approved plans go live through Halliard, with every fee shown.' },
 ]
 
+const PLUS_PATTERN = "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%231a6ab4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")"
+
+// The hand-drawn underline from the homepage hero.
+const SCRIBBLE =
+  'M203.371.916c-26.013-2.078-76.686 1.963-124.73 9.946L67.3 12.749C35.421 18.062 18.2 21.766 6.004 25.934 1.244 27.561.828 27.778.874 28.61c.07 1.214.828 1.121 9.595-1.176 9.072-2.377 17.15-3.92 39.246-7.496C123.565 7.986 157.869 4.492 195.942 5.046c7.461.108 19.25 1.696 19.17 2.582-.107 1.183-7.874 4.31-25.75 10.366-21.992 7.45-35.43 12.534-36.701 13.884-2.173 2.308-.202 4.407 4.442 4.734 2.654.187 3.263.157 15.593-.78 35.401-2.686 57.944-3.488 88.365-3.143 46.327.526 75.721 2.23 130.788 7.584 19.787 1.924 20.814 1.98 24.557 1.332l.066-.011c1.201-.203 1.53-1.825.399-2.335-2.911-1.31-4.893-1.604-22.048-3.261-57.509-5.556-87.871-7.36-132.059-7.842-23.239-.254-33.617-.116-50.627.674-11.629.54-42.371 2.494-46.696 2.967-2.359.259 8.133-3.625 26.504-9.81 23.239-7.825 27.934-10.149 28.304-14.005.417-4.348-3.529-6-16.878-7.066Z'
+
 function Header({ signUpHref, onClick }: { signUpHref: string; onClick: () => void }) {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/70 backdrop-blur-sm border-b border-gray-100">
@@ -146,25 +152,41 @@ function Header({ signUpHref, onClick }: { signUpHref: string; onClick: () => vo
 }
 
 /** A product-window frame around an explainer, labelled with the portal tab it shows. */
-function Frame({ label, children }: { label: string; children: React.ReactNode }) {
+function Frame({ label, children, hero = false }: { label: string; children: React.ReactNode; hero?: boolean }) {
   return (
-    <div className="rounded-2xl border border-slate-200 bg-white shadow-xl shadow-slate-900/5 overflow-hidden">
-      <div className="flex items-center gap-2 border-b border-slate-100 bg-slate-50/80 px-4 py-2.5">
-        <span className="h-2.5 w-2.5 rounded-full bg-slate-200" />
-        <span className="h-2.5 w-2.5 rounded-full bg-slate-200" />
-        <span className="h-2.5 w-2.5 rounded-full bg-slate-200" />
-        <span className="ml-2 text-xs font-medium text-slate-500">client.halliardmedia.com · {label}</span>
+    <div
+      className={`rounded-xl border border-tint bg-white overflow-hidden ${
+        hero ? 'shadow-2xl shadow-primary/10' : 'shadow-lg'
+      }`}
+    >
+      <div className="flex items-center gap-2 border-b border-tint bg-gradient-to-r from-tint/50 to-white px-4 py-2.5">
+        <span className="h-2.5 w-2.5 rounded-full bg-white ring-1 ring-tint" />
+        <span className="h-2.5 w-2.5 rounded-full bg-white ring-1 ring-tint" />
+        <span className="h-2.5 w-2.5 rounded-full bg-white ring-1 ring-tint" />
+        <span className="ml-2 text-xs font-medium text-primary/70">client.halliardmedia.com · {label}</span>
       </div>
       <div className="px-4 pt-5 pb-3 sm:px-6">{children}</div>
     </div>
   )
 }
 
-function IconBadge({ icon: Icon, className = '' }: { icon: LucideIcon; className?: string }) {
+function IconBadge({ icon: Icon }: { icon: LucideIcon }) {
   return (
-    <span className={`inline-flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary ${className}`}>
-      <Icon className="h-5 w-5" aria-hidden />
+    <span className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-tint text-primary">
+      <Icon className="h-6 w-6" aria-hidden />
     </span>
+  )
+}
+
+function SectionHeading({ eyebrow, title, body }: { eyebrow: string; title: string; body?: string }) {
+  return (
+    <div className="mx-auto max-w-2xl text-center">
+      <p className="inline-flex items-center rounded-full bg-tint px-4 py-1.5 text-sm font-medium text-primary">
+        {eyebrow}
+      </p>
+      <h2 className="mt-5 font-display text-3xl tracking-tight text-slate-900 sm:text-4xl">{title}</h2>
+      {body ? <p className="mt-4 text-lg tracking-tight text-slate-700">{body}</p> : null}
+    </div>
   )
 }
 
@@ -233,146 +255,162 @@ export default function PlanPage() {
         />
       </Head>
       <Header signUpHref={href} onClick={() => trackSignUp('header')} />
-      <main className="pt-28 pb-24 bg-gradient-to-b from-white via-slate-50 to-white min-h-screen">
+      <main>
         {/* HERO */}
-        <Container className="max-w-6xl">
-          <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] gap-12 items-center">
-            <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-semibold tracking-wide mb-6 uppercase">
-                <BarChart3 className="h-3.5 w-3.5" aria-hidden />
-                {hero.eyebrow}
-              </div>
-              <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-medium tracking-tight text-slate-900 leading-[1.05]">
-                {hero.title}
-                <br />
-                <span className="text-primary">{hero.accent}</span>
-              </h1>
-              <p className="mt-6 text-lg text-slate-600 max-w-xl">{hero.body}</p>
-              <div className="mt-8 flex flex-col sm:flex-row gap-3">
-                <a
-                  href={href}
-                  onClick={() => trackSignUp('hero')}
-                  className="inline-flex items-center justify-center gap-2 rounded-xl px-7 py-3.5 font-semibold text-white text-base bg-primary hover:bg-secondary transition-colors"
-                >
-                  Get your first plan
-                  <ArrowRight className="h-4 w-4" aria-hidden />
-                </a>
-                <Link
-                  href="/schedule-demo"
-                  className="inline-flex items-center justify-center rounded-xl px-7 py-3.5 font-semibold text-slate-700 text-base border border-slate-300 bg-white hover:bg-slate-50 transition-colors"
-                >
-                  Talk to us first
-                </Link>
-              </div>
-              <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm text-slate-600">
-                <li className="inline-flex items-center gap-2">
-                  <CreditCard className="h-4 w-4 text-primary" aria-hidden />
-                  Sign up free, no credit card
-                </li>
-                <li className="inline-flex items-center gap-2">
-                  <ShieldCheck className="h-4 w-4 text-primary" aria-hidden />
-                  You approve every line
-                </li>
-                <li className="inline-flex items-center gap-2">
-                  <MapPin className="h-4 w-4 text-primary" aria-hidden />
-                  Plans down to the ZIP
-                </li>
-              </ul>
-            </div>
-            <Frame label="Campaigns">
-              <CampaignsExplainer />
-            </Frame>
-          </div>
-        </Container>
-
-        {/* HOW IT WORKS */}
-        <Container className="max-w-6xl mt-32">
-          <div className="text-center max-w-2xl mx-auto">
-            <div className="text-xs font-bold tracking-widest text-primary uppercase">How it works</div>
-            <h2 className="mt-3 font-display text-3xl sm:text-4xl font-medium tracking-tight text-slate-900">
-              What Halliard does with one brief
-            </h2>
-            <p className="mt-4 text-slate-600 text-lg">
-              Sign up, tell us who you plan for, and send your first brief. Here is what happens next.
-            </p>
-          </div>
-
-          <div className="mt-16 flex flex-col gap-24">
-            {STEPS.map((step, i) => (
-              <section
-                key={step.label}
-                className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center"
-              >
-                <div className={i % 2 === 1 ? 'lg:order-2' : ''}>
-                  <div className="flex items-center gap-3">
-                    <IconBadge icon={step.icon} />
-                    <span className="text-xs font-bold tracking-widest text-slate-400 uppercase">
-                      Step {i + 1} · {step.label}
-                    </span>
-                  </div>
-                  <h3 className="mt-5 font-display text-2xl sm:text-3xl font-medium tracking-tight text-slate-900">
-                    {step.title}
-                  </h3>
-                  <p className="mt-4 text-slate-600 leading-relaxed">{step.body}</p>
-                  <ul className="mt-6 flex flex-col gap-3">
-                    {step.points.map(({ icon: Icon, text }) => (
-                      <li key={text} className="flex items-start gap-3 text-slate-700">
-                        <Icon className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary" aria-hidden />
-                        <span>{text}</span>
-                      </li>
-                    ))}
-                  </ul>
+        <section className="relative overflow-hidden">
+          <div className="absolute inset-0 opacity-[0.07]" style={{ backgroundImage: PLUS_PATTERN, backgroundSize: '18px 18px' }} />
+          <div
+            className="absolute inset-0"
+            style={{ background: 'radial-gradient(ellipse at 50% 0%, rgba(211,228,255,0.45) 0%, rgba(255,255,255,0.95) 70%, rgb(255,255,255) 100%)' }}
+          />
+          <Container className="relative max-w-6xl pt-32 pb-20 lg:pt-40 lg:pb-28">
+            <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] gap-14 items-center">
+              <div className="text-center lg:text-left">
+                <p className="inline-flex items-center gap-2 rounded-full bg-tint px-4 py-1.5 text-sm font-medium text-primary mb-6">
+                  <BarChart3 className="h-4 w-4" aria-hidden />
+                  {hero.eyebrow}
+                </p>
+                <h1 className="font-display text-5xl font-medium tracking-tight text-slate-900 sm:text-6xl">
+                  {hero.title}{' '}
+                  <span className="relative whitespace-nowrap text-primary">
+                    <svg
+                      aria-hidden="true"
+                      viewBox="0 0 418 42"
+                      className="absolute left-0 top-2/3 h-[0.58em] w-full fill-primary/30"
+                      preserveAspectRatio="none"
+                    >
+                      <path d={SCRIBBLE} />
+                    </svg>
+                    <span className="relative">{hero.accent}</span>
+                  </span>
+                </h1>
+                <p className="mx-auto lg:mx-0 mt-6 max-w-xl text-lg tracking-tight text-slate-700">
+                  {hero.body} <span className="font-semibold text-slate-900">Free to start.</span>
+                </p>
+                <div className="mt-10 flex flex-col sm:flex-row justify-center lg:justify-start gap-4">
+                  <Button href={href} color="blue" className="px-6 py-3 text-base" onClick={() => trackSignUp('hero')}>
+                    Get your first plan
+                    <ArrowRight className="ml-2 h-4 w-4" aria-hidden />
+                  </Button>
+                  <Button href="/schedule-demo" variant="outline" color="slate" className="px-6 py-3 text-base">
+                    Talk to us first →
+                  </Button>
                 </div>
-                <div className={`min-w-0 ${i % 2 === 1 ? 'lg:order-1' : ''}`}>
-                  <Frame label={step.frame}>
-                    <step.Explainer />
+                <ul className="mt-8 flex flex-wrap justify-center lg:justify-start gap-x-6 gap-y-3 text-sm text-slate-600">
+                  <li className="inline-flex items-center gap-2">
+                    <CreditCard className="h-4 w-4 text-primary" aria-hidden />
+                    No credit card
+                  </li>
+                  <li className="inline-flex items-center gap-2">
+                    <ShieldCheck className="h-4 w-4 text-primary" aria-hidden />
+                    You approve every line
+                  </li>
+                  <li className="inline-flex items-center gap-2">
+                    <MapPin className="h-4 w-4 text-primary" aria-hidden />
+                    Plans down to the ZIP
+                  </li>
+                </ul>
+              </div>
+              <div className="relative min-w-0">
+                <div
+                  className="absolute -inset-8 rounded-[2rem] blur-2xl"
+                  style={{ background: 'radial-gradient(ellipse at 60% 40%, rgba(26,106,180,0.18) 0%, rgba(211,228,255,0.35) 45%, transparent 75%)' }}
+                  aria-hidden
+                />
+                <div className="relative">
+                  <Frame label="Campaigns" hero>
+                    <CampaignsExplainer />
                   </Frame>
                 </div>
-              </section>
-            ))}
-          </div>
-        </Container>
+              </div>
+            </div>
+          </Container>
+        </section>
+
+        {/* HOW IT WORKS */}
+        <section className="py-16 sm:py-24 bg-slate-50">
+          <Container className="max-w-6xl">
+            <SectionHeading
+              eyebrow="How it works"
+              title="What Halliard does with one brief"
+              body="Sign up, tell us who you plan for, and send your first brief. Here is what happens next."
+            />
+            <div className="mt-16 flex flex-col gap-20">
+              {STEPS.map((step, i) => (
+                <div key={step.label} className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+                  <div className={i % 2 === 1 ? 'lg:order-2' : ''}>
+                    <div className="flex items-center gap-4">
+                      <IconBadge icon={step.icon} />
+                      <span className="text-sm font-semibold text-primary">
+                        Step {i + 1} · {step.label}
+                      </span>
+                    </div>
+                    <h3 className="mt-5 font-display text-2xl tracking-tight text-slate-900 sm:text-3xl">{step.title}</h3>
+                    <p className="mt-4 text-slate-700 leading-relaxed">{step.body}</p>
+                    <ul className="mt-6 flex flex-col gap-3">
+                      {step.points.map(({ icon: Icon, text }) => (
+                        <li key={text} className="flex items-start gap-3 text-slate-700">
+                          <span className="mt-0.5 inline-flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-white ring-1 ring-tint">
+                            <Icon className="h-3.5 w-3.5 text-primary" aria-hidden />
+                          </span>
+                          <span>{text}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className={`min-w-0 ${i % 2 === 1 ? 'lg:order-1' : ''}`}>
+                    <Frame label={step.frame}>
+                      <step.Explainer />
+                    </Frame>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Container>
+        </section>
 
         {/* FEATURES */}
-        <Container className="max-w-6xl mt-32">
-          <div className="text-center max-w-2xl mx-auto">
-            <div className="text-xs font-bold tracking-widest text-primary uppercase">After you approve</div>
-            <h2 className="mt-3 font-display text-3xl sm:text-4xl font-medium tracking-tight text-slate-900">
-              Halliard buys it and keeps it pacing
-            </h2>
-          </div>
-          <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {FEATURES.map(f => (
-              <div key={f.title} className="rounded-2xl border border-slate-200 bg-white p-6">
-                <IconBadge icon={f.icon} />
-                <h3 className="mt-4 font-display text-lg font-medium text-slate-900">{f.title}</h3>
-                <p className="mt-2 text-slate-600 text-sm leading-relaxed">{f.body}</p>
-              </div>
-            ))}
-          </div>
-        </Container>
+        <section className="py-16 sm:py-24 bg-white">
+          <Container className="max-w-6xl">
+            <SectionHeading eyebrow="After you approve" title="Halliard buys it and keeps it pacing" />
+            <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              {FEATURES.map(f => (
+                <div key={f.title} className="rounded-2xl bg-white p-8 shadow-lg border border-tint">
+                  <IconBadge icon={f.icon} />
+                  <h3 className="mt-5 font-display text-lg text-slate-900">{f.title}</h3>
+                  <p className="mt-2 text-slate-600 text-sm leading-relaxed">{f.body}</p>
+                </div>
+              ))}
+            </div>
+          </Container>
+        </section>
 
         {/* CLOSING CTA */}
-        <Container className="max-w-4xl mt-32">
-          <div className="bg-gradient-to-br from-primary to-secondary rounded-3xl p-8 sm:p-14 text-white text-center">
-            <h2 className="font-display text-3xl sm:text-4xl font-medium tracking-tight">
-              Send your next brief to Halliard.
-            </h2>
-            <p className="mt-4 text-white/80 text-lg max-w-xl mx-auto">
-              Get back a plan with its reach modelled before you spend. Approve it, and Halliard
-              buys it and keeps it pacing.
-            </p>
-            <a
-              href={href}
-              onClick={() => trackSignUp('closing')}
-              className="mt-8 inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-white text-primary font-semibold hover:bg-slate-100 transition-colors"
-            >
-              Get your first plan
-              <ArrowRight className="h-4 w-4" aria-hidden />
-            </a>
-            <p className="mt-3 text-xs text-white/70">Sign up free. No credit card.</p>
-          </div>
-        </Container>
+        <section className="relative overflow-hidden bg-primary py-20">
+          <div className="absolute inset-0 bg-gradient-to-br from-primary to-secondary" />
+          <div className="absolute inset-0 opacity-[0.15]" style={{ backgroundImage: PLUS_PATTERN, backgroundSize: '18px 18px' }} />
+          <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse at 50% 50%, rgba(255,255,255,0.08) 0%, transparent 70%)' }} />
+          <Container className="relative">
+            <div className="mx-auto max-w-2xl text-center">
+              <h2 className="font-display text-3xl tracking-tight text-white sm:text-4xl">
+                Send your next brief to Halliard.
+              </h2>
+              <p className="mt-2 font-display text-3xl tracking-tight text-white/80 sm:text-4xl">
+                Watch the plan come back.
+              </p>
+              <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+                <Button href={href} variant="solid" color="white" className="px-6 py-3 text-base" onClick={() => trackSignUp('closing')}>
+                  Get your first plan
+                  <ArrowRight className="ml-2 h-4 w-4" aria-hidden />
+                </Button>
+                <Button href="/schedule-demo" variant="outline" color="white" className="px-6 py-3 text-base">
+                  Talk to us first →
+                </Button>
+              </div>
+              <p className="mt-6 text-sm text-white/70">Sign up free. No credit card.</p>
+            </div>
+          </Container>
+        </section>
       </main>
     </>
   )
@@ -380,4 +418,3 @@ export default function PlanPage() {
 
 ;(PlanPage as any).disableNavbar = true
 ;(PlanPage as any).fullWidth = true
-;(PlanPage as any).siteBg = true
