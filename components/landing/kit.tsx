@@ -59,7 +59,7 @@ function posthogs(target: PosthogTarget): any[] {
 /**
  * The visit's UTMs and click IDs, registered on the PostHog person (first
  * and last touch), a named page-view event, and a CTA click tracker. `href`
- * is the client sign-up carrying the same parameters.
+ * is the client sign-up carrying the same parameters, plus `from`.
  */
 export function useLandingAttribution(page: string, { posthog }: { posthog: PosthogTarget }) {
   const utmRef = useRef<Record<string, string>>({})
@@ -113,8 +113,11 @@ export function useLandingAttribution(page: string, { posthog }: { posthog: Post
   const track = (location: string) => {
     for (const ph of posthogs(posthog)) ph.capture?.(`${event}_signup_cta_clicked`, { ...utmRef.current, location })
   }
-  const qs = new URLSearchParams(utms).toString()
-  return { utms, track, href: qs ? `${SIGN_UP_URL}?${qs}` : SIGN_UP_URL }
+  // `from` names the landing page (plan, buying-desk), so sign-up can say what
+  // that page promised even when the visit carries no UTMs.
+  const from = page.split('/')[1] || 'home'
+  const qs = new URLSearchParams({ ...utms, from }).toString()
+  return { utms, track, href: `${SIGN_UP_URL}?${qs}` }
 }
 
 export function LandingHeader({
