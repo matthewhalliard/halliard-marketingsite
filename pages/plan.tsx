@@ -24,7 +24,7 @@ import {
 } from 'lucide-react'
 import { Container } from '../components/mmm/Container'
 import { Button } from '../components/mmm/Button'
-import { CampaignsExplainer } from '../components/plan/campaigns-explainer'
+import { PlanGridHero } from '../components/plan/plan-grid-hero'
 import { BriefExplainer } from '../components/plan/brief-explainer'
 import { AudienceExplainer } from '../components/plan/audience-explainer'
 import { StrategyExplainer } from '../components/plan/strategy-explainer'
@@ -264,7 +264,7 @@ export default function PlanPage() {
             style={{ background: 'radial-gradient(ellipse at 50% 0%, rgba(211,228,255,0.45) 0%, rgba(255,255,255,0.95) 70%, rgb(255,255,255) 100%)' }}
           />
           <Container className="relative max-w-6xl pt-32 pb-20 lg:pt-40 lg:pb-28">
-            <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] gap-14 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.25fr)] gap-12 items-center">
               <div className="text-center lg:text-left">
                 <p className="inline-flex items-center gap-2 rounded-full bg-tint px-4 py-1.5 text-sm font-medium text-primary mb-6">
                   <BarChart3 className="h-4 w-4" aria-hidden />
@@ -318,8 +318,8 @@ export default function PlanPage() {
                   aria-hidden
                 />
                 <div className="relative">
-                  <Frame label="Campaigns" hero>
-                    <CampaignsExplainer />
+                  <Frame label="Media plan" hero>
+                    <PlanGridHero />
                   </Frame>
                 </div>
               </div>
