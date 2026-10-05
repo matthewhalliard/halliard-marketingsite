@@ -19,13 +19,14 @@ const BUYS_ON = [
   { name: 'Pluto TV', logo: 'pluto' },
 ]
 
-export function BuysOnBanner() {
+/** `optional` adds "(optional)" to the label, for pages where buying is an extra rather than the offer. */
+export function BuysOnBanner({ optional = true }: { optional?: boolean }) {
   // Repeated so one copy fills any width; the track scrolls by exactly one copy.
   const run = [...BUYS_ON, ...BUYS_ON, ...BUYS_ON]
   return (
     <div className="flex flex-col items-center gap-4 sm:flex-row sm:gap-8">
       <p className="shrink-0 text-sm font-medium text-slate-500">
-        Halliard can buy across <span className="text-slate-400">(optional)</span>
+        Halliard can buy across{optional ? <span className="text-slate-400"> (optional)</span> : null}
       </p>
       <div
         className="relative w-full min-w-0 overflow-hidden"

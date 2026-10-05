@@ -168,7 +168,7 @@ function Dial({ mode }: { mode: Mode }) {
   )
 }
 
-export function PlanGridHero() {
+export function PlanGridHero({ narrow = false }: { narrow?: boolean } = {}) {
   const reduced = usePrefersReducedMotion()
   const [mode, setMode] = useState<Mode>('balanced')
   const [values, setValues] = useState<number[]>(() => targetsFor('empty'))
@@ -219,6 +219,9 @@ export function PlanGridHero() {
   const totalImpr = ALL_PROPERTIES.reduce((sum, p) => sum + (spendOf.get(p)! / p.cpm) * 1000, 0)
 
   const cell = 'px-2 py-1.5 whitespace-nowrap overflow-hidden text-ellipsis'
+  // In a narrow frame the impressions and CPM columns give way to plan, spend, reach and fit.
+  const imprCls = narrow ? 'hidden' : 'hidden sm:table-cell'
+  const cpmCls = narrow ? 'hidden' : 'hidden md:table-cell'
   const num = `${cell} text-right tabular-nums`
 
   return (
@@ -250,8 +253,8 @@ export function PlanGridHero() {
           <colgroup>
             <col />
             <col className="w-[34%] sm:w-[30%] xl:w-[27%]" />
-            <col className="hidden w-[10%] sm:table-column" />
-            <col className="hidden w-[11%] md:table-column" />
+            <col className={narrow ? 'hidden' : 'hidden w-[10%] sm:table-column'} />
+            <col className={narrow ? 'hidden' : 'hidden w-[11%] md:table-column'} />
             <col className="hidden w-[10%] sm:table-column" />
             <col className="w-[17%] sm:w-[10%]" />
           </colgroup>
@@ -259,8 +262,8 @@ export function PlanGridHero() {
             <tr className="bg-slate-50 text-[10.5px] font-semibold uppercase tracking-[0.6px] text-slate-500">
               <th className={`${cell} text-left`}>Plan</th>
               <th className={`${cell} text-left`}>Spend</th>
-              <th className={`${num} hidden sm:table-cell`}>Impr.</th>
-              <th className={`${num} hidden md:table-cell`}>CPM</th>
+              <th className={`${num} ${imprCls}`}>Impr.</th>
+              <th className={`${num} ${cpmCls}`}>CPM</th>
               <th className={`${num} hidden sm:table-cell`}>Reach</th>
               <th className={`${cell} text-center`}>Fit</th>
             </tr>
@@ -290,8 +293,8 @@ export function PlanGridHero() {
                     <td className={`${cell} font-semibold tabular-nums`}>
                       {usd(sSpend)}
                     </td>
-                    <td className={`${num} hidden sm:table-cell font-semibold`}>{compact(sImpr)}</td>
-                    <td className={`${num} hidden md:table-cell text-slate-400`}>—</td>
+                    <td className={`${num} ${imprCls} font-semibold`}>{compact(sImpr)}</td>
+                    <td className={`${num} ${cpmCls} text-slate-400`}>—</td>
                     <td className={`${num} hidden sm:table-cell font-semibold`}>{reachOf.get(strategy)!.toFixed(0)}%</td>
                     <td className={cell} />
                   </tr>
@@ -313,8 +316,8 @@ export function PlanGridHero() {
                             </div>
                           </td>
                           <td className={`${cell} font-medium tabular-nums`}>{usd(cSpend)}</td>
-                          <td className={`${num} hidden sm:table-cell`}>{compact(cImpr)}</td>
-                          <td className={`${num} hidden md:table-cell`}>
+                          <td className={`${num} ${imprCls}`}>{compact(cImpr)}</td>
+                          <td className={`${num} ${cpmCls}`}>
                             {cImpr ? `$${((cSpend / cImpr) * 1000).toFixed(2)}` : '—'}
                           </td>
                           <td className={`${num} hidden sm:table-cell`} />
@@ -341,10 +344,10 @@ export function PlanGridHero() {
                                   </span>
                                 </div>
                               </td>
-                              <td className={`${num} hidden sm:table-cell text-slate-600`}>
+                              <td className={`${num} ${imprCls} text-slate-600`}>
                                 {compact((spend / p.cpm) * 1000)}
                               </td>
-                              <td className={`${num} hidden md:table-cell text-slate-600`}>${p.cpm.toFixed(2)}</td>
+                              <td className={`${num} ${cpmCls} text-slate-600`}>${p.cpm.toFixed(2)}</td>
                               <td className={`${num} hidden sm:table-cell`} />
                               <td className={`${cell} text-center`}>
                                 <FitChip fit={p.fit} show={built || spend > 1000} />
