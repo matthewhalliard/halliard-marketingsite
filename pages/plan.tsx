@@ -25,9 +25,7 @@ import {
 import { Container } from '../components/mmm/Container'
 import { Button } from '../components/mmm/Button'
 import { PlanGridHero } from '../components/plan/plan-grid-hero'
-import { BriefExplainer } from '../components/plan/brief-explainer'
-import { AudienceExplainer } from '../components/plan/audience-explainer'
-import { StrategyExplainer } from '../components/plan/strategy-explainer'
+import { AudienceScene, BriefScene, StrategyScene } from '../components/plan/step-visuals'
 
 // The client portal: sign up, tell us about you, send a first brief.
 const SIGN_UP_URL = 'https://client.halliardmedia.com/sign-up'
@@ -83,7 +81,7 @@ const STEPS: Step[] = [
       { icon: CalendarCheck, text: 'A check that the budget and the dates hang together' },
     ],
     frame: 'Brief',
-    Explainer: BriefExplainer,
+    Explainer: BriefScene,
   },
   {
     icon: Users,
@@ -96,7 +94,7 @@ const STEPS: Step[] = [
       { icon: Tv, text: 'The media each audience consumes, ranked' },
     ],
     frame: 'Audiences',
-    Explainer: AudienceExplainer,
+    Explainer: AudienceScene,
   },
   {
     icon: Target,
@@ -109,7 +107,7 @@ const STEPS: Step[] = [
       { icon: BarChart3, text: 'Reach and frequency modelled before anything is bought' },
     ],
     frame: 'Strategy',
-    Explainer: StrategyExplainer,
+    Explainer: StrategyScene,
   },
 ]
 
