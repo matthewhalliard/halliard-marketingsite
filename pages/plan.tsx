@@ -137,7 +137,7 @@ const SCRIBBLE =
 
 function Header({ signUpHref, onClick }: { signUpHref: string; onClick: () => void }) {
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/70 backdrop-blur-sm border-b border-gray-100">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white/50 backdrop-blur-md border-b border-tint/40">
       <Container className="">
         <nav className="relative flex justify-between items-center py-5">
           <Link href="/" aria-label="Home">
@@ -264,11 +264,20 @@ export default function PlanPage() {
       <Header signUpHref={href} onClick={() => trackSignUp('header')} />
       <main>
         {/* HERO */}
-        <section className="relative overflow-hidden">
-          <div className="absolute inset-0 opacity-[0.07]" style={{ backgroundImage: PLUS_PATTERN, backgroundSize: '18px 18px' }} />
+        <section className="relative">
+          {/* The homepage's plus pattern and tint glow, fading out at the bottom into the site background. */}
           <div
-            className="absolute inset-0"
-            style={{ background: 'radial-gradient(ellipse at 50% 0%, rgba(211,228,255,0.45) 0%, rgba(255,255,255,0.95) 70%, rgb(255,255,255) 100%)' }}
+            className="pointer-events-none absolute inset-x-0 top-0 h-[115%] opacity-[0.07]"
+            style={{
+              backgroundImage: PLUS_PATTERN,
+              backgroundSize: '18px 18px',
+              maskImage: 'linear-gradient(to bottom, #000 55%, transparent)',
+              WebkitMaskImage: 'linear-gradient(to bottom, #000 55%, transparent)',
+            }}
+          />
+          <div
+            className="pointer-events-none absolute inset-x-0 top-0 h-[115%]"
+            style={{ background: 'radial-gradient(ellipse 80% 70% at 50% 0%, rgba(211,228,255,0.55) 0%, rgba(211,228,255,0) 100%)' }}
           />
           <Container className="relative max-w-6xl pt-32 pb-20 lg:pt-40 lg:pb-28">
             <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.25fr)] gap-12 items-center">
@@ -298,9 +307,6 @@ export default function PlanPage() {
                   <Button href={href} color="blue" className="px-6 py-3 text-base" onClick={() => trackSignUp('hero')}>
                     Get your first plan
                     <ArrowRight className="ml-2 h-4 w-4" aria-hidden />
-                  </Button>
-                  <Button href="/schedule-demo" variant="outline" color="slate" className="px-6 py-3 text-base">
-                    Talk to us first →
                   </Button>
                 </div>
                 <div className="mt-8 inline-flex items-center gap-3 rounded-2xl border border-tint bg-white/80 px-4 py-3 text-left shadow-sm">
@@ -338,14 +344,14 @@ export default function PlanPage() {
         </section>
 
         {/* WHERE HALLIARD CAN BUY */}
-        <section className="border-y border-tint/70 bg-white py-6">
+        <section className="relative py-6">
           <Container className="max-w-6xl">
             <BuysOnBanner />
           </Container>
         </section>
 
         {/* HOW IT WORKS */}
-        <section className="py-16 sm:py-24 bg-slate-50">
+        <section className="py-20 sm:py-28" style={{ background: 'linear-gradient(to bottom, rgba(248,250,252,0) 0, rgb(248,250,252) 140px, rgb(248,250,252) calc(100% - 140px), rgba(248,250,252,0) 100%)' }}>
           <Container className="max-w-6xl">
             <SectionHeading
               eyebrow="How it works"
@@ -387,7 +393,7 @@ export default function PlanPage() {
         </section>
 
         {/* SOCIAL PROOF */}
-        <section className="py-16 sm:py-24 bg-white">
+        <section className="py-16 sm:py-20">
           <Container className="">
             <div className="mx-auto max-w-3xl">
               <LisaQuote />
@@ -396,7 +402,7 @@ export default function PlanPage() {
         </section>
 
         {/* FEATURES */}
-        <section className="py-16 sm:py-24 bg-slate-50">
+        <section className="py-20 sm:py-28" style={{ background: 'linear-gradient(to bottom, rgba(248,250,252,0) 0, rgb(248,250,252) 140px, rgb(248,250,252) calc(100% - 140px), rgba(248,250,252,0) 100%)' }}>
           <Container className="max-w-6xl">
             <SectionHeading
               eyebrow="Optional"
@@ -438,9 +444,6 @@ export default function PlanPage() {
                   Get your first plan
                   <ArrowRight className="ml-2 h-4 w-4" aria-hidden />
                 </Button>
-                <Button href="/schedule-demo" variant="outline" color="white" className="px-6 py-3 text-base">
-                  Talk to us first →
-                </Button>
               </div>
               <p className="mt-6 text-sm text-white/70">Sign up free. No credit card.</p>
             </div>
@@ -453,3 +456,4 @@ export default function PlanPage() {
 
 ;(PlanPage as any).disableNavbar = true
 ;(PlanPage as any).fullWidth = true
+;(PlanPage as any).siteBg = true
