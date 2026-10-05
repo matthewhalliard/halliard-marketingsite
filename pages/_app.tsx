@@ -34,6 +34,17 @@ export default function App({ Component, pageProps }: AppProps) {
           source: 'marketing_site',
           status: 'click',
         });
+        // Google Ads conversion on the same proxy. Without it a search click
+        // that signs up records nothing, since the app carries no Google tag.
+        // Uses the account's existing lead conversion action; swap the label
+        // for a dedicated "Sign-up click" action once one exists.
+        if (typeof (window as any).gtag === 'function') {
+          (window as any).gtag('event', 'conversion', {
+            send_to: 'AW-672346912/qEmHCJ6L_pgcEKDmzMAC',
+            value: 50.0,
+            currency: 'USD',
+          });
+        }
         // OpenAI Ads conversion event (signup CTA click — same proxy as Meta
         // CompleteRegistration above, since the app doesn't carry the pixel).
         if (typeof (window as any).oaiq === 'function') {

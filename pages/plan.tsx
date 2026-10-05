@@ -5,6 +5,37 @@ import { Container } from '../components/mmm/Container'
 import { Button } from '../components/mmm/Button'
 
 const SIGN_UP_URL = 'https://app.halliardmedia.com/sign-up'
+// Where "have Halliard buy this plan" goes: the buying desk enquiry.
+const BUY_URL = '/agentic?source=plan#enquire'
+
+// The hero matches the ad group that sent the visitor. Search ads for the
+// reach and frequency ad group carry utm_content or utm_term naming it.
+const HERO = {
+  default: {
+    eyebrow: 'Free media planning tool',
+    title: 'A media plan for any client,',
+    accent: 'in 30 seconds.',
+    body: "Enter a client's website. Halliard picks the channel mix, flights it, and models reach and frequency. No signup. No credit card.",
+  },
+  reach: {
+    eyebrow: 'Free reach & frequency planner',
+    title: 'Reach and frequency for any client,',
+    accent: 'in 30 seconds.',
+    body: "Enter a client's website. Halliard builds the plan and models reach and frequency by channel before a dollar is spent. No signup. No credit card.",
+  },
+}
+type HeroKey = keyof typeof HERO
+
+function heroFor(params: Record<string, string>): HeroKey {
+  const hint = `${params.utm_content || ''} ${params.utm_term || ''}`.toLowerCase()
+  return /reach|frequency/.test(hint) ? 'reach' : 'default'
+}
+
+/** The sign-up URL carrying this visit's UTMs and click IDs, so the app can attribute the account. */
+function signUpUrl(params: Record<string, string>) {
+  const qs = new URLSearchParams(params).toString()
+  return qs ? `${SIGN_UP_URL}?${qs}` : SIGN_UP_URL
+}
 
 interface PlanSummary {
   hostname: string
@@ -35,7 +66,7 @@ function fmtCurrency(v: number) {
   return v >= 1e6 ? `$${(v / 1e6).toFixed(1)}M` : v >= 1000 ? `$${Math.round(v / 1000)}K` : `$${v}`
 }
 
-function Header() {
+function Header({ signUpHref }: { signUpHref: string }) {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/70 backdrop-blur-sm border-b border-gray-100">
       <Container className="">
@@ -48,7 +79,7 @@ function Header() {
             />
           </Link>
           <div className="flex items-center gap-x-4">
-            <Button href={SIGN_UP_URL} color="blue" className="">
+            <Button href={signUpHref} color="blue" className="">
               Start Planning Free
             </Button>
           </div>
@@ -75,6 +106,8 @@ export default function PlanPage() {
   // Capture UTMs + register as person props so all events downstream
   // (even in app.halliardmedia.com) get tied to the right attribution.
   const utmRef = useRef<Record<string, string>>({})
+  const [attribution, setAttribution] = useState<Record<string, string>>({})
+  const [heroKey, setHeroKey] = useState<HeroKey>('default')
   useEffect(() => {
     if (typeof window === 'undefined') return
     const params = new URLSearchParams(window.location.search)
@@ -83,6 +116,8 @@ export default function PlanPage() {
       if (k.startsWith('utm_') || k === 'gclid' || k === 'fbclid') utms[k] = v
     }
     utmRef.current = utms
+    setAttribution(utms)
+    setHeroKey(heroFor(utms))
 
     const ph = (window as any).posthog
     if (ph && Object.keys(utms).length > 0) {
@@ -316,31 +351,29 @@ export default function PlanPage() {
   return (
     <>
       <Head>
-        <title>See Your Media Plan in 30 Seconds | Halliard</title>
+        <title>Free Media Planning Tool: A Plan in 30 Seconds | Halliard</title>
         <meta
           name="description"
-          content="Enter your website URL and Halliard builds a full media plan for your brand — channel mix, flighting, reach & frequency — in 30 seconds."
+          content="Enter a client's website and Halliard builds a full media plan — channel mix, flighting, reach & frequency — in 30 seconds. Free, no signup."
         />
-        <meta property="og:title" content="See Your Media Plan in 30 Seconds | Halliard" />
-        <meta property="og:description" content="Enter your URL. Get a real media plan. No signup required." />
+        <meta property="og:title" content="Free Media Planning Tool: A Plan in 30 Seconds | Halliard" />
+        <meta property="og:description" content="Enter a client's website. Get a real media plan with reach and frequency. No signup required." />
       </Head>
-      <Header />
+      <Header signUpHref={signUpUrl(attribution)} />
       <main className="pt-28 pb-24 bg-gradient-to-b from-white via-slate-50 to-white min-h-screen">
         {/* HERO */}
         <Container className="max-w-3xl">
           <div className="text-center">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-semibold tracking-wide mb-6 uppercase">
               <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
-              Live plan generator
+              {HERO[heroKey].eyebrow}
             </div>
             <h1 className="font-display text-4xl sm:text-6xl font-medium tracking-tight text-slate-900 leading-[1.05]">
-              See your media plan<br />
-              <span className="text-primary">in 30 seconds.</span>
+              {HERO[heroKey].title}<br />
+              <span className="text-primary">{HERO[heroKey].accent}</span>
             </h1>
             <p className="mt-6 text-lg text-slate-600 max-w-xl mx-auto">
-              Enter your website. Halliard analyzes your brand, picks a channel mix,
-              and builds a full media plan — flighting, reach & frequency, the works.
-              No signup. No credit card.
+              {HERO[heroKey].body}
             </p>
           </div>
 
@@ -355,7 +388,7 @@ export default function PlanPage() {
                   type="text"
                   inputMode="url"
                   autoComplete="url"
-                  placeholder="nike.com, marriott.com, your brand..."
+                  placeholder="Your client's website, e.g. allbirds.com"
                   value={url}
                   onChange={e => {
                     setUrl(e.target.value)
@@ -507,23 +540,35 @@ export default function PlanPage() {
                 {!emailSubmitted ? (
                   <>
                     <h3 className="font-display text-2xl sm:text-3xl font-medium tracking-tight">
-                      Want to edit this plan in Halliard?
+                      Want Halliard to buy this plan?
                     </h3>
                     <p className="mt-2 text-white/80 text-lg">
-                      Sign up free — no credit card — and this plan loads straight into your
-                      workspace. Or drop your email and we'll send you an editable copy.
+                      Send us the brief. We return a modelled plan within 24 hours, you approve
+                      every line, and Halliard buys it and keeps it pacing. Or edit this plan
+                      yourself, free.
                     </p>
                     <div className="mt-6 flex flex-col sm:flex-row gap-3">
                       <a
-                        href={SIGN_UP_URL}
-                        onClick={() => track('plan_signup_cta_clicked', {
+                        href={BUY_URL}
+                        onClick={() => track('plan_buy_cta_clicked', {
                           location: 'results_primary',
                           brand: summary?.brandName,
                           industry: summary?.industry,
                         })}
                         className="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-white text-primary font-semibold hover:bg-slate-100 transition-colors"
                       >
-                        Start Planning Free →
+                        Have Halliard buy this plan →
+                      </a>
+                      <a
+                        href={signUpUrl(attribution)}
+                        onClick={() => track('plan_signup_cta_clicked', {
+                          location: 'results_secondary',
+                          brand: summary?.brandName,
+                          industry: summary?.industry,
+                        })}
+                        className="inline-flex items-center justify-center px-6 py-3 rounded-xl border border-white/60 text-white font-semibold hover:bg-white/10 transition-colors"
+                      >
+                        Edit it free in Halliard
                       </a>
                     </div>
 
@@ -559,7 +604,7 @@ export default function PlanPage() {
                       We've sent an editable version of this plan to <strong>{email}</strong>.
                     </p>
                     <a
-                      href={SIGN_UP_URL}
+                      href={signUpUrl(attribution)}
                       onClick={() => track('plan_signup_cta_clicked', {
                         location: 'after_email_capture',
                         brand: summary?.brandName,
@@ -602,8 +647,8 @@ export default function PlanPage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <Feature
                 step="1"
-                title="Enter your URL"
-                body="We read your site — brand, category, positioning. No login, no credit card, no uploads."
+                title="Enter a client's website"
+                body="We read the site — brand, category, positioning. No login, no credit card, no uploads."
               />
               <Feature
                 step="2"
@@ -612,8 +657,8 @@ export default function PlanPage() {
               />
               <Feature
                 step="3"
-                title="Edit it in the product"
-                body="Sign up free and this plan loads into your workspace. Adjust budgets, swap channels, run scenarios."
+                title="Edit it, or have us buy it"
+                body="Edit the plan free in Halliard, or send us the brief and Halliard buys it. You approve every line before anything spends."
               />
             </div>
           </Container>
