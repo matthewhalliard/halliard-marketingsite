@@ -39,6 +39,27 @@ import { BuysOnBanner, LisaQuote } from '../components/plan/proof'
 // The client portal: sign up, tell us about you, send a first brief.
 const SIGN_UP_URL = 'https://client.halliardmedia.com/sign-up'
 
+// The new journey's own PostHog project, "Halliard3": the one the portal at
+// client.halliardmedia.com reports to. The rest of the site stays on the old
+// project, so this page reports to both. It must be the portal's key: PostHog's
+// cookie is set on .halliardmedia.com and named after the key, so only a shared
+// key makes a /plan visitor and the account they sign up as one person.
+const HALLIARD3_KEY = 'phc_n4aY5ANpBjV97gm6oDPFKekmXkRo962Y2b3tKa88cdRS'
+
+/** Both PostHog instances this page reports to, starting the Halliard3 one if needed. */
+function posthogs(): any[] {
+  const ph = (window as any).posthog
+  if (!ph) return []
+  if (!ph.halliard3) {
+    ph.init(
+      HALLIARD3_KEY,
+      { api_host: 'https://us.i.posthog.com', defaults: '2026-08-30', person_profiles: 'identified_only' },
+      'halliard3',
+    )
+  }
+  return [ph, ph.halliard3].filter(Boolean)
+}
+
 // The hero matches the ad group that sent the visitor. Search ads for the
 // reach and frequency ad group carry utm_content or utm_term naming it.
 const HERO = {
@@ -214,34 +235,35 @@ export default function PlanPage() {
     setAttribution(utms)
     setHeroKey(heroFor(utms))
 
-    const ph = (window as any).posthog
-    if (ph && Object.keys(utms).length > 0) {
-      // `register` adds these to every event for the session; `people.set_once`
-      // locks the FIRST-touch attribution.
-      ph.register?.(utms)
-      ph.people?.set_once?.({
-        first_utm_source: utms.utm_source,
-        first_utm_medium: utms.utm_medium,
-        first_utm_campaign: utms.utm_campaign,
-        first_utm_content: utms.utm_content,
-        first_utm_term: utms.utm_term,
-        first_gclid: utms.gclid,
-        first_landing_page: '/plan',
-      })
-      ph.people?.set?.({
-        last_utm_source: utms.utm_source,
-        last_utm_medium: utms.utm_medium,
-        last_utm_campaign: utms.utm_campaign,
-        last_utm_content: utms.utm_content,
-        last_landing_page: '/plan',
-      })
+    for (const ph of posthogs()) {
+      if (Object.keys(utms).length > 0) {
+        // `register` adds these to every event for the session; `people.set_once`
+        // locks the FIRST-touch attribution.
+        ph.register?.(utms)
+        ph.people?.set_once?.({
+          first_utm_source: utms.utm_source,
+          first_utm_medium: utms.utm_medium,
+          first_utm_campaign: utms.utm_campaign,
+          first_utm_content: utms.utm_content,
+          first_utm_term: utms.utm_term,
+          first_gclid: utms.gclid,
+          first_landing_page: '/plan',
+        })
+        ph.people?.set?.({
+          last_utm_source: utms.utm_source,
+          last_utm_medium: utms.utm_medium,
+          last_utm_campaign: utms.utm_campaign,
+          last_utm_content: utms.utm_content,
+          last_landing_page: '/plan',
+        })
+      }
+      ph.capture?.('plan_page_viewed', { ...utms, landing_page: '/plan' })
     }
-    ph?.capture?.('plan_page_viewed', { ...utms, landing_page: '/plan' })
   }, [])
 
   const trackSignUp = (location: string) => {
     if (typeof window === 'undefined') return
-    ;(window as any).posthog?.capture?.('plan_signup_cta_clicked', { ...utmRef.current, location })
+    for (const ph of posthogs()) ph.capture?.('plan_signup_cta_clicked', { ...utmRef.current, location })
   }
 
   const hero = HERO[heroKey]
