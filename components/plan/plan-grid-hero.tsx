@@ -9,7 +9,8 @@ import { ChevronDown } from 'lucide-react'
  * planner's dial, the way a planner would flip it.
  *
  * An illustrative plan, not a client's. Logos are the ones the portal keeps
- * in public/property-icons and public/platform-icons.
+ * in public/property-icons; the Halliard mark is the one beside a channel
+ * Halliard can buy.
  */
 
 type Mode = 'balanced' | 'reach'
@@ -24,7 +25,8 @@ interface Property {
 
 interface Channel {
   name: string
-  buysOn?: { name: string; icon: string }
+  /** Halliard can buy this channel for the client, if they want it to. */
+  halliardBuys?: boolean
   properties: Property[]
 }
 
@@ -43,7 +45,7 @@ const PLAN: Strategy[] = [
     channels: [
       {
         name: 'CTV',
-        buysOn: { name: 'PubMatic', icon: 'pubmatic' },
+        halliardBuys: true,
         properties: [
           { name: 'Hulu', icon: 'hulu', cpm: 32, fit: 88, spend: { balanced: 38000, reach: 46000 } },
           { name: 'Peacock', icon: 'peacock', cpm: 28, fit: 82, spend: { balanced: 30000, reach: 34000 } },
@@ -67,7 +69,7 @@ const PLAN: Strategy[] = [
     channels: [
       {
         name: 'Paid social',
-        buysOn: { name: 'Meta', icon: 'meta' },
+        halliardBuys: true,
         properties: [
           { name: 'Instagram', icon: 'instagram', cpm: 10, fit: 86, spend: { balanced: 26000, reach: 31000 } },
           { name: 'Facebook', icon: 'facebook', cpm: 9, fit: 79, spend: { balanced: 34000, reach: 29000 } },
@@ -304,13 +306,9 @@ export function PlanGridHero() {
                             <div className="flex items-center gap-1.5 pl-2 sm:pl-3.5">
                               <ChevronDown className="h-3 w-3 text-slate-400" aria-hidden />
                               <span className="font-medium">{channel.name}</span>
-                              {channel.buysOn ? (
-                                <span
-                                  className="ml-1 inline-flex items-center gap-1"
-                                  title={`Halliard buys this on ${channel.buysOn.name}`}
-                                >
+                              {channel.halliardBuys ? (
+                                <span className="ml-1 inline-flex items-center" title="Halliard can buy this for you">
                                   <Logo name="halliard-mark" size={15} />
-                                  <Logo name={channel.buysOn.icon} size={15} />
                                 </span>
                               ) : null}
                             </div>
@@ -364,11 +362,17 @@ export function PlanGridHero() {
           </tbody>
         </table>
       </div>
-      <p className="mt-2.5 text-[11px] text-slate-500">
-        {mode === 'reach'
-          ? 'Reach first: budget moves to the properties that add the most new people.'
-          : 'Balanced: impressions count by how well each property fits the job.'}
-      </p>
+      <div className="mt-2.5 flex flex-wrap items-center justify-between gap-x-4 gap-y-1.5 text-[11px] text-slate-500">
+        <span>
+          {mode === 'reach'
+            ? 'Reach first: budget moves to the properties that add the most new people.'
+            : 'Balanced: impressions count by how well each property fits the job.'}
+        </span>
+        <span className="inline-flex items-center gap-1.5">
+          <Logo name="halliard-mark" size={13} />
+          Halliard can buy this for you. Optional.
+        </span>
+      </div>
     </div>
   )
 }

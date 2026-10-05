@@ -296,14 +296,17 @@ export default function PlanPage() {
                     Talk to us first →
                   </Button>
                 </div>
-                <ul className="mt-8 flex flex-wrap justify-center lg:justify-start gap-x-6 gap-y-3 text-sm text-slate-600">
+                <div className="mt-8 inline-flex items-center gap-3 rounded-2xl border border-tint bg-white/80 px-4 py-3 text-left shadow-sm">
+                  <img src="/plan-grid/halliard-mark.png" alt="" width={28} height={28} className="h-7 w-7 shrink-0" />
+                  <p className="text-sm text-slate-700">
+                    <span className="font-semibold text-primary">Optional:</span> Halliard can also buy the plan for
+                    you and keep it pacing. You approve every line first.
+                  </p>
+                </div>
+                <ul className="mt-6 flex flex-wrap justify-center lg:justify-start gap-x-6 gap-y-3 text-sm text-slate-600">
                   <li className="inline-flex items-center gap-2">
                     <CreditCard className="h-4 w-4 text-primary" aria-hidden />
                     No credit card
-                  </li>
-                  <li className="inline-flex items-center gap-2">
-                    <ShieldCheck className="h-4 w-4 text-primary" aria-hidden />
-                    You approve every line
                   </li>
                   <li className="inline-flex items-center gap-2">
                     <MapPin className="h-4 w-4 text-primary" aria-hidden />
@@ -372,7 +375,11 @@ export default function PlanPage() {
         {/* FEATURES */}
         <section className="py-16 sm:py-24 bg-white">
           <Container className="max-w-6xl">
-            <SectionHeading eyebrow="After you approve" title="Halliard buys it and keeps it pacing" />
+            <SectionHeading
+              eyebrow="Optional"
+              title="Want it bought? Halliard can do that too."
+              body="Planning is yours either way. If you want, hand the approved plan to Halliard: it buys it, keeps it pacing and shows you every fee. Or take the plan and buy it the way you do today."
+            />
             <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {FEATURES.map(f => (
                 <div key={f.title} className="rounded-2xl bg-white p-8 shadow-lg border border-tint">
@@ -396,7 +403,7 @@ export default function PlanPage() {
                 Send your next brief to Halliard.
               </h2>
               <p className="mt-2 font-display text-3xl tracking-tight text-white/80 sm:text-4xl">
-                Watch the plan come back.
+                Plan it free. Have us buy it if you want.
               </p>
               <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
                 <Button href={href} variant="solid" color="white" className="px-6 py-3 text-base" onClick={() => trackSignUp('closing')}>
