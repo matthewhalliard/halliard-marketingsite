@@ -28,6 +28,8 @@ export const SOFT_BAND: React.CSSProperties = {
     'linear-gradient(to bottom, rgba(248,250,252,0) 0, rgb(248,250,252) 140px, rgb(248,250,252) calc(100% - 140px), rgba(248,250,252,0) 100%)',
 }
 
+const ATTRIBUTION_KEY = 'halliard_landing_attribution'
+
 /**
  * The visit's UTMs and click IDs, registered on the PostHog person (first
  * and last touch), a named page-view event, and a CTA click tracker. `href`
@@ -40,15 +42,23 @@ export function useLandingAttribution(page: string) {
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
-    const found: Record<string, string> = {}
+    let found: Record<string, string> = {}
     for (const [k, v] of params.entries()) {
       if (k.startsWith('utm_') || k === 'gclid' || k === 'fbclid') found[k] = v
+    }
+    // Keep the landing visit's parameters for the session, so a visitor who
+    // moves on to a subpage (how it works, pricing) still signs up with them.
+    try {
+      if (Object.keys(found).length > 0) sessionStorage.setItem(ATTRIBUTION_KEY, JSON.stringify(found))
+      else found = JSON.parse(sessionStorage.getItem(ATTRIBUTION_KEY) || '{}')
+    } catch {
+      // Storage can be unavailable (private windows, blocked cookies); the URL's parameters still apply.
     }
     utmRef.current = found
     setUtms(found)
 
     const ph = (window as any).posthog
-    if (ph && Object.keys(found).length > 0) {
+    if (ph && params.toString() && Object.keys(found).length > 0) {
       // `register` adds these to every event for the session; `people.set_once`
       // locks the FIRST-touch attribution.
       ph.register?.(found)
@@ -79,7 +89,18 @@ export function useLandingAttribution(page: string) {
   return { utms, track, href: qs ? `${SIGN_UP_URL}?${qs}` : SIGN_UP_URL }
 }
 
-export function LandingHeader({ href, cta, onClick }: { href: string; cta: string; onClick: () => void }) {
+export function LandingHeader({
+  href,
+  cta,
+  onClick,
+  links = [],
+}: {
+  href: string
+  cta: string
+  onClick: () => void
+  /** Pages of this landing page's own, such as how it works and pricing. */
+  links?: { href: string; label: string }[]
+}) {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/50 backdrop-blur-md border-b border-tint/40">
       <Container className="">
@@ -91,10 +112,23 @@ export function LandingHeader({ href, cta, onClick }: { href: string; cta: strin
               className="h-8 w-auto"
             />
           </Link>
-          <div className="flex items-center gap-x-4" onClickCapture={onClick}>
-            <Button href={href} color="blue" className="">
-              {cta}
-            </Button>
+          <div className="flex items-center gap-x-6">
+            {links.length ? (
+              <ul className="hidden items-center gap-x-6 text-sm text-slate-700 sm:flex">
+                {links.map(l => (
+                  <li key={l.href}>
+                    <Link href={l.href} className="rounded-lg px-1 py-1 hover:text-slate-900">
+                      {l.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+            <span onClickCapture={onClick}>
+              <Button href={href} color="blue" className="">
+                {cta}
+              </Button>
+            </span>
           </div>
         </nav>
       </Container>

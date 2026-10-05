@@ -18,8 +18,8 @@ import {
   Timer,
   Upload,
 } from 'lucide-react'
-import { Container } from '../components/mmm/Container'
-import { Button } from '../components/mmm/Button'
+import { Container } from '../../components/mmm/Container'
+import { Button } from '../../components/mmm/Button'
 import {
   Accent,
   ClosingCta,
@@ -34,9 +34,8 @@ import {
   useLandingAttribution,
   type Feature,
   type Step,
-} from '../components/landing/kit'
-import { PlanGridHero } from '../components/plan/plan-grid-hero'
-import { BriefScene } from '../components/plan/step-visuals'
+} from '../../components/landing/kit'
+import { BriefScene } from '../../components/plan/step-visuals'
 import {
   ApproveVisual,
   BuyVisual,
@@ -44,9 +43,10 @@ import {
   LedgerVisual,
   LocalVisual,
   PacingVisual,
-} from '../components/plan/feature-visuals'
-import { BuysOnBanner, LisaQuote } from '../components/plan/proof'
-import { CampaignScene, FeeScene, LiveScene } from '../components/buying/scenes'
+} from '../../components/plan/feature-visuals'
+import { BuysOnBanner, LisaQuote } from '../../components/plan/proof'
+import { CampaignScene, FeeScene, LiveScene, NarrowPlan } from '../../components/buying/scenes'
+import { BUYING_DESK_LINKS } from '../../components/buying/nav'
 
 // Landing page A on the GTM map: the buying desk offer, for the "freelance
 // media buyer", "outsourced media buying" and "AI media buying" search ad
@@ -78,11 +78,6 @@ function heroFor(params: Record<string, string>): HeroKey {
   return 'freelance'
 }
 
-/** The hero plan from /plan, without impressions and CPM, to fit a step's half-width frame. */
-function CompactPlan() {
-  return <PlanGridHero narrow />
-}
-
 const STEPS: Step[] = [
   {
     icon: FileText,
@@ -108,16 +103,16 @@ const STEPS: Step[] = [
       { icon: ShieldCheck, text: 'Nothing is bought until you approve it' },
     ],
     frame: 'Media plan',
-    Scene: CompactPlan,
+    Scene: NarrowPlan,
   },
   {
     icon: Radio,
     label: 'Buying and pacing',
     title: 'Halliard buys it and keeps it pacing',
-    body: 'The approved plan goes live on PubMatic and Meta. Every six hours Halliard checks delivery, and any change it suggests waits for your approval.',
+    body: 'The approved plan goes live on PubMatic and Meta. Every six hours Halliard checks delivery. Bigger changes wait for your approval; small budget adjustments run on their own and are logged.',
     points: [
       { icon: Timer, text: 'Delivery checked every six hours' },
-      { icon: CheckCircle2, text: 'Budget moves proposed, approved by you, then made' },
+      { icon: CheckCircle2, text: 'Bigger budget moves proposed, approved by you, then made' },
       { icon: ScrollText, text: 'Every read, change and approval on the record' },
     ],
     frame: 'Campaigns',
@@ -152,7 +147,7 @@ export default function BuyingDeskPage() {
           content="Your agency's buying desk: plans, buys and paces campaigns, with every line approved by you and every fee shown up front."
         />
       </Head>
-      <LandingHeader href={href} cta="Send your first brief" onClick={() => track('header')} />
+      <LandingHeader href={href} cta="Send your first brief" onClick={() => track('header')} links={BUYING_DESK_LINKS} />
       <main>
         {/* HERO */}
         <section className="relative">
@@ -218,6 +213,11 @@ export default function BuyingDeskPage() {
               body="Sign up, tell us who you buy for, and send your first brief."
             />
             <StepRows steps={STEPS} />
+            <div className="mt-14 text-center">
+              <Button href="/buying-desk/how-it-works" variant="outline" color="slate" className="px-6 py-3 text-base">
+                See all six stages →
+              </Button>
+            </div>
           </Container>
         </section>
 
@@ -244,9 +244,15 @@ export default function BuyingDeskPage() {
                   </li>
                   <li className="flex items-start gap-3">
                     <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden />
-                    A fee per campaign Halliard buys, not a retainer
+                    A fee per campaign Halliard buys, shown before you approve it
                   </li>
                 </ul>
+                <div className="mt-8">
+                  <Button href="/buying-desk/pricing" color="blue" className="px-6 py-3 text-base">
+                    Work out your fee
+                    <ArrowRight className="ml-2 h-4 w-4" aria-hidden />
+                  </Button>
+                </div>
               </div>
               <div className="min-w-0">
                 <Frame label="Campaign fee">

@@ -1,11 +1,12 @@
 import React from 'react'
 import { AlertTriangle, Check, CheckCircle2, Clock, Loader2 } from 'lucide-react'
 import { appear, prog, useTimeline } from '../plan/motion'
+import { PlanGridHero } from '../plan/plan-grid-hero'
 
 /**
  * The /buying-desk scenes: likenesses of the client portal's Campaigns tab
- * and a live campaign, using its own labels ("Draft the PubMatic campaign",
- * "Campaign fee", "Going live is approved separately") and the same example
+ * and a live campaign, using its own labels ("Campaign fee", "Going live is
+ * approved separately") and the same example
  * brief as /plan (a DFW HVAC spring launch).
  *
  * The fee figures come from Halliard3's campaign-fee rules
@@ -58,7 +59,7 @@ const PACKAGES = [
 ]
 
 /**
- * The hero: Halliard drafts the PubMatic campaign from the approved plan,
+ * The hero: Halliard drafts the campaign from the approved plan,
  * checks each package's creative, shows the campaign fee against a
  * freelancer's, and goes live once you approve it.
  */
@@ -71,9 +72,9 @@ export function CampaignScene() {
     <div ref={ref} className="text-[12.5px] text-slate-800" style={{ opacity }}>
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div className="flex items-center gap-2">
-          <Logo name="pubmatic" size={20} />
+          <Logo name="halliard-mark" size={20} />
           <div className="leading-tight">
-            <div className="font-semibold text-slate-900">PubMatic campaign · Build fame</div>
+            <div className="font-semibold text-slate-900">Campaign · Build fame</div>
             <div className="text-[11px] text-slate-500">Mar 2 – May 31 · 13 weeks · Dallas–Fort Worth</div>
           </div>
         </div>
@@ -91,7 +92,7 @@ export function CampaignScene() {
         {asking ? (
           <>
             <Loader2 className="h-3.5 w-3.5 animate-spin" aria-hidden />
-            Halliard is asking PubMatic which inventory and audiences suit each strategy
+            Halliard is finding the inventory and audiences that suit each strategy
           </>
         ) : (
           <span className="text-slate-500" style={appear(t, 1700)}>
@@ -327,9 +328,14 @@ export function FeeScene() {
         <span className="font-display text-[26px] font-medium tabular-nums">{usd(HALLIARD * prog(t, 4500, 900))}</span>
       </div>
       <p className="mt-2.5 text-[11px] leading-snug text-slate-500">
-        Example: a 13-week PubMatic campaign with three video packages and audience segments. Every campaign shows its own
+        Example: a 13-week streaming TV campaign with three video packages and audience segments. Every campaign shows its own
         estimate before you approve it.
       </p>
     </div>
   )
+}
+
+/** The hero plan from /plan, without impressions and CPM, to fit a step's half-width frame. */
+export function NarrowPlan() {
+  return <PlanGridHero narrow />
 }
