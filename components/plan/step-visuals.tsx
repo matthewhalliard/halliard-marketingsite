@@ -56,10 +56,10 @@ function IconBadge({ icon: Icon, size = 'sm' }: { icon: LucideIcon; size?: 'sm' 
 
 /* ------------------------------------------------------------------ Brief */
 
-const BRIEF_TEXT =
+export const BRIEF_TEXT =
   "Spring launch for a family-owned HVAC company across Dallas–Fort Worth. $250K, March through May. We want homeowners 35–64 in the northern suburbs to know us before the first hot week, then book a tune-up. Please don't buy late-night TV."
 
-const BRIEF_FIELDS: { icon: LucideIcon; label: string; value: string }[] = [
+export const BRIEF_FIELDS: { icon: LucideIcon; label: string; value: string }[] = [
   { icon: Target, label: 'Goal', value: 'Known before the first hot week, then booked tune-ups' },
   { icon: DollarSign, label: 'Budget', value: '$250,000' },
   { icon: CalendarRange, label: 'Flight', value: 'Mar 2 – May 31, 2027 · 13 weeks' },
@@ -171,14 +171,14 @@ function heatColor(h: number) {
   return `rgb(${mix(238, 38)},${mix(244, 50)},${mix(255, 133)})`
 }
 
-const TOP_ZIPS = [
+export const TOP_ZIPS = [
   { zip: '75034', place: 'Frisco', index: 400 },
   { zip: '75013', place: 'Allen', index: 312 },
   { zip: '75078', place: 'Prosper', index: 288 },
   { zip: '75024', place: 'Plano', index: 241 },
 ]
 
-const MEDIA: { name: string; logo?: string; icon?: LucideIcon; reach: number; index: number }[] = [
+export const MEDIA: { name: string; logo?: string; icon?: LucideIcon; reach: number; index: number }[] = [
   { name: 'YouTube', logo: 'youtube', reach: 81, index: 112 },
   { name: 'Facebook', logo: 'facebook', reach: 64, index: 121 },
   { name: 'Local radio', icon: Radio, reach: 41, index: 127 },
@@ -296,9 +296,9 @@ export function AudienceScene() {
 const SEARCH_MONTHS = ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D']
 const SEARCH_DEMAND = [22, 25, 38, 61, 88, 100, 96, 84, 52, 31, 24, 20]
 
-const RESEARCH = ['Search demand in DFW', "Competitors' ads", 'Reviews and local news']
+export const RESEARCH = ['Search demand in DFW', "Competitors' ads", 'Reviews and local news']
 
-const STRATEGIES: {
+export const STRATEGIES: {
   icon: LucideIcon
   task: string
   headline: string

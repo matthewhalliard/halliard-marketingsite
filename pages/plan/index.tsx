@@ -4,24 +4,15 @@ import {
   ArrowRight,
   BarChart3,
   Building2,
-  CalendarCheck,
   CreditCard,
-  FileText,
-  Layers,
-  ListChecks,
   MapPin,
   Radio,
   ScrollText,
-  Search,
   ShieldCheck,
-  Target,
   Timer,
-  Tv,
-  Upload,
-  Users,
 } from 'lucide-react'
-import { Container } from '../components/mmm/Container'
-import { Button } from '../components/mmm/Button'
+import { Container } from '../../components/mmm/Container'
+import { Button } from '../../components/mmm/Button'
 import {
   Accent,
   ClosingCta,
@@ -34,10 +25,10 @@ import {
   StepRows,
   useLandingAttribution,
   type Feature,
-  type Step,
-} from '../components/landing/kit'
-import { PlanGridHero } from '../components/plan/plan-grid-hero'
-import { AudienceScene, BriefScene, StrategyScene } from '../components/plan/step-visuals'
+} from '../../components/landing/kit'
+import { PlanGridHero } from '../../components/plan/plan-grid-hero'
+import { PLAN_STEPS } from '../../components/plan/steps'
+import { PLAN_LINKS } from '../../components/plan/nav'
 import {
   ApproveVisual,
   BuyVisual,
@@ -45,8 +36,8 @@ import {
   LedgerVisual,
   LocalVisual,
   PacingVisual,
-} from '../components/plan/feature-visuals'
-import { BuysOnBanner, LisaQuote } from '../components/plan/proof'
+} from '../../components/plan/feature-visuals'
+import { BuysOnBanner, LisaQuote } from '../../components/plan/proof'
 
 // The hero matches the ad group that sent the visitor. Search ads for the
 // reach and frequency ad group carry utm_content or utm_term naming it.
@@ -70,48 +61,6 @@ function heroFor(params: Record<string, string>): HeroKey {
   const hint = `${params.utm_content || ''} ${params.utm_term || ''}`.toLowerCase()
   return /reach|frequency/.test(hint) ? 'reach' : 'default'
 }
-
-const STEPS: Step[] = [
-  {
-    icon: FileText,
-    label: 'The brief',
-    title: 'Send a brief the way you would to a planner',
-    body: 'No forms to fill. Halliard reads what you wrote and anything you attached, then writes it back in plain words so you can check it is what you meant.',
-    points: [
-      { icon: Upload, text: 'Write it in your own words, or drop in the RFP' },
-      { icon: ListChecks, text: 'The goal, budget, timing and audience, pulled out for you' },
-      { icon: CalendarCheck, text: 'A check that the budget and the dates hang together' },
-    ],
-    frame: 'Brief',
-    Scene: BriefScene,
-  },
-  {
-    icon: Users,
-    label: 'Audiences',
-    title: 'Audiences sized, and placed on the map',
-    body: 'Each audience is matched to what a survey panel actually asked, counted one filter at a time, and pinned to where they live.',
-    points: [
-      { icon: MapPin, text: 'Down to the DMA and the ZIP, named by neighbourhood' },
-      { icon: BarChart3, text: 'Sized from real panel answers, not guesses' },
-      { icon: Tv, text: 'The media each audience consumes, ranked' },
-    ],
-    frame: 'Audiences',
-    Scene: AudienceScene,
-  },
-  {
-    icon: Target,
-    label: 'Strategy and plan',
-    title: 'A role for every dollar, and the reach it buys',
-    body: 'Halliard researches the category before it plans, writes each strategy as a role for media, then fits channels to it and models what they reach.',
-    points: [
-      { icon: Search, text: 'The category, the competition and live search demand' },
-      { icon: Layers, text: 'Each strategy with its own audience, budget and flight' },
-      { icon: BarChart3, text: 'Reach and frequency modelled before anything is bought' },
-    ],
-    frame: 'Strategy',
-    Scene: StrategyScene,
-  },
-]
 
 const FEATURES: Feature[] = [
   { icon: ShieldCheck, title: 'Nothing buys without you', body: 'Every line of a plan is approved by a person before a dollar is spent.', Visual: ApproveVisual },
@@ -142,7 +91,7 @@ export default function PlanPage() {
           content="Send a brief. Get back a plan with its reach modelled before you spend, then watch it run."
         />
       </Head>
-      <LandingHeader href={href} cta="Get your first plan" onClick={() => track('header')} />
+      <LandingHeader href={href} cta="Get your first plan" onClick={() => track('header')} links={PLAN_LINKS} />
       <main>
         {/* HERO */}
         <section className="relative">
@@ -207,7 +156,7 @@ export default function PlanPage() {
               title="What Halliard does with one brief"
               body="Sign up, tell us who you plan for, and send your first brief. Here is what happens next."
             />
-            <StepRows steps={STEPS} />
+            <StepRows steps={PLAN_STEPS} />
           </Container>
         </section>
 
