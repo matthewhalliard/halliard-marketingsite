@@ -70,6 +70,9 @@ export default function BuyingDeskPricingPage() {
                 Every campaign Halliard buys is priced against the buyer you would otherwise hire. The fee is per campaign,
                 and you see it before you approve.
               </p>
+              <p className="mx-auto mt-4 max-w-2xl text-sm text-slate-500">
+                Planning is free to start. This fee applies only to campaigns Halliard buys for you.
+              </p>
             </div>
             <ol className="mt-14 grid grid-cols-1 gap-6 md:grid-cols-3">
               {MODEL.map((m, i) => (
