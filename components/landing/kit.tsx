@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { ArrowRight, type LucideIcon } from 'lucide-react'
 import { Container } from '../mmm/Container'
 import { Button } from '../mmm/Button'
+import { HALLIARD3_KEY } from '../../lib/halliard3-posthog'
 
 /**
  * The building blocks the paid-search landing pages share (/plan,
@@ -30,12 +31,6 @@ export const SOFT_BAND: React.CSSProperties = {
 
 const ATTRIBUTION_KEY = 'halliard_landing_attribution'
 
-// The new journey's own PostHog project, "Halliard3": the one the portal at
-// client.halliardmedia.com reports to. It must be the portal's key: PostHog's
-// cookie is set on .halliardmedia.com and named after the key, so only a shared
-// key makes a landing-page visitor and the account they sign up as one person.
-const HALLIARD3_KEY = 'phc_n4aY5ANpBjV97gm6oDPFKekmXkRo962Y2b3tKa88cdRS'
-
 /**
  * Which PostHog projects a landing page reports to: `both` the site's old
  * project and Halliard3 (/plan), or `halliard3` alone (the buying desk).
@@ -49,7 +44,14 @@ function posthogs(target: PosthogTarget): any[] {
   if (!ph.halliard3) {
     ph.init(
       HALLIARD3_KEY,
-      { api_host: 'https://us.i.posthog.com', defaults: '2026-08-30', person_profiles: 'identified_only' },
+      {
+        api_host: 'https://us.i.posthog.com',
+        defaults: '2026-08-30',
+        person_profiles: 'identified_only',
+        // Uncaught errors and unhandled rejections on the landing pages, to
+        // Halliard3's error tracking. Server errors come from instrumentation.ts.
+        capture_exceptions: true,
+      },
       'halliard3',
     )
   }
