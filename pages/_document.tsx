@@ -21,6 +21,14 @@ export default function Document() {
             if((location.pathname+'/').indexOf('/buying-desk/')!==0)posthog.init('phc_rm24NXJh9Ln1hG99DNI3ecrkA2fbT2xK8UQfyPP0ELT',{api_host:'https://us.i.posthog.com'});`,
           }}
         />
+        {/* Trybe attribution pixel: credits a creator when someone they sent
+            signs up. Loads from track.halliardmedia.com, which covers
+            client.halliardmedia.com too. Pixel code and store ID are public. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(w,d,p,s,u,pl,at){w._trybe=w._trybe||{pixelCode:p,storeId:s,platform:pl,autoTracking:at,customDomain:'track.halliardmedia.com',serviceUrl:'https://prod-trybe-platform-6mi3j.ondigitalocean.app/attribution'};var script=d.createElement('script');script.src=u+'/pixel.js';script.async=true;script.setAttribute('data-pixel-code',p);script.setAttribute('data-store-id',s);script.setAttribute('data-platform',pl);script.setAttribute('data-auto-tracking',at);d.head.appendChild(script);})(window,document,'px_5aa7fea43825','c39cd642-c556-4039-ad81-5b210ae1b21c','https://track.halliardmedia.com','CUSTOM','false');`,
+          }}
+        />
         {/* Meta Pixel */}
         <script
           dangerouslySetInnerHTML={{
