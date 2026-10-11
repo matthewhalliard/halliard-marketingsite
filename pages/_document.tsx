@@ -21,6 +21,14 @@ export default function Document() {
             if((location.pathname+'/').indexOf('/buying-desk/')!==0)posthog.init('phc_rm24NXJh9Ln1hG99DNI3ecrkA2fbT2xK8UQfyPP0ELT',{api_host:'https://us.i.posthog.com'});`,
           }}
         />
+        {/* Dub: creator referral links. Sets the dub_id cookie on .halliardmedia.com
+            so client.halliardmedia.com can credit the creator when a referred
+            sign-up with a business email finishes onboarding. */}
+        <script
+          src="https://www.dubcdn.com/analytics/script.js"
+          defer
+          data-cookie-options='{"domain":".halliardmedia.com"}'
+        />
         {/* Meta Pixel */}
         <script
           dangerouslySetInnerHTML={{
