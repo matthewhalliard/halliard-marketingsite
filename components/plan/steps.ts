@@ -7,12 +7,13 @@ export const PLAN_STEPS: Step[] = [
   {
     icon: FileText,
     label: 'The brief',
-    title: 'Send a brief the way you would to a planner',
+    title: 'Start from the brief you already have',
     body: 'No forms to fill. Halliard reads what you wrote and anything you attached, then writes it back in plain words so you can check it is what you meant.',
     points: [
       { icon: Upload, text: 'Write it in your own words, or drop in the RFP' },
       { icon: ListChecks, text: 'The goal, budget, timing and audience, pulled out for you' },
       { icon: CalendarCheck, text: 'A check that the budget and the dates hang together' },
+      { icon: FileText, text: 'Or use a past brief to see how it works' },
     ],
     frame: 'Brief',
     Scene: BriefScene,
@@ -33,8 +34,8 @@ export const PLAN_STEPS: Step[] = [
   {
     icon: Target,
     label: 'Strategy and plan',
-    title: 'A role for every dollar, and the reach it buys',
-    body: 'Halliard researches the category before it plans, writes each strategy as a role for media, then fits channels to it and models what they reach.',
+    title: 'A plan you can pressure-test',
+    body: 'Halliard researches the category, writes each strategy as a role for media, fits channels to it and models what they reach. What happens to reach if you move $50,000 into CTV? Answer it in seconds.',
     points: [
       { icon: Search, text: 'The category, the competition and live search demand' },
       { icon: Layers, text: 'Each strategy with its own audience, budget and flight' },

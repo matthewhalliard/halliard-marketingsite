@@ -1,11 +1,12 @@
 import Head from 'next/head'
+import Link from 'next/link'
 import React from 'react'
 import {
   ArrowRight,
   BarChart3,
   Building2,
-  CreditCard,
   MapPin,
+  Pencil,
   Radio,
   ScrollText,
   ShieldCheck,
@@ -43,10 +44,10 @@ import { BuysOnBanner, LisaQuote } from '../../components/plan/proof'
 // reach and frequency ad group carry utm_content or utm_term naming it.
 const HERO = {
   default: {
-    eyebrow: 'Free media planning tool',
-    title: 'A media plan for any client,',
-    accent: 'from one brief.',
-    body: 'Describe the campaign or drop in an RFP. Halliard drafts the audiences, the strategy and a media plan, and models the reach before any money is spent.',
+    eyebrow: 'For agency and in-house media planners',
+    title: 'Hyper-fast',
+    accent: 'media planning.',
+    body: 'Paste a brief or drop in an RFP. In about six minutes Halliard drafts the audiences, strategy and channel plan, with reach modelled. Then you edit any line and test what-ifs on the spot.',
   },
   reach: {
     eyebrow: 'Free reach & frequency planner',
@@ -66,8 +67,8 @@ const FEATURES: Feature[] = [
   { icon: ShieldCheck, title: 'Nothing buys without you', body: 'Every line of a plan is approved by a person before a dollar is spent.', Visual: ApproveVisual },
   { icon: Timer, title: 'Pacing, checked every six hours', body: 'Once a plan is live, Halliard watches delivery and flags what drifts.', Visual: PacingVisual },
   { icon: ScrollText, title: 'Every action on the record', body: 'What was bought, why, and what the platform said back. Show your client.', Visual: LedgerVisual },
+  { icon: Building2, title: 'Plan for one brand or many', body: 'Agencies switch between every client in one login. Brand teams keep all their own plans in one place.', Visual: ClientsVisual },
   { icon: MapPin, title: 'Built for local', body: 'Catchments inside the DMA, ZIPs ranked on the brief, search sized by market.', Visual: LocalVisual },
-  { icon: Building2, title: 'One login, many clients', body: 'Agencies plan and buy for several advertisers and switch between them.', Visual: ClientsVisual },
   { icon: Radio, title: 'Buys on PubMatic and Meta', body: 'Approved plans go live through Halliard, with every fee shown.', Visual: BuyVisual },
 ]
 
@@ -80,18 +81,18 @@ export default function PlanPage() {
   return (
     <>
       <Head>
-        <title>Free Media Planning Tool: A Plan From One Brief | Halliard</title>
+        <title>Media Planning Software, Free to Start | Halliard</title>
         <meta
           name="description"
-          content="Send a brief or an RFP. Halliard drafts the audiences, the strategy and a media plan, with reach and frequency modelled before you spend. Sign up free."
+          content="Hyper-fast media planning. Paste a brief and Halliard drafts the audiences, strategy and channel plan with reach modelled. You edit any line. Free to start."
         />
-        <meta property="og:title" content="Free Media Planning Tool: A Plan From One Brief | Halliard" />
+        <meta property="og:title" content="Media Planning Software, Free to Start | Halliard" />
         <meta
           property="og:description"
-          content="Send a brief. Get back a plan with its reach modelled before you spend, then watch it run."
+          content="Paste a brief. Halliard drafts the plan with reach modelled in minutes, and you make the calls."
         />
       </Head>
-      <LandingHeader href={href} cta="Get your first plan" onClick={() => track('header')} links={PLAN_LINKS} />
+      <LandingHeader href={href} cta="Start planning free" onClick={() => track('header')} links={PLAN_LINKS} />
       <main>
         {/* HERO */}
         <section className="relative">
@@ -108,35 +109,47 @@ export default function PlanPage() {
                   <Accent>{hero.accent}</Accent>
                 </h1>
                 <p className="mx-auto lg:mx-0 mt-6 max-w-xl text-lg tracking-tight text-slate-700">
-                  {hero.body} <span className="font-semibold text-slate-900">Free to start.</span>
+                  {hero.body}
                 </p>
-                <div className="mt-10 flex flex-col sm:flex-row justify-center lg:justify-start gap-4">
+                <div className="mt-10 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 sm:gap-6">
                   <Button href={href} color="blue" className="px-6 py-3 text-base" onClick={() => track('hero')}>
-                    Get your first plan
+                    Start planning free
                     <ArrowRight className="ml-2 h-4 w-4" aria-hidden />
                   </Button>
+                  <Link href="/plan/sample" className="text-base font-semibold text-primary hover:underline">
+                    See a sample plan &rarr;
+                  </Link>
                 </div>
-                <div className="mt-8 inline-flex items-center gap-3 rounded-2xl border border-tint bg-white/80 px-4 py-3 text-left shadow-sm">
-                  <img src="/plan-grid/halliard-mark.png" alt="" width={28} height={28} className="h-7 w-7 shrink-0" />
-                  <p className="text-sm text-slate-700">
-                    <span className="font-semibold text-primary">Optional:</span> Halliard can also buy the plan for
-                    you and keep it pacing. You approve every line first.
-                  </p>
-                </div>
+                <p className="mt-4 text-sm text-slate-600">
+                  Free. No credit card. Try it on a past brief or a made-up one.
+                </p>
                 <ul className="mt-6 flex flex-wrap justify-center lg:justify-start gap-x-6 gap-y-3 text-sm text-slate-600">
                   <li className="inline-flex items-center gap-2">
-                    <CreditCard className="h-4 w-4 text-primary" aria-hidden />
-                    No credit card
+                    <Pencil className="h-4 w-4 text-primary" aria-hidden />
+                    Edit every line
+                  </li>
+                  <li className="inline-flex items-center gap-2">
+                    <BarChart3 className="h-4 w-4 text-primary" aria-hidden />
+                    Reach &amp; frequency built in
                   </li>
                   <li className="inline-flex items-center gap-2">
                     <MapPin className="h-4 w-4 text-primary" aria-hidden />
-                    Plans down to the ZIP
+                    Down to the ZIP
                   </li>
                 </ul>
               </div>
-              <HeroVisual label="Media plan">
+              <HeroVisual label="Media plan · Draft, edit any line">
                 <PlanGridHero />
               </HeroVisual>
+            </div>
+          </Container>
+        </section>
+
+        {/* SOCIAL PROOF */}
+        <section className="pb-12 sm:pb-16">
+          <Container className="">
+            <div className="mx-auto max-w-3xl">
+              <LisaQuote />
             </div>
           </Container>
         </section>
@@ -153,19 +166,10 @@ export default function PlanPage() {
           <Container className="max-w-6xl">
             <SectionHeading
               eyebrow="How it works"
-              title="What Halliard does with one brief"
-              body="Sign up, tell us who you plan for, and send your first brief. Here is what happens next."
+              title="From brief to plan in minutes"
+              body="Three steps. Anything Halliard drafts, you can change."
             />
             <StepRows steps={PLAN_STEPS} />
-          </Container>
-        </section>
-
-        {/* SOCIAL PROOF */}
-        <section className="py-16 sm:py-20">
-          <Container className="">
-            <div className="mx-auto max-w-3xl">
-              <LisaQuote />
-            </div>
           </Container>
         </section>
 
@@ -174,7 +178,7 @@ export default function PlanPage() {
           <Container className="max-w-6xl">
             <SectionHeading
               eyebrow="Optional"
-              title="Want it bought? Halliard can do that too."
+              title="When you're ready, Halliard can buy it too."
               body="Planning is yours either way. If you want, hand the approved plan to Halliard: it buys it, keeps it pacing and shows you every fee. Or take the plan and buy it the way you do today."
             />
             <FeatureGrid features={FEATURES} />
@@ -182,9 +186,9 @@ export default function PlanPage() {
         </section>
 
         <ClosingCta
-          title="Send your next brief to Halliard."
-          subtitle="Plan it free. Have us buy it if you want."
-          cta="Get your first plan"
+          title="Your next plan, drafted in minutes."
+          subtitle="You make the calls. Have us buy it if you want."
+          cta="Start planning free"
           href={href}
           onClick={() => track('closing')}
         />
