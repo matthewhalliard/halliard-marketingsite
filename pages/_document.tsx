@@ -4,6 +4,9 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
+        {/* Meta domain verification for halliardmedia.com (Business Manager
+            "Halliard"). Must stay in the static <head>. */}
+        <meta name="facebook-domain-verification" content="mpjyxp9nhc6ti3hs3idou76vtp7bnw" />
         {/* Google Tag Manager */}
         <script
           dangerouslySetInnerHTML={{
