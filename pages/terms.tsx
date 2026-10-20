@@ -43,7 +43,7 @@ function Body() {
       <Container className="">
         <div className="mx-auto max-w-3xl">
           <p className="text-slate-700 leading-relaxed">
-            These Terms of Service ("Terms") govern your access to and use of the websites, applications, and services provided by Halliard Media, LLC ("Halliard", "we", "us", or "our"), including <a href="https://halliardmedia.com" className="text-primary underline">halliardmedia.com</a> and <a href="https://app.halliardmedia.com" className="text-primary underline">app.halliardmedia.com</a> (collectively, the "Services"). By accessing or using the Services, you agree to be bound by these Terms.
+            These Terms of Service ("Terms") govern your access to and use of the websites, applications, and services provided by Halliard LLC ("Halliard", "we", "us", or "our"), including <a href="https://halliardmedia.com" className="text-primary underline">halliardmedia.com</a> and <a href="https://app.halliardmedia.com" className="text-primary underline">app.halliardmedia.com</a> (collectively, the "Services"). By accessing or using the Services, you agree to be bound by these Terms.
           </p>
 
           <Section title="1. Your Account">
@@ -145,7 +145,7 @@ function Body() {
               Questions about these Terms? Contact <a href={`mailto:${CONTACT_EMAIL}`} className="text-primary underline">{CONTACT_EMAIL}</a>.
             </p>
             <p className="mt-3 text-sm text-slate-600">
-              Halliard Media, LLC<br />
+              Halliard LLC<br />
               Hoboken, NJ, USA
             </p>
           </Section>

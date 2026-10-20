@@ -43,7 +43,7 @@ function Body() {
       <Container className="">
         <div className="mx-auto max-w-3xl">
           <p className="text-slate-700 leading-relaxed">
-            Halliard Media, LLC ("Halliard", "we", "us", or "our") operates <a href="https://halliardmedia.com" className="text-primary underline">halliardmedia.com</a>, <a href="https://app.halliardmedia.com" className="text-primary underline">app.halliardmedia.com</a>, and related services (the "Services"). This Privacy Policy explains what information we collect, how we use it, and your choices.
+            Halliard LLC ("Halliard", "we", "us", or "our") operates <a href="https://halliardmedia.com" className="text-primary underline">halliardmedia.com</a>, <a href="https://app.halliardmedia.com" className="text-primary underline">app.halliardmedia.com</a>, and related services (the "Services"). This Privacy Policy explains what information we collect, how we use it, and your choices.
           </p>
 
           <Section title="1. Information We Collect">
@@ -148,7 +148,7 @@ function Body() {
               Questions or requests? Contact us at <a href={`mailto:${CONTACT_EMAIL}`} className="text-primary underline">{CONTACT_EMAIL}</a>.
             </p>
             <p className="mt-3 text-sm text-slate-600">
-              Halliard Media, LLC<br />
+              Halliard LLC<br />
               Hoboken, NJ, USA
             </p>
           </Section>
