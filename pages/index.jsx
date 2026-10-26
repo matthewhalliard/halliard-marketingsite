@@ -523,18 +523,22 @@ export default function MediaPlanningToolPage() {
           content="For independent agencies and in-house marketing teams. Build flowcharts, track spend, and prove results — all in one platform. Free to start."
         />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://halliardmedia.com/media-planning-tool" />
-        <meta
-          property="og:image"
-          content="/images/product/flighting.webp"
-        />
+        <meta property="og:url" content="https://www.halliardmedia.com/" />
+        {/* Link previews that play video (iMessage, Slack, Discord, X). Absolute URLs: crawlers ignore relative ones. */}
+        <meta property="og:video" content="https://www.halliardmedia.com/og/homepage.mp4" />
+        <meta property="og:video:secure_url" content="https://www.halliardmedia.com/og/homepage.mp4" />
+        <meta property="og:video:type" content="video/mp4" />
+        <meta property="og:video:width" content="1200" />
+        <meta property="og:video:height" content="630" />
+        {/* The still, for previews that don't play video (LinkedIn, email). JPG: WebP is not read everywhere. */}
+        <meta property="og:image" content="https://www.halliardmedia.com/og/homepage-poster.jpg" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Media Planning Software for Agencies & In-House Marketing Teams | Halliard" />
         <meta name="twitter:description" content="For independent agencies and in-house marketing teams. Build flowcharts, track spend, and prove results — all in one platform. Free to start." />
-        <meta name="twitter:image" content="/images/product/flighting.webp" />
-        <link rel="canonical" href="https://halliardmedia.com/media-planning-tool" />
+        <meta name="twitter:image" content="https://www.halliardmedia.com/og/homepage-poster.jpg" />
+        <link rel="canonical" href="https://www.halliardmedia.com/" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
