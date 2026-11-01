@@ -128,7 +128,7 @@ const CHECKPOINTS = [
 ]
 
 export default function BuyingDeskHowItWorksPage() {
-  const { track, href } = useLandingAttribution('/buying-desk/how-it-works', { posthog: 'halliard3' })
+  const { track } = useLandingAttribution('/buying-desk/how-it-works', { posthog: 'halliard3' })
   return (
     <>
       <Head>
@@ -138,7 +138,7 @@ export default function BuyingDeskHowItWorksPage() {
           content="From brief to live campaign: audiences, strategy, a plan with reach modelled, the buy drafted with its fee, and pacing every six hours, with you approving each step."
         />
       </Head>
-      <LandingHeader href={href} cta="Send your first brief" onClick={() => track('header')} links={BUYING_DESK_LINKS} />
+      <LandingHeader href="/buying-desk#get-plan" cta="Get a free plan" onClick={() => track('header')} links={BUYING_DESK_LINKS} />
       <main>
         {/* HERO */}
         <section className="relative">
@@ -190,11 +190,12 @@ export default function BuyingDeskHowItWorksPage() {
         </section>
 
         <ClosingCta
-          title="Send your next brief to Halliard."
-          subtitle="We plan it, buy it and keep it pacing."
-          cta="Send your first brief"
-          href={href}
+          title="Send your next brief. Get a costed plan back within 24 hours."
+          subtitle="Approve it and we buy it and keep it pacing."
+          cta="Get a free plan for your next brief"
+          href="/buying-desk#get-plan"
           onClick={() => track('closing')}
+          note="Costed plan back within 24 hours. No account needed."
         />
       </main>
     </>

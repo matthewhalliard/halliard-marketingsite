@@ -348,12 +348,14 @@ export function ClosingCta({
   cta,
   href,
   onClick,
+  note = 'Sign up free. No credit card.',
 }: {
   title: string
   subtitle: string
   cta: string
   href: string
   onClick: () => void
+  note?: string
 }) {
   return (
     <section className="relative overflow-hidden bg-primary py-20">
@@ -370,7 +372,7 @@ export function ClosingCta({
               <ArrowRight className="ml-2 h-4 w-4" aria-hidden />
             </Button>
           </div>
-          <p className="mt-6 text-sm text-white/70">Sign up free. No credit card.</p>
+          <p className="mt-6 text-sm text-white/70">{note}</p>
         </div>
       </Container>
     </section>

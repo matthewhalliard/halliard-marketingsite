@@ -8,6 +8,32 @@ export const BOOKING_URL =
 
 const CONTACT_EMAIL = 'matthew@halliardmedia.com'
 
+// Google Ads account 8086399946's "Demo Request (trytoday form)" action, a
+// primary lead-form conversion: the label every lead form on the site sends.
+// Swap in a dedicated "Plan requested" action's label once one exists.
+const GOOGLE_ADS_LEAD = 'AW-672346912/qEmHCJ6L_pgcEKDmzMAC'
+
+/** A random ID, so Google counts each brief once. Never the email: Google forbids personal data here. */
+function newTransactionId() {
+  try {
+    return crypto.randomUUID()
+  } catch {
+    return `${Date.now()}-${Math.random().toString(36).slice(2)}`
+  }
+}
+
+/** The brief is in: tell Google Ads, so the search campaign can count and bid on it. */
+function trackGoogleAdsLead(transactionId: string) {
+  try {
+    const gtag = (window as unknown as { gtag?: (...args: unknown[]) => void }).gtag
+    if (typeof gtag === 'function') {
+      gtag('event', 'conversion', { send_to: GOOGLE_ADS_LEAD, value: 100.0, currency: 'USD', transaction_id: transactionId })
+    }
+  } catch {
+    // Never let a tag error stop the confirmation showing.
+  }
+}
+
 const BUDGETS = ['Under $25,000', '$25,000 – $100,000', '$100,000 – $500,000', 'Over $500,000', 'Not sure yet']
 
 type Stage = 'contact' | 'brief' | 'sent'
@@ -89,6 +115,7 @@ export function PlanRequestForm({
       })
       capture('buying_desk_plan_requested', { budget, hero })
       trackPixel('Lead', { content_name: 'buying_desk_free_plan' })
+      trackGoogleAdsLead(newTransactionId())
       setStage('sent')
     } catch (err) {
       console.error('Plan request (brief) failed', err)

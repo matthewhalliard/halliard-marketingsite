@@ -42,7 +42,7 @@ const DRIVERS = [
 ]
 
 export default function BuyingDeskPricingPage() {
-  const { track, href } = useLandingAttribution('/buying-desk/pricing', { posthog: 'halliard3' })
+  const { track } = useLandingAttribution('/buying-desk/pricing', { posthog: 'halliard3' })
   return (
     <>
       <Head>
@@ -52,7 +52,7 @@ export default function BuyingDeskPricingPage() {
           content="Halliard's campaign fee is 30% of what a freelance media buyer would charge to plan, buy, monitor and report on the campaign. Work out yours."
         />
       </Head>
-      <LandingHeader href={href} cta="Send your first brief" onClick={() => track('header')} links={BUYING_DESK_LINKS} />
+      <LandingHeader href="/buying-desk#get-plan" cta="Get a free plan" onClick={() => track('header')} links={BUYING_DESK_LINKS} />
       <main>
         {/* HERO */}
         <section className="relative">
@@ -122,10 +122,11 @@ export default function BuyingDeskPricingPage() {
 
         <ClosingCta
           title="See the fee on your own campaign."
-          subtitle="Send a brief. It shows before you approve."
-          cta="Send your first brief"
-          href={href}
+          subtitle="Send a brief. The plan comes back with its fee, free."
+          cta="Get a free plan for your next brief"
+          href="/buying-desk#get-plan"
           onClick={() => track('closing')}
+          note="Costed plan back within 24 hours. No account needed."
         />
       </main>
     </>
