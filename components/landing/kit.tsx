@@ -115,11 +115,15 @@ export function useLandingAttribution(page: string, { posthog }: { posthog: Post
   const track = (location: string) => {
     for (const ph of posthogs(posthog)) ph.capture?.(`${event}_signup_cta_clicked`, { ...utmRef.current, location })
   }
+  // Any other event the page names, with the visit's UTMs and click IDs on it.
+  const capture = (name: string, props: Record<string, unknown> = {}) => {
+    for (const ph of posthogs(posthog)) ph.capture?.(name, { ...utmRef.current, landing_page: page, ...props })
+  }
   // `from` names the landing page (plan, buying-desk), so sign-up can say what
   // that page promised even when the visit carries no UTMs.
   const from = page.split('/')[1] || 'home'
   const qs = new URLSearchParams({ ...utms, from }).toString()
-  return { utms, track, href: `${SIGN_UP_URL}?${qs}` }
+  return { utms, track, capture, href: `${SIGN_UP_URL}?${qs}` }
 }
 
 export function LandingHeader({

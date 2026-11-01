@@ -28,6 +28,9 @@ const BREAKDOWN = [
   { label: 'Reporting', hours: 6.7 },
 ]
 
+/** The same example, for copy that quotes it outside the animated scenes. */
+export const FEE_EXAMPLE = { freelancer: FREELANCER, halliard: HALLIARD, hours: HOURS, rate: RATE }
+
 const usd = (v: number) => `$${Math.round(v).toLocaleString('en-US')}`
 
 // PubMatic's mark is only a colour square at these sizes; the portal draws its initial over it.
