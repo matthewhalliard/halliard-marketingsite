@@ -10,6 +10,25 @@ export default function FramerPage({ htmlPath }: Props) {
   const [style, setStyle] = useState<string | null>(null);
   const [headHtml, setHeadHtml] = useState<string | null>(null);
 
+  // Framer's runtime carries its own router and the old site's pages. A click
+  // on its header (logo, How it works, Pricing) would render the old Framer
+  // page in place, so any move to another path becomes a full page load,
+  // which lands on this site's page for that path. Hash moves stay in Framer.
+  useEffect(() => {
+    const pushState = history.pushState;
+    history.pushState = function (data: unknown, unused: string, url?: string | URL | null) {
+      const target = url == null ? null : new URL(String(url), window.location.href);
+      if (target && target.pathname !== window.location.pathname) {
+        window.location.assign(framerPathOnThisSite(target.pathname) + target.search + target.hash);
+        return;
+      }
+      return pushState.call(history, data, unused, url);
+    };
+    return () => {
+      history.pushState = pushState;
+    };
+  }, []);
+
   useEffect(() => {
     fetch(htmlPath)
       .then((res) => res.text())
@@ -275,3 +294,10 @@ export default function FramerPage({ htmlPath }: Props) {
     </>
   );
 } 
+
+/** Where the old Framer site's paths live on this site now. */
+function framerPathOnThisSite(path: string): string {
+  if (path === "/how-halliard-works") return "/how-it-works";
+  if (path.startsWith("/template/")) return "/media-planning-templates/download";
+  return path;
+}

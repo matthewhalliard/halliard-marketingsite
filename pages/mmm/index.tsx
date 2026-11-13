@@ -654,12 +654,6 @@ export default function MMMPage() {
       </main>
 
       {/* Footer */}
-      <footer className="py-8 bg-slate-950 border-t border-white/5">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-          <span className="text-sm text-slate-500">© {new Date().getFullYear()} Halliard Media Inc.</span>
-          <Link href="/" className="text-sm text-slate-500 hover:text-slate-400">halliardmedia.com</Link>
-        </div>
-      </footer>
     </>
   )
 }

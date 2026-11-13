@@ -124,35 +124,6 @@ function CtaSection() {
   )
 }
 
-function Footer() {
-  return (
-    <footer className="border-t border-gray-100 bg-white">
-      <Container className="py-10">
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-slate-500">
-          <div className="flex items-center gap-3">
-            <img
-              src="https://framerusercontent.com/images/s97qQgHpRGf1STgb6vDMgqYNU4.png?scale-down-to=512"
-              alt="Halliard"
-              className="h-6 w-auto opacity-70"
-            />
-            <span>© 2026 Halliard Media</span>
-          </div>
-          <div className="flex items-center gap-6">
-            <Link href="/agentic" className="hover:text-slate-700 transition-colors">
-              Agentic buying
-            </Link>
-            <Link href="/" className="hover:text-slate-700 transition-colors">
-              Halliard
-            </Link>
-            <Link href="/legal/privacy" className="hover:text-slate-700 transition-colors">
-              Privacy
-            </Link>
-          </div>
-        </div>
-      </Container>
-    </footer>
-  )
-}
 
 function ManifestoPage() {
   return (
@@ -432,7 +403,6 @@ function ManifestoPage() {
         </Article>
 
         <CtaSection />
-        <Footer />
       </main>
     </>
   )
