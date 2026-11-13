@@ -68,7 +68,7 @@ const BUYING_STEPS: Step[] = [
 
 /** Served at /how-it-works, and at /plan/how-it-works for the ads and sitelinks that link there. */
 export function HowItWorksLanding({ path }: { path: '/how-it-works' | '/plan/how-it-works' }) {
-  const { track, href } = useLandingAttribution(path, { posthog: 'both', event: 'plan_how_it_works' })
+  const { track, href } = useLandingAttribution(path, { event: 'plan_how_it_works' })
   return (
     <>
       <Head>

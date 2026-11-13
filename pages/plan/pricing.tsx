@@ -133,7 +133,7 @@ function Checklist({ items }: { items: string[] }) {
 
 /** Served at /pricing, and at /plan/pricing for the ads and sitelinks that link there. */
 export function PricingLanding({ path }: { path: '/pricing' | '/plan/pricing' }) {
-  const { track, href } = useLandingAttribution(path, { posthog: 'both', event: 'plan_pricing' })
+  const { track, href } = useLandingAttribution(path, { event: 'plan_pricing' })
   return (
     <>
       <Head>

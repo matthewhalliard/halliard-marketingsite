@@ -45,7 +45,7 @@ const MEASURES = [
 ]
 
 export default function BrandStudiesPage() {
-  const { track } = useLandingAttribution('/brand-studies', { posthog: 'both' })
+  const { track } = useLandingAttribution('/brand-studies')
   return (
     <>
       <Head>

@@ -127,7 +127,7 @@ const CHECKPOINTS = [
 ]
 
 export default function BuyingDeskHowItWorksPage() {
-  const { track } = useLandingAttribution('/buying-desk/how-it-works', { posthog: 'halliard3' })
+  const { track } = useLandingAttribution('/buying-desk/how-it-works')
   return (
     <>
       <Head>

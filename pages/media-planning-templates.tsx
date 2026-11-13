@@ -95,7 +95,7 @@ const TEMPLATES: { icon: LucideIcon; title: string; body: string; mix: Mix[] }[]
 ]
 
 export default function MediaPlanningTemplatesPage() {
-  const { track, href } = useLandingAttribution('/media-planning-templates', { posthog: 'both' })
+  const { track, href } = useLandingAttribution('/media-planning-templates')
   return (
     <>
       <Head>
