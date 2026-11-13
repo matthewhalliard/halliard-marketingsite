@@ -14,7 +14,6 @@ export default function App({ Component, pageProps }: AppProps) {
   const hideNav = (Component as any).disableNavbar ?? false;
   const fullWidth = (Component as any).fullWidth ?? false;
   const siteBg = (Component as any).siteBg ?? false;
-  const hideFooter = (Component as any).hideFooter ?? false;
 
   // Global sign-up CTA click tracker. Any click on a link pointing at
   // app.halliardmedia.com/sign-up or client.halliardmedia.com/sign-up fires
@@ -63,7 +62,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <main className={`${inter.variable} ${lexend.variable} font-sans ${siteBg ? 'bg-site' : ''}`}>
-      <Layout hideNavbar={hideNav} fullWidth={fullWidth} hideFooter={hideFooter}>
+      <Layout hideNavbar={hideNav} fullWidth={fullWidth}>
         <Component {...pageProps} />
       </Layout>
     </main>

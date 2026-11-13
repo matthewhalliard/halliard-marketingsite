@@ -11,11 +11,9 @@ interface Props {
   hideNavbar?: boolean;
   /** If true, skips the centered container and lets content span the full viewport width */
   fullWidth?: boolean;
-  /** Framer pages carry their own footer. */
-  hideFooter?: boolean;
 }
 
-export default function Layout({ title = "Halliard | Ultrafast Media Planning Tool", description = "The media planning tool for ambitious marketing teams", children, hideNavbar = false, fullWidth = false, hideFooter = false }: Props) {
+export default function Layout({ title = "Halliard | Ultrafast Media Planning Tool", description = "The media planning tool for ambitious marketing teams", children, hideNavbar = false, fullWidth = false }: Props) {
   return (
     <>
       <Head>
@@ -58,7 +56,7 @@ export default function Layout({ title = "Halliard | Ultrafast Media Planning To
 
       {!hideNavbar && <SiteHeader />}
       <main className={fullWidth ? "w-full" : "mx-auto max-w-7xl px-4"}>{children}</main>
-      {!hideFooter && <Footer />}
+      <Footer />
     </>
   );
 } 

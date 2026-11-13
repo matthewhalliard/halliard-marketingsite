@@ -3,11 +3,11 @@ import React, { useState } from 'react'
 import Link from 'next/link'
 import { Button } from '../components/mmm/Button'
 import { Container } from '../components/mmm/Container'
+import { HeroBackdrop, LandingHeader, SIGN_UP_URL } from '../components/landing/kit'
 import { trackPixel } from '@/lib/meta-pixel'
 
-const SIGN_UP_URL = 'https://client.halliardmedia.com/sign-up'
-
-export default function TryToday() {
+// A demo request form, and the thank-you it turns into. Not for search.
+function TryToday() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [company, setCompany] = useState('')
@@ -60,28 +60,35 @@ export default function TryToday() {
     return (
       <>
         <Head>
-          <title>Thanks! | Halliard</title>
+          <title>Thanks | Halliard</title>
+          <meta name="robots" content="noindex" />
         </Head>
-        <main className="pt-32 pb-20">
-          <Container className="max-w-xl text-center">
-            <div className="text-5xl mb-6">🎉</div>
-            <h1 className="font-display text-4xl font-medium tracking-tight text-slate-900">
-              You're all set!
+        <LandingHeader href={SIGN_UP_URL} cta="Start planning free" />
+        <main className="relative">
+          <HeroBackdrop />
+          <Container className="relative max-w-xl pt-32 pb-24 text-center lg:pt-40">
+            <h1 className="font-display text-4xl font-medium tracking-tight text-slate-900 sm:text-5xl">
+              You&rsquo;re all set.
             </h1>
             <p className="mt-4 text-lg text-slate-600">
-              Matthew will reach out within 24 hours to schedule your personalized demo.
+              Matthew will reach out within 24 hours to schedule your demo.
             </p>
             <p className="mt-2 text-slate-500">
-              In the meantime, you can start planning for free — no credit card required.
+              In the meantime, you can start planning for free, with no credit card.
             </p>
             <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
-              <Button href={SIGN_UP_URL} color="blue" className="">
-                Start Planning Free
+              <Button href={SIGN_UP_URL} color="blue" className="px-6 py-3 text-base">
+                Start planning free
               </Button>
-              <Button href="/" variant="outline" color="slate" className="">
-                ← Back to Halliard
+              <Button href="/buying-desk" variant="outline" color="slate" className="px-6 py-3 text-base">
+                See the buying desk
               </Button>
             </div>
+            <p className="mt-6 text-sm">
+              <Link href="/" className="text-primary hover:underline">
+                Back to Halliard
+              </Link>
+            </p>
           </Container>
         </main>
       </>
@@ -91,25 +98,28 @@ export default function TryToday() {
   return (
     <>
       <Head>
-        <title>See Halliard In Action | Request a Demo</title>
+        <title>Request a Demo | Halliard</title>
         <meta
           name="description"
-          content="Request a personalized demo of Halliard's media planning platform. See flowcharting, scenario comparison, and measurement in action."
+          content="Request a demo of Halliard: media planning from a brief, a buying desk that buys and paces the plan, and measurement that proves what it did."
         />
+        <meta name="robots" content="noindex" />
       </Head>
-      <main className="pt-32 pb-20">
-        <Container className="max-w-xl">
+      <LandingHeader href="/demo" cta="Book a demo" />
+      <main className="relative">
+        <HeroBackdrop />
+        <Container className="relative max-w-xl pt-32 pb-24 lg:pt-40">
           <div className="text-center mb-10">
             <h1 className="font-display text-4xl font-medium tracking-tight text-slate-900 sm:text-5xl">
               See Halliard in action
             </h1>
             <p className="mt-4 text-lg text-slate-600">
-              Get a 20-minute personalized walkthrough of the platform. We'll show you
-              flowcharting, scenario comparison, and measurement — tailored to your agency.
+              A 20-minute walkthrough, tailored to your agency: a plan drafted from your brief, the buying desk, and
+              how we measure what the media did.
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-5 rounded-2xl border border-tint bg-white p-6 shadow-lg shadow-primary/5 sm:p-8">
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-slate-700 mb-1">
                 Your name
@@ -142,7 +152,7 @@ export default function TryToday() {
 
             <div>
               <label htmlFor="company" className="block text-sm font-medium text-slate-700 mb-1">
-                Agency / Company
+                Agency or company
               </label>
               <input
                 id="company"
@@ -172,21 +182,21 @@ export default function TryToday() {
             <button
               type="submit"
               disabled={!isValid || submitting}
-              className={`w-full rounded-lg px-6 py-3 text-base font-semibold text-white transition-colors ${
+              className={`w-full rounded-full px-6 py-3 text-base font-semibold text-white transition-colors ${
                 isValid && !submitting
                   ? 'bg-primary hover:bg-secondary cursor-pointer'
                   : 'bg-slate-300 cursor-not-allowed'
               }`}
             >
-              {submitting ? 'Sending...' : 'Request a Demo'}
+              {submitting ? 'Sending...' : 'Request a demo'}
             </button>
 
             <p className="text-center text-sm text-slate-500 mt-4">
               Or{' '}
               <a href={SIGN_UP_URL} className="text-primary font-medium hover:underline">
                 start planning free
-              </a>{' '}
-              — no demo needed, no credit card required.
+              </a>
+              . No demo needed, no credit card.
             </p>
           </form>
         </Container>
@@ -195,5 +205,8 @@ export default function TryToday() {
   )
 }
 
-(TryToday as any).fullWidth = true;
-(TryToday as any).siteBg = true;
+;(TryToday as any).disableNavbar = true
+;(TryToday as any).fullWidth = true
+;(TryToday as any).siteBg = true
+
+export default TryToday

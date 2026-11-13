@@ -16,7 +16,6 @@ import {
 import { PlanGridHero } from '../../components/plan/plan-grid-hero'
 import { BRIEF_FIELDS, BRIEF_TEXT, MEDIA, RESEARCH, STRATEGIES, TOP_ZIPS } from '../../components/plan/step-visuals'
 import { LisaQuote } from '../../components/plan/proof'
-import { PLAN_LINKS } from '../../components/plan/nav'
 
 // One plan, start to finish, for someone who wants to see the output before
 // they sign up. It is the same illustrative HVAC brief the landing page's
@@ -65,7 +64,7 @@ export function SampleLanding({ path }: { path: '/sample' | '/plan/sample' }) {
           content="A media plan example you can read end to end: the brief, the audience down to the ZIP, two strategies and the plan with reach and frequency modelled."
         />
       </Head>
-      <LandingHeader href={href} cta="Get your first plan" onClick={() => track('header')} links={PLAN_LINKS} />
+      <LandingHeader href={href} cta="Get your first plan" onClick={() => track('header')} />
       <main>
         {/* HERO */}
         <section className="relative">
@@ -318,7 +317,7 @@ export function SampleLanding({ path }: { path: '/sample' | '/plan/sample' }) {
                 <p className="mt-2 text-sm leading-relaxed text-slate-600">
                   Halliard buys it on Meta and PubMatic and keeps it pacing. You approve every line first, and the fee
                   shows before you do.{' '}
-                  <Link href="/buying-desk/pricing" className="font-semibold text-primary hover:underline">
+                  <Link href="/pricing#buying-fee" className="font-semibold text-primary hover:underline">
                     How the fee works →
                   </Link>
                 </p>

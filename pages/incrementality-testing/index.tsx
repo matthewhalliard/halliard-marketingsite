@@ -1,343 +1,258 @@
 import Head from 'next/head'
-import Link from 'next/link'
-import { Button } from '../../components/mmm/Button'
-import { Container } from '../../components/mmm/Container'
+import React from 'react'
 import {
-  ArrowsRightLeftIcon,
-  ShieldCheckIcon,
-  ChartBarIcon,
-} from '@heroicons/react/24/outline'
+  ArrowLeftRight,
+  BarChart3,
+  FlaskConical,
+  Link2,
+  Map as MapIcon,
+  Mic,
+  Radio,
+  ShieldCheck,
+  Signpost,
+  Tv,
+} from 'lucide-react'
+import { Container } from '../../components/mmm/Container'
+import { ClosingCta, LandingHeader, SOFT_BAND, SectionHeading, useLandingAttribution } from '../../components/landing/kit'
+import { LisaQuote } from '../../components/plan/proof'
+import { CardGrid, DEMO_URL, Faq, LeadForm, MeasurementHero, NumberedSteps, PriceCard } from '../../components/measurement/kit'
 
+const PROBLEMS = [
+  {
+    icon: ArrowLeftRight,
+    title: 'Correlation isn’t causation',
+    body: 'Attribution says paid social drove 40% of conversions. What happens when you turn it off? An incrementality test tells you.',
+  },
+  {
+    icon: ShieldCheck,
+    title: 'Clients want proof',
+    body: 'CFOs ask how much comes back for every dollar spent. A geo-lift test gives the answer.',
+  },
+  {
+    icon: BarChart3,
+    title: '60% still use click attribution',
+    body: 'Despite 15 years of outcomes-based messaging, most campaigns are still judged on clicks. It’s time to measure what matters.',
+  },
+]
 
-const PLUS_PATTERN = "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%231a6ab4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")"
+const STEPS = [
+  { title: 'Select markets', body: 'Choose matched test and control DMAs.' },
+  { title: 'Run the campaign', body: 'Deliver ads only in the test markets.' },
+  { title: 'Measure the lift', body: 'Compare outcomes in test markets against control.' },
+  { title: 'Scale the budget', body: 'Invest in the channels that prove incremental.' },
+]
 
-function Header() {
-  return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/70 backdrop-blur-sm border-b border-gray-100">
-      <Container className="">
-        <nav className="relative flex justify-between items-center py-5">
-          <Link href="/" aria-label="Home">
-            <img
-              src="https://framerusercontent.com/images/s97qQgHpRGf1STgb6vDMgqYNU4.png?scale-down-to=512"
-              alt="Halliard"
-              className="h-8 w-auto"
-            />
-          </Link>
-          <div className="flex items-center gap-x-4">
-            <Link
-              href="/trytoday"
-              className="hidden sm:inline text-sm text-slate-600 hover:text-slate-900"
-            >
-              Schedule a Demo
-            </Link>
-          </div>
-        </nav>
-      </Container>
-    </header>
-  )
-}
+const CHANNELS = [
+  {
+    icon: Signpost,
+    title: 'Billboards and OOH',
+    body: 'Out-of-home is the last major channel with no click-through attribution. Billboards, DOOH and transit, measured without pixels or new tracking.',
+  },
+  {
+    icon: Mic,
+    title: 'Podcasts',
+    body: 'No cookies, no pixels, just “trust us” metrics. Promo codes undercount, because buyers forget or share them.',
+  },
+  {
+    icon: Tv,
+    title: 'Streaming TV',
+    body: 'Impressions don’t equal impact. A geo-lift test shows what streaming TV adds in the markets it runs in.',
+  },
+  {
+    icon: Radio,
+    title: 'Radio and anything you can geo-target',
+    body: 'Still reaching millions, still no conversions to track. Any channel you can target by market can be tested.',
+  },
+]
 
-function Hero() {
-  return (
-    <div className="relative overflow-hidden">
-      <div className="absolute inset-0 opacity-[0.07]" style={{ backgroundImage: PLUS_PATTERN, backgroundSize: '18px 18px' }} />
-      <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse at 50% 0%, rgba(211,228,255,0.3) 0%, rgba(255,255,255,0.95) 70%, rgb(255,255,255) 100%)' }} />
-      <Container className="relative pt-32 pb-16 text-center lg:pt-40">
-        <div className="mx-auto max-w-3xl">
-          <p className="inline-flex items-center gap-2 rounded-full bg-tint px-4 py-1.5 text-sm font-medium text-primary mb-6">
-            <span>🔬</span> Causal measurement for agencies
-          </p>
-          <h1 className="font-display text-5xl font-medium tracking-tight text-slate-900 sm:text-6xl lg:text-7xl">
-            Prove Your Media{' '}
-            <span className="relative text-primary">
-              <svg
-                aria-hidden="true"
-                viewBox="0 0 418 42"
-                className="absolute left-0 top-2/3 h-[0.58em] w-full fill-primary/30"
-                preserveAspectRatio="none"
-              >
-                <path d="M203.371.916c-26.013-2.078-76.686 1.963-124.73 9.946L67.3 12.749C35.421 18.062 18.2 21.766 6.004 25.934 1.244 27.561.828 27.778.874 28.61c.07 1.214.828 1.121 9.595-1.176 9.072-2.377 17.15-3.92 39.246-7.496C123.565 7.986 157.869 4.492 195.942 5.046c7.461.108 19.25 1.696 19.17 2.582-.107 1.183-7.874 4.31-25.75 10.366-21.992 7.45-35.43 12.534-36.701 13.884-2.173 2.308-.202 4.407 4.442 4.734 2.654.187 3.263.157 15.593-.78 35.401-2.686 57.944-3.488 88.365-3.143 46.327.526 75.721 2.23 130.788 7.584 19.787 1.924 20.814 1.98 24.557 1.332l.066-.011c1.201-.203 1.53-1.825.399-2.335-2.911-1.31-4.893-1.604-22.048-3.261-57.509-5.556-87.871-7.36-132.059-7.842-23.239-.254-33.617-.116-50.627.674-11.629.54-42.371 2.494-46.696 2.967-2.359.259 8.133-3.625 26.504-9.81 23.239-7.825 27.934-10.149 28.304-14.005.417-4.348-3.529-6-16.878-7.066Z" />
-              </svg>
-              <span className="relative">Actually Works</span>
-            </span>
-          </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-lg tracking-tight text-slate-700">
-            Geo-lift tests that show causal impact — not just correlation. Know exactly which channels
-            drive real business results.
-          </p>
-          <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4">
-            <Button href="/trytoday" color="blue" className="">
-              Schedule a Demo
-            </Button>
-          </div>
+const CONNECTED = [
+  {
+    icon: MapIcon,
+    title: 'Test and control by design',
+    body: 'Run media in test markets and hold out control markets. The lift is measured, with no modelling assumptions and no reliance on cookies or platform data.',
+  },
+  {
+    icon: FlaskConical,
+    title: 'Results you can present',
+    body: 'A statistically rigorous read of the incremental lift per channel, ready for the client.',
+  },
+  {
+    icon: Link2,
+    title: 'Connected to MMM and planning',
+    body: 'Test results validate mix-model response curves and feed the next plan: a loop from test to plan.',
+  },
+]
 
-          <div className="mx-auto mt-16 max-w-5xl">
-            <div className="rounded-xl border border-tint shadow-2xl overflow-hidden">
-              <img
-                src="/images/product/measurement.webp"
-                alt="Halliard measurement dashboard showing channel performance and attribution"
-                className="w-full"
-              />
-            </div>
-          </div>
-        </div>
-      </Container>
-    </div>
-  )
-}
-
-function PainSection() {
-  const pains = [
-    {
-      Icon: ArrowsRightLeftIcon,
-      title: 'Correlation Isn\'t Causation',
-      description:
-        'Your attribution model says paid social drove 40% of conversions. But what happens when you turn it off? Incrementality testing tells you the truth.',
-    },
-    {
-      Icon: ShieldCheckIcon,
-      title: 'Clients Want Proof',
-      description:
-        'CFOs are asking hard questions. "Guarantee me how much I\'m gonna get back for every dollar I spend with you." Geo-lift tests give you the answer.',
-    },
-    {
-      Icon: ChartBarIcon,
-      title: '60% Still Use Click Attribution',
-      description:
-        'Despite 15 years of outcomes-based messaging, most campaigns still rely on click-based attribution. It\'s time to measure what matters.',
-    },
-  ]
-
-  return (
-    <section className="py-16 sm:py-24 bg-white">
-      <Container className="">
-        <div className="mx-auto max-w-2xl text-center mb-16">
-          <h2 className="font-display text-3xl tracking-tight text-slate-900 sm:text-4xl">
-            Attribution is broken. You know it.
-          </h2>
-          <p className="mt-4 text-lg text-slate-600">
-            Every platform claims credit for the same conversion. Incrementality testing is the only way to know what&rsquo;s actually driving results.
-          </p>
-        </div>
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-3">
-          {pains.map((pain) => (
-            <div key={pain.title} className="rounded-2xl border border-red-100 bg-red-50/50 p-8">
-              <pain.Icon className="w-8 h-8 text-red-400 mb-4" />
-              <h3 className="text-lg font-semibold text-slate-900 mb-2">{pain.title}</h3>
-              <p className="text-slate-600">{pain.description}</p>
-            </div>
-          ))}
-        </div>
-      </Container>
-    </section>
-  )
-}
-
-function FeaturesSection() {
-  const features = [
-    {
-      title: 'Geo-Lift Testing',
-      image: null,
-      description:
-        'Run media in test markets, hold out control markets. Measure the true lift your advertising creates — no modeling assumptions required.',
-      bullets: [
-        'Scientific test vs. control market design',
-        'Measure true incremental lift per channel',
-        'No reliance on cookies, pixels, or platform data',
-        'Statistically rigorous results you can present to clients',
-      ],
-    },
-    {
-      title: 'Connected to MMM & Planning',
-      image: '/images/product/response-curves.webp',
-      description:
-        'Incrementality results validate your MMM models and feed back into planning decisions. A closed loop from test to plan.',
-      bullets: [
-        'Validate MMM response curves with real experiments',
-        'Feed results directly into your media plan',
-        'Continuous learning loop across campaigns',
-        'One platform for plan, measure, and optimize',
-      ],
-    },
-  ]
-
-  return (
-    <section className="py-16 sm:py-24 bg-slate-50">
-      <Container className="">
-        <div className="mx-auto max-w-2xl text-center mb-16">
-          <h2 className="font-display text-3xl tracking-tight text-slate-900 sm:text-4xl">
-            Real experiments. Real answers.
-          </h2>
-          <p className="mt-4 text-lg text-slate-600">
-            Geo-lift tests give you causal proof of what your media spend is doing — and what it isn&rsquo;t.
-          </p>
-        </div>
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
-          {features.map((feature) => (
-            <div key={feature.title} className="rounded-2xl bg-white p-8 shadow-lg border border-tint">
-              {feature.image && (
-                <div className="mb-6 rounded-lg border border-tint overflow-hidden shadow-sm">
-                  <img src={feature.image} alt={feature.title} className="w-full" />
-                </div>
-              )}
-              <h3 className="text-xl font-semibold text-slate-900 mb-3">{feature.title}</h3>
-              <p className="text-slate-600 mb-6">{feature.description}</p>
-              <ul className="space-y-2">
-                {feature.bullets.map((b) => (
-                  <li key={b} className="flex items-center gap-2 text-sm text-slate-700">
-                    <svg className="h-4 w-4 flex-shrink-0 text-primary" viewBox="0 0 20 20" fill="currentColor">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                    {b}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-      </Container>
-    </section>
-  )
-}
-
-function TestimonialSection() {
-  return (
-    <section className="py-16 sm:py-24 bg-white">
-      <Container className="">
-        <div className="mx-auto max-w-3xl">
-          <div className="rounded-2xl bg-white p-8 sm:p-12 shadow-lg border border-tint">
-            <div className="flex items-center gap-4 mb-8">
-              <img
-                src="/images/testimonials/lewis-media-logo.png"
-                alt="Lewis Media Partners"
-                className="h-8 w-auto"
-              />
-            </div>
-            <blockquote className="text-xl sm:text-2xl font-medium text-slate-800 leading-relaxed">
-              &ldquo;Halliard gave our planners a better way to build media plans and our clients a clearer
-              picture of what their spend is doing. That&rsquo;s been really valuable for us.&rdquo;
-            </blockquote>
-            <div className="mt-8 flex items-center gap-4">
-              <img
-                src="/images/testimonials/lisa-matulis.jpg"
-                alt="Lisa Matulis"
-                className="w-12 h-12 rounded-full object-cover"
-              />
-              <div>
-                <p className="text-sm font-semibold text-slate-900">Lisa Matulis</p>
-                <p className="text-sm text-slate-500">Group Client Lead, Lewis Media Partners</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </Container>
-    </section>
-  )
-}
-
-function PricingSection() {
-  return (
-    <section className="py-16 sm:py-24 bg-slate-50">
-      <Container className="">
-        <div className="mx-auto max-w-2xl text-center mb-12">
-          <h2 className="font-display text-3xl tracking-tight text-slate-900 sm:text-4xl">
-            Simple, transparent pricing
-          </h2>
-        </div>
-        <div className="mx-auto max-w-lg">
-          <div className="rounded-2xl bg-white p-8 sm:p-12 shadow-lg border border-tint text-center">
-            <p className="font-display text-5xl font-bold text-primary">$15,000</p>
-            <p className="mt-2 text-lg font-semibold text-slate-900">per test</p>
-            <div className="mt-6 border-t border-slate-100 pt-6">
-              <ul className="space-y-3 text-left">
-                {[
-                  'Test design & market selection',
-                  'Geo-lift experiment execution',
-                  'Statistical analysis & reporting',
-                  'Presentation-ready results',
-                  'Integration with MMM & planning',
-                ].map((item) => (
-                  <li key={item} className="flex items-center gap-2 text-sm text-slate-700">
-                    <svg className="h-4 w-4 flex-shrink-0 text-primary" viewBox="0 0 20 20" fill="currentColor">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="mt-8">
-              <Button href="/trytoday" color="blue" className="w-full">
-                Schedule a Demo
-              </Button>
-            </div>
-          </div>
-        </div>
-      </Container>
-    </section>
-  )
-}
-
-function CTAFooter() {
-  return (
-    <section className="relative overflow-hidden bg-primary py-20">
-      <div className="absolute inset-0 bg-gradient-to-br from-primary to-secondary" />
-      <div className="absolute inset-0 opacity-[0.15]" style={{ backgroundImage: PLUS_PATTERN, backgroundSize: '18px 18px' }} />
-      <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse at 50% 50%, rgba(255,255,255,0.08) 0%, transparent 70%)' }} />
-      <Container className="relative">
-        <div className="mx-auto max-w-2xl text-center">
-          <h2 className="font-display text-3xl tracking-tight text-white sm:text-4xl">
-            Stop guessing. Start proving.
-          </h2>
-          <p className="mt-2 font-display text-3xl tracking-tight text-white/80 sm:text-4xl">
-            Your clients deserve real answers.
-          </p>
-          <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
-            <Button href="/trytoday" variant="solid" color="white" className="">
-              Schedule a Demo
-            </Button>
-          </div>
-        </div>
-      </Container>
-    </section>
-  )
-}
+const FAQ = [
+  { q: 'Why geo-lift rather than promo codes?', a: 'Promo codes undercount impact, because many buyers forget or share them.' },
+  { q: 'How long does a test run?', a: 'Most reach significance in 3–4 weeks, depending on spend.' },
+  { q: 'Which channels can be tested?', a: 'Any channel you can geo-target: podcasts, streaming TV, radio, OOH and more.' },
+  { q: 'Do I need historical data?', a: 'No. The experiment isolates the lift during the test window only.' },
+]
 
 export default function IncrementalityTestingPage() {
+  const { track } = useLandingAttribution('/incrementality-testing', { posthog: 'both' })
   return (
     <>
       <Head>
-        <title>Incrementality Testing & Geo-Lift for Agencies | Halliard</title>
+        <title>Incrementality Testing and Geo-Lift for Agencies | Halliard</title>
         <meta
           name="description"
-          content="Prove your media actually works with geo-lift tests. Measure true incremental impact — not just correlation. Built for independent agencies."
+          content="Incrementality testing with geo-lift experiments: prove what billboards, podcasts, streaming TV and every other channel add, with test and control markets, not attribution."
         />
-        <meta property="og:title" content="Incrementality Testing & Geo-Lift for Agencies | Halliard" />
-        <meta property="og:description" content="Geo-lift tests that show causal impact — not just correlation. Know exactly which channels drive real business results." />
+        <link rel="canonical" href="https://www.halliardmedia.com/incrementality-testing" />
+        <meta property="og:title" content="Incrementality Testing and Geo-Lift for Agencies | Halliard" />
+        <meta property="og:description" content="Geo-lift tests that show causal impact, not correlation, including for OOH, podcasts and streaming TV." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://halliardmedia.com/incrementality-testing" />
-        <meta property="og:image" content="/images/product/measurement.webp" />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Incrementality Testing & Geo-Lift for Agencies | Halliard" />
-        <meta name="twitter:description" content="Geo-lift tests that show causal impact — not just correlation. Know exactly which channels drive real business results." />
-        <meta name="twitter:image" content="/images/product/measurement.webp" />
-        <link rel="canonical" href="https://halliardmedia.com/incrementality-testing" />
+        <meta property="og:url" content="https://www.halliardmedia.com/incrementality-testing" />
       </Head>
-      <Header />
+      <LandingHeader href={DEMO_URL} cta="Book a demo" onClick={() => track('header')} />
       <main>
-        <Hero />
-        <PainSection />
-        <FeaturesSection />
-        <TestimonialSection />
-        <PricingSection />
-        <CTAFooter />
+        <MeasurementHero
+          icon={FlaskConical}
+          eyebrow="Incrementality testing"
+          title="Prove your media"
+          accent="actually works."
+          body="Geo-lift tests show causal impact, not correlation: which channels drive real business results, including the ones no pixel can see."
+          points={[
+            'Test and control markets, not attribution models',
+            'Works for OOH, podcasts, streaming TV and radio',
+            'Most tests reach significance in 3–4 weeks',
+          ]}
+          facts={[
+            { value: '$15,000', label: 'Per test' },
+            { value: '3–4 weeks', label: 'For most tests to reach significance' },
+            { value: 'Any channel', label: 'That you can target by market' },
+          ]}
+          onCta={() => track('hero')}
+        />
+
+        <section className="py-20 sm:py-28" style={SOFT_BAND}>
+          <Container className="max-w-6xl">
+            <SectionHeading
+              eyebrow="The problem"
+              title="Attribution is broken. You know it."
+              body="Every platform claims credit for the same conversion. An incrementality test is the only way to know what is driving results."
+            />
+            <CardGrid cards={PROBLEMS} />
+          </Container>
+        </section>
+
+        <section className="py-20 sm:py-28">
+          <Container className="max-w-6xl">
+            <SectionHeading eyebrow="How a geo-lift test works" title="Real experiments, real answers" />
+            <NumberedSteps steps={STEPS} />
+          </Container>
+        </section>
+
+        <section className="py-20 sm:py-28" style={SOFT_BAND}>
+          <Container className="max-w-6xl">
+            <SectionHeading
+              eyebrow="Hard-to-measure channels"
+              title="Measure the channels clicks can’t"
+              body="The channels with the biggest reach are often the ones nobody can prove. A geo-lift test doesn’t need a click."
+            />
+            <CardGrid cards={CHANNELS} columns={4} />
+          </Container>
+        </section>
+
+        <section id="ooh-snapshot" className="py-20 sm:py-28">
+          <Container className="max-w-6xl">
+            <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
+              <div>
+                <p className="inline-flex items-center rounded-full bg-tint px-4 py-1.5 text-sm font-medium text-primary">
+                  Out-of-home
+                </p>
+                <h2 className="mt-5 font-display text-3xl tracking-tight text-slate-900 sm:text-4xl">
+                  Spending on billboards? See what they’re doing.
+                </h2>
+                <p className="mt-4 text-lg text-slate-700">
+                  Your CFO asks for proof, and you have reach estimates and gut feel. Using marketing mix modeling, we
+                  isolate the business impact of your OOH spend: no pixels, no tracking, just math.
+                </p>
+                <ul className="mt-6 flex flex-col gap-2 text-slate-700">
+                  <li>A directional estimate of OOH’s contribution to business outcomes</li>
+                  <li>Benchmarks from comparable advertisers in your category</li>
+                  <li>A preliminary view of channel-level efficiency</li>
+                </ul>
+                <p className="mt-6 text-sm text-slate-500">
+                  The snapshot shows what’s possible. A full test or mix model goes deeper, on your actual spend data.
+                </p>
+              </div>
+              <LeadForm
+                source="ooh-landing"
+                subject="OOH Impact Request"
+                heading="Get a free OOH impact snapshot"
+                intro="A directional analysis of your outdoor spend’s business impact."
+                spendField="monthly_ooh_spend"
+                spendLabel="Monthly OOH spend (approx.)"
+                spendOptions={[
+                  { value: '<25k', label: 'Under $25,000' },
+                  { value: '25k-50k', label: '$25,000 – $50,000' },
+                  { value: '50k-100k', label: '$50,000 – $100,000' },
+                  { value: '100k-250k', label: '$100,000 – $250,000' },
+                  { value: '250k+', label: '$250,000+' },
+                ]}
+                extra={{ field: 'markets', label: 'Markets (optional)', placeholder: 'e.g. Richmond, Norfolk' }}
+                submitLabel="Get my free snapshot"
+                done="We’ll review your details and send your OOH impact snapshot within 48 hours."
+              />
+            </div>
+          </Container>
+        </section>
+
+        <section className="py-20 sm:py-28" style={SOFT_BAND}>
+          <Container className="max-w-6xl">
+            <SectionHeading
+              eyebrow="What you get"
+              title="Causal proof, connected to your plan"
+              body="Geo-lift tests show what your media spend is doing, and what it isn’t."
+            />
+            <CardGrid cards={CONNECTED} />
+          </Container>
+        </section>
+
+        <section className="py-20 sm:py-28">
+          <Container className="max-w-6xl">
+            <SectionHeading eyebrow="Pricing" title="Priced per test" body="Billed through the agency, from the client’s budget." />
+            <PriceCard
+              price="$15,000"
+              unit="per test"
+              items={[
+                'Test design and market selection',
+                'Running the geo-lift experiment',
+                'Statistical analysis and reporting',
+                'Presentation-ready results',
+                'Results connected to MMM and planning',
+              ]}
+              onCta={() => track('pricing')}
+            />
+          </Container>
+        </section>
+
+        <section className="py-20 sm:py-28" style={SOFT_BAND}>
+          <Container className="max-w-6xl">
+            <SectionHeading eyebrow="Questions" title="Common questions" />
+            <Faq items={FAQ} />
+            <div className="mx-auto mt-16 max-w-3xl">
+              <LisaQuote />
+            </div>
+          </Container>
+        </section>
+
+        <ClosingCta
+          title="Stop guessing. Start proving."
+          subtitle="Your clients deserve real answers."
+          cta="Book a demo"
+          href={DEMO_URL}
+          onClick={() => track('closing')}
+          note="A 15-minute call. No deck."
+        />
       </main>
     </>
   )
 }
 
-IncrementalityTestingPage.disableNavbar = true
-IncrementalityTestingPage.fullWidth = true
-IncrementalityTestingPage.siteBg = true
+;(IncrementalityTestingPage as any).disableNavbar = true
+;(IncrementalityTestingPage as any).fullWidth = true
+;(IncrementalityTestingPage as any).siteBg = true

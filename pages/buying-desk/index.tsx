@@ -34,8 +34,17 @@ import {
 import { BriefScene } from '../../components/plan/step-visuals'
 import { BuysOnBanner, LisaQuote } from '../../components/plan/proof'
 import { CampaignScene, FEE_EXAMPLE, FeeScene, LiveScene, NarrowPlan } from '../../components/buying/scenes'
-import { BUYING_DESK_LINKS } from '../../components/buying/nav'
 import { BOOKING_URL, PlanRequestForm } from '../../components/buying/PlanRequestForm'
+
+// What a self-service buying agent learns from the agency, from the retired /agentic page.
+const PLAYBOOK = [
+  { title: 'Your channel strategies', body: 'Mix targets per client, growth bets, channels you trust.' },
+  { title: 'Your definition of premium media', body: 'Allow-lists, tier-1 placements, the inventory your clients pay for.' },
+  { title: 'Your brand-safety rules', body: 'Block-lists, content categories, anything your clients flag as off-limits.' },
+  { title: 'Your audience playbook', body: 'Priority segments, look-alikes, first-party data per client.' },
+  { title: 'Your frequency and pacing rules', body: 'Per-user caps, per-flight pacing, weekday and daypart limits.' },
+  { title: 'Your performance history', body: 'Past response curves, what worked for which client, what to repeat.' },
+]
 
 // Landing page A on the GTM map: the buying desk, sold as a service to
 // agencies short on buyers. The offer is a free costed plan from the
@@ -190,7 +199,7 @@ export default function BuyingDeskPage() {
           content="Send the brief, get a costed plan back within 24 hours, approve every line. No new hire."
         />
       </Head>
-      <LandingHeader href="#get-plan" cta="Get a free plan" onClick={toForm('header')} links={BUYING_DESK_LINKS} />
+      <LandingHeader href="#get-plan" cta="Get a free plan" onClick={toForm('header')} />
       <main>
         {/* HERO: most visitors read only this screen, so the offer and the price are here. */}
         <section className="relative">
@@ -357,7 +366,7 @@ export default function BuyingDeskPage() {
                     Get a free plan for your next brief
                     <ArrowRight className="ml-2 h-4 w-4" aria-hidden />
                   </Button>
-                  <Button href="/buying-desk/pricing" variant="outline" color="slate" className="px-6 py-3 text-base">
+                  <Button href="/pricing#buying-fee" variant="outline" color="slate" className="px-6 py-3 text-base">
                     Work out your fee
                   </Button>
                 </div>
@@ -368,6 +377,31 @@ export default function BuyingDeskPage() {
                 </Frame>
               </div>
             </div>
+          </Container>
+        </section>
+
+        {/* SELF-SERVICE: what /agentic sold, for agencies that would rather run the buying themselves */}
+        <section className="py-16 sm:py-24">
+          <Container className="max-w-6xl">
+            <SectionHeading
+              eyebrow="Rather run it yourselves?"
+              title="Your agency\u2019s own buying agent"
+              body="The same buying, run by your team in Halliard. It learns your playbook, shops the exchanges, and your buyer approves every line before anything goes live."
+            />
+            <ul className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {PLAYBOOK.map(p => (
+                <li key={p.title} className="rounded-2xl border border-tint bg-white/90 p-6 shadow-sm">
+                  <h3 className="font-display text-lg text-slate-900">{p.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-slate-600">{p.body}</p>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-8 text-center text-slate-700">
+              Self-service is priced as a share of media.{' '}
+              <Link href="/demo" className="font-semibold text-primary hover:underline">
+                Talk to us about it
+              </Link>
+            </p>
           </Container>
         </section>
 

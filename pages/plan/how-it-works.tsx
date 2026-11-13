@@ -15,7 +15,6 @@ import {
   type Step,
 } from '../../components/landing/kit'
 import { PLAN_STEPS } from '../../components/plan/steps'
-import { PLAN_LINKS } from '../../components/plan/nav'
 import { CampaignScene, LiveScene, NarrowPlan } from '../../components/buying/scenes'
 
 // The planning tool, stage by stage, for someone weighing it up before they
@@ -80,7 +79,7 @@ export function HowItWorksLanding({ path }: { path: '/how-it-works' | '/plan/how
           content="How to create a media plan from one brief: the brief read back, audiences sized to the ZIP, strategies with a role for every dollar, and reach and frequency modelled before you spend."
         />
       </Head>
-      <LandingHeader href={href} cta="Get your first plan" onClick={() => track('header')} links={PLAN_LINKS} />
+      <LandingHeader href={href} cta="Get your first plan" onClick={() => track('header')} />
       <main>
         {/* HERO */}
         <section className="relative">
@@ -126,7 +125,7 @@ export function HowItWorksLanding({ path }: { path: '/how-it-works' | '/plan/how
             <StepRows steps={BUYING_STEPS} />
             <p className="mt-4 text-center text-sm text-slate-500">
               Buying has a fee, shown on each campaign before you approve it.{' '}
-              <Link href="/buying-desk/pricing" className="font-semibold text-primary hover:underline">
+              <Link href="/pricing#buying-fee" className="font-semibold text-primary hover:underline">
                 See how it is worked out →
               </Link>
             </p>

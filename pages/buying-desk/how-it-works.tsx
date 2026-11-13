@@ -36,7 +36,6 @@ import {
 } from '../../components/landing/kit'
 import { AudienceScene, BriefScene, StrategyScene } from '../../components/plan/step-visuals'
 import { CampaignScene, LiveScene, NarrowPlan } from '../../components/buying/scenes'
-import { BUYING_DESK_LINKS } from '../../components/buying/nav'
 
 // The buying desk, stage by stage, from the brief to a live campaign, with
 // the client portal's own screens as its pictures.
@@ -138,7 +137,7 @@ export default function BuyingDeskHowItWorksPage() {
           content="From brief to live campaign: audiences, strategy, a plan with reach modelled, the buy drafted with its fee, and pacing every six hours, with you approving each step."
         />
       </Head>
-      <LandingHeader href="/buying-desk#get-plan" cta="Get a free plan" onClick={() => track('header')} links={BUYING_DESK_LINKS} />
+      <LandingHeader href="/buying-desk#get-plan" cta="Get a free plan" onClick={() => track('header')} />
       <main>
         {/* HERO */}
         <section className="relative">

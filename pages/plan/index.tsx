@@ -29,7 +29,6 @@ import {
 } from '../../components/landing/kit'
 import { PlanGridHero } from '../../components/plan/plan-grid-hero'
 import { PLAN_STEPS } from '../../components/plan/steps'
-import { PLAN_LINKS } from '../../components/plan/nav'
 import {
   ApproveVisual,
   BuyVisual,
@@ -100,7 +99,7 @@ export function PlanLanding({ path }: { path: '/' | '/plan' }) {
           content="Paste a brief. Halliard drafts the plan with reach modelled in minutes, and you make the calls."
         />
       </Head>
-      <LandingHeader href={href} cta="Start planning free" onClick={() => track('header')} links={PLAN_LINKS} />
+      <LandingHeader href={href} cta="Start planning free" onClick={() => track('header')} />
       <main>
         {/* HERO */}
         <section className="relative">

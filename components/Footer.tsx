@@ -19,17 +19,15 @@ const COLUMNS: { title: string; links: { href: string; label: string }[] }[] = [
     links: [
       { href: '/buying-desk', label: 'Overview' },
       { href: '/buying-desk/how-it-works', label: 'How it works' },
-      { href: '/buying-desk/pricing', label: 'Pricing' },
+      { href: '/pricing#buying-fee', label: 'Pricing' },
     ],
   },
   {
     title: 'Measurement',
     links: [
       { href: '/mmm', label: 'Marketing mix modeling' },
-      { href: '/incrementality-testing', label: 'Incrementality testing' },
       { href: '/brand-studies', label: 'Brand studies' },
-      { href: '/ooh', label: 'OOH measurement' },
-      { href: '/unmeasurable', label: 'Podcast and CTV' },
+      { href: '/incrementality-testing', label: 'Incrementality testing' },
     ],
   },
   {
@@ -37,7 +35,6 @@ const COLUMNS: { title: string; links: { href: string; label: string }[] }[] = [
     links: [
       { href: '/guide/media-planning-guide', label: 'Media planning guide' },
       { href: '/media-planning-templates', label: 'Media plan templates' },
-      { href: '/principles', label: 'Principles' },
       { href: '/manifesto/the-independents-agent', label: 'Manifesto' },
     ],
   },

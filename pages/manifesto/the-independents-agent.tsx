@@ -1,8 +1,8 @@
 import Head from 'next/head'
-import Link from 'next/link'
 import React from 'react'
+import { Flag } from 'lucide-react'
 import { Container } from '../../components/mmm/Container'
-import { Button } from '../../components/mmm/Button'
+import { ClosingCta, HeroBackdrop, LandingHeader } from '../../components/landing/kit'
 
 // =============================================================================
 // /manifesto/the-independents-agent
@@ -11,35 +11,12 @@ import { Button } from '../../components/mmm/Button'
 // Voice: Halliard-brand (never founder). Plant-the-flag, not promotional.
 // =============================================================================
 
-function MinimalHeader() {
-  return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-sm border-b border-gray-100">
-      <Container className="">
-        <nav className="relative flex justify-between items-center py-5">
-          <Link href="/" className="flex items-center">
-            <img
-              src="https://framerusercontent.com/images/s97qQgHpRGf1STgb6vDMgqYNU4.png?scale-down-to=512"
-              alt="Halliard"
-              className="h-8 w-auto"
-            />
-          </Link>
-          <Link
-            href="/agentic"
-            className="hidden sm:inline-flex items-center text-sm font-medium text-primary hover:text-primary/80 transition-colors"
-          >
-            See the buying agent →
-          </Link>
-        </nav>
-      </Container>
-    </header>
-  )
-}
-
 function Eyebrow() {
   return (
     <div className="flex items-center justify-center gap-3 mb-6 text-sm">
       <span className="inline-flex items-center gap-1.5 rounded-full bg-tint px-3 py-1 font-medium text-primary">
-        🚩 Halliard editorial
+        <Flag className="h-3.5 w-3.5" aria-hidden />
+        Halliard editorial
       </span>
       <span className="text-slate-500">May 2026 · 6 min read</span>
     </div>
@@ -48,15 +25,9 @@ function Eyebrow() {
 
 function Hero() {
   return (
-    <div className="relative overflow-hidden">
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            'radial-gradient(ellipse at 50% 0%, rgba(211,228,255,0.4) 0%, rgba(255,255,255,0.95) 60%, rgb(255,255,255) 100%)',
-        }}
-      />
-      <Container className="relative pt-28 pb-12 lg:pt-32">
+    <section className="relative">
+      <HeroBackdrop />
+      <Container className="relative pt-32 pb-12 lg:pt-40">
         <div className="mx-auto max-w-3xl text-center">
           <Eyebrow />
           <h1 className="font-display text-4xl font-medium tracking-tight text-slate-900 sm:text-5xl lg:text-[56px] lg:leading-[1.08]">
@@ -68,7 +39,7 @@ function Hero() {
           </p>
         </div>
       </Container>
-    </div>
+    </section>
   )
 }
 
@@ -95,35 +66,6 @@ function PullQuote() {
     </div>
   )
 }
-
-function CtaSection() {
-  return (
-    <div className="relative overflow-hidden border-t border-gray-200 bg-slate-50">
-      <Container className="relative py-20">
-        <div className="mx-auto max-w-2xl text-center">
-          <h2 className="font-display text-3xl sm:text-4xl font-medium tracking-tight text-slate-900">
-            Join the 2026 pilot cohort.
-          </h2>
-          <p className="mx-auto mt-5 max-w-xl text-lg text-slate-700 leading-relaxed">
-            If you run media at an independent agency between thirty and three
-            hundred people, and the platform-agent question is on your desk
-            right now, we&rsquo;d like to talk.
-          </p>
-          <div className="mt-8 flex flex-col sm:flex-row justify-center gap-4">
-            <Button className="" color="blue" href="/agentic">
-              See the buying agent →
-            </Button>
-          </div>
-          <p className="mt-5 text-sm text-slate-500">
-            No deck. No follow-up unless you ask. Halliard replies in
-            twenty-four hours.
-          </p>
-        </div>
-      </Container>
-    </div>
-  )
-}
-
 
 function ManifestoPage() {
   return (
@@ -162,8 +104,8 @@ function ManifestoPage() {
           content="The biggest media-buying decision your agency makes in 2026 is not which DSP. It's which agent buys for you."
         />
       </Head>
-      <MinimalHeader />
-      <main className="pt-4">
+      <LandingHeader href="/buying-desk" cta="See the buying desk" />
+      <main>
         <Hero />
 
         <Article>
@@ -402,7 +344,14 @@ function ManifestoPage() {
           <p>The agent should reflect that.</p>
         </Article>
 
-        <CtaSection />
+        <ClosingCta
+          title="Your agency's own buying desk."
+          subtitle="You approve every line. We buy it."
+          cta="See the buying desk"
+          href="/buying-desk"
+          onClick={() => {}}
+          note="No deck. No follow-up unless you ask."
+        />
       </main>
     </>
   )

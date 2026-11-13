@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import React, { useEffect, useRef, useState } from 'react'
-import { ArrowRight, type LucideIcon } from 'lucide-react'
+import { ArrowRight, ChevronDown, type LucideIcon } from 'lucide-react'
 import { Container } from '../mmm/Container'
 import { Button } from '../mmm/Button'
 import { HALLIARD3_KEY } from '../../lib/halliard3-posthog'
@@ -132,18 +132,32 @@ export function useLandingAttribution(
   return { utms, track, capture, href: `${SIGN_UP_URL}?${qs}` }
 }
 
-export function LandingHeader({
-  href,
-  cta,
-  onClick,
-  links = [],
-}: {
-  href: string
-  cta: string
-  onClick: () => void
-  /** Pages of this landing page's own, such as how it works and pricing. */
-  links?: { href: string; label: string }[]
-}) {
+/** The site's sections, the same in every page's header. */
+const NAV: { label: string; href?: string; items?: { href: string; label: string }[] }[] = [
+  { label: 'Planning', href: '/' },
+  { label: 'Buying desk', href: '/buying-desk' },
+  {
+    label: 'Measurement',
+    items: [
+      { href: '/mmm', label: 'Marketing mix modeling' },
+      { href: '/brand-studies', label: 'Brand studies' },
+      { href: '/incrementality-testing', label: 'Incrementality testing' },
+    ],
+  },
+  {
+    label: 'Resources',
+    items: [
+      { href: '/sample', label: 'Sample media plan' },
+      { href: '/guide/media-planning-guide', label: 'Media planning guide' },
+      { href: '/media-planning-templates', label: 'Media plan templates' },
+      { href: '/manifesto/the-independents-agent', label: 'The independents\u2019 agent' },
+    ],
+  },
+  { label: 'Pricing', href: '/pricing' },
+]
+
+/** The header every page shares: the site's sections, sign in, and the page's own call to action. */
+export function LandingHeader({ href, cta, onClick }: { href: string; cta: string; onClick?: () => void }) {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/50 backdrop-blur-md border-b border-tint/40">
       <Container className="">
@@ -155,18 +169,36 @@ export function LandingHeader({
               className="h-8 w-auto"
             />
           </Link>
+          <ul className="hidden items-center gap-x-6 text-sm text-slate-700 lg:flex">
+            {NAV.map(item =>
+              item.items ? (
+                <li key={item.label} className="group relative">
+                  <button type="button" className="inline-flex items-center gap-1 rounded-lg px-1 py-1 hover:text-slate-900">
+                    {item.label}
+                    <ChevronDown className="h-3.5 w-3.5" aria-hidden />
+                  </button>
+                  <div className="invisible absolute left-1/2 top-full z-10 -translate-x-1/2 pt-3 opacity-0 transition group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
+                    <ul className="w-60 rounded-xl border border-tint/60 bg-white p-2 shadow-lg shadow-primary/5">
+                      {item.items.map(sub => (
+                        <li key={sub.href}>
+                          <Link href={sub.href} className="block rounded-lg px-3 py-2 hover:bg-tint/40 hover:text-slate-900">
+                            {sub.label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </li>
+              ) : (
+                <li key={item.label}>
+                  <Link href={item.href!} className="rounded-lg px-1 py-1 hover:text-slate-900">
+                    {item.label}
+                  </Link>
+                </li>
+              ),
+            )}
+          </ul>
           <div className="flex items-center gap-x-6">
-            {links.length ? (
-              <ul className="hidden items-center gap-x-6 text-sm text-slate-700 sm:flex">
-                {links.map(l => (
-                  <li key={l.href}>
-                    <Link href={l.href} className="rounded-lg px-1 py-1 hover:text-slate-900">
-                      {l.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            ) : null}
             <a href={SIGN_IN_URL} className="text-sm font-medium text-slate-700 hover:text-slate-900">
               Sign in
             </a>

@@ -1,32 +1,19 @@
 import Head from 'next/head'
 import React, { useEffect, useState } from 'react'
+import { BarChart3, CalendarCheck, Clock, FileText, LineChart, MapPin, Pencil, Radio, ShieldCheck, Timer } from 'lucide-react'
 import { Container } from '../components/mmm/Container'
 import { Button } from '../components/mmm/Button'
+import { Accent, HeroBackdrop, HeroVisual, LandingHeader, SOFT_BAND, SectionHeading } from '../components/landing/kit'
+import { PlanGridHero } from '../components/plan/plan-grid-hero'
+import { LisaQuote } from '../components/plan/proof'
+import { LiveScene } from '../components/buying/scenes'
+import { LiftScene, ProductRows, type ProductRow } from '../components/demo/rows'
 import { trackCta } from '../lib/track'
 import { trackPixel } from '@/lib/meta-pixel'
-
-function MinimalHeader() {
-  // Cold-paid LP header: logo only, no nav, no exit CTAs. The page's own CTAs are the only paths.
-  return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/70 backdrop-blur-sm border-b border-gray-100">
-      <Container className="">
-        <nav className="relative flex justify-center items-center py-5">
-          <img
-            src="https://framerusercontent.com/images/s97qQgHpRGf1STgb6vDMgqYNU4.png?scale-down-to=512"
-            alt="Halliard"
-            className="h-8 w-auto"
-          />
-        </nav>
-      </Container>
-    </header>
-  )
-}
 
 const CALENDAR_EMBED_SRC =
   'https://calendar.google.com/calendar/appointments/schedules/AcZssZ1jtM9RZtwp5-TuTTBbXg9Wkc9VEV1dLDUpVS-ajVsNJOoJSBGQDyd7hZ-S_x7mVHGYpZTRPHW2?gv=true'
 
-const PLUS_PATTERN =
-  "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%231a6ab4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")"
 
 function scrollToBooking() {
   if (typeof window === 'undefined') return
@@ -223,198 +210,138 @@ function fireDemoIntent(location: string) {
 
 function Hero() {
   return (
-    <div className="relative overflow-hidden">
-      <div
-        className="absolute inset-0 opacity-[0.07]"
-        style={{ backgroundImage: PLUS_PATTERN, backgroundSize: '18px 18px' }}
-      />
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            'radial-gradient(ellipse at 50% 0%, rgba(211,228,255,0.3) 0%, rgba(255,255,255,0.95) 70%, rgb(255,255,255) 100%)',
-        }}
-      />
-      <Container className="relative pt-28 pb-12 text-center lg:pt-32">
-        <div className="mx-auto max-w-3xl">
-          <p className="inline-flex items-center gap-2 rounded-full bg-tint px-4 py-1.5 text-sm font-medium text-primary mb-6">
-            <span>📍</span> For independent agencies
-          </p>
-          <h1 className="font-display text-4xl font-medium tracking-tight text-slate-900 sm:text-5xl lg:text-6xl">
-            Plan, buy, and measure media{' '}
-            <span className="relative text-primary">
-              <svg
-                aria-hidden="true"
-                viewBox="0 0 418 42"
-                className="absolute left-0 top-2/3 h-[0.58em] w-full fill-primary/30"
-                preserveAspectRatio="none"
+    <section className="relative">
+      <HeroBackdrop />
+      <Container className="relative max-w-6xl pt-32 pb-16 lg:pt-40 lg:pb-24">
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.25fr)] gap-12 items-center">
+          <div className="text-center lg:text-left">
+            <p className="inline-flex items-center gap-2 rounded-full bg-tint px-4 py-1.5 text-sm font-medium text-primary mb-6">
+              <MapPin className="h-4 w-4" aria-hidden />
+              For independent agencies
+            </p>
+            <h1 className="font-display text-5xl font-medium tracking-tight text-slate-900 sm:text-6xl">
+              Plan it, buy it, <Accent>prove it worked.</Accent>
+            </h1>
+            <p className="mx-auto lg:mx-0 mt-6 max-w-xl text-lg tracking-tight text-slate-700">
+              Halliard drafts the media plan from your brief, buys it and keeps it pacing if you want, and measures what
+              it did for your client. Book 15 minutes and we&rsquo;ll show you on a brief of your own.
+            </p>
+            <div className="mt-10 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+              <Button
+                color="blue"
+                className="px-6 py-3 text-base"
+                onClick={() => {
+                  fireDemoIntent('hero')
+                  scrollToBooking()
+                }}
               >
-                <path d="M203.371.916c-26.013-2.078-76.686 1.963-124.73 9.946L67.3 12.749C35.421 18.062 18.2 21.766 6.004 25.934 1.244 27.561.828 27.778.874 28.61c.07 1.214.828 1.121 9.595-1.176 9.072-2.377 17.15-3.92 39.246-7.496C123.565 7.986 157.869 4.492 195.942 5.046c7.461.108 19.25 1.696 19.17 2.582-.107 1.183-7.874 4.31-25.75 10.366-21.992 7.45-35.43 12.534-36.701 13.884-2.173 2.308-.202 4.407 4.442 4.734 2.654.187 3.263.157 15.593-.78 35.401-2.686 57.944-3.488 88.365-3.143 46.327.526 75.721 2.23 130.788 7.584 19.787 1.924 20.814 1.98 24.557 1.332l.066-.011c1.201-.203 1.53-1.825.399-2.335-2.911-1.31-4.893-1.604-22.048-3.261-57.509-5.556-87.871-7.36-132.059-7.842-23.239-.254-33.617-.116-50.627.674-11.629.54-42.371 2.494-46.696 2.967-2.359.259 8.133-3.625 26.504-9.81 23.239-7.825 27.934-10.149 28.304-14.005.417-4.348-3.529-6-16.878-7.066Z" />
-              </svg>
-              <span className="relative">in one tool</span>
-            </span>
-          </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-lg tracking-tight text-slate-700">
-            Built for independent agencies. Replace the spreadsheets, see what&rsquo;s actually working,
-            and walk into pitches with holdco-grade plans.
-          </p>
-          <div className="mt-8 flex flex-col sm:flex-row justify-center gap-4">
-            <Button
-              className=""
-              color="blue"
-              onClick={() => {
-                fireDemoIntent('hero')
-                scrollToBooking()
-              }}
-            >
-              Book a 15-min demo →
-            </Button>
-          </div>
-
-          <p className="mt-5 text-sm text-slate-500">
-            15 minutes. No deck. No follow-up unless you ask.
-          </p>
-
-          {/* Product screenshot — moved into hero for visual weight */}
-          <div className="mx-auto mt-12 max-w-5xl">
-            <div className="rounded-xl border border-tint shadow-2xl overflow-hidden bg-white">
-              <img
-                src="/images/product/flighting.webp"
-                alt="Halliard media planning platform — flight planner with channel logos, budget allocation, and Gantt timeline"
-                className="w-full h-auto"
-              />
+                Book a 15-min demo &rarr;
+              </Button>
             </div>
+            <p className="mt-4 text-sm text-slate-600">15 minutes. No deck. No follow-up unless you ask.</p>
           </div>
+          <HeroVisual label="Media plan · Draft, edit any line">
+            <PlanGridHero />
+          </HeroVisual>
         </div>
       </Container>
-    </div>
+    </section>
   )
 }
+
+const CLIENT_LOGOS = [
+  { src: '/images/client-logos/allen-allen.png', alt: 'Allen & Allen' },
+  { src: '/images/client-logos/ablenow.png', alt: 'ABLEnow' },
+  { src: '/images/client-logos/invest529.png', alt: 'Invest529' },
+  { src: '/images/client-logos/vcu.png', alt: 'VCU' },
+  { src: '/images/client-logos/ymca.png', alt: 'YMCA' },
+]
 
 function TrustStrip() {
   return (
-    <section className="bg-white pt-8 pb-12 border-b border-tint">
-      <Container className="">
-        <p className="text-center text-sm font-medium text-slate-500 uppercase tracking-wider">
-          The brands our agency customers plan media for
-        </p>
+    <section className="pb-12 sm:pb-16">
+      <Container className="max-w-6xl">
+        <p className="text-center text-sm font-medium text-slate-500">The brands our agency customers plan media for</p>
         <div className="mt-6 flex flex-wrap items-center justify-center gap-x-12 gap-y-6 grayscale opacity-70">
-          <img
-            src="/images/client-logos/allen-allen.png"
-            alt="Allen &amp; Allen"
-            className="h-8 w-auto"
-          />
-          <img
-            src="/images/client-logos/ablenow.png"
-            alt="ABLEnow"
-            className="h-8 w-auto"
-          />
-          <img
-            src="/images/client-logos/invest529.png"
-            alt="Invest529"
-            className="h-8 w-auto"
-          />
-          <img
-            src="/images/client-logos/vcu.png"
-            alt="VCU"
-            className="h-8 w-auto"
-          />
-          <img
-            src="/images/client-logos/ymca.png"
-            alt="YMCA"
-            className="h-8 w-auto"
-          />
+          {CLIENT_LOGOS.map(logo => (
+            <img key={logo.src} src={logo.src} alt={logo.alt} className="h-8 w-auto" />
+          ))}
         </div>
       </Container>
     </section>
   )
 }
 
-function ProofQuote() {
-  return (
-    <section className="bg-slate-50 py-16">
-      <Container className="">
-        <div className="mx-auto max-w-3xl text-center">
-          <svg
-            className="mx-auto h-10 w-10 text-primary/40"
-            fill="currentColor"
-            viewBox="0 0 32 32"
-            aria-hidden="true"
-          >
-            <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z" />
-          </svg>
-          <p className="mt-6 font-display text-2xl font-medium text-slate-900 sm:text-3xl leading-snug">
-            &ldquo;Halliard told us our client&rsquo;s Meta was driving zero incremental conversions.
-            We cancelled the wrong line item for two years.&rdquo;
-          </p>
-          <p className="mt-6 text-sm font-medium text-slate-700">
-            — Director of Strategy, independent agency
-          </p>
-        </div>
-      </Container>
-    </section>
-  )
-}
-
-const VALUE_ITEMS: Array<{ title: string; body: string; img: string; alt: string }> = [
+const PRODUCTS: ProductRow[] = [
   {
-    title: 'Replace your spreadsheets',
-    body: 'Plan across 18 channels. Scenarios, versions, and approvals — without 12 tabs.',
-    img: '/images/product/flighting.webp',
-    alt: 'Halliard flight planner with channel-level budget allocation',
+    icon: FileText,
+    label: 'Planning · free to start',
+    title: 'A plan from your brief in minutes',
+    body: 'Paste a brief or drop in an RFP. Halliard drafts the audiences, strategy and channel plan with reach and frequency modelled, and you edit any line and test what-ifs on the spot.',
+    points: [
+      { icon: Pencil, text: 'Edit every line of the plan' },
+      { icon: BarChart3, text: 'Reach and frequency for every strategy' },
+      { icon: MapPin, text: 'Audiences sized down to the ZIP' },
+    ],
+    frame: 'Media plan',
+    Scene: () => <PlanGridHero narrow />,
   },
   {
-    title: 'See what&rsquo;s actually working',
-    body: 'MMM-grade response curves, built in. No $125K Nielsen invoice.',
-    img: '/images/product/response-curves.webp',
-    alt: 'Halliard response curves dashboard showing channel-level marginal returns',
+    icon: Radio,
+    label: 'Buying desk',
+    title: 'We buy it and keep it pacing',
+    body: 'Approve the plan line by line and Halliard buys it on Meta and streaming TV, checks pacing every six hours and reports back. The fee is 30% of what a freelance buyer would charge, shown before you approve.',
+    points: [
+      { icon: ShieldCheck, text: 'Nothing goes live without your approval' },
+      { icon: Timer, text: 'Pacing checked every six hours' },
+      { icon: Clock, text: 'No new hire for your team' },
+    ],
+    frame: 'Campaigns',
+    Scene: LiveScene,
   },
   {
-    title: 'Win more pitches',
-    body: 'Plan → Buy → Measure under one roof. The integrated story holdcos pitch — for independents.',
-    img: '/images/product/compare.webp',
-    alt: 'Halliard scenario comparison view side by side',
+    icon: LineChart,
+    label: 'Measurement',
+    title: 'Prove what the media did',
+    body: 'Show your client what their spend actually moved. Brand studies start at $5,500 and marketing mix models are $25,000, run for your clients and billed through you.',
+    points: [
+      { icon: CalendarCheck, text: 'Brand studies from $5,500' },
+      { icon: BarChart3, text: 'Marketing mix models at $25,000' },
+      { icon: LineChart, text: 'Geo-lift tests for channels you can\u2019t click-track' },
+    ],
+    frame: 'Measurement',
+    Scene: LiftScene,
   },
 ]
 
-function ValueRow({
-  item,
-  reverse,
-}: {
-  item: { title: string; body: string; img: string; alt: string }
-  reverse?: boolean
-}) {
+function ProductSection() {
   return (
-    <div
-      className={`flex flex-col ${reverse ? 'lg:flex-row-reverse' : 'lg:flex-row'} items-center gap-10 lg:gap-16`}
-    >
-      <div className="lg:flex-1">
-        <h3
-          className="font-display text-2xl sm:text-3xl font-medium text-slate-900"
-          dangerouslySetInnerHTML={{ __html: item.title }}
+    <section className="py-20 sm:py-28" style={SOFT_BAND}>
+      <Container className="max-w-6xl">
+        <SectionHeading
+          eyebrow="What you'll see"
+          title="One partner from brief to proof"
+          body="Use one part or all three. Each is priced on its own."
         />
-        <p
-          className="mt-3 text-lg text-slate-700 leading-relaxed"
-          dangerouslySetInnerHTML={{ __html: item.body }}
-        />
-      </div>
-      <div className="lg:flex-1 w-full">
-        <div className="rounded-xl border border-tint shadow-lg overflow-hidden bg-white">
-          <img src={item.img} alt={item.alt} className="w-full h-auto" />
-        </div>
-      </div>
-    </div>
+        <ProductRows rows={PRODUCTS} />
+      </Container>
+    </section>
   )
 }
 
-function ValueSection() {
+function ProofSection() {
   return (
-    <section className="bg-white py-20">
-      <Container className="">
-        <div className="mx-auto max-w-6xl space-y-20">
-          {VALUE_ITEMS.map((item, i) => (
-            <ValueRow key={item.title} item={item} reverse={i % 2 === 1} />
-          ))}
+    <section className="py-16 sm:py-20">
+      <Container className="max-w-6xl">
+        <div className="mx-auto max-w-3xl">
+          <LisaQuote />
+        </div>
+        <div className="mx-auto mt-14 max-w-3xl text-center">
+          <p className="font-display text-2xl font-medium leading-snug text-slate-900 sm:text-3xl">
+            &ldquo;Halliard told us our client&rsquo;s Meta was driving zero incremental conversions. We cancelled the wrong
+            line item for two years.&rdquo;
+          </p>
+          <p className="mt-6 text-sm font-medium text-slate-700">Director of Strategy, independent agency</p>
         </div>
       </Container>
     </section>
@@ -467,17 +394,13 @@ function BookingSection() {
   }, [iframeLoaded])
 
   return (
-    <section id="book" className="bg-slate-50 py-20 scroll-mt-20">
+    <section id="book" className="py-20 sm:py-28 scroll-mt-20" style={SOFT_BAND}>
       <Container className="">
-        <div className="mx-auto max-w-3xl text-center">
-          <h2 className="font-display text-3xl font-medium tracking-tight text-slate-900 sm:text-4xl">
-            Book a 15-min demo
-          </h2>
-          <p className="mt-4 text-lg text-slate-700">
-            Tell us your stack and your biggest media pain. We&rsquo;ll show you how Halliard fits.
-            No deck. No follow-up unless you ask.
-          </p>
-        </div>
+        <SectionHeading
+          eyebrow="Book a demo"
+          title="Book a 15-min demo"
+          body="Tell us your clients and your biggest media headache. We'll show you how Halliard fits. No deck. No follow-up unless you ask."
+        />
         <div className="mt-10 mx-auto max-w-3xl">
           {iframeStuck && (
             <div className="mb-4 rounded-md border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
@@ -496,7 +419,7 @@ function BookingSection() {
               </p>
             </div>
           )}
-          <div className="rounded-xl border border-tint overflow-hidden bg-white shadow-sm">
+          <div className="rounded-2xl border border-tint overflow-hidden bg-white shadow-lg">
             <iframe
               ref={iframeRef}
               src={CALENDAR_EMBED_SRC}
@@ -558,7 +481,7 @@ function StickyMobileCta() {
             fireDemoIntent('sticky_mobile')
             scrollToBooking()
           }}
-          className="w-full inline-flex items-center justify-center rounded-md bg-primary text-white font-medium py-3 px-4 text-base hover:bg-primary/90 active:bg-primary/80 transition"
+          className="w-full inline-flex items-center justify-center rounded-full bg-primary text-white font-medium py-3 px-4 text-base hover:bg-primary/90 active:bg-primary/80 transition"
         >
           Book a 15-min demo →
         </button>
@@ -569,7 +492,7 @@ function StickyMobileCta() {
 
 function DemoPage() {
   useEffect(() => {
-    // Hide Intercom chat bubble — cold-paid LP has zero exit paths.
+    // Hide Intercom chat bubble: the booking calendar is the one conversation this page wants.
     try {
       const w = window as any
       if (w.Intercom) w.Intercom('update', { hide_default_launcher: true })
@@ -591,24 +514,30 @@ function DemoPage() {
   return (
     <>
       <Head>
-        <title>Book a Demo | Halliard — Media Planning for Independent Agencies</title>
+        <title>Book a Demo | Halliard: Plan, Buy and Measure Media</title>
         <meta
           name="description"
-          content="See Halliard in 15 minutes. Plan, buy, and measure media in one tool. Built for independent agencies."
+          content="See Halliard in 15 minutes: a media plan from your brief, a buying desk that buys and paces it, and measurement that proves what it did. Built for independent agencies."
         />
         <meta name="robots" content="noindex,follow" />
         <meta property="og:title" content="Book a Demo | Halliard" />
         <meta
           property="og:description"
-          content="Plan, buy, and measure media in one tool. Built for independent agencies. Book a 15-min demo."
+          content="Plan it, buy it, prove it worked. Built for independent agencies. Book a 15-min demo."
         />
       </Head>
-      <MinimalHeader />
+      <LandingHeader
+        href="#book"
+        cta="Book a demo"
+        onClick={() => {
+          fireDemoIntent('header')
+        }}
+      />
       <main className="pb-24 lg:pb-0">
         <Hero />
         <TrustStrip />
-        <ProofQuote />
-        <ValueSection />
+        <ProductSection />
+        <ProofSection />
         <BookingSection />
         <StickyMobileCta />
       </main>

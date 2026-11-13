@@ -1,18 +1,21 @@
 import Head from 'next/head'
 import Link from 'next/link'
+import { Lock } from 'lucide-react'
 import { Container } from '../components/mmm/Container'
+import { HeroBackdrop, LandingHeader, SIGN_UP_URL } from '../components/landing/kit'
 
 const EFFECTIVE_DATE = 'October 20, 2026'
 const CONTACT_EMAIL = 'privacy@halliardmedia.com'
 
 function Hero() {
   return (
-    <div className="relative overflow-hidden bg-white">
-      <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse at 50% 0%, rgba(211,228,255,0.3) 0%, rgba(255,255,255,0.95) 70%, rgb(255,255,255) 100%)' }} />
+    <section className="relative">
+      <HeroBackdrop />
       <Container className="relative pt-32 pb-12 text-center lg:pt-40">
         <div className="mx-auto max-w-3xl">
           <p className="inline-flex items-center gap-2 rounded-full bg-tint px-4 py-1.5 text-sm font-medium text-primary mb-6">
-            <span>🔒</span> Legal
+            <Lock className="h-4 w-4" aria-hidden />
+            Legal
           </p>
           <h1 className="font-display text-5xl font-medium tracking-tight text-slate-900 sm:text-6xl">
             Privacy Policy
@@ -22,7 +25,7 @@ function Hero() {
           </p>
         </div>
       </Container>
-    </div>
+    </section>
   )
 }
 
@@ -39,9 +42,9 @@ function Section({ title, id, children }: { title: string; id?: string; children
 
 function Body() {
   return (
-    <section className="py-16 bg-white">
+    <section className="pb-20 sm:pb-28">
       <Container className="">
-        <div className="mx-auto max-w-3xl">
+        <div className="mx-auto max-w-3xl rounded-2xl border border-tint bg-white p-6 shadow-lg shadow-primary/5 sm:p-12">
           <p className="text-slate-700 leading-relaxed">
             Halliard LLC ("Halliard", "we", "us", or "our") operates <a href="https://halliardmedia.com" className="text-primary underline">halliardmedia.com</a>, <a href="https://client.halliardmedia.com" className="text-primary underline">client.halliardmedia.com</a>, and related services (the "Services"). This Privacy Policy explains what information we collect, how we use it, and your choices.
           </p>
@@ -162,13 +165,14 @@ function Body() {
   )
 }
 
-export default function PrivacyPage() {
+function PrivacyPage() {
   return (
     <>
       <Head>
         <title>Privacy Policy — Halliard</title>
         <meta name="description" content="How Halliard collects, uses, and protects your information." />
       </Head>
+      <LandingHeader href={SIGN_UP_URL} cta="Start planning free" />
       <main>
         <Hero />
         <Body />
@@ -176,3 +180,9 @@ export default function PrivacyPage() {
     </>
   )
 }
+
+;(PrivacyPage as any).disableNavbar = true
+;(PrivacyPage as any).fullWidth = true
+;(PrivacyPage as any).siteBg = true
+
+export default PrivacyPage
