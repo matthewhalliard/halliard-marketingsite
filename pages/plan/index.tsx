@@ -29,7 +29,6 @@ import {
 } from '../../components/landing/kit'
 import { PlanGridHero } from '../../components/plan/plan-grid-hero'
 import { PLAN_STEPS } from '../../components/plan/steps'
-import { PLAN_LINKS } from '../../components/plan/nav'
 import {
   ApproveVisual,
   BuyVisual,
@@ -72,8 +71,13 @@ const FEATURES: Feature[] = [
   { icon: Radio, title: 'Buys on PubMatic and Meta', body: 'Approved plans go live through Halliard, with every fee shown.', Visual: BuyVisual },
 ]
 
-export default function PlanPage() {
-  const { utms, track, href } = useLandingAttribution('/plan', { posthog: 'both' })
+/**
+ * The planning landing page. It is also the homepage: `/` renders it with its
+ * own path, keeping the `plan_*` event names, so search ads on /plan and the
+ * homepage's visitors read as one page.
+ */
+export function PlanLanding({ path }: { path: '/' | '/plan' }) {
+  const { utms, track, href } = useLandingAttribution(path, { posthog: 'both', event: 'plan' })
   const heroKey = heroFor(utms)
 
   const hero = HERO[heroKey]
@@ -81,18 +85,21 @@ export default function PlanPage() {
   return (
     <>
       <Head>
-        <title>Media Planning Software, Free to Start | Halliard</title>
+        <title>Media Planning Tool and Software, Free to Start | Halliard</title>
         <meta
           name="description"
-          content="Hyper-fast media planning. Paste a brief and Halliard drafts the audiences, strategy and channel plan with reach modelled. You edit any line. Free to start."
+          content="A media planning tool for agencies and brands. Paste a brief and Halliard drafts the audiences, strategy and channel plan with reach modelled. You edit any line. Free to start."
         />
-        <meta property="og:title" content="Media Planning Software, Free to Start | Halliard" />
+        <link rel="canonical" href="https://www.halliardmedia.com/" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://www.halliardmedia.com/" />
+        <meta property="og:title" content="Media Planning Tool and Software, Free to Start | Halliard" />
         <meta
           property="og:description"
           content="Paste a brief. Halliard drafts the plan with reach modelled in minutes, and you make the calls."
         />
       </Head>
-      <LandingHeader href={href} cta="Start planning free" onClick={() => track('header')} links={PLAN_LINKS} />
+      <LandingHeader href={href} cta="Start planning free" onClick={() => track('header')} />
       <main>
         {/* HERO */}
         <section className="relative">
@@ -116,7 +123,7 @@ export default function PlanPage() {
                     Start planning free
                     <ArrowRight className="ml-2 h-4 w-4" aria-hidden />
                   </Button>
-                  <Link href="/plan/sample" className="text-base font-semibold text-primary hover:underline">
+                  <Link href="/sample" className="text-base font-semibold text-primary hover:underline">
                     See a sample plan &rarr;
                   </Link>
                 </div>
@@ -195,6 +202,10 @@ export default function PlanPage() {
       </main>
     </>
   )
+}
+
+export default function PlanPage() {
+  return <PlanLanding path="/plan" />
 }
 
 ;(PlanPage as any).disableNavbar = true

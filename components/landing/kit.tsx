@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import React, { useEffect, useRef, useState } from 'react'
-import { ArrowRight, type LucideIcon } from 'lucide-react'
+import { ArrowRight, ChevronDown, type LucideIcon } from 'lucide-react'
 import { Container } from '../mmm/Container'
 import { Button } from '../mmm/Button'
 import { HALLIARD3_KEY } from '../../lib/halliard3-posthog'
@@ -15,6 +15,7 @@ import { HALLIARD3_KEY } from '../../lib/halliard3-posthog'
 
 // The client portal: sign up, tell us about you, send a first brief.
 export const SIGN_UP_URL = 'https://client.halliardmedia.com/sign-up'
+export const SIGN_IN_URL = 'https://client.halliardmedia.com/sign-in'
 
 export const PLUS_PATTERN =
   "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%231a6ab4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")"
@@ -61,12 +62,17 @@ function posthogs(target: PosthogTarget): any[] {
 /**
  * The visit's UTMs and click IDs, registered on the PostHog person (first
  * and last touch), a named page-view event, and a CTA click tracker. `href`
- * is the client sign-up carrying the same parameters, plus `from`.
+ * is the client sign-up carrying the same parameters, plus `from`. `event`
+ * names the events when the path can't (the homepage serves /plan's page, and
+ * keeps its `plan_*` events).
  */
-export function useLandingAttribution(page: string, { posthog }: { posthog: PosthogTarget }) {
+export function useLandingAttribution(
+  page: string,
+  { posthog, event: eventName }: { posthog: PosthogTarget; event?: string },
+) {
   const utmRef = useRef<Record<string, string>>({})
   const [utms, setUtms] = useState<Record<string, string>>({})
-  const event = page.replace(/^\//, '').replace(/[^a-z0-9]+/gi, '_')
+  const event = eventName ?? page.replace(/^\//, '').replace(/[^a-z0-9]+/gi, '_')
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
@@ -126,18 +132,32 @@ export function useLandingAttribution(page: string, { posthog }: { posthog: Post
   return { utms, track, capture, href: `${SIGN_UP_URL}?${qs}` }
 }
 
-export function LandingHeader({
-  href,
-  cta,
-  onClick,
-  links = [],
-}: {
-  href: string
-  cta: string
-  onClick: () => void
-  /** Pages of this landing page's own, such as how it works and pricing. */
-  links?: { href: string; label: string }[]
-}) {
+/** The site's sections, the same in every page's header. */
+const NAV: { label: string; href?: string; items?: { href: string; label: string }[] }[] = [
+  { label: 'Planning', href: '/' },
+  { label: 'Buying desk', href: '/buying-desk' },
+  {
+    label: 'Measurement',
+    items: [
+      { href: '/mmm', label: 'Marketing mix modeling' },
+      { href: '/brand-studies', label: 'Brand studies' },
+      { href: '/incrementality-testing', label: 'Incrementality testing' },
+    ],
+  },
+  {
+    label: 'Resources',
+    items: [
+      { href: '/sample', label: 'Sample media plan' },
+      { href: '/guide/media-planning-guide', label: 'Media planning guide' },
+      { href: '/media-planning-templates', label: 'Media plan templates' },
+      { href: '/manifesto/the-independents-agent', label: 'The independents\u2019 agent' },
+    ],
+  },
+  { label: 'Pricing', href: '/pricing' },
+]
+
+/** The header every page shares: the site's sections, sign in, and the page's own call to action. */
+export function LandingHeader({ href, cta, onClick }: { href: string; cta: string; onClick?: () => void }) {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/50 backdrop-blur-md border-b border-tint/40">
       <Container className="">
@@ -149,18 +169,39 @@ export function LandingHeader({
               className="h-8 w-auto"
             />
           </Link>
+          <ul className="hidden items-center gap-x-6 text-sm text-slate-700 lg:flex">
+            {NAV.map(item =>
+              item.items ? (
+                <li key={item.label} className="group relative">
+                  <button type="button" className="inline-flex items-center gap-1 rounded-lg px-1 py-1 hover:text-slate-900">
+                    {item.label}
+                    <ChevronDown className="h-3.5 w-3.5" aria-hidden />
+                  </button>
+                  <div className="invisible absolute left-1/2 top-full z-10 -translate-x-1/2 pt-3 opacity-0 transition group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
+                    <ul className="w-60 rounded-xl border border-tint/60 bg-white p-2 shadow-lg shadow-primary/5">
+                      {item.items.map(sub => (
+                        <li key={sub.href}>
+                          <Link href={sub.href} className="block rounded-lg px-3 py-2 hover:bg-tint/40 hover:text-slate-900">
+                            {sub.label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </li>
+              ) : (
+                <li key={item.label}>
+                  <Link href={item.href!} className="rounded-lg px-1 py-1 hover:text-slate-900">
+                    {item.label}
+                  </Link>
+                </li>
+              ),
+            )}
+          </ul>
           <div className="flex items-center gap-x-6">
-            {links.length ? (
-              <ul className="hidden items-center gap-x-6 text-sm text-slate-700 sm:flex">
-                {links.map(l => (
-                  <li key={l.href}>
-                    <Link href={l.href} className="rounded-lg px-1 py-1 hover:text-slate-900">
-                      {l.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            ) : null}
+            <a href={SIGN_IN_URL} className="text-sm font-medium text-slate-700 hover:text-slate-900">
+              Sign in
+            </a>
             <span onClickCapture={onClick}>
               <Button href={href} color="blue" className="">
                 {cta}

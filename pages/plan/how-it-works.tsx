@@ -15,7 +15,6 @@ import {
   type Step,
 } from '../../components/landing/kit'
 import { PLAN_STEPS } from '../../components/plan/steps'
-import { PLAN_LINKS } from '../../components/plan/nav'
 import { CampaignScene, LiveScene, NarrowPlan } from '../../components/buying/scenes'
 
 // The planning tool, stage by stage, for someone weighing it up before they
@@ -67,18 +66,20 @@ const BUYING_STEPS: Step[] = [
   },
 ]
 
-export default function PlanHowItWorksPage() {
-  const { track, href } = useLandingAttribution('/plan/how-it-works', { posthog: 'both' })
+/** Served at /how-it-works, and at /plan/how-it-works for the ads and sitelinks that link there. */
+export function HowItWorksLanding({ path }: { path: '/how-it-works' | '/plan/how-it-works' }) {
+  const { track, href } = useLandingAttribution(path, { posthog: 'both', event: 'plan_how_it_works' })
   return (
     <>
       <Head>
-        <title>How the Media Planning Tool Works | Halliard</title>
+        <title>How to Create a Media Plan in Minutes | Halliard</title>
+        <link rel="canonical" href="https://www.halliardmedia.com/how-it-works" />
         <meta
           name="description"
-          content="From one brief to a media plan: the brief read back, audiences sized to the ZIP, strategies with a role for every dollar, and reach and frequency modelled before you spend."
+          content="How to create a media plan from one brief: the brief read back, audiences sized to the ZIP, strategies with a role for every dollar, and reach and frequency modelled before you spend."
         />
       </Head>
-      <LandingHeader href={href} cta="Get your first plan" onClick={() => track('header')} links={PLAN_LINKS} />
+      <LandingHeader href={href} cta="Get your first plan" onClick={() => track('header')} />
       <main>
         {/* HERO */}
         <section className="relative">
@@ -98,7 +99,7 @@ export default function PlanHowItWorksPage() {
               </p>
               <p className="mt-4 text-sm text-slate-500">
                 Want to see a finished one first?{' '}
-                <Link href="/plan/sample" className="font-semibold text-primary hover:underline">
+                <Link href="/sample" className="font-semibold text-primary hover:underline">
                   Open the sample plan →
                 </Link>
               </p>
@@ -124,7 +125,7 @@ export default function PlanHowItWorksPage() {
             <StepRows steps={BUYING_STEPS} />
             <p className="mt-4 text-center text-sm text-slate-500">
               Buying has a fee, shown on each campaign before you approve it.{' '}
-              <Link href="/buying-desk/pricing" className="font-semibold text-primary hover:underline">
+              <Link href="/pricing#buying-fee" className="font-semibold text-primary hover:underline">
                 See how it is worked out →
               </Link>
             </p>
@@ -141,6 +142,10 @@ export default function PlanHowItWorksPage() {
       </main>
     </>
   )
+}
+
+export default function PlanHowItWorksPage() {
+  return <HowItWorksLanding path="/plan/how-it-works" />
 }
 
 ;(PlanHowItWorksPage as any).disableNavbar = true

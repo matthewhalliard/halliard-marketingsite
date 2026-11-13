@@ -16,7 +16,6 @@ import {
 import { PlanGridHero } from '../../components/plan/plan-grid-hero'
 import { BRIEF_FIELDS, BRIEF_TEXT, MEDIA, RESEARCH, STRATEGIES, TOP_ZIPS } from '../../components/plan/step-visuals'
 import { LisaQuote } from '../../components/plan/proof'
-import { PLAN_LINKS } from '../../components/plan/nav'
 
 // One plan, start to finish, for someone who wants to see the output before
 // they sign up. It is the same illustrative HVAC brief the landing page's
@@ -52,18 +51,20 @@ function Logo({ name, size = 18 }: { name: string; size?: number }) {
   )
 }
 
-export default function SamplePlanPage() {
-  const { track, href } = useLandingAttribution('/plan/sample', { posthog: 'both' })
+/** Served at /sample, and at /plan/sample for the ads and sitelinks that link there. */
+export function SampleLanding({ path }: { path: '/sample' | '/plan/sample' }) {
+  const { track, href } = useLandingAttribution(path, { posthog: 'both', event: 'plan_sample' })
   return (
     <>
       <Head>
-        <title>Sample Media Plan: From One Brief | Halliard</title>
+        <title>Media Plan Example: A Full Plan From One Brief | Halliard</title>
+        <link rel="canonical" href="https://www.halliardmedia.com/sample" />
         <meta
           name="description"
-          content="See a finished Halliard media plan before you sign up: the brief, the audience down to the ZIP, two strategies and the plan with reach and frequency modelled."
+          content="A media plan example you can read end to end: the brief, the audience down to the ZIP, two strategies and the plan with reach and frequency modelled."
         />
       </Head>
-      <LandingHeader href={href} cta="Get your first plan" onClick={() => track('header')} links={PLAN_LINKS} />
+      <LandingHeader href={href} cta="Get your first plan" onClick={() => track('header')} />
       <main>
         {/* HERO */}
         <section className="relative">
@@ -316,7 +317,7 @@ export default function SamplePlanPage() {
                 <p className="mt-2 text-sm leading-relaxed text-slate-600">
                   Halliard buys it on Meta and PubMatic and keeps it pacing. You approve every line first, and the fee
                   shows before you do.{' '}
-                  <Link href="/buying-desk/pricing" className="font-semibold text-primary hover:underline">
+                  <Link href="/pricing#buying-fee" className="font-semibold text-primary hover:underline">
                     How the fee works →
                   </Link>
                 </p>
@@ -347,6 +348,10 @@ export default function SamplePlanPage() {
       </main>
     </>
   )
+}
+
+export default function SamplePlanPage() {
+  return <SampleLanding path="/plan/sample" />
 }
 
 ;(SamplePlanPage as any).disableNavbar = true
