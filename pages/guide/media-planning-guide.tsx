@@ -3,8 +3,9 @@ import Link from 'next/link'
 import React from 'react'
 import { ArrowRight, BookOpen } from 'lucide-react'
 import { Container } from '../../components/mmm/Container'
-import { Accent, ClosingCta, HeroBackdrop, LandingHeader, useLandingAttribution } from '../../components/landing/kit'
-import { GUIDE } from '../../components/resources/guide-content'
+import { Accent, ClosingCta, HeroBackdrop, HeroVisual, LandingHeader, useLandingAttribution } from '../../components/landing/kit'
+import { GUIDE, type GuideBlock } from '../../components/resources/guide-content'
+import { FrequencyFigure, GuideFlowScene, JourneyFigure } from '../../components/resources/visuals'
 import { Inline } from '../../components/resources/inline'
 
 // The long-form guide for "media planning" and "how to create a media plan".
@@ -22,6 +23,51 @@ const STEPS = [
 ]
 
 const CHAPTERS = GUIDE.flatMap(b => (b.t === 'h2' ? [b] : []))
+
+/** One block of the article. */
+function Block({ b }: { b: GuideBlock }) {
+  switch (b.t) {
+    case 'h2':
+      return (
+        <h2 id={b.id} className="mt-14 scroll-mt-28 font-display text-3xl tracking-tight text-slate-900 first:mt-0">
+          {b.text}
+        </h2>
+      )
+    case 'h3':
+      return (
+        <h3 id={b.id} className="mt-10 scroll-mt-28 font-display text-xl tracking-tight text-slate-900">
+          {b.text}
+        </h3>
+      )
+    case 'h4':
+      return (
+        <h4 className="mt-6 font-semibold text-slate-900">{b.text}</h4>
+      )
+    case 'ul':
+      return (
+        <ul className="mt-4 list-disc space-y-2 pl-6 marker:text-primary">
+          {b.items.map((item, j) => (
+            <li key={j}>
+              <Inline text={item} />
+            </li>
+          ))}
+        </ul>
+      )
+    default:
+      return (
+        <p className="mt-4">
+          <Inline text={b.text} />
+        </p>
+      )
+  }
+}
+
+/** A figure after the block that introduces it, where one makes the text clearer. */
+function figureAfter(b: GuideBlock) {
+  if (b.t === 'p' && b.text.startsWith('The customer journey is how')) return <JourneyFigure />
+  if (b.t === 'ul' && b.items[0]?.startsWith('**Flighting**')) return <FrequencyFigure />
+  return null
+}
 
 export default function MediaPlanningGuide() {
   const { track, href } = useLandingAttribution('/guide/media-planning-guide', { posthog: 'both' })
@@ -42,18 +88,25 @@ export default function MediaPlanningGuide() {
         {/* HERO */}
         <section className="relative">
           <HeroBackdrop />
-          <Container className="relative max-w-4xl pt-32 pb-12 text-center lg:pt-40">
-            <p className="mb-6 inline-flex items-center gap-2 rounded-full bg-tint px-4 py-1.5 text-sm font-medium text-primary">
-              <BookOpen className="h-4 w-4" aria-hidden />
-              Guide
-            </p>
-            <h1 className="font-display text-4xl font-medium tracking-tight text-slate-900 sm:text-6xl">
-              Media planning: <Accent>the complete guide.</Accent>
-            </h1>
-            <p className="mx-auto mt-6 max-w-2xl text-lg tracking-tight text-slate-700">
-              What media planning is, how to create a media plan from a brief, and how to tell whether it worked.
-            </p>
-            <p className="mt-4 text-sm text-slate-500">By Lauren Covello</p>
+          <Container className="relative max-w-6xl pt-32 pb-12 lg:pt-40 lg:pb-16">
+            <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+              <div className="text-center lg:text-left">
+                <p className="mb-6 inline-flex items-center gap-2 rounded-full bg-tint px-4 py-1.5 text-sm font-medium text-primary">
+                  <BookOpen className="h-4 w-4" aria-hidden />
+                  Guide
+                </p>
+                <h1 className="font-display text-4xl font-medium tracking-tight text-slate-900 sm:text-6xl">
+                  Media planning: <Accent>the complete guide.</Accent>
+                </h1>
+                <p className="mx-auto mt-6 max-w-xl text-lg tracking-tight text-slate-700 lg:mx-0">
+                  What media planning is, how to create a media plan from a brief, and how to tell whether it worked.
+                </p>
+                <p className="mt-4 text-sm text-slate-500">By Lauren Covello</p>
+              </div>
+              <HeroVisual label="From objective to measured plan">
+                <GuideFlowScene />
+              </HeroVisual>
+            </div>
           </Container>
         </section>
 
@@ -108,48 +161,12 @@ export default function MediaPlanningGuide() {
                 </nav>
               </aside>
               <article className="max-w-3xl text-base leading-7 text-slate-700">
-                {GUIDE.map((b, i) => {
-                  switch (b.t) {
-                    case 'h2':
-                      return (
-                        <h2
-                          key={i}
-                          id={b.id}
-                          className="mt-14 scroll-mt-28 font-display text-3xl tracking-tight text-slate-900 first:mt-0"
-                        >
-                          {b.text}
-                        </h2>
-                      )
-                    case 'h3':
-                      return (
-                        <h3 key={i} id={b.id} className="mt-10 scroll-mt-28 font-display text-xl tracking-tight text-slate-900">
-                          {b.text}
-                        </h3>
-                      )
-                    case 'h4':
-                      return (
-                        <h4 key={i} className="mt-6 font-semibold text-slate-900">
-                          {b.text}
-                        </h4>
-                      )
-                    case 'ul':
-                      return (
-                        <ul key={i} className="mt-4 list-disc space-y-2 pl-6 marker:text-primary">
-                          {b.items.map((item, j) => (
-                            <li key={j}>
-                              <Inline text={item} />
-                            </li>
-                          ))}
-                        </ul>
-                      )
-                    default:
-                      return (
-                        <p key={i} className="mt-4">
-                          <Inline text={b.text} />
-                        </p>
-                      )
-                  }
-                })}
+                {GUIDE.map((b, i) => (
+                  <React.Fragment key={i}>
+                    <Block b={b} />
+                    {figureAfter(b)}
+                  </React.Fragment>
+                ))}
                 <div className="mt-12 flex flex-col gap-3 rounded-2xl bg-tint/40 p-6 sm:flex-row sm:items-center sm:justify-between">
                   <p className="text-slate-800">Turn a brief into a plan like this in minutes.</p>
                   <Link

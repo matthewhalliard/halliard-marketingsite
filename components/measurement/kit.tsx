@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { ArrowRight, Check, type LucideIcon } from 'lucide-react'
 import { Container } from '../mmm/Container'
 import { Button } from '../mmm/Button'
-import { Accent, HeroBackdrop, IconBadge } from '../landing/kit'
+import { Accent, HeroBackdrop, HeroVisual, IconBadge } from '../landing/kit'
 
 /**
  * The pieces the measurement pages (/mmm, /brand-studies,
@@ -12,7 +12,11 @@ import { Accent, HeroBackdrop, IconBadge } from '../landing/kit'
 
 export const DEMO_URL = '/demo'
 
-/** The hero: copy and the demo button on the left, the offer's key facts on the right. */
+/**
+ * The hero: copy and the demo button on the left; on the right the product
+ * scene, with the offer's key facts as a row under the points, or the facts
+ * themselves when a page has no scene.
+ */
 export function MeasurementHero({
   icon: Icon,
   eyebrow,
@@ -21,6 +25,7 @@ export function MeasurementHero({
   body,
   points,
   facts,
+  visual,
   onCta,
 }: {
   icon: LucideIcon
@@ -30,6 +35,7 @@ export function MeasurementHero({
   body: React.ReactNode
   points: string[]
   facts: { value: string; label: string }[]
+  visual?: { label: string; Scene: () => React.JSX.Element }
   onCta: () => void
 }) {
   return (
@@ -60,11 +66,32 @@ export function MeasurementHero({
                 </li>
               ))}
             </ul>
+            {visual ? <FactsRow facts={facts} /> : null}
           </div>
-          <FactsPanel facts={facts} />
+          {visual ? (
+            <HeroVisual label={visual.label}>
+              <visual.Scene />
+            </HeroVisual>
+          ) : (
+            <FactsPanel facts={facts} />
+          )}
         </div>
       </Container>
     </section>
+  )
+}
+
+/** The offer's numbers in one compact row, under the hero's points. */
+function FactsRow({ facts }: { facts: { value: string; label: string }[] }) {
+  return (
+    <dl className="mx-auto mt-8 grid max-w-xl grid-cols-3 divide-x divide-tint rounded-2xl border border-tint bg-white/80 text-left shadow-sm lg:mx-0">
+      {facts.map(f => (
+        <div key={f.label} className="flex flex-col-reverse justify-end px-4 py-3">
+          <dt className="mt-0.5 text-xs leading-snug text-slate-500">{f.label}</dt>
+          <dd className="font-display text-xl font-medium tracking-tight text-primary">{f.value}</dd>
+        </div>
+      ))}
+    </dl>
   )
 }
 

@@ -3,9 +3,10 @@ import React from 'react'
 import { BadgeDollarSign, EyeOff, FileBarChart, Megaphone, Target, Users } from 'lucide-react'
 import { Container } from '../components/mmm/Container'
 import { PixelViewContent } from '@/components/PixelViewContent'
-import { ClosingCta, LandingHeader, SOFT_BAND, SectionHeading, useLandingAttribution } from '../components/landing/kit'
+import { ClosingCta, Frame, LandingHeader, SOFT_BAND, SectionHeading, useLandingAttribution } from '../components/landing/kit'
 import { LisaQuote } from '../components/plan/proof'
 import { CardGrid, DEMO_URL, MeasurementHero, PriceCard } from '../components/measurement/kit'
+import { BrandLiftScene, SegmentGapScene } from '../components/measurement/visuals'
 
 const PROBLEMS = [
   {
@@ -78,6 +79,7 @@ export default function BrandStudiesPage() {
             { value: '3–4 weeks', label: 'To results' },
             { value: '$40–50K', label: 'What a traditional study costs' },
           ]}
+          visual={{ label: 'Brand lift study · Example', Scene: BrandLiftScene }}
           onCta={() => track('hero')}
         />
 
@@ -104,8 +106,9 @@ export default function BrandStudiesPage() {
         </section>
 
         <section className="py-20 sm:py-28" style={SOFT_BAND}>
-          <Container className="max-w-4xl">
-            <div className="rounded-2xl border border-tint bg-white p-8 shadow-lg sm:p-12">
+          <Container className="max-w-6xl">
+            <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
+            <div className="rounded-2xl border border-tint bg-white p-8 shadow-lg sm:p-10">
               <p className="inline-flex items-center rounded-full bg-tint px-4 py-1.5 text-sm font-medium text-primary">
                 Case study · Allen &amp; Allen
               </p>
@@ -127,6 +130,12 @@ export default function BrandStudiesPage() {
                 The study showed strong overall awareness but a gap in consideration among women. The client changed its
                 creative strategy straight away, turning measurement into action in days, not months.
               </p>
+            </div>
+            <div className="min-w-0">
+              <Frame label="Segment breakdown · Example">
+                <SegmentGapScene />
+              </Frame>
+            </div>
             </div>
           </Container>
         </section>

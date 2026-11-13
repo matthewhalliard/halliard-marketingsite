@@ -3,9 +3,10 @@ import React from 'react'
 import { BarChart3, CircleDollarSign, Compass, LineChart, Link2, TriangleAlert } from 'lucide-react'
 import { Container } from '../../components/mmm/Container'
 import { PixelViewContent } from '@/components/PixelViewContent'
-import { ClosingCta, LandingHeader, SOFT_BAND, SectionHeading, useLandingAttribution } from '../../components/landing/kit'
+import { ClosingCta, Frame, LandingHeader, SOFT_BAND, SectionHeading, useLandingAttribution } from '../../components/landing/kit'
 import { LisaQuote } from '../../components/plan/proof'
 import { CardGrid, DEMO_URL, MeasurementHero, NumberedSteps, PriceCard } from '../../components/measurement/kit'
+import { MixModelScene, ReallocationScene } from '../../components/measurement/visuals'
 
 const PROBLEMS = [
   {
@@ -98,6 +99,7 @@ export default function MMMPage() {
             { value: '3–4 weeks', label: 'From data to model' },
             { value: '$200K+', label: 'Misallocated spend found and moved for one agency' },
           ]}
+          visual={{ label: 'Mix model · Example', Scene: MixModelScene }}
           onCta={() => track('hero')}
         />
 
@@ -113,19 +115,26 @@ export default function MMMPage() {
         </section>
 
         <section className="py-20 sm:py-28">
-          <Container className="max-w-4xl">
-            <div className="rounded-2xl border border-tint bg-white p-8 text-center shadow-lg sm:p-12">
-              <p className="inline-flex items-center rounded-full bg-tint px-4 py-1.5 text-sm font-medium text-primary">
-                Real results
-              </p>
-              <h2 className="mt-5 font-display text-3xl tracking-tight text-slate-900 sm:text-4xl">
-                We found channels with no measurable impact, and cut them.
-              </h2>
-              <p className="mx-auto mt-5 max-w-2xl text-lg text-slate-700">
-                For one client the model showed that niche display, a programmatic trade desk and specialty publications
-                were driving no incremental conversions. That spend moved to channels with proven impact, saving six
-                figures a year.
-              </p>
+          <Container className="max-w-6xl">
+            <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
+              <div>
+                <p className="inline-flex items-center rounded-full bg-tint px-4 py-1.5 text-sm font-medium text-primary">
+                  Real results
+                </p>
+                <h2 className="mt-5 font-display text-3xl tracking-tight text-slate-900 sm:text-4xl">
+                  We found channels with no measurable impact, and cut them.
+                </h2>
+                <p className="mt-5 text-lg text-slate-700">
+                  For one client the model showed that niche display, a programmatic trade desk and specialty
+                  publications were driving no incremental conversions. That spend moved to channels with proven impact,
+                  saving six figures a year.
+                </p>
+              </div>
+              <div className="min-w-0">
+                <Frame label="Budget recommendation · Example">
+                  <ReallocationScene />
+                </Frame>
+              </div>
             </div>
           </Container>
         </section>

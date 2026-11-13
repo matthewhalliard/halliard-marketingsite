@@ -13,9 +13,10 @@ import {
   Tv,
 } from 'lucide-react'
 import { Container } from '../../components/mmm/Container'
-import { ClosingCta, LandingHeader, SOFT_BAND, SectionHeading, useLandingAttribution } from '../../components/landing/kit'
+import { ClosingCta, Frame, LandingHeader, SOFT_BAND, SectionHeading, useLandingAttribution } from '../../components/landing/kit'
 import { LisaQuote } from '../../components/plan/proof'
 import { CardGrid, DEMO_URL, Faq, LeadForm, MeasurementHero, NumberedSteps, PriceCard } from '../../components/measurement/kit'
+import { ChannelLiftScene, GeoLiftScene } from '../../components/measurement/visuals'
 
 const PROBLEMS = [
   {
@@ -124,6 +125,7 @@ export default function IncrementalityTestingPage() {
             { value: '3–4 weeks', label: 'For most tests to reach significance' },
             { value: 'Any channel', label: 'That you can target by market' },
           ]}
+          visual={{ label: 'Geo-lift test · Example', Scene: GeoLiftScene }}
           onCta={() => track('hero')}
         />
 
@@ -153,6 +155,11 @@ export default function IncrementalityTestingPage() {
               body="The channels with the biggest reach are often the ones nobody can prove. A geo-lift test doesn’t need a click."
             />
             <CardGrid cards={CHANNELS} columns={4} />
+            <div className="mx-auto mt-12 max-w-3xl">
+              <Frame label="Lift by channel · Example">
+                <ChannelLiftScene />
+              </Frame>
+            </div>
           </Container>
         </section>
 
