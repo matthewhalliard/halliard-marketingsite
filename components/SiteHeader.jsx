@@ -7,8 +7,6 @@ const SIGN_UP_URL = 'https://client.halliardmedia.com/sign-up'
 const SIGN_IN_URL = 'https://client.halliardmedia.com/sign-in'
 
 const SOLUTIONS_LINKS = [
-  { href: '/solutions/independent-agencies', label: 'For Independent Agencies' },
-  { href: '/solutions/in-house-marketing', label: 'For In-House Marketing Teams' },
   { href: '/mmm', label: 'Marketing Mix Modeling' },
   { href: '/brand-studies', label: 'Brand Studies' },
 ]
@@ -27,13 +25,13 @@ export default function SiteHeader() {
               />
             </Link>
             <Link
-              href="/features"
+              href="/plan/how-it-works"
               className="hidden sm:inline text-sm text-slate-600 hover:text-slate-900"
             >
               Features
             </Link>
             <Link
-              href="/pricing"
+              href="/plan/pricing"
               className="hidden sm:inline text-sm text-slate-600 hover:text-slate-900"
             >
               Pricing

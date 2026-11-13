@@ -1,11 +1,11 @@
 import Link from "next/link";
 
 const navItems = [
-  { href: "/how-halliard-works", label: "How it works" },
+  { href: "/plan/how-it-works", label: "How it works" },
   { href: "/principles", label: "Principles" },
   { href: "/guide/media-planning-guide", label: "Resources" }, // using guide as resources entry for now
-  { href: "/pricing", label: "Pricing" },
-  { href: "/login", label: "Login" },
+  { href: "/plan/pricing", label: "Pricing" },
+  { href: "https://client.halliardmedia.com/sign-in", label: "Sign in" },
 ];
 
 export default function Navbar() {

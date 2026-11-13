@@ -12,6 +12,13 @@ module.exports = {
       { source: '/legal/privacy', destination: '/privacy', permanent: true },
       { source: '/legal/terms', destination: '/terms', permanent: true },
       { source: '/legal', destination: '/privacy', permanent: true },
+      // The previous app's pages, replaced by the planning tool's own.
+      { source: '/pricing', destination: '/plan/pricing', permanent: true },
+      { source: '/features', destination: '/plan/how-it-works', permanent: true },
+      { source: '/how-halliard-works', destination: '/plan/how-it-works', permanent: true },
+      { source: '/media-planning-tool', destination: '/', permanent: true },
+      { source: '/solutions/:page*', destination: '/', permanent: true },
+      { source: '/index-old-framer', destination: '/', permanent: true },
     ];
   },
 };

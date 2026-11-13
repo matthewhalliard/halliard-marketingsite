@@ -78,8 +78,8 @@ export default function TryToday() {
               <Button href={SIGN_UP_URL} color="blue" className="">
                 Start Planning Free
               </Button>
-              <Button href="/media-planning-tool" variant="outline" color="slate" className="">
-                ← Back to Features
+              <Button href="/" variant="outline" color="slate" className="">
+                ← Back to Halliard
               </Button>
             </div>
           </Container>
