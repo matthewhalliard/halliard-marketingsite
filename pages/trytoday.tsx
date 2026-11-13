@@ -5,7 +5,7 @@ import { Button } from '../components/mmm/Button'
 import { Container } from '../components/mmm/Container'
 import { trackPixel } from '@/lib/meta-pixel'
 
-const SIGN_UP_URL = 'https://app.halliardmedia.com/sign-up'
+const SIGN_UP_URL = 'https://client.halliardmedia.com/sign-up'
 
 export default function TryToday() {
   const [name, setName] = useState('')

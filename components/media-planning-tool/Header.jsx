@@ -2,7 +2,7 @@
 import Link from 'next/link'
 import { Container } from '../mmm/Container'
 
-const SIGN_UP_URL = 'https://app.halliardmedia.com/sign-up'
+const SIGN_UP_URL = 'https://client.halliardmedia.com/sign-up'
 
 export function Header({ onSignupClick }) {
   return (

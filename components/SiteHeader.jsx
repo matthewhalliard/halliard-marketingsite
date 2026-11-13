@@ -3,8 +3,8 @@ import { Button } from './mmm/Button'
 import { Container } from './mmm/Container'
 import { trackCta } from '../lib/track'
 
-const SIGN_UP_URL = 'https://app.halliardmedia.com/sign-up'
-const SIGN_IN_URL = 'https://app.halliardmedia.com/sign-in'
+const SIGN_UP_URL = 'https://client.halliardmedia.com/sign-up'
+const SIGN_IN_URL = 'https://client.halliardmedia.com/sign-in'
 
 const SOLUTIONS_LINKS = [
   { href: '/solutions/independent-agencies', label: 'For Independent Agencies' },

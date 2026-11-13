@@ -4,7 +4,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { Container } from '../components/mmm/Container'
 import { QUIZ_QUESTIONS } from '../lib/mmm-quiz/questions'
 
-const SIGN_UP_URL = 'https://app.halliardmedia.com/sign-up'
+const SIGN_UP_URL = 'https://client.halliardmedia.com/sign-up'
 const BOOK_CALL_URL = 'https://www.halliardmedia.com/mmm#hero-form'
 
 interface Narrative {

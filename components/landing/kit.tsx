@@ -15,6 +15,7 @@ import { HALLIARD3_KEY } from '../../lib/halliard3-posthog'
 
 // The client portal: sign up, tell us about you, send a first brief.
 export const SIGN_UP_URL = 'https://client.halliardmedia.com/sign-up'
+export const SIGN_IN_URL = 'https://client.halliardmedia.com/sign-in'
 
 export const PLUS_PATTERN =
   "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%231a6ab4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")"
@@ -61,12 +62,17 @@ function posthogs(target: PosthogTarget): any[] {
 /**
  * The visit's UTMs and click IDs, registered on the PostHog person (first
  * and last touch), a named page-view event, and a CTA click tracker. `href`
- * is the client sign-up carrying the same parameters, plus `from`.
+ * is the client sign-up carrying the same parameters, plus `from`. `event`
+ * names the events when the path can't (the homepage serves /plan's page, and
+ * keeps its `plan_*` events).
  */
-export function useLandingAttribution(page: string, { posthog }: { posthog: PosthogTarget }) {
+export function useLandingAttribution(
+  page: string,
+  { posthog, event: eventName }: { posthog: PosthogTarget; event?: string },
+) {
   const utmRef = useRef<Record<string, string>>({})
   const [utms, setUtms] = useState<Record<string, string>>({})
-  const event = page.replace(/^\//, '').replace(/[^a-z0-9]+/gi, '_')
+  const event = eventName ?? page.replace(/^\//, '').replace(/[^a-z0-9]+/gi, '_')
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
@@ -161,6 +167,9 @@ export function LandingHeader({
                 ))}
               </ul>
             ) : null}
+            <a href={SIGN_IN_URL} className="text-sm font-medium text-slate-700 hover:text-slate-900">
+              Sign in
+            </a>
             <span onClickCapture={onClick}>
               <Button href={href} color="blue" className="">
                 {cta}

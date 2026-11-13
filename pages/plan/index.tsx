@@ -72,8 +72,13 @@ const FEATURES: Feature[] = [
   { icon: Radio, title: 'Buys on PubMatic and Meta', body: 'Approved plans go live through Halliard, with every fee shown.', Visual: BuyVisual },
 ]
 
-export default function PlanPage() {
-  const { utms, track, href } = useLandingAttribution('/plan', { posthog: 'both' })
+/**
+ * The planning landing page. It is also the homepage: `/` renders it with its
+ * own path, keeping the `plan_*` event names, so search ads on /plan and the
+ * homepage's visitors read as one page.
+ */
+export function PlanLanding({ path }: { path: '/' | '/plan' }) {
+  const { utms, track, href } = useLandingAttribution(path, { posthog: 'both', event: 'plan' })
   const heroKey = heroFor(utms)
 
   const hero = HERO[heroKey]
@@ -86,6 +91,9 @@ export default function PlanPage() {
           name="description"
           content="Hyper-fast media planning. Paste a brief and Halliard drafts the audiences, strategy and channel plan with reach modelled. You edit any line. Free to start."
         />
+        <link rel="canonical" href="https://www.halliardmedia.com/" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://www.halliardmedia.com/" />
         <meta property="og:title" content="Media Planning Software, Free to Start | Halliard" />
         <meta
           property="og:description"
@@ -195,6 +203,10 @@ export default function PlanPage() {
       </main>
     </>
   )
+}
+
+export default function PlanPage() {
+  return <PlanLanding path="/plan" />
 }
 
 ;(PlanPage as any).disableNavbar = true
