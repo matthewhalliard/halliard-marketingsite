@@ -179,12 +179,12 @@ export default function BuyingDeskPage() {
   return (
     <>
       <Head>
-        <title>Your Agency&apos;s Buying Desk, Without the Hire | Halliard</title>
+        <title>Media Buying Services for Agencies, Without the Hire | Halliard</title>
         <meta
           name="description"
-          content="Send us the brief and get a costed media plan back within 24 hours, free. Approve it line by line and we buy it on Meta and streaming TV and keep it pacing."
+          content="Media buying services for agencies. Send us the brief and get a costed media plan back within 24 hours, free. Approve it line by line and we buy it on Meta and streaming TV and keep it pacing."
         />
-        <meta property="og:title" content="Your Agency's Buying Desk, Without the Hire | Halliard" />
+        <meta property="og:title" content="Media Buying Services for Agencies, Without the Hire | Halliard" />
         <meta
           property="og:description"
           content="Send the brief, get a costed plan back within 24 hours, approve every line. No new hire."

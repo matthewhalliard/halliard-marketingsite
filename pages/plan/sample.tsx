@@ -58,11 +58,11 @@ export function SampleLanding({ path }: { path: '/sample' | '/plan/sample' }) {
   return (
     <>
       <Head>
-        <title>Sample Media Plan: From One Brief | Halliard</title>
+        <title>Media Plan Example: A Full Plan From One Brief | Halliard</title>
         <link rel="canonical" href="https://www.halliardmedia.com/sample" />
         <meta
           name="description"
-          content="See a finished Halliard media plan before you sign up: the brief, the audience down to the ZIP, two strategies and the plan with reach and frequency modelled."
+          content="A media plan example you can read end to end: the brief, the audience down to the ZIP, two strategies and the plan with reach and frequency modelled."
         />
       </Head>
       <LandingHeader href={href} cta="Get your first plan" onClick={() => track('header')} links={PLAN_LINKS} />

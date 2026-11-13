@@ -73,11 +73,11 @@ export function HowItWorksLanding({ path }: { path: '/how-it-works' | '/plan/how
   return (
     <>
       <Head>
-        <title>How the Media Planning Tool Works | Halliard</title>
+        <title>How to Create a Media Plan in Minutes | Halliard</title>
         <link rel="canonical" href="https://www.halliardmedia.com/how-it-works" />
         <meta
           name="description"
-          content="From one brief to a media plan: the brief read back, audiences sized to the ZIP, strategies with a role for every dollar, and reach and frequency modelled before you spend."
+          content="How to create a media plan from one brief: the brief read back, audiences sized to the ZIP, strategies with a role for every dollar, and reach and frequency modelled before you spend."
         />
       </Head>
       <LandingHeader href={href} cta="Get your first plan" onClick={() => track('header')} links={PLAN_LINKS} />
