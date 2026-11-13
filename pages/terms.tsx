@@ -82,7 +82,7 @@ function Body() {
 
           <Section title="5. Plans, Fees, and Billing">
             <p>
-              Some features are free; others require a paid subscription or engagement fee. Fees are described on our <Link href="/plan/pricing" className="text-primary underline">pricing page</Link> or in a signed order form. Unless otherwise stated:
+              Some features are free; others require a paid subscription or engagement fee. Fees are described on our <Link href="/pricing" className="text-primary underline">pricing page</Link> or in a signed order form. Unless otherwise stated:
             </p>
             <ul className="list-disc pl-6 mt-3 space-y-2">
               <li>Subscription fees are billed in advance on a monthly or annual basis.</li>

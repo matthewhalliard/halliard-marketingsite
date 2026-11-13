@@ -248,7 +248,7 @@ export default function BuyingDeskPage() {
                 </ul>
                 <p className="mt-4 text-sm text-slate-500">
                   No brief right now?{' '}
-                  <Link href="/plan/sample" className="font-medium text-primary underline-offset-2 hover:underline" onClick={() => capture('buying_desk_sample_plan_clicked')}>
+                  <Link href="/sample" className="font-medium text-primary underline-offset-2 hover:underline" onClick={() => capture('buying_desk_sample_plan_clicked')}>
                     See a sample plan
                   </Link>
                 </p>
@@ -397,7 +397,7 @@ export default function BuyingDeskPage() {
                 </summary>
                 <p className="mt-3 text-slate-600">
                   Yes. If you have buyers and want them to plan faster, see{' '}
-                  <Link href="/plan" className="font-medium text-primary hover:underline">
+                  <Link href="/" className="font-medium text-primary hover:underline">
                     Halliard for planners
                   </Link>
                   .

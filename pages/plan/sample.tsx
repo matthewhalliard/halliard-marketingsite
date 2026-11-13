@@ -52,12 +52,14 @@ function Logo({ name, size = 18 }: { name: string; size?: number }) {
   )
 }
 
-export default function SamplePlanPage() {
-  const { track, href } = useLandingAttribution('/plan/sample', { posthog: 'both' })
+/** Served at /sample, and at /plan/sample for the ads and sitelinks that link there. */
+export function SampleLanding({ path }: { path: '/sample' | '/plan/sample' }) {
+  const { track, href } = useLandingAttribution(path, { posthog: 'both', event: 'plan_sample' })
   return (
     <>
       <Head>
         <title>Sample Media Plan: From One Brief | Halliard</title>
+        <link rel="canonical" href="https://www.halliardmedia.com/sample" />
         <meta
           name="description"
           content="See a finished Halliard media plan before you sign up: the brief, the audience down to the ZIP, two strategies and the plan with reach and frequency modelled."
@@ -347,6 +349,10 @@ export default function SamplePlanPage() {
       </main>
     </>
   )
+}
+
+export default function SamplePlanPage() {
+  return <SampleLanding path="/plan/sample" />
 }
 
 ;(SamplePlanPage as any).disableNavbar = true

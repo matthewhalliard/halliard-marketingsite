@@ -25,13 +25,13 @@ export default function SiteHeader() {
               />
             </Link>
             <Link
-              href="/plan/how-it-works"
+              href="/how-it-works"
               className="hidden sm:inline text-sm text-slate-600 hover:text-slate-900"
             >
               Features
             </Link>
             <Link
-              href="/plan/pricing"
+              href="/pricing"
               className="hidden sm:inline text-sm text-slate-600 hover:text-slate-900"
             >
               Pricing

@@ -124,7 +124,7 @@ export function PlanLanding({ path }: { path: '/' | '/plan' }) {
                     Start planning free
                     <ArrowRight className="ml-2 h-4 w-4" aria-hidden />
                   </Button>
-                  <Link href="/plan/sample" className="text-base font-semibold text-primary hover:underline">
+                  <Link href="/sample" className="text-base font-semibold text-primary hover:underline">
                     See a sample plan &rarr;
                   </Link>
                 </div>

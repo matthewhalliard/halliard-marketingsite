@@ -67,12 +67,14 @@ const BUYING_STEPS: Step[] = [
   },
 ]
 
-export default function PlanHowItWorksPage() {
-  const { track, href } = useLandingAttribution('/plan/how-it-works', { posthog: 'both' })
+/** Served at /how-it-works, and at /plan/how-it-works for the ads and sitelinks that link there. */
+export function HowItWorksLanding({ path }: { path: '/how-it-works' | '/plan/how-it-works' }) {
+  const { track, href } = useLandingAttribution(path, { posthog: 'both', event: 'plan_how_it_works' })
   return (
     <>
       <Head>
         <title>How the Media Planning Tool Works | Halliard</title>
+        <link rel="canonical" href="https://www.halliardmedia.com/how-it-works" />
         <meta
           name="description"
           content="From one brief to a media plan: the brief read back, audiences sized to the ZIP, strategies with a role for every dollar, and reach and frequency modelled before you spend."
@@ -98,7 +100,7 @@ export default function PlanHowItWorksPage() {
               </p>
               <p className="mt-4 text-sm text-slate-500">
                 Want to see a finished one first?{' '}
-                <Link href="/plan/sample" className="font-semibold text-primary hover:underline">
+                <Link href="/sample" className="font-semibold text-primary hover:underline">
                   Open the sample plan →
                 </Link>
               </p>
@@ -141,6 +143,10 @@ export default function PlanHowItWorksPage() {
       </main>
     </>
   )
+}
+
+export default function PlanHowItWorksPage() {
+  return <HowItWorksLanding path="/plan/how-it-works" />
 }
 
 ;(PlanHowItWorksPage as any).disableNavbar = true

@@ -41,12 +41,14 @@ const BUYING = [
   'Every read, change and approval on the record',
 ]
 
-export default function PlanPricingPage() {
-  const { track, href } = useLandingAttribution('/plan/pricing', { posthog: 'both' })
+/** Served at /pricing, and at /plan/pricing for the ads and sitelinks that link there. */
+export function PricingLanding({ path }: { path: '/pricing' | '/plan/pricing' }) {
+  const { track, href } = useLandingAttribution(path, { posthog: 'both', event: 'plan_pricing' })
   return (
     <>
       <Head>
         <title>Pricing: Planning Is Free to Start | Halliard</title>
+        <link rel="canonical" href="https://www.halliardmedia.com/pricing" />
         <meta
           name="description"
           content="Halliard's media planning tool is free to start, with no credit card. Buying is optional: if Halliard buys the plan, the fee is 30% of what a freelance buyer would charge."
@@ -171,6 +173,10 @@ export default function PlanPricingPage() {
       </main>
     </>
   )
+}
+
+export default function PlanPricingPage() {
+  return <PricingLanding path="/plan/pricing" />
 }
 
 ;(PlanPricingPage as any).disableNavbar = true

@@ -2,7 +2,7 @@ import { BarChart3, CalendarCheck, FileText, Layers, ListChecks, MapPin, Search,
 import type { Step } from '../landing/kit'
 import { AudienceScene, BriefScene, StrategyScene } from './step-visuals'
 
-/** The planning steps, shared by /plan and /plan/how-it-works. */
+/** The planning steps, shared by the homepage and /how-it-works. */
 export const PLAN_STEPS: Step[] = [
   {
     icon: FileText,
