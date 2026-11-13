@@ -1,4 +1,5 @@
 import { Html, Head, Main, NextScript } from "next/document";
+import { HALLIARD3_KEY } from "../lib/halliard3-posthog";
 
 export default function Document() {
   return (
@@ -17,11 +18,14 @@ export default function Document() {
             })(window,document,'script','dataLayer','GTM-WHNZSG6');`,
           }}
         />
-        {/* PostHog */}
+        {/* PostHog: every page reports to Halliard3, the client portal's
+            project, so a visitor and the account they sign up as are one
+            person. Uncaught errors go to its error tracking too; server
+            errors come from instrumentation.ts. */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `!function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.async=!0,p.src=s.api_host+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures getActiveMatchingSurveys getSurveys onSessionId".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
-            if((location.pathname+'/').indexOf('/buying-desk/')!==0)posthog.init('phc_rm24NXJh9Ln1hG99DNI3ecrkA2fbT2xK8UQfyPP0ELT',{api_host:'https://us.i.posthog.com'});`,
+            __html: `!function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))} }(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="init capture identify alias people.set people.set_once set_config register register_once reset get_distinct_id get_feature_flag on isFeatureEnabled reloadFeatureFlags".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+            posthog.init('${HALLIARD3_KEY}',{api_host:'https://us.i.posthog.com',defaults:'2026-08-30',person_profiles:'identified_only',capture_exceptions:true});`,
           }}
         />
         {/* Trybe attribution pixel: credits a creator when someone they sent

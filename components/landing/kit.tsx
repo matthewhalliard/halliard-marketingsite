@@ -3,7 +3,6 @@ import React, { useEffect, useRef, useState } from 'react'
 import { ArrowRight, ChevronDown, type LucideIcon } from 'lucide-react'
 import { Container } from '../mmm/Container'
 import { Button } from '../mmm/Button'
-import { HALLIARD3_KEY } from '../../lib/halliard3-posthog'
 
 /**
  * The building blocks the paid-search landing pages share (/plan,
@@ -32,31 +31,10 @@ export const SOFT_BAND: React.CSSProperties = {
 
 const ATTRIBUTION_KEY = 'halliard_landing_attribution'
 
-/**
- * Which PostHog projects a landing page reports to: `both` the site's old
- * project and Halliard3 (/plan), or `halliard3` alone (the buying desk).
- */
-export type PosthogTarget = 'both' | 'halliard3'
-
-/** The PostHog instances a page reports to, starting the Halliard3 one if needed. */
-function posthogs(target: PosthogTarget): any[] {
+/** The page's PostHog instance (Halliard3, started in _document), if it has loaded. */
+function posthogs(): any[] {
   const ph = (window as any).posthog
-  if (!ph) return []
-  if (!ph.halliard3) {
-    ph.init(
-      HALLIARD3_KEY,
-      {
-        api_host: 'https://us.i.posthog.com',
-        defaults: '2026-08-30',
-        person_profiles: 'identified_only',
-        // Uncaught errors and unhandled rejections on the landing pages, to
-        // Halliard3's error tracking. Server errors come from instrumentation.ts.
-        capture_exceptions: true,
-      },
-      'halliard3',
-    )
-  }
-  return (target === 'both' ? [ph, ph.halliard3] : [ph.halliard3]).filter(Boolean)
+  return ph ? [ph] : []
 }
 
 /**
@@ -68,7 +46,7 @@ function posthogs(target: PosthogTarget): any[] {
  */
 export function useLandingAttribution(
   page: string,
-  { posthog, event: eventName }: { posthog: PosthogTarget; event?: string },
+  { event: eventName }: { event?: string } = {},
 ) {
   const utmRef = useRef<Record<string, string>>({})
   const [utms, setUtms] = useState<Record<string, string>>({})
@@ -92,7 +70,7 @@ export function useLandingAttribution(
     setUtms(found)
 
     const landedWithParams = params.toString() !== '' && Object.keys(found).length > 0
-    for (const ph of posthogs(posthog)) {
+    for (const ph of posthogs()) {
       if (landedWithParams) {
         // `register` adds these to every event for the session; `people.set_once`
         // locks the FIRST-touch attribution.
@@ -116,14 +94,14 @@ export function useLandingAttribution(
       }
       ph.capture?.(`${event}_page_viewed`, { ...found, landing_page: page })
     }
-  }, [page, event, posthog])
+  }, [page, event])
 
   const track = (location: string) => {
-    for (const ph of posthogs(posthog)) ph.capture?.(`${event}_signup_cta_clicked`, { ...utmRef.current, location })
+    for (const ph of posthogs()) ph.capture?.(`${event}_signup_cta_clicked`, { ...utmRef.current, location })
   }
   // Any other event the page names, with the visit's UTMs and click IDs on it.
   const capture = (name: string, props: Record<string, unknown> = {}) => {
-    for (const ph of posthogs(posthog)) ph.capture?.(name, { ...utmRef.current, landing_page: page, ...props })
+    for (const ph of posthogs()) ph.capture?.(name, { ...utmRef.current, landing_page: page, ...props })
   }
   // `from` names the landing page (plan, buying-desk), so sign-up can say what
   // that page promised even when the visit carries no UTMs.

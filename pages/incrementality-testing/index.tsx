@@ -92,7 +92,7 @@ const FAQ = [
 ]
 
 export default function IncrementalityTestingPage() {
-  const { track } = useLandingAttribution('/incrementality-testing', { posthog: 'both' })
+  const { track } = useLandingAttribution('/incrementality-testing')
   return (
     <>
       <Head>

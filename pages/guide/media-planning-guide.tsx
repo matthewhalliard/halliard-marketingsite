@@ -70,7 +70,7 @@ function figureAfter(b: GuideBlock) {
 }
 
 export default function MediaPlanningGuide() {
-  const { track, href } = useLandingAttribution('/guide/media-planning-guide', { posthog: 'both' })
+  const { track, href } = useLandingAttribution('/guide/media-planning-guide')
   return (
     <>
       <Head>

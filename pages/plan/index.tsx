@@ -77,7 +77,7 @@ const FEATURES: Feature[] = [
  * homepage's visitors read as one page.
  */
 export function PlanLanding({ path }: { path: '/' | '/plan' }) {
-  const { utms, track, href } = useLandingAttribution(path, { posthog: 'both', event: 'plan' })
+  const { utms, track, href } = useLandingAttribution(path, { event: 'plan' })
   const heroKey = heroFor(utms)
 
   const hero = HERO[heroKey]

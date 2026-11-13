@@ -53,7 +53,7 @@ function Logo({ name, size = 18 }: { name: string; size?: number }) {
 
 /** Served at /sample, and at /plan/sample for the ads and sitelinks that link there. */
 export function SampleLanding({ path }: { path: '/sample' | '/plan/sample' }) {
-  const { track, href } = useLandingAttribution(path, { posthog: 'both', event: 'plan_sample' })
+  const { track, href } = useLandingAttribution(path, { event: 'plan_sample' })
   return (
     <>
       <Head>

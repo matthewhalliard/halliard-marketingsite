@@ -179,7 +179,7 @@ const FAQ = [
 ]
 
 export default function BuyingDeskPage() {
-  const { utms, track, capture } = useLandingAttribution('/buying-desk', { posthog: 'halliard3' })
+  const { utms, track, capture } = useLandingAttribution('/buying-desk')
   const heroKey = heroFor(utms)
   const hero = HERO[heroKey]
   const toForm = (location: string) => () => track(location)

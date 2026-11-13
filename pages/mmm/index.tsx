@@ -60,7 +60,7 @@ const STEPS = [
 ]
 
 export default function MMMPage() {
-  const { track } = useLandingAttribution('/mmm', { posthog: 'both' })
+  const { track } = useLandingAttribution('/mmm')
   return (
     <>
       <Head>
