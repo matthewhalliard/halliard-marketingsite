@@ -12,12 +12,12 @@ const PROBLEMS = [
   {
     icon: TriangleAlert,
     title: 'Platform metrics overcount',
-    body: 'Meta reported 2,000 conversions. Our causal model showed no business impact. One agency moved $200K to channels that actually moved the needle.',
+    body: 'For one client, Meta reported around 2,000 conversions. The mix model found no measurable effect from Meta on new enquiries.',
   },
   {
     icon: CircleDollarSign,
     title: 'Too expensive for most clients',
-    body: 'Only 2 of 200+ agencies use MMM. Traditional providers charge $50–250K and hide pricing behind a demo. Mid-market clients deserve real measurement too.',
+    body: 'Traditional providers often charge $100K or more and keep pricing behind a demo. Mid-market clients deserve real measurement too.',
   },
   {
     icon: Compass,
@@ -67,7 +67,7 @@ export default function MMMPage() {
         <title>Marketing Mix Modeling for Agencies, $25K in 3–4 Weeks | Halliard</title>
         <meta
           name="description"
-          content="Marketing mix modeling for agencies and their clients: a causal model for $25,000, delivered in 3–4 weeks, where traditional MMM costs $50–250K and takes months."
+          content="Marketing mix modeling for agencies and their clients: a causal model for $25,000, delivered in 3–4 weeks, where traditional MMM often costs $100K or more and takes months."
         />
         <link rel="canonical" href="https://www.halliardmedia.com/mmm" />
         <meta property="og:title" content="Marketing Mix Modeling for Agencies, $25K in 3–4 Weeks | Halliard" />
@@ -85,7 +85,7 @@ export default function MMMPage() {
           accent="a tenth of the cost."
           body={
             <>
-              Not correlation, causation. Traditional MMM costs $50–250K and takes 3–6 months. Halliard builds a causal
+              Not correlation, causation. Traditional MMM often costs $100K or more and takes 3–6 months. Halliard builds a causal
               model for $25,000 in 3–4 weeks, for independent agencies and their clients, not just the Fortune 500.
             </>
           }
@@ -97,7 +97,7 @@ export default function MMMPage() {
           facts={[
             { value: '$25,000', label: 'Per model' },
             { value: '3–4 weeks', label: 'From data to model' },
-            { value: '$200K+', label: 'Misallocated spend found and moved for one agency' },
+            { value: '$7,500', label: 'To re-run on new data' },
           ]}
           visual={{ label: 'Mix model · Example', Scene: MixModelScene }}
           onCta={() => track('hero')}
@@ -122,12 +122,12 @@ export default function MMMPage() {
                   Real results
                 </p>
                 <h2 className="mt-5 font-display text-3xl tracking-tight text-slate-900 sm:text-4xl">
-                  We found channels with no measurable impact, and cut them.
+                  We found spend the model couldn’t see working.
                 </h2>
                 <p className="mt-5 text-lg text-slate-700">
-                  For one client the model showed that niche display, a programmatic trade desk and specialty
-                  publications were driving no incremental conversions. That spend moved to channels with proven impact,
-                  saving six figures a year.
+                  For one client the model found no measurable effect from Meta or branded search on new enquiries,
+                  and a large effect from a small digital out-of-home budget. It recommended moving gradually toward
+                  the channels that showed up.
                 </p>
               </div>
               <div className="min-w-0">

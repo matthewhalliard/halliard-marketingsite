@@ -31,8 +31,8 @@ const PROBLEMS = [
   },
   {
     icon: BarChart3,
-    title: '60% still use click attribution',
-    body: 'Despite 15 years of outcomes-based messaging, most campaigns are still judged on clicks. It’s time to measure what matters.',
+    title: 'Most still use click attribution',
+    body: 'Surveys keep finding that most marketers judge media on last-click attribution. It’s time to measure what matters.',
   },
 ]
 

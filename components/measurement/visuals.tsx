@@ -188,7 +188,7 @@ export function ReallocationScene() {
         })}
       </ul>
       <div className="mt-4 flex items-center gap-1.5 border-t border-tint pt-3 text-[11px] font-medium text-primary" style={appear(t, 4200)}>
-        <CheckCircle2 className="h-3.5 w-3.5" aria-hidden /> $200K moved to channels with proven impact
+        <CheckCircle2 className="h-3.5 w-3.5" aria-hidden /> Budget moved toward channels with measured impact
       </div>
     </Scene>
   )

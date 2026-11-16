@@ -17,7 +17,7 @@ const PROBLEMS = [
   {
     icon: BadgeDollarSign,
     title: 'Traditional studies cost too much',
-    body: '$40–50K for one brand lift study means only the biggest clients get measured. Halliard makes it affordable for every client.',
+    body: 'A custom brand lift study often costs $10–35K, so only the biggest clients get measured. Halliard makes it affordable for every client.',
   },
   {
     icon: Megaphone,
@@ -52,11 +52,11 @@ export default function BrandStudiesPage() {
         <title>Brand Lift Study for Agencies, From $5,500 | Halliard</title>
         <meta
           name="description"
-          content="A brand lift study your clients can afford: awareness, consideration and preference measured in 3–4 weeks, from $5,500, where traditional studies cost $40–50K."
+          content="A brand lift study your clients can afford: awareness, consideration and preference measured in 3–4 weeks, from $5,500, where custom studies often cost $10–35K."
         />
         <link rel="canonical" href="https://www.halliardmedia.com/brand-studies" />
         <meta property="og:title" content="Brand Lift Study for Agencies, From $5,500 | Halliard" />
-        <meta property="og:description" content="Traditional brand lift studies cost $40–50K. Halliard measures the same things from $5,500, in 3–4 weeks." />
+        <meta property="og:description" content="Custom brand lift studies often cost $10–35K. Halliard measures the same things from $5,500, in 3–4 weeks." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://www.halliardmedia.com/brand-studies" />
       </Head>
@@ -68,7 +68,7 @@ export default function BrandStudiesPage() {
           eyebrow="Brand lift studies"
           title="Brand studies your clients can"
           accent="actually afford."
-          body="Traditional brand lift studies cost $40–50K. Halliard measures the same things from $5,500, with results in 3–4 weeks that tell the client what to do next."
+          body="Custom brand lift studies often cost $10–35K. Halliard measures the same things from $5,500, with results in 3–4 weeks that tell the client what to do next."
           points={[
             'Aided and unaided awareness, consideration and preference',
             'Demographic and competitive breakdowns',
@@ -77,7 +77,7 @@ export default function BrandStudiesPage() {
           facts={[
             { value: '$5,500', label: 'Studies from' },
             { value: '3–4 weeks', label: 'To results' },
-            { value: '$40–50K', label: 'What a traditional study costs' },
+            { value: '$10–35K', label: 'What a custom study often costs' },
           ]}
           visual={{ label: 'Brand lift study · Example', Scene: BrandLiftScene }}
           onCta={() => track('hero')}
