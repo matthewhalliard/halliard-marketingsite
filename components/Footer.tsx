@@ -36,6 +36,9 @@ const COLUMNS: { title: string; links: { href: string; label: string }[] }[] = [
       { href: '/guide/media-planning-guide', label: 'Media planning guide' },
       { href: '/media-planning-templates', label: 'Media plan templates' },
       { href: '/manifesto/the-independents-agent', label: 'Manifesto' },
+      { href: '/compare/bionic', label: 'Halliard vs Bionic' },
+      { href: '/compare/camphouse', label: 'Halliard vs Camphouse' },
+      { href: '/compare/nielsen-media-impact', label: 'Nielsen Media Impact alternative' },
     ],
   },
   {
