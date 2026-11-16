@@ -117,6 +117,7 @@ const NAV: { label: string; href?: string; items?: { href: string; label: string
     items: [
       { href: '/', label: 'Planning tool' },
       { href: '/how-it-works', label: 'How planning works' },
+      { href: '/plan/import-audience', label: 'Bring your own audience' },
       { href: '/sample', label: 'Sample media plan' },
       { href: '/media-planning-templates', label: 'Media plan templates' },
       { href: '/guide/media-planning-guide', label: 'Media planning guide' },
@@ -127,6 +128,7 @@ const NAV: { label: string; href?: string; items?: { href: string; label: string
     items: [
       { href: '/buying-desk', label: 'Buying desk' },
       { href: '/buying-desk/how-it-works', label: 'How it works, and where you approve' },
+      { href: '/buying-desk/running', label: 'After launch' },
     ],
   },
   {
@@ -312,6 +314,8 @@ export interface Step {
   points: { icon: LucideIcon; text: string }[]
   frame: string
   Scene: () => React.JSX.Element
+  /** How this stage goes without Halliard, in a few words. Shown above the title when given. */
+  before?: string
 }
 
 /** How-it-works rows: copy on one side, the step's scene in a product frame on the other, alternating. */
@@ -327,7 +331,16 @@ export function StepRows({ steps }: { steps: Step[] }) {
                 Step {i + 1} · {step.label}
               </span>
             </div>
-            <h3 className="mt-5 font-display text-2xl tracking-tight text-slate-900 sm:text-3xl">{step.title}</h3>
+            {step.before ? (
+              <p className="mt-5 text-sm text-slate-500">
+                <span className="font-semibold uppercase tracking-wider text-slate-400">Before</span>
+                <span className="mx-2 text-slate-300" aria-hidden>
+                  /
+                </span>
+                {step.before}
+              </p>
+            ) : null}
+            <h3 className={`${step.before ? 'mt-2' : 'mt-5'} font-display text-2xl tracking-tight text-slate-900 sm:text-3xl`}>{step.title}</h3>
             <p className="mt-4 text-slate-700 leading-relaxed">{step.body}</p>
             <ul className="mt-6 flex flex-col gap-3">
               {step.points.map(({ icon: Icon, text }) => (

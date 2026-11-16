@@ -15,6 +15,12 @@ import { Faq, NumberedSteps } from '../measurement/kit'
  */
 export interface Audience {
   slug: string
+  /** The page's address, when it does not live under /solutions. */
+  path?: string
+  /** The buttons' label and destination, when not the sign-up. */
+  cta?: { label: string; href: string }
+  /** The pricing section's eyebrow and the questions heading, when the defaults do not fit. */
+  questionsTitle?: string
   icon: LucideIcon
   eyebrow: string
   title: string
@@ -35,8 +41,10 @@ export interface Audience {
 }
 
 export function AudiencePage({ data }: { data: Audience }) {
-  const path = `/solutions/${data.slug}`
-  const { href, track } = useLandingAttribution(path)
+  const path = data.path ?? `/solutions/${data.slug}`
+  const { href: signUp, track } = useLandingAttribution(path)
+  const href = data.cta?.href ?? signUp
+  const cta = data.cta?.label ?? 'Start planning free'
   const url = `https://www.halliardmedia.com${path}`
   const Icon = data.icon
   const faqSchema = {
@@ -57,7 +65,7 @@ export function AudiencePage({ data }: { data: Audience }) {
         <meta property="og:url" content={url} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       </Head>
-      <LandingHeader href={href} cta="Start planning free" onClick={() => track('header')} />
+      <LandingHeader href={href} cta={cta} onClick={() => track('header')} />
       <main>
         <PixelViewContent name={`solutions-${data.slug}`} category="audience" />
 
@@ -73,7 +81,7 @@ export function AudiencePage({ data }: { data: Audience }) {
               <p className="mx-auto mt-6 max-w-2xl text-lg tracking-tight text-slate-700">{data.intro}</p>
               <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
                 <Button href={href} color="blue" className="px-6 py-3 text-base" onClick={() => track('hero')}>
-                  Start planning free
+                  {cta}
                   <ArrowRight className="ml-2 h-4 w-4" aria-hidden />
                 </Button>
                 <Link href="/demo" className="text-sm font-semibold text-primary hover:underline">
@@ -136,7 +144,7 @@ export function AudiencePage({ data }: { data: Audience }) {
 
         <section className="py-20 sm:py-28">
           <Container className="max-w-6xl">
-            <SectionHeading eyebrow="Questions" title="What teams ask first" />
+            <SectionHeading eyebrow="Questions" title={data.questionsTitle ?? 'What teams ask first'} />
             <Faq items={data.faq} />
           </Container>
         </section>
@@ -144,7 +152,7 @@ export function AudiencePage({ data }: { data: Audience }) {
         <ClosingCta
           title={data.closing.title}
           subtitle={data.closing.subtitle}
-          cta="Start planning free"
+          cta={cta}
           href={href}
           onClick={() => track('closing')}
         />

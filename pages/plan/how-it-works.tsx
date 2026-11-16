@@ -19,7 +19,18 @@ import { CampaignScene, LiveScene, NarrowPlan } from '../../components/buying/sc
 
 // The planning tool, stage by stage, for someone weighing it up before they
 // sign up. Buying is shown as what it is here: optional, after the plan.
-const STEPS: Step[] = [
+// How each stage goes today, so the step reads as a change and not a feature.
+const BEFORE: Record<string, string> = {
+  'The brief': 'Someone retypes the RFP into a planning sheet.',
+  Audiences: 'A research subscription, or a guess.',
+  Strategy: 'A channel list nobody can defend.',
+  'The plan': 'Reach and frequency in an old spreadsheet.',
+  'The campaign': 'The plan is re-keyed into each platform by hand.',
+  Live: 'A line stalls and you find out in the last week.',
+}
+const withBefore = (steps: Step[]): Step[] => steps.map(s => ({ ...s, before: BEFORE[s.label] }))
+
+const STEPS: Step[] = withBefore([
   // The plan gets its own stage here, so the third is strategy alone.
   ...PLAN_STEPS.map(s => (s.label === 'Strategy and plan' ? { ...s, label: 'Strategy' } : s)),
   {
@@ -35,7 +46,7 @@ const STEPS: Step[] = [
     frame: 'Media plan',
     Scene: NarrowPlan,
   },
-]
+])
 
 const BUYING_STEPS: Step[] = [
   {
@@ -122,7 +133,7 @@ export function HowItWorksLanding({ path }: { path: '/how-it-works' | '/plan/how
               title="Then, if you want it bought"
               body="The plan is yours either way. Buy it the way you do today, or hand it to Halliard to buy and keep pacing."
             />
-            <StepRows steps={BUYING_STEPS} />
+            <StepRows steps={withBefore(BUYING_STEPS)} />
             <p className="mt-4 text-center text-sm text-slate-500">
               Buying has a fee, shown on each campaign before you approve it.{' '}
               <Link href="/pricing#buying-fee" className="font-semibold text-primary hover:underline">

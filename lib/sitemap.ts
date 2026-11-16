@@ -13,6 +13,8 @@ export const SITEMAP_PATHS = [
   '/pricing',
   '/buying-desk',
   '/buying-desk/how-it-works',
+  '/buying-desk/running',
+  '/plan/import-audience',
   '/compare/bionic',
   '/compare/camphouse',
   '/compare/nielsen-media-impact',
