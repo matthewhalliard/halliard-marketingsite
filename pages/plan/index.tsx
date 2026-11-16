@@ -98,17 +98,6 @@ export function PlanLanding({ path }: { path: '/' | '/plan' }) {
           property="og:description"
           content="Paste a brief. Halliard drafts the plan with reach modelled in minutes, and you make the calls."
         />
-        {/* Link previews that play video (iMessage, Slack, Discord, X). Absolute URLs: crawlers ignore relative ones.
-            These were on the old homepage and were lost when this page took its place. */}
-        <meta property="og:video" content="https://www.halliardmedia.com/og/homepage.mp4" />
-        <meta property="og:video:secure_url" content="https://www.halliardmedia.com/og/homepage.mp4" />
-        <meta property="og:video:type" content="video/mp4" />
-        <meta property="og:video:width" content="1200" />
-        <meta property="og:video:height" content="630" />
-        {/* The still, for previews that don't play video (LinkedIn, email). JPG: WebP is not read everywhere. */}
-        <meta property="og:image" content="https://www.halliardmedia.com/og/homepage-poster.jpg" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:image" content="https://www.halliardmedia.com/og/homepage-poster.jpg" />
       </Head>
       <LandingHeader href={href} cta="Start planning free" onClick={() => track('header')} />
       <main>

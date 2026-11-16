@@ -21,6 +21,20 @@ export default function Layout({ title = "Halliard | Ultrafast Media Planning To
         <meta name="description" content={description} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
+        {/* The link preview every page shares. Video where the app plays it
+            (iMessage, Slack, Discord, X), the still elsewhere (LinkedIn, email).
+            Absolute URLs: crawlers ignore relative ones. A page that wants its
+            own preview sets the same tags with the same keys. */}
+        <meta key="og:video" property="og:video" content="https://www.halliardmedia.com/og/homepage.mp4" />
+        <meta key="og:video:secure_url" property="og:video:secure_url" content="https://www.halliardmedia.com/og/homepage.mp4" />
+        <meta key="og:video:type" property="og:video:type" content="video/mp4" />
+        <meta key="og:video:width" property="og:video:width" content="1200" />
+        <meta key="og:video:height" property="og:video:height" content="630" />
+        <meta key="og:image" property="og:image" content="https://www.halliardmedia.com/og/homepage-poster.jpg" />
+        <meta key="og:image:width" property="og:image:width" content="1200" />
+        <meta key="og:image:height" property="og:image:height" content="630" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content="https://www.halliardmedia.com/og/homepage-poster.jpg" />
       </Head>
       {/* Analytics & Support Scripts */}
       {/* Google Tag (gtag.js) */}
