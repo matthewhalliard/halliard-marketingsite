@@ -99,13 +99,13 @@ export default function MediaPlanningTemplatesPage() {
   return (
     <>
       <Head>
-        <title>Media Plan Template: Free Excel Download and Plans by Goal | Halliard</title>
+        <title>Free Media Plan Template (Excel) and Plans by Goal | Halliard</title>
         <link rel="canonical" href="https://www.halliardmedia.com/media-planning-templates" />
         <meta
           name="description"
-          content="A free media plan template in Excel, plus media plan templates by goal: awareness, e-commerce, foot traffic, Gen Z, millennials and more. Build any of them free in Halliard."
+          content="A free media plan template in Excel, plus plans by goal: awareness, e-commerce, foot traffic, Gen Z and more. Build any of them free in Halliard."
         />
-        <meta property="og:title" content="Media Plan Template: Free Excel Download and Plans by Goal | Halliard" />
+        <meta property="og:title" content="Free Media Plan Template (Excel) and Plans by Goal | Halliard" />
       </Head>
       <LandingHeader href={href} cta="Build your plan free" onClick={() => track('header')} />
       <main>

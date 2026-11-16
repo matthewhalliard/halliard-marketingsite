@@ -74,13 +74,13 @@ export default function MediaPlanningGuide() {
   return (
     <>
       <Head>
-        <title>Media Planning: The Complete Guide to Creating a Media Plan | Halliard</title>
+        <title>Media Planning Guide: How to Create a Media Plan | Halliard</title>
         <link rel="canonical" href="https://www.halliardmedia.com/guide/media-planning-guide" />
         <meta
           name="description"
           content="What media planning is and how to create a media plan, step by step: objectives, audience research, channels, frequency and flighting, and how to measure the results."
         />
-        <meta property="og:title" content="Media Planning: The Complete Guide to Creating a Media Plan | Halliard" />
+        <meta property="og:title" content="Media Planning Guide: How to Create a Media Plan | Halliard" />
         <meta property="og:type" content="article" />
       </Head>
       <LandingHeader href={href} cta="Build your plan free" onClick={() => track('header')} />

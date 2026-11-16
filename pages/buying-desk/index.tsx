@@ -191,8 +191,9 @@ export default function BuyingDeskPage() {
         <title>Media Buying Services for Agencies, Without the Hire | Halliard</title>
         <meta
           name="description"
-          content="Media buying services for agencies. Send us the brief and get a costed media plan back within 24 hours, free. Approve it line by line and we buy it on Meta and streaming TV and keep it pacing."
+          content="Send the brief and get a costed media plan back within 24 hours, free. Approve it line by line and we build it, launch it and keep it pacing."
         />
+        <link rel="canonical" href="https://www.halliardmedia.com/buying-desk" />
         <meta property="og:title" content="Media Buying Services for Agencies, Without the Hire | Halliard" />
         <meta
           property="og:description"

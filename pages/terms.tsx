@@ -168,6 +168,7 @@ function TermsPage() {
       <Head>
         <title>Terms of Service — Halliard</title>
         <meta name="description" content="The terms and conditions that govern your use of Halliard." />
+        <link rel="canonical" href="https://www.halliardmedia.com/terms" />
       </Head>
       <LandingHeader href={SIGN_UP_URL} cta="Start planning free" />
       <main>

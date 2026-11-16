@@ -132,6 +132,7 @@ export default function BuyingDeskHowItWorksPage() {
     <>
       <Head>
         <title>How the Buying Desk Works | Halliard</title>
+        <link rel="canonical" href="https://www.halliardmedia.com/buying-desk/how-it-works" />
         <meta
           name="description"
           content="From brief to live campaign: audiences, strategy, a plan with reach modelled, the buy drafted with its fee, and pacing every six hours, with you approving each step."

@@ -76,7 +76,7 @@ export function HowItWorksLanding({ path }: { path: '/how-it-works' | '/plan/how
         <link rel="canonical" href="https://www.halliardmedia.com/how-it-works" />
         <meta
           name="description"
-          content="How to create a media plan from one brief: the brief read back, audiences sized to the ZIP, strategies with a role for every dollar, and reach and frequency modelled before you spend."
+          content="Create a media plan from one brief: audiences sized to the ZIP, each budget checked against the job, and reach and frequency modelled before you spend."
         />
       </Head>
       <LandingHeader href={href} cta="Get your first plan" onClick={() => track('header')} />

@@ -137,11 +137,11 @@ export function PricingLanding({ path }: { path: '/pricing' | '/plan/pricing' })
   return (
     <>
       <Head>
-        <title>Pricing: Free Media Planning, Buying and Measurement | Halliard</title>
+        <title>Halliard Pricing: Plan Free, Pay When a Campaign Runs</title>
         <link rel="canonical" href="https://www.halliardmedia.com/pricing" />
         <meta
           name="description"
-          content="Media planning is free for teams planning on their own, or $13,000 a year rolled out across an agency. Buying costs 30% of a freelance buyer per campaign. Brand studies from $5,500, mix models $25,000."
+          content="Planning is free on your own, or $13,000 a year across an agency. Buying is a fee per campaign. Brand studies from $5,500, mix models $25,000."
         />
       </Head>
       <LandingHeader href={href} cta="Start planning free" onClick={() => track('header')} />

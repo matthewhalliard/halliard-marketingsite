@@ -88,7 +88,7 @@ export function PlanLanding({ path }: { path: '/' | '/plan' }) {
         <title>Media Planning Tool and Software, Free to Start | Halliard</title>
         <meta
           name="description"
-          content="A media planning tool for agencies and brands. Paste a brief and Halliard drafts the audiences, strategy and channel plan with reach modelled. You edit any line. Free to start."
+          content="Plan TV, streaming, social and outdoor in one place, with reach and frequency modelled before you spend. Paste a brief, edit any line. Free to start."
         />
         <link rel="canonical" href="https://www.halliardmedia.com/" />
         <meta property="og:type" content="website" />
