@@ -112,10 +112,25 @@ export function useLandingAttribution(
 
 /** The site's sections, the same in every page's header. */
 const NAV: { label: string; href?: string; items?: { href: string; label: string }[] }[] = [
-  { label: 'Planning', href: '/' },
-  { label: 'Buying desk', href: '/buying-desk' },
   {
-    label: 'Measurement',
+    label: 'Plan',
+    items: [
+      { href: '/', label: 'Planning tool' },
+      { href: '/how-it-works', label: 'How planning works' },
+      { href: '/sample', label: 'Sample media plan' },
+      { href: '/media-planning-templates', label: 'Media plan templates' },
+      { href: '/guide/media-planning-guide', label: 'Media planning guide' },
+    ],
+  },
+  {
+    label: 'Buy and run',
+    items: [
+      { href: '/buying-desk', label: 'Buying desk' },
+      { href: '/buying-desk/how-it-works', label: 'How it works, and where you approve' },
+    ],
+  },
+  {
+    label: 'Measure',
     items: [
       { href: '/mmm', label: 'Marketing mix modeling' },
       { href: '/brand-studies', label: 'Brand studies' },
@@ -123,11 +138,13 @@ const NAV: { label: string; href?: string; items?: { href: string; label: string
     ],
   },
   {
-    label: 'Resources',
+    label: 'Who it\u2019s for',
     items: [
-      { href: '/sample', label: 'Sample media plan' },
-      { href: '/guide/media-planning-guide', label: 'Media planning guide' },
-      { href: '/media-planning-templates', label: 'Media plan templates' },
+      { href: '/solutions/independent-agencies', label: 'Independent agencies' },
+      { href: '/solutions/in-house', label: 'In-house teams' },
+      { href: '/compare/bionic', label: 'Halliard vs Bionic' },
+      { href: '/compare/camphouse', label: 'Halliard vs Camphouse' },
+      { href: '/compare/nielsen-media-impact', label: 'Nielsen Media Impact alternative' },
       { href: '/manifesto/the-independents-agent', label: 'The independents\u2019 agent' },
     ],
   },
@@ -156,7 +173,7 @@ export function LandingHeader({ href, cta, onClick }: { href: string; cta: strin
                     <ChevronDown className="h-3.5 w-3.5" aria-hidden />
                   </button>
                   <div className="invisible absolute left-1/2 top-full z-10 -translate-x-1/2 pt-3 opacity-0 transition group-focus-within:visible group-focus-within:opacity-100 group-hover:visible group-hover:opacity-100">
-                    <ul className="w-60 rounded-xl border border-tint/60 bg-white p-2 shadow-lg shadow-primary/5">
+                    <ul className="w-64 rounded-xl border border-tint/60 bg-white p-2 shadow-lg shadow-primary/5">
                       {item.items.map(sub => (
                         <li key={sub.href}>
                           <Link href={sub.href} className="block rounded-lg px-3 py-2 hover:bg-tint/40 hover:text-slate-900">

@@ -131,11 +131,11 @@ export default function BuyingDeskHowItWorksPage() {
   return (
     <>
       <Head>
-        <title>How the Buying Desk Works | Halliard</title>
+        <title>How the Buying Desk Works: It Buys, You Approve | Halliard</title>
         <link rel="canonical" href="https://www.halliardmedia.com/buying-desk/how-it-works" />
         <meta
           name="description"
-          content="From brief to live campaign: audiences, strategy, a plan with reach modelled, the buy drafted with its fee, and pacing every six hours, with you approving each step."
+          content="Halliard buys and paces your campaigns, and stops at three points for your approval: the plan, the launch, and any bigger change. Everything else is logged."
         />
       </Head>
       <LandingHeader href="/buying-desk#get-plan" cta="Get a free plan" onClick={() => track('header')} />
@@ -150,30 +150,23 @@ export default function BuyingDeskHowItWorksPage() {
                 How it works
               </p>
               <h1 className="font-display text-4xl font-medium tracking-tight text-slate-900 sm:text-6xl">
-                From brief to <Accent>live campaign.</Accent>
+                It buys. <Accent>You approve.</Accent>
               </h1>
               <p className="mx-auto mt-6 max-w-2xl text-lg tracking-tight text-slate-700">
-                Six stages, the same ones a good buyer works through, with you approving the plan, the launch and the
-                bigger changes after it.
+                You can&rsquo;t let software spend unsupervised, and you can&rsquo;t sign off every $5 change. So
+                Halliard stops at three points and waits for you, and logs everything in between.
               </p>
             </div>
           </Container>
         </section>
 
-        {/* THE STAGES */}
-        <section className="pb-20 sm:pb-28">
-          <Container className="max-w-6xl">
-            <StepRows steps={STEPS} />
-          </Container>
-        </section>
-
         {/* WHERE YOU APPROVE */}
-        <section className="py-16 sm:py-24" style={SOFT_BAND}>
+        <section className="pt-8 pb-16 sm:pb-24">
           <Container className="max-w-5xl">
             <SectionHeading
               eyebrow="Where you approve"
               title="Three points where nothing moves without you"
-              body="Halliard does the work between them. Each approval, and every change made without one, is logged."
+              body="Halliard does the work between them. Each approval, and every change made without one, is logged for you and your client to read."
             />
             <ol className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
               {CHECKPOINTS.map((c, i) => (
@@ -186,6 +179,18 @@ export default function BuyingDeskHowItWorksPage() {
                 </li>
               ))}
             </ol>
+          </Container>
+        </section>
+
+        {/* THE STAGES */}
+        <section className="py-20 sm:py-28" style={SOFT_BAND}>
+          <Container className="max-w-6xl">
+            <SectionHeading
+              eyebrow="Start to finish"
+              title="From brief to live campaign"
+              body="Six stages, the same ones a good buyer works through."
+            />
+            <StepRows steps={STEPS} />
           </Container>
         </section>
 
