@@ -5,10 +5,12 @@ import {
   ArrowRight,
   BarChart3,
   Building2,
-  Check,
+  CircleDollarSign,
+  type LucideIcon,
   MapPin,
   Pencil,
   Radio,
+  RefreshCw,
   ScrollText,
   ShieldCheck,
   Timer,
@@ -72,24 +74,12 @@ const FEATURES: Feature[] = [
   { icon: Radio, title: 'Buys on PubMatic and Meta', body: 'Approved plans go live through Halliard, with every fee shown.', Visual: BuyVisual },
 ]
 
-// What planners told us on sales calls, paraphrased, each with what Halliard
-// does about it. These are the three planning problems raised most often.
-const PROBLEMS = [
-  {
-    line: 'Our reach and frequency comes out of a spreadsheet someone built years ago.',
-    detail: 'Every platform reports on its own, so nobody can say how many people the whole plan reaches.',
-    fix: 'Reach and frequency modelled for the whole plan, down to the channel and the property.',
-  },
-  {
-    line: 'Clients ask how much they need to spend. We guess.',
-    detail: 'With no bar to hold a budget to, the answer is a rule of thumb.',
-    fix: "Each strategy’s budget checked against what its job needs, with the figure that would clear the bar.",
-  },
-  {
-    line: 'The budget moved again, so the plan gets rebuilt.',
-    detail: 'Every change means reworking the plan and the flowchart by hand.',
-    fix: 'Change one line and the rest of the plan rebalances, with reach modelled again.',
-  },
+// The three planning problems agencies raised most on sales calls, each with
+// what Halliard does about it. Kept to a line each: this is a glance, not a read.
+const PROBLEMS: { icon: LucideIcon; before: string; after: string }[] = [
+  { icon: BarChart3, before: 'Reach and frequency lives in an old spreadsheet.', after: 'Modelled for the whole plan.' },
+  { icon: CircleDollarSign, before: 'How much should we spend? We guess.', after: 'Every budget checked against its job.' },
+  { icon: RefreshCw, before: 'The budget moved. Rebuild the plan.', after: 'Change one line and it rebalances.' },
 ]
 
 /**
@@ -190,17 +180,19 @@ export function PlanLanding({ path }: { path: '/' | '/plan' }) {
         </section>
 
         {/* THE PROBLEM */}
-        <section className="py-16 sm:py-24">
-          <Container className="max-w-6xl">
+        <section className="py-16 sm:py-20">
+          <Container className="max-w-5xl">
             <SectionHeading eyebrow="Sound familiar?" title="Planning shouldn't run on guesswork." />
-            <ul className="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-3">
-              {PROBLEMS.map(p => (
-                <li key={p.line} className="flex flex-col rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-900/5">
-                  <p className="font-display text-xl tracking-tight text-slate-900">&ldquo;{p.line}&rdquo;</p>
-                  <p className="mt-3 flex-1 text-slate-600">{p.detail}</p>
-                  <p className="mt-5 flex gap-2.5 border-t border-slate-100 pt-4 text-sm font-medium text-slate-900">
-                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" aria-hidden />
-                    {p.fix}
+            <ul className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-3">
+              {PROBLEMS.map(({ icon: Icon, before, after }) => (
+                <li key={before} className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-900/5">
+                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-tint text-primary">
+                    <Icon className="h-5 w-5" aria-hidden />
+                  </span>
+                  <p className="mt-4 text-slate-500">{before}</p>
+                  <p className="mt-2 flex items-start gap-2 font-display text-lg leading-snug tracking-tight text-slate-900">
+                    <ArrowRight className="mt-1 h-4 w-4 shrink-0 text-primary" aria-hidden />
+                    {after}
                   </p>
                 </li>
               ))}

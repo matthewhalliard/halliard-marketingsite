@@ -5,6 +5,7 @@ import {
   ArrowRight,
   BadgeDollarSign,
   CalendarCheck,
+  Check,
   CheckCircle2,
   ClipboardCheck,
   FileText,
@@ -104,16 +105,32 @@ const PAINS = [
   },
 ]
 
-const CHANGES = [
-  ['Hire a buyer and carry the salary whether there is work or not', 'Pay a fee per campaign, only when there is a campaign'],
-  ['Brief a freelancer, then chase and check the work', 'Send the brief once and approve a plan you can read line by line'],
-  ['Wait days for a plan', 'A costed plan with modelled reach, back within 24 hours'],
-  ['Re-key the approved plan into each ad platform by hand', 'Campaigns drafted from the approved plan, checked, then built for you'],
-  ['Hope what went live matches what the client signed off', 'The buy you approved is exactly what gets sent, and nothing else'],
-  ["Untick the platform’s AI features on every build", 'Platform automation starts switched off on every campaign we build'],
-  ['Find out late that a line stopped delivering', 'Delivery checked every six hours, with bigger changes brought to you first'],
-  ['Optimisation ideas that never get done because nobody has the time', 'Each recommendation arrives fully drafted: approve it and it is made'],
-  ['Rebuild the story for the client from spreadsheets', 'Every buy, change and approval on a record you can show the client'],
+// Before and after, a few words a side, grouped by where in the work it bites.
+const CHANGES: { group: string; rows: [string, string][] }[] = [
+  {
+    group: 'Staffing',
+    rows: [
+      ['Carry a buyer\u2019s salary all year', 'Pay per campaign'],
+      ['Brief, chase and check a freelancer', 'Approve a plan line by line'],
+      ['Wait days for a plan', 'A costed plan in 24 hours'],
+    ],
+  },
+  {
+    group: 'Launch',
+    rows: [
+      ['Re-key the plan into each platform', 'Built from the approved plan'],
+      ['Hope what\u2019s live matches what was approved', 'Exactly what you approved gets sent'],
+      ['Untick the platform\u2019s AI on every build', 'Automation off by default'],
+    ],
+  },
+  {
+    group: 'Running',
+    rows: [
+      ['Find out late that a line stalled', 'Checked every six hours'],
+      ['Ideas nobody has time to make', 'Drafted for you: approve and it\u2019s done'],
+      ['Rebuild the story from spreadsheets', 'Every change on one record'],
+    ],
+  },
 ]
 
 const STEPS: Step[] = [
@@ -305,21 +322,33 @@ export default function BuyingDeskPage() {
           <Container className="max-w-4xl">
             <SectionHeading eyebrow="What changes" title="A buying desk you don't have to staff" />
             <div className="mt-10 overflow-x-auto rounded-2xl bg-white shadow-sm ring-1 ring-slate-900/5">
-              <table className="w-full min-w-[34rem] text-left text-base">
+              <table className="w-full text-left text-sm sm:text-base">
                 <thead className="bg-tint/60 text-xs font-semibold uppercase tracking-wider text-slate-600">
                   <tr>
                     <th className="px-5 py-3">Today</th>
                     <th className="px-5 py-3">With Halliard</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100">
-                  {CHANGES.map(([before, after]) => (
-                    <tr key={before}>
-                      <td className="w-1/2 px-5 py-4 align-top text-slate-500">{before}</td>
-                      <td className="px-5 py-4 align-top font-medium text-slate-900">{after}</td>
+                {CHANGES.map(({ group, rows }) => (
+                  <tbody key={group} className="divide-y divide-slate-100">
+                    <tr>
+                      <th colSpan={2} scope="colgroup" className="bg-slate-50 px-5 py-2 text-xs font-semibold uppercase tracking-wider text-primary">
+                        {group}
+                      </th>
                     </tr>
-                  ))}
-                </tbody>
+                    {rows.map(([before, after]) => (
+                      <tr key={before}>
+                        <td className="w-1/2 px-4 py-3 align-top text-slate-500 sm:px-5">{before}</td>
+                        <td className="px-4 py-3 align-top font-medium text-slate-900 sm:px-5">
+                          <span className="inline-flex items-start gap-2">
+                            <Check className="mt-1 h-4 w-4 shrink-0 text-primary" aria-hidden />
+                            {after}
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                ))}
               </table>
             </div>
           </Container>
