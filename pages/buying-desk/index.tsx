@@ -108,7 +108,11 @@ const CHANGES = [
   ['Hire a buyer and carry the salary whether there is work or not', 'Pay a fee per campaign, only when there is a campaign'],
   ['Brief a freelancer, then chase and check the work', 'Send the brief once and approve a plan you can read line by line'],
   ['Wait days for a plan', 'A costed plan with modelled reach, back within 24 hours'],
+  ['Re-key the approved plan into each ad platform by hand', 'Campaigns drafted from the approved plan, checked, then built for you'],
+  ['Hope what went live matches what the client signed off', 'The buy you approved is exactly what gets sent, and nothing else'],
+  ["Untick the platform’s AI features on every build", 'Platform automation starts switched off on every campaign we build'],
   ['Find out late that a line stopped delivering', 'Delivery checked every six hours, with bigger changes brought to you first'],
+  ['Optimisation ideas that never get done because nobody has the time', 'Each recommendation arrives fully drafted: approve it and it is made'],
   ['Rebuild the story for the client from spreadsheets', 'Every buy, change and approval on a record you can show the client'],
 ]
 

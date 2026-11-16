@@ -5,6 +5,7 @@ import {
   ArrowRight,
   BarChart3,
   Building2,
+  Check,
   MapPin,
   Pencil,
   Radio,
@@ -69,6 +70,26 @@ const FEATURES: Feature[] = [
   { icon: Building2, title: 'Plan for one brand or many', body: 'Agencies switch between every client in one login. Brand teams keep all their own plans in one place.', Visual: ClientsVisual },
   { icon: MapPin, title: 'Built for local', body: 'Catchments inside the DMA, ZIPs ranked on the brief, search sized by market.', Visual: LocalVisual },
   { icon: Radio, title: 'Buys on PubMatic and Meta', body: 'Approved plans go live through Halliard, with every fee shown.', Visual: BuyVisual },
+]
+
+// What planners told us on sales calls, paraphrased, each with what Halliard
+// does about it. These are the three planning problems raised most often.
+const PROBLEMS = [
+  {
+    line: 'Our reach and frequency comes out of a spreadsheet someone built years ago.',
+    detail: 'Every platform reports on its own, so nobody can say how many people the whole plan reaches.',
+    fix: 'Reach and frequency modelled for the whole plan, down to the channel and the property.',
+  },
+  {
+    line: 'Clients ask how much they need to spend. We guess.',
+    detail: 'With no bar to hold a budget to, the answer is a rule of thumb.',
+    fix: "Each strategy’s budget checked against what its job needs, with the figure that would clear the bar.",
+  },
+  {
+    line: 'The budget moved again, so the plan gets rebuilt.',
+    detail: 'Every change means reworking the plan and the flowchart by hand.',
+    fix: 'Change one line and the rest of the plan rebalances, with reach modelled again.',
+  },
 ]
 
 /**
@@ -165,6 +186,25 @@ export function PlanLanding({ path }: { path: '/' | '/plan' }) {
         <section className="relative py-6">
           <Container className="max-w-6xl">
             <BuysOnBanner />
+          </Container>
+        </section>
+
+        {/* THE PROBLEM */}
+        <section className="py-16 sm:py-24">
+          <Container className="max-w-6xl">
+            <SectionHeading eyebrow="Sound familiar?" title="Planning shouldn't run on guesswork." />
+            <ul className="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-3">
+              {PROBLEMS.map(p => (
+                <li key={p.line} className="flex flex-col rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-900/5">
+                  <p className="font-display text-xl tracking-tight text-slate-900">&ldquo;{p.line}&rdquo;</p>
+                  <p className="mt-3 flex-1 text-slate-600">{p.detail}</p>
+                  <p className="mt-5 flex gap-2.5 border-t border-slate-100 pt-4 text-sm font-medium text-slate-900">
+                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" aria-hidden />
+                    {p.fix}
+                  </p>
+                </li>
+              ))}
+            </ul>
           </Container>
         </section>
 
