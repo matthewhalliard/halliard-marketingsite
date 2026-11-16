@@ -12,6 +12,8 @@ module.exports = {
       { source: '/legal/privacy', destination: '/privacy', permanent: true },
       { source: '/legal/terms', destination: '/terms', permanent: true },
       { source: '/legal', destination: '/privacy', permanent: true },
+      // The guide's earlier address. Other sites and Google still link to it.
+      { source: '/guide/media-planning', destination: '/guide/media-planning-guide', permanent: true },
     ];
   },
 };
