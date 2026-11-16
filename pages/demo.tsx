@@ -336,13 +336,6 @@ function ProofSection() {
         <div className="mx-auto max-w-3xl">
           <LisaQuote />
         </div>
-        <div className="mx-auto mt-14 max-w-3xl text-center">
-          <p className="font-display text-2xl font-medium leading-snug text-slate-900 sm:text-3xl">
-            &ldquo;Halliard told us our client&rsquo;s Meta was driving zero incremental conversions. We cancelled the wrong
-            line item for two years.&rdquo;
-          </p>
-          <p className="mt-6 text-sm font-medium text-slate-700">Director of Strategy, independent agency</p>
-        </div>
       </Container>
     </section>
   )
