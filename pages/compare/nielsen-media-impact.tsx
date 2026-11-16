@@ -12,7 +12,7 @@ const DATA: Comparison = {
     'Nielsen Media Impact plans reach and frequency from Nielsen panel data. Halliard drafts the whole plan from a brief with reach modelled, free to start.',
   heading: (
     <>
-      A Nielsen Media Impact alternative <Accent>that writes the plan.</Accent>
+      A Nielsen Media Impact alternative that <Accent>writes the plan.</Accent>
     </>
   ),
   intro:

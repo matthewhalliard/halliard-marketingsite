@@ -44,6 +44,8 @@ const COLUMNS: { title: string; links: { href: string; label: string }[] }[] = [
   {
     title: 'Halliard',
     links: [
+      { href: '/solutions/independent-agencies', label: 'For agencies' },
+      { href: '/solutions/in-house', label: 'For in-house teams' },
       { href: '/demo', label: 'Book a demo' },
       { href: 'https://client.halliardmedia.com/sign-in', label: 'Sign in' },
       { href: '/terms', label: 'Terms' },

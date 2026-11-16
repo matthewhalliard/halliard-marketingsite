@@ -11,7 +11,7 @@ const DATA: Comparison = {
     'Bionic runs the agency workflow from RFP to bill reconciliation. Halliard drafts the plan from a brief with reach modelled, free to start. See which fits.',
   heading: (
     <>
-      Halliard or Bionic? <Accent>They do different jobs.</Accent>
+      Halliard or Bionic? They do <Accent>different jobs.</Accent>
     </>
   ),
   intro:

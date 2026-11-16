@@ -12,7 +12,7 @@ const DATA: Comparison = {
     'Camphouse, formerly Mediatool, gives large media teams one home for plans, approvals and budgets. Halliard drafts the plan from a brief, free to start.',
   heading: (
     <>
-      Halliard or Camphouse? <Accent>Depends on your size.</Accent>
+      Halliard or Camphouse? Depends on <Accent>your size.</Accent>
     </>
   ),
   intro:

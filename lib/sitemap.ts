@@ -16,6 +16,8 @@ export const SITEMAP_PATHS = [
   '/compare/bionic',
   '/compare/camphouse',
   '/compare/nielsen-media-impact',
+  '/solutions/independent-agencies',
+  '/solutions/in-house',
   '/mmm',
   '/brand-studies',
   '/incrementality-testing',
