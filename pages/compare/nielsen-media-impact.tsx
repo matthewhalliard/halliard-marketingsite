@@ -32,7 +32,8 @@ const DATA: Comparison = {
       group: 'Planning',
       rows: [
         ['Starting point', 'An analyst builds targets, media groups and a plan', 'Paste a brief and Halliard drafts it'],
-        ['Reach and frequency', 'Yes, from Nielsen panel data', 'Yes, modelled for the whole plan'],
+        ['Reach and frequency', 'Yes', 'Yes, for the whole plan'],
+        ['Data behind it', 'Nielsen’s panel', 'Halliard’s own survey panel, weighted to the Census'],
         ['Scenarios', 'Compared side by side', 'Edit any line and the plan rebalances'],
         ['Channels', 'TV, streaming, digital, audio', 'TV, streaming, social, outdoor'],
       ],
@@ -59,7 +60,7 @@ const DATA: Comparison = {
   faq: [
     {
       q: 'Is Halliard’s reach data the same as Nielsen’s?',
-      a: 'No. Nielsen Media Impact uses Nielsen’s own panel. Halliard models reach and frequency itself. If a client requires Nielsen numbers, use Nielsen.',
+      a: 'No. Nielsen Media Impact uses Nielsen’s panel. Halliard models reach and frequency from its own survey panel, weighted to Census age, gender and market. If a client requires Nielsen numbers, use Nielsen.',
     },
     {
       q: 'How much does Nielsen Media Impact cost?',
