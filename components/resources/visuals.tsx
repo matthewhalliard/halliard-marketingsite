@@ -1,5 +1,5 @@
 import React from 'react'
-import { BarChart3, Check, FileSpreadsheet, Ghost, Mail, MapPin, Mic, Radio, Search, Signpost, Smartphone, Target, Tv, Users } from 'lucide-react'
+import { BarChart3, Check, FileSpreadsheet, Ghost, Headphones, Mail, MapPin, Mic, MonitorPlay, Radio, Search, Signpost, Smartphone, Target, Tv, Users } from 'lucide-react'
 import { appear, prog, useTimeline } from '../plan/motion'
 
 /**
@@ -40,16 +40,20 @@ function ChannelMark({ channel, size = 14 }: { channel: Channel; size?: number }
   )
 }
 
-const WEEKS = 8
+const WEEKS = 13
 
-/** Rows of the spreadsheet template, filled in one by one. `on` is the weeks the line runs. */
-const SHEET_ROWS: { channel: Channel; type: string; budget: number; impressions: string; on: number[] }[] = [
-  { channel: { name: 'Paramount+', logo: 'paramount-plus' }, type: 'CTV', budget: 42000, impressions: '1.4M', on: [0, 1, 2, 3, 4, 5, 6, 7] },
-  { channel: { name: 'YouTube', logo: 'youtube' }, type: 'Online video', budget: 28000, impressions: '3.1M', on: [0, 1, 2, 3, 6, 7] },
-  { channel: { name: 'Instagram', logo: 'instagram' }, type: 'Social', budget: 24000, impressions: '4.6M', on: [0, 1, 4, 5, 6, 7] },
-  { channel: { name: 'Spotify', logo: 'spotify' }, type: 'Streaming audio', budget: 16000, impressions: '1.9M', on: [2, 3, 4, 5] },
-  { channel: { name: 'Billboards', icon: Signpost }, type: 'OOH', budget: 20000, impressions: '2.2M', on: [0, 1, 2, 3] },
+/**
+ * Rows of the spreadsheet template, filled in one by one: the channels of the
+ * example plan the download comes with, which runs every week of its flight.
+ */
+const SHEET_ROWS: { channel: Channel; type: string; budget: number; impressions: string }[] = [
+  { channel: { name: 'CTV', icon: Tv }, type: 'Build fame', budget: 110000, impressions: '5.1M' },
+  { channel: { name: 'Streaming audio', icon: Headphones }, type: 'Build fame', budget: 40000, impressions: '2.7M' },
+  { channel: { name: 'Paid social', icon: Users }, type: 'Prompt action', budget: 60000, impressions: '6.4M' },
+  { channel: { name: 'Online video', icon: MonitorPlay }, type: 'Prompt action', budget: 40000, impressions: '2.9M' },
 ]
+
+const WEEK_GRID: React.CSSProperties = { gridTemplateColumns: `repeat(${WEEKS}, minmax(0, 1fr))` }
 
 const usd = (v: number) => `$${Math.round(v).toLocaleString('en-US')}`
 
@@ -66,25 +70,21 @@ export function TemplateSheetScene() {
             <FileSpreadsheet className="h-4 w-4 text-primary" aria-hidden />
             Spring launch · Media plan
           </span>
-          <span className="rounded-full bg-tint px-2 py-0.5 text-[10.5px] font-medium text-primary">8-week flight</span>
+          <span className="rounded-full bg-tint px-2 py-0.5 text-[10.5px] font-medium text-primary">13-week flight</span>
         </div>
         <div className="mt-3 overflow-hidden rounded-lg ring-1 ring-slate-200">
-          <div className="grid grid-cols-[minmax(0,1.6fr)_minmax(0,0.9fr)_minmax(0,0.7fr)_minmax(0,2fr)] bg-slate-50 text-[10px] font-semibold uppercase tracking-wide text-slate-500">
+          <div className="grid grid-cols-[minmax(0,1.5fr)_minmax(0,1.15fr)_minmax(0,0.75fr)_minmax(0,1.6fr)] bg-slate-50 text-[10px] font-semibold uppercase tracking-wide text-slate-500">
             <span className="px-2 py-1.5">Channel</span>
             <span className="px-2 py-1.5 text-right">Budget</span>
             <span className="px-2 py-1.5 text-right">Impr.</span>
-            <span className="grid grid-cols-8 gap-0.5 px-2 py-1.5 text-center">
-              {Array.from({ length: WEEKS }, (_, w) => (
-                <span key={w}>W{w + 1}</span>
-              ))}
-            </span>
+            <span className="px-2 py-1.5 text-center">Mar – May, by week</span>
           </div>
           {SHEET_ROWS.map((r, i) => {
             const at = ROW_AT(i)
             return (
               <div
                 key={r.channel.name}
-                className="grid grid-cols-[minmax(0,1.6fr)_minmax(0,0.9fr)_minmax(0,0.7fr)_minmax(0,2fr)] items-center border-t border-slate-100 bg-white"
+                className="grid grid-cols-[minmax(0,1.5fr)_minmax(0,1.15fr)_minmax(0,0.75fr)_minmax(0,1.6fr)] items-center border-t border-slate-100 bg-white"
                 style={appear(t, at)}
               >
                 <span className="flex min-w-0 items-center gap-1.5 px-2 py-1.5">
@@ -96,9 +96,9 @@ export function TemplateSheetScene() {
                 </span>
                 <span className="px-2 py-1.5 text-right tabular-nums">{t > at + 300 ? usd(r.budget) : ''}</span>
                 <span className="px-2 py-1.5 text-right tabular-nums text-slate-500">{t > at + 450 ? r.impressions : ''}</span>
-                <span className="grid grid-cols-8 gap-0.5 px-2 py-1.5">
+                <span className="grid gap-0.5 px-2 py-1.5" style={WEEK_GRID}>
                   {Array.from({ length: WEEKS }, (_, w) => {
-                    const lit = r.on.includes(w) && t > at + 500 + w * 60
+                    const lit = t > at + 500 + w * 40
                     return (
                       <span
                         key={w}
@@ -110,12 +110,12 @@ export function TemplateSheetScene() {
               </div>
             )
           })}
-          <div className="grid grid-cols-[minmax(0,1.6fr)_minmax(0,0.9fr)_minmax(0,0.7fr)_minmax(0,2fr)] border-t border-slate-200 bg-tint/40 font-semibold text-slate-900">
+          <div className="grid grid-cols-[minmax(0,1.5fr)_minmax(0,1.15fr)_minmax(0,0.75fr)_minmax(0,1.6fr)] border-t border-slate-200 bg-tint/40 font-semibold text-slate-900">
             <span className="px-2 py-1.5">Total</span>
             <span className="px-2 py-1.5 text-right tabular-nums">{usd(total)}</span>
-            <span className="px-2 py-1.5 text-right tabular-nums">{t > ROW_AT(SHEET_ROWS.length) ? '13.2M' : ''}</span>
+            <span className="px-2 py-1.5 text-right tabular-nums">{t > ROW_AT(SHEET_ROWS.length) ? '17.0M' : ''}</span>
             <span className="px-2 py-1.5 text-right text-[10.5px] font-medium text-primary" style={appear(t, ROW_AT(SHEET_ROWS.length) + 200)}>
-              Budget, flight and actuals in one sheet
+              Plan, budget and flowchart in one file
             </span>
           </div>
         </div>

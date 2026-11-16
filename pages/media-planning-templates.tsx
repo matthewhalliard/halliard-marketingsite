@@ -3,113 +3,153 @@ import Link from 'next/link'
 import React from 'react'
 import {
   ArrowRight,
-  Baby,
+  CalendarRange,
+  Clock,
   Download,
   FileSpreadsheet,
-  Glasses,
+  GraduationCap,
+  HeartPulse,
   type LucideIcon,
   Megaphone,
-  MessageCircle,
+  MousePointerClick,
   RefreshCw,
-  Rocket,
-  ShoppingBag,
-  Smartphone,
+  Search,
   Store,
-  Sunrise,
+  Table2,
+  Wallet,
+  Wrench,
+  BookOpen,
 } from 'lucide-react'
 import { Container } from '../components/mmm/Container'
 import { Button } from '../components/mmm/Button'
 import { Accent, ClosingCta, HeroBackdrop, HeroVisual, LandingHeader, SOFT_BAND, SectionHeading, useLandingAttribution } from '../components/landing/kit'
-import { CH, GoalPreview, TemplateSheetScene, type Mix } from '../components/resources/visuals'
+import { TemplateSheetScene } from '../components/resources/visuals'
 
-// "Media plan template": the free Excel template, and plan templates by goal
-// that open as a brief in Halliard. The template download used to be a page of
-// its own; it is the first thing here now.
+// "Media plan template": what people search for is the file and a finished
+// example, so those come first. The examples by business and the jobs Halliard
+// plans for come after, as the way from a spreadsheet into the product.
 
-const EXCEL_TEMPLATE_URL =
-  'https://firebasestorage.googleapis.com/v0/b/elegant-clarity-269013.appspot.com/o/Halliard%20Media%20Plan%20Template.xlsx?alt=media&token=e0d10019-ca4c-48e1-b0ed-e814dd4b955c'
+// The workbook is the client portal's own plan export, filled in with the
+// sample plan on /sample. It is served from this site.
+const EXCEL_TEMPLATE_URL = '/templates/halliard-media-plan-template.xlsx'
 
-// Each goal's preview shows the kind of mix the template starts from:
-// illustrative shares, not a recommendation for any one brand.
-const TEMPLATES: { icon: LucideIcon; title: string; body: string; mix: Mix[] }[] = [
+const TABS: { icon: LucideIcon; title: string; body: string }[] = [
   {
-    icon: Smartphone,
-    title: 'Reach millennials',
-    body: 'Reach millennials between 25 and 40 years old across the US.',
-    mix: [{ channel: CH.instagram, share: 35 }, { channel: CH.hulu, share: 30 }, { channel: CH.spotify, share: 20 }, { channel: CH.youtube, share: 15 }],
+    icon: Table2,
+    title: 'The plan',
+    body: 'One row for each strategy, channel and property, with its audience, who buys it, spend, CPM and impressions. Impressions and totals are formulas, so they update as you type.',
   },
   {
-    icon: ShoppingBag,
-    title: 'Promote an e-commerce store',
-    body: 'Use channels that drive clicks and sales.',
-    mix: [{ channel: CH.search, share: 40 }, { channel: CH.meta, share: 35 }, { channel: CH.youtube, share: 25 }],
+    icon: Wallet,
+    title: 'The budget',
+    body: 'Spend and share of budget by strategy and by channel, with the blended CPM for the whole plan. It is the Summary tab.',
+  },
+  {
+    icon: CalendarRange,
+    title: 'The flowchart',
+    body: 'Spend by week across the flight, channel by channel, with a weekly total. It is the Flighting tab.',
+  },
+]
+
+const INCLUDES = [
+  'Who the audience is, and where they are',
+  'What job each dollar has',
+  'Which channels and properties it runs on',
+  'How much it costs, and when it runs',
+  'How many of the audience it should reach, and how often',
+]
+
+// Made-up plans, to show the shape of one for a business like the reader's.
+// Budgets and splits are illustrative, not a client's and not a recommendation.
+const EXAMPLES: { icon: LucideIcon; title: string; budget: number; flight: string; job: string; mix: [string, number][] }[] = [
+  {
+    icon: Wrench,
+    title: 'Local service business',
+    budget: 60000,
+    flight: '10 weeks',
+    job: 'Build fame in the service area',
+    mix: [['Streaming TV', 28000], ['Streaming audio', 12000], ['Paid social', 12000], ['Search', 8000]],
+  },
+  {
+    icon: GraduationCap,
+    title: 'College',
+    budget: 150000,
+    flight: '12 weeks',
+    job: 'Prompt applications',
+    mix: [['Paid social', 55000], ['Search', 40000], ['Streaming TV', 35000], ['Online video', 20000]],
+  },
+  {
+    icon: HeartPulse,
+    title: 'Healthcare provider',
+    budget: 200000,
+    flight: '16 weeks',
+    job: 'Educate a specific patient audience',
+    mix: [['Streaming TV', 80000], ['Online video', 45000], ['Paid social', 40000], ['Search', 35000]],
   },
   {
     icon: Store,
-    title: 'Drive people to a physical location',
-    body: 'Use channels that can be placed close to your location.',
-    mix: [{ channel: CH.localSearch, share: 35 }, { channel: CH.ooh, share: 30 }, { channel: CH.meta, share: 20 }, { channel: CH.radio, share: 15 }],
-  },
-  {
-    icon: Rocket,
-    title: 'Launch a new D2C brand',
-    body: 'Create hype around a new brand with tastemakers in upscale urban areas.',
-    mix: [{ channel: CH.instagram, share: 40 }, { channel: CH.tiktok, share: 25 }, { channel: CH.ooh, share: 20 }, { channel: CH.podcasts, share: 15 }],
-  },
-  {
-    icon: Sunrise,
-    title: 'Target the morning commute',
-    body: 'Reach your audience as they leave for work in the morning.',
-    mix: [{ channel: CH.radio, share: 35 }, { channel: CH.ooh, share: 30 }, { channel: CH.podcasts, share: 20 }, { channel: CH.spotify, share: 15 }],
-  },
-  {
-    icon: Baby,
-    title: 'Reach Gen Z',
-    body: 'Reach 18 to 24 year olds, who are less likely to consume traditional media.',
-    mix: [{ channel: CH.tiktok, share: 40 }, { channel: CH.youtube, share: 30 }, { channel: CH.snapchat, share: 20 }, { channel: CH.spotify, share: 10 }],
-  },
-  {
-    icon: MessageCircle,
-    title: 'Create social buzz',
-    body: 'Focus on channels proven to build your profile on social media.',
-    mix: [{ channel: CH.instagram, share: 40 }, { channel: CH.tiktok, share: 35 }, { channel: CH.youtube, share: 25 }],
-  },
-  {
-    icon: Glasses,
-    title: 'Reach baby boomers',
-    body: 'Reach baby boomers over 55 across the US.',
-    mix: [{ channel: CH.paramount, share: 35 }, { channel: CH.facebook, share: 25 }, { channel: CH.radio, share: 25 }, { channel: CH.pluto, share: 15 }],
-  },
-  {
-    icon: RefreshCw,
-    title: 'Change brand perceptions',
-    body: 'Focus on the channels most likely to change how people see your brand.',
-    mix: [{ channel: CH.peacock, share: 35 }, { channel: CH.youtube, share: 25 }, { channel: CH.podcasts, share: 25 }, { channel: CH.instagram, share: 15 }],
-  },
-  {
-    icon: Megaphone,
-    title: 'Build brand awareness',
-    body: 'Focus on the channels proven to raise awareness of your brand.',
-    mix: [{ channel: CH.paramount, share: 35 }, { channel: CH.ooh, share: 25 }, { channel: CH.radio, share: 20 }, { channel: CH.youtube, share: 20 }],
+    title: 'Multi-location retailer',
+    budget: 120000,
+    flight: '8 weeks',
+    job: 'Be there in the moment before a store visit',
+    mix: [['Outdoor near stores', 40000], ['Radio', 30000], ['Paid social', 30000], ['Search', 20000]],
   },
 ]
+
+// The jobs Halliard plans for, and the bar its budget check holds each one to.
+const JOBS: { icon: LucideIcon; title: string; bar: string }[] = [
+  { icon: Megaphone, title: 'Build fame', bar: 'Half the audience reached three or more times.' },
+  { icon: RefreshCw, title: 'Remind', bar: 'Half the audience reached about once a week.' },
+  { icon: BookOpen, title: 'Educate', bar: '40% of the audience reached four or more times.' },
+  { icon: Clock, title: 'Be there in a moment', bar: '60% reached at least once, through channels that can be timed.' },
+  { icon: Search, title: 'Capture demand', bar: 'Checked against how much search there is to buy.' },
+  { icon: MousePointerClick, title: 'Prompt action', bar: 'Checked against cost per lead or sale.' },
+]
+
+const FAQ: { q: string; a: string }[] = [
+  {
+    q: 'Does the media plan template work in Google Sheets?',
+    a: 'Yes. Upload the file to Google Drive and open it with Google Sheets. The formulas carry over.',
+  },
+  {
+    q: 'Is this a social media content calendar?',
+    a: 'No. It plans paid advertising: where ads run, what they cost and how many people they reach. A content calendar schedules posts.',
+  },
+  {
+    q: 'What is a media flowchart?',
+    a: 'The week-by-week view of a media plan: each channel down the side, the weeks across the top, and what is spent in each. In this template it is the Flighting tab.',
+  },
+  {
+    q: 'What is the difference between a template and a planning tool?',
+    a: 'The template records a plan you have already made. Halliard drafts the plan from a brief, sizes the audience and models its reach, and you edit any line.',
+  },
+]
+
+const usd = (v: number) => `$${v.toLocaleString('en-US')}`
+
+const FAQ_SCHEMA = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: FAQ.map(({ q, a }) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })),
+}
 
 export default function MediaPlanningTemplatesPage() {
   const { track, href } = useLandingAttribution('/media-planning-templates')
   return (
     <>
       <Head>
-        <title>Free Media Plan Template (Excel) and Plans by Goal | Halliard</title>
+        <title>Free Media Plan Template (Excel) with Example | Halliard</title>
         <link rel="canonical" href="https://www.halliardmedia.com/media-planning-templates" />
         <meta
           name="description"
-          content="A free media plan template in Excel, plus plans by goal: awareness, e-commerce, foot traffic, Gen Z and more. Build any of them free in Halliard."
+          content="A free media plan template for paid media, in Excel: plan, budget and flowchart tabs, filled in with an example. Download it, or have Halliard draft the plan."
         />
-        <meta property="og:title" content="Free Media Plan Template (Excel) and Plans by Goal | Halliard" />
+        <meta property="og:title" content="Free Media Plan Template (Excel) with Example | Halliard" />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_SCHEMA) }} />
       </Head>
       <LandingHeader href={href} cta="Build your plan free" onClick={() => track('header')} />
       <main>
-        {/* HERO */}
+        {/* HERO: the download */}
         <section className="relative">
           <HeroBackdrop />
           <Container className="relative max-w-6xl pt-32 pb-16 lg:pt-40 lg:pb-20">
@@ -117,29 +157,34 @@ export default function MediaPlanningTemplatesPage() {
               <div className="text-center lg:text-left">
                 <p className="mb-6 inline-flex items-center gap-2 rounded-full bg-tint px-4 py-1.5 text-sm font-medium text-primary">
                   <FileSpreadsheet className="h-4 w-4" aria-hidden />
-                  Templates
+                  Template
                 </p>
                 <h1 className="font-display text-4xl font-medium tracking-tight text-slate-900 sm:text-6xl">
-                  Media plan templates, <Accent>free.</Accent>
+                  Media plan template, <Accent>free.</Accent>
                 </h1>
                 <p className="mx-auto mt-6 max-w-xl text-lg tracking-tight text-slate-700 lg:mx-0">
-                  Download the Excel template to track a plan and its spend, or start from a goal and let Halliard draft the
-                  whole plan for you.
+                  A media plan template for paid media: TV, streaming, radio, outdoor, search and paid social. Download it
+                  filled in with an example, then type over it.
                 </p>
                 <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6 lg:justify-start">
                   <a
                     href={EXCEL_TEMPLATE_URL}
+                    download
                     onClick={() => track('excel-template-hero')}
                     className="inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 text-base font-semibold text-white hover:bg-primary/90"
                   >
                     <Download className="mr-2 h-4 w-4" aria-hidden />
                     Download the template
                   </a>
-                  <a href="#by-goal" className="text-base font-semibold text-primary hover:underline">
-                    Or start from a goal &darr;
+                  <a
+                    href={href}
+                    onClick={() => track('hero-draft')}
+                    className="text-base font-semibold text-primary hover:underline"
+                  >
+                    Or have Halliard draft the plan
                   </a>
                 </div>
-                <p className="mt-4 text-sm text-slate-600">Free. Excel or Google Sheets. No sign-up to download.</p>
+                <p className="mt-4 text-sm text-slate-600">Free. Opens in Excel or Google Sheets. No sign-up.</p>
               </div>
               <HeroVisual label="Halliard Media Plan Template.xlsx">
                 <TemplateSheetScene />
@@ -148,76 +193,175 @@ export default function MediaPlanningTemplatesPage() {
           </Container>
         </section>
 
-        {/* EXCEL TEMPLATE */}
-        <section className="pb-16">
-          <Container className="max-w-4xl">
-            <div className="flex flex-col gap-6 rounded-2xl border-2 border-primary bg-white p-7 shadow-xl shadow-primary/10 sm:flex-row sm:items-center sm:justify-between">
-              <div className="flex gap-4">
-                <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary text-white">
-                  <FileSpreadsheet className="h-6 w-6" aria-hidden />
-                </span>
-                <div>
-                  <h2 className="font-display text-xl tracking-tight text-slate-900">Free Excel media plan template</h2>
-                  <p className="mt-1 text-sm text-slate-600">
-                    Track and organize your media planning and media buying in one spreadsheet: channels, flights, budgets
-                    and actuals.
-                  </p>
-                </div>
-              </div>
-              <a
-                href={EXCEL_TEMPLATE_URL}
-                onClick={() => track('excel-template')}
-                className="inline-flex shrink-0 items-center justify-center rounded-full bg-primary px-5 py-3 text-sm font-semibold text-white hover:bg-primary/90"
-              >
-                <Download className="mr-2 h-4 w-4" aria-hidden />
-                Download the template
-              </a>
-            </div>
-          </Container>
-        </section>
-
-        {/* TEMPLATES BY GOAL */}
-        <section id="by-goal" className="scroll-mt-24 py-20 sm:py-24" style={SOFT_BAND}>
+        {/* WHAT'S IN IT */}
+        <section className="pb-20">
           <Container className="max-w-6xl">
             <SectionHeading
-              eyebrow="Plans by goal"
-              title="Start from what the campaign has to do."
-              body="Pick a goal, add your budget and market, and Halliard drafts the audiences, channels and reach for it."
+              eyebrow="What's in the template"
+              title="Plan, budget and flowchart in one file."
+              body="Three views of the same plan, laid out to be read and printed."
             />
-            <ul className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {TEMPLATES.map(({ icon: Icon, title, body, mix }) => (
-                <li key={title} className="flex flex-col rounded-2xl border border-tint bg-white p-6 shadow-sm">
+            <ul className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
+              {TABS.map(({ icon: Icon, title, body }) => (
+                <li key={title} className="rounded-2xl border border-tint bg-white p-6 shadow-sm">
                   <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-tint text-primary">
                     <Icon className="h-5 w-5" aria-hidden />
                   </span>
                   <h3 className="mt-4 font-display text-lg text-slate-900">{title}</h3>
                   <p className="mt-2 text-sm text-slate-600">{body}</p>
-                  <div className="flex-1">
-                    <GoalPreview mix={mix} />
-                  </div>
-                  <Button
-                    href={href}
-                    color="blue"
-                    className="mt-6 self-start"
-                    onClick={() => track(`template-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`)}
-                  >
-                    Build this plan free
-                    <ArrowRight className="ml-2 h-4 w-4" aria-hidden />
-                  </Button>
                 </li>
               ))}
             </ul>
-            <p className="mt-10 text-center text-sm text-slate-600">
-              Want to see what you get?{' '}
-              <Link href="/sample" className="font-medium text-primary hover:underline">
-                Read a finished sample plan
-              </Link>
-              , or learn{' '}
-              <Link href="/guide/media-planning-guide" className="font-medium text-primary hover:underline">
-                how to create a media plan
-              </Link>
-              .
-            </p>
+          </Container>
+        </section>
+
+        {/* THE EXAMPLE, AND WHAT A MEDIA PLAN IS */}
+        <section className="py-20 sm:py-24" style={SOFT_BAND}>
+          <Container className="max-w-6xl">
+            <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+              <div className="rounded-2xl border border-tint bg-white p-7 shadow-sm">
+                <p className="text-sm font-medium text-primary">Media plan example</p>
+                <h2 className="mt-2 font-display text-2xl tracking-tight text-slate-900">See it filled in.</h2>
+                <p className="mt-3 text-slate-700">
+                  The template comes with an example plan: a $250,000 spring launch for a heating and air company in
+                  Dallas–Fort Worth, split between building fame and prompting action over 13 weeks.
+                </p>
+                <dl className="mt-5 grid grid-cols-2 gap-x-6 gap-y-3 text-sm">
+                  {[
+                    ['CTV', 110000],
+                    ['Paid social', 60000],
+                    ['Streaming audio', 40000],
+                    ['Online video', 40000],
+                  ].map(([name, spend]) => (
+                    <div key={name as string} className="flex items-baseline justify-between border-b border-slate-100 pb-2">
+                      <dt className="text-slate-600">{name}</dt>
+                      <dd className="font-medium tabular-nums text-slate-900">{usd(spend as number)}</dd>
+                    </div>
+                  ))}
+                </dl>
+                <Link
+                  href="/sample"
+                  onClick={() => track('sample')}
+                  className="mt-6 inline-flex items-center text-sm font-semibold text-primary hover:underline"
+                >
+                  Read the full example, from brief to plan
+                  <ArrowRight className="ml-1.5 h-4 w-4" aria-hidden />
+                </Link>
+              </div>
+              <div className="rounded-2xl border border-tint bg-white p-7 shadow-sm">
+                <p className="text-sm font-medium text-primary">The basics</p>
+                <h2 className="mt-2 font-display text-2xl tracking-tight text-slate-900">What is a media plan?</h2>
+                <p className="mt-3 text-slate-700">
+                  A media plan sets out who you want to reach, where your ads will run, when, and what it will cost. A good
+                  one answers five questions:
+                </p>
+                <ol className="mt-4 space-y-2 text-sm text-slate-700">
+                  {INCLUDES.map((line, i) => (
+                    <li key={line} className="flex gap-3">
+                      <span className="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-tint text-[11px] font-semibold text-primary">
+                        {i + 1}
+                      </span>
+                      {line}
+                    </li>
+                  ))}
+                </ol>
+                <Link
+                  href="/guide/media-planning-guide"
+                  className="mt-6 inline-flex items-center text-sm font-semibold text-primary hover:underline"
+                >
+                  How to create a media plan, step by step
+                  <ArrowRight className="ml-1.5 h-4 w-4" aria-hidden />
+                </Link>
+              </div>
+            </div>
+          </Container>
+        </section>
+
+        {/* EXAMPLES BY BUSINESS */}
+        <section className="py-20 sm:py-24">
+          <Container className="max-w-6xl">
+            <SectionHeading
+              eyebrow="Examples by business"
+              title="What a plan looks like for a business like yours."
+              body="Four illustrative plans. The budgets and splits are examples, not recommendations."
+            />
+            <ul className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2">
+              {EXAMPLES.map(({ icon: Icon, title, budget, flight, job, mix }) => (
+                <li key={title} className="flex flex-col rounded-2xl border border-tint bg-white p-6 shadow-sm">
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="flex items-center gap-3">
+                      <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-tint text-primary">
+                        <Icon className="h-5 w-5" aria-hidden />
+                      </span>
+                      <div>
+                        <h3 className="font-display text-lg text-slate-900">{title}</h3>
+                        <p className="text-sm text-slate-600">{job}</p>
+                      </div>
+                    </div>
+                    <p className="shrink-0 text-right text-sm">
+                      <span className="block font-semibold tabular-nums text-slate-900">{usd(budget)}</span>
+                      <span className="block text-slate-500">{flight}</span>
+                    </p>
+                  </div>
+                  <ul className="mt-5 space-y-2.5">
+                    {mix.map(([name, spend]) => (
+                      <li key={name} className="text-sm">
+                        <div className="flex items-baseline justify-between">
+                          <span className="text-slate-700">{name}</span>
+                          <span className="tabular-nums text-slate-900">{usd(spend)}</span>
+                        </div>
+                        <div className="mt-1 h-1.5 overflow-hidden rounded-full bg-slate-100" aria-hidden>
+                          <span className="block h-full rounded-full bg-primary/70" style={{ width: `${(spend / budget) * 100}%` }} />
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+              ))}
+            </ul>
+          </Container>
+        </section>
+
+        {/* START FROM THE JOB */}
+        <section id="by-job" className="scroll-mt-24 py-20 sm:py-24" style={SOFT_BAND}>
+          <Container className="max-w-6xl">
+            <SectionHeading
+              eyebrow="Plans by job"
+              title="Or start from what the campaign has to do."
+              body="Halliard plans by job, not by channel, and checks each budget against a bar."
+            />
+            <ul className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {JOBS.map(({ icon: Icon, title, bar }) => (
+                <li key={title} className="rounded-2xl border border-tint bg-white p-6 shadow-sm">
+                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-tint text-primary">
+                    <Icon className="h-5 w-5" aria-hidden />
+                  </span>
+                  <h3 className="mt-4 font-display text-lg text-slate-900">{title}</h3>
+                  <p className="mt-2 text-sm text-slate-600">{bar}</p>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-10 flex justify-center">
+              <Button href={href} color="blue" className="" onClick={() => track('by-job')}>
+                Draft a plan from your brief, free
+                <ArrowRight className="ml-2 h-4 w-4" aria-hidden />
+              </Button>
+            </div>
+          </Container>
+        </section>
+
+        {/* QUESTIONS */}
+        <section className="py-20 sm:py-24">
+          <Container className="max-w-3xl">
+            <SectionHeading eyebrow="Questions" title="About the template." />
+            <dl className="mx-auto mt-10 max-w-3xl divide-y divide-slate-200">
+              {FAQ.map(({ q, a }) => (
+                <div key={q} className="py-5">
+                  <dt className="font-display text-lg text-slate-900">{q}</dt>
+                  <dd className="mt-2 text-slate-700">{a}</dd>
+                </div>
+              ))}
+            </dl>
           </Container>
         </section>
 
