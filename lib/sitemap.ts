@@ -13,6 +13,7 @@ export const SITEMAP_PATHS = [
   '/pricing',
   '/buying-desk',
   '/buying-desk/how-it-works',
+  '/compare/bionic',
   '/mmm',
   '/brand-studies',
   '/incrementality-testing',
