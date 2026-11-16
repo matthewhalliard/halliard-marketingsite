@@ -287,9 +287,11 @@ function ManifestoPage() {
 
           <ul>
             <li>
-              <strong>Flat take rate.</strong> No share of media. No hidden
-              curation cut. The agent is on your side because we&rsquo;re
-              paid by you, not by the supply path. An early agency partner
+              <strong>A fee you can see.</strong> Run the agent yourselves
+              for a flat, disclosed rate on the media it buys, or have us run
+              it for a fee per campaign. No hidden curation cut. The agent is
+              on your side because we&rsquo;re paid by you, not by the supply
+              path. An early agency partner
               has been running on this model since their pilot &mdash; they
               tell the story better than we can, and more of it will be
               published later this year.
