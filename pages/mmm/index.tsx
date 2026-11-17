@@ -67,7 +67,7 @@ export default function MMMPage() {
         <title>Marketing Mix Modeling for Agencies, $25K in 3–4 Weeks | Halliard</title>
         <meta
           name="description"
-          content="Marketing mix modeling for agencies and their clients: a causal model for $25,000, delivered in 3–4 weeks, where traditional MMM often costs $100K or more and takes months."
+          content="Marketing mix modeling for agencies and their clients: a causal model for $25,000 in 3–4 weeks, where traditional MMM often costs $100K or more."
         />
         <link rel="canonical" href="https://www.halliardmedia.com/mmm" />
         <meta property="og:title" content="Marketing Mix Modeling for Agencies, $25K in 3–4 Weeks | Halliard" />

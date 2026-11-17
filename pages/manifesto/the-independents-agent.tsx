@@ -74,7 +74,7 @@ function ManifestoPage() {
         <title>The Independents&apos; Agent | Halliard</title>
         <meta
           name="description"
-          content="The biggest media-buying decision your agency makes in 2026 is not which DSP. It's which agent buys for you."
+          content="The biggest media-buying decision your agency makes in 2026 is not which DSP. It's which agent buys for you, and why independents need their own."
         />
         <meta name="robots" content="index,follow" />
         <link

@@ -13,7 +13,7 @@ interface Props {
   fullWidth?: boolean;
 }
 
-export default function Layout({ title = "Halliard | Ultrafast Media Planning Tool", description = "The media planning tool for ambitious marketing teams", children, hideNavbar = false, fullWidth = false }: Props) {
+export default function Layout({ title = "Halliard | Ultrafast Media Planning Tool", description = "Halliard plans, buys and measures media for agencies and in-house teams: a plan from your brief with reach and frequency modelled, free to start.", children, hideNavbar = false, fullWidth = false }: Props) {
   return (
     <>
       <Head>

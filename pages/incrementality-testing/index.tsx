@@ -99,7 +99,7 @@ export default function IncrementalityTestingPage() {
         <title>Incrementality Testing and Geo-Lift for Agencies | Halliard</title>
         <meta
           name="description"
-          content="Incrementality testing with geo-lift experiments: prove what billboards, podcasts, streaming TV and every other channel add, with test and control markets, not attribution."
+          content="Incrementality testing with geo-lift experiments: prove what billboards, podcasts and streaming TV add, using test and control markets, not attribution."
         />
         <link rel="canonical" href="https://www.halliardmedia.com/incrementality-testing" />
         <meta property="og:title" content="Incrementality Testing and Geo-Lift for Agencies | Halliard" />
