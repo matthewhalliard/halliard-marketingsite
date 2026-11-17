@@ -36,17 +36,25 @@ export default function Document() {
             __html: `(function(w,d,p,s,u,pl,at){w._trybe=w._trybe||{pixelCode:p,storeId:s,platform:pl,autoTracking:at,customDomain:'track.halliardmedia.com',serviceUrl:'https://prod-trybe-platform-6mi3j.ondigitalocean.app/attribution'};var script=d.createElement('script');script.src=u+'/pixel.js';script.async=true;script.setAttribute('data-pixel-code',p);script.setAttribute('data-store-id',s);script.setAttribute('data-platform',pl);script.setAttribute('data-auto-tracking',at);d.head.appendChild(script);})(window,document,'px_5aa7fea43825','c39cd642-c556-4039-ad81-5b210ae1b21c','https://track.halliardmedia.com','CUSTOM','false');`,
           }}
         />
-        {/* Meta Pixel */}
+        {/* Meta Pixel (shared with the Halliard network sites). An inert queue
+            until /api/ad-consent says this visitor may be measured: no pixel
+            for Global Privacy Control browsers or EEA/UK/Swiss visitors, the
+            same rules as Halliard3. Events fired earlier (lib/meta-pixel.ts,
+            lib/track.js) queue and are replayed after init; if not allowed
+            they are discarded and Meta's script never loads. */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
-            fbq('init', '1357860072487371');
-            fbq('track', 'PageView');`,
-          }}
-        />
-        <noscript
-          dangerouslySetInnerHTML={{
-            __html: `<img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1357860072487371&ev=PageView&noscript=1" />`,
+            __html: `(function(w,d){if(w.fbq)return;var q=[];w.fbq=function(){q.push(arguments)};
+            function off(){q.length=0;w.fbq=function(){}}
+            if(navigator.globalPrivacyControl)return off();
+            fetch('/api/ad-consent',{credentials:'same-origin'}).then(function(r){return r.ok?r.json():{allowed:false}}).then(function(res){
+              if(!res||!res.allowed)return off();
+              var n=w.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+              w._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];
+              var t=d.createElement('script');t.async=!0;t.src='https://connect.facebook.net/en_US/fbevents.js';d.head.appendChild(t);
+              n('init','1357860072487371');n('track','PageView');
+              for(var i=0;i<q.length;i++)n.apply(null,q[i]);q.length=0;
+            }).catch(off)})(window,document);`,
           }}
         />
         {/* OpenAI Ads Pixel (oaiq) */}
