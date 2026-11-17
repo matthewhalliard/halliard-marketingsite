@@ -115,7 +115,7 @@ function Body() {
             <ul className="list-disc pl-6 mt-3 space-y-2">
               <li><strong>Essential</strong> — session and CSRF cookies set by Clerk and our app.</li>
               <li><strong>Analytics</strong> — PostHog for product usage analytics.</li>
-              <li><strong>Marketing</strong> — Meta Pixel, Google Ads conversion tracking, and LinkedIn Insight Tag where enabled.</li>
+              <li><strong>Marketing</strong> — Meta Pixel, Google Ads conversion tracking, and LinkedIn Insight Tag where enabled. The Meta Pixel is also used on sites Halliard publishes (mediaplanningtool.com, agenticadvertisingtools.com and getmediaplanningjobs.com), and is not loaded for visitors in the European Economic Area, the United Kingdom or Switzerland, or for browsers that send a Global Privacy Control signal.</li>
             </ul>
             <p className="mt-3">
               You can control cookies through your browser settings. Disabling essential cookies will prevent the Services from working.
