@@ -18,6 +18,37 @@ module.exports = {
       { source: '/compare/mediatool', destination: '/compare/camphouse', permanent: true },
       { source: '/compare/mediatools', destination: '/compare/camphouse', permanent: true },
       { source: '/compare/nielsen', destination: '/compare/nielsen-media-impact', permanent: true },
+      // Pages from the site halliardmedia.com served before November 2026. Search
+      // engines and old links still send people to them, so each goes to its
+      // closest current page instead of a 404 (paths and visit counts from
+      // PostHog, last 12 months).
+      { source: '/ooh', destination: '/', permanent: true },
+      { source: '/agentic', destination: '/buying-desk', permanent: true },
+      { source: '/features', destination: '/how-it-works', permanent: true },
+      { source: '/how-halliard-works', destination: '/how-it-works', permanent: true },
+      { source: '/solutions/in-house-marketing', destination: '/solutions/in-house', permanent: true },
+      { source: '/schedule-demo', destination: '/demo', permanent: true },
+      { source: '/contact', destination: '/demo', permanent: true },
+      { source: '/principles', destination: '/manifesto/the-independents-agent', permanent: true },
+      { source: '/mmm-quiz', destination: '/mmm', permanent: true },
+      { source: '/privacy-policy', destination: '/privacy', permanent: true },
+      { source: '/imprint', destination: '/privacy', permanent: true },
+      { source: '/templates', destination: '/media-planning-templates', permanent: true },
+      { source: '/template/:slug*', destination: '/media-planning-templates', permanent: true },
+      { source: '/guide', destination: '/guide/media-planning-guide', permanent: true },
+      { source: '/plans/:slug*', destination: '/sample', permanent: true },
+      { source: '/plans', destination: '/sample', permanent: true },
+      { source: '/action-plan', destination: '/plan', permanent: true },
+      { source: '/media-planning-tool', destination: '/', permanent: true },
+      { source: '/try', destination: '/trytoday', permanent: true },
+      { source: '/buy', destination: '/buying-desk', permanent: true },
+      { source: '/app/:path*', destination: '/plan', permanent: true },
+      { source: '/app', destination: '/plan', permanent: true },
+      { source: '/about', destination: '/', permanent: true },
+      { source: '/team', destination: '/', permanent: true },
+      { source: '/careers', destination: '/', permanent: true },
+      { source: '/press', destination: '/', permanent: true },
+      { source: '/thankyou', destination: '/', permanent: true },
     ];
   },
 };

@@ -170,7 +170,7 @@ function PrivacyPage() {
     <>
       <Head>
         <title>Privacy Policy — Halliard</title>
-        <meta name="description" content="How Halliard collects, uses, and protects your information." />
+        <meta name="description" content="How Halliard collects, uses, shares and protects your information, including data from connected ad platforms, cookies, retention and your rights." />
         <link rel="canonical" href="https://www.halliardmedia.com/privacy" />
       </Head>
       <LandingHeader href={SIGN_UP_URL} cta="Start planning free" />

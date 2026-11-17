@@ -78,7 +78,7 @@ export default function MediaPlanningGuide() {
         <link rel="canonical" href="https://www.halliardmedia.com/guide/media-planning-guide" />
         <meta
           name="description"
-          content="What media planning is and how to create a media plan, step by step: objectives, audience research, channels, frequency and flighting, and how to measure the results."
+          content="What media planning is and how to create a media plan, step by step: objectives, audience research, channels, frequency, flighting and measurement."
         />
         <meta property="og:title" content="Media Planning Guide: How to Create a Media Plan | Halliard" />
         <meta property="og:type" content="article" />
