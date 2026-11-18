@@ -318,17 +318,52 @@ export interface Step {
   before?: string
 }
 
-/** How-it-works rows: copy on one side, the step's scene in a product frame on the other, alternating. */
-export function StepRows({ steps }: { steps: Step[] }) {
+/**
+ * How-it-works rows: copy on one side, the step's scene in a product frame on
+ * the other, alternating. `numbered={false}` drops the "Step N" for rows that
+ * aren't a sequence; `onSeen` is told each row's label the first time half of
+ * it is on screen.
+ */
+export function StepRows({
+  steps,
+  numbered = true,
+  onSeen,
+}: {
+  steps: Step[]
+  numbered?: boolean
+  onSeen?: (label: string) => void
+}) {
+  const rowsRef = useRef<HTMLDivElement>(null)
+  const onSeenRef = useRef(onSeen)
+  onSeenRef.current = onSeen
+  useEffect(() => {
+    const root = rowsRef.current
+    if (!root || !onSeenRef.current) return
+    const seen = new Set<string>()
+    const io = new IntersectionObserver(
+      entries => {
+        for (const e of entries) {
+          const label = (e.target as HTMLElement).dataset.step
+          if (e.isIntersecting && label && !seen.has(label)) {
+            seen.add(label)
+            onSeenRef.current?.(label)
+          }
+        }
+      },
+      { threshold: 0.5 },
+    )
+    root.querySelectorAll('[data-step]').forEach(el => io.observe(el))
+    return () => io.disconnect()
+  }, [])
   return (
-    <div className="mt-16 flex flex-col gap-20">
+    <div ref={rowsRef} className="mt-16 flex flex-col gap-20">
       {steps.map((step, i) => (
-        <div key={step.label} className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+        <div key={step.label} data-step={step.label} className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           <div className={i % 2 === 1 ? 'lg:order-2' : ''}>
             <div className="flex items-center gap-4">
               <IconBadge icon={step.icon} />
               <span className="text-sm font-semibold text-primary">
-                Step {i + 1} · {step.label}
+                {numbered ? `Step ${i + 1} · ${step.label}` : step.label}
               </span>
             </div>
             {step.before ? (

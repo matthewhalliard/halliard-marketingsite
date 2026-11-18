@@ -5,15 +5,27 @@ import {
   ArrowRight,
   BarChart3,
   Building2,
+  CalendarRange,
   CircleDollarSign,
+  Download,
+  FileSpreadsheet,
+  GripHorizontal,
+  Layers,
   type LucideIcon,
   MapPin,
+  MousePointerClick,
   Pencil,
+  PieChart,
   Radio,
   RefreshCw,
   ScrollText,
   ShieldCheck,
+  SlidersHorizontal,
+  Table2,
+  Target,
   Timer,
+  Tv,
+  Users,
 } from 'lucide-react'
 import { Container } from '../../components/mmm/Container'
 import { Button } from '../../components/mmm/Button'
@@ -21,6 +33,7 @@ import {
   Accent,
   ClosingCta,
   FeatureGrid,
+  Frame,
   HeroBackdrop,
   HeroVisual,
   LandingHeader,
@@ -29,6 +42,7 @@ import {
   StepRows,
   useLandingAttribution,
   type Feature,
+  type Step,
 } from '../../components/landing/kit'
 import { PlanGridHero } from '../../components/plan/plan-grid-hero'
 import { PLAN_STEPS } from '../../components/plan/steps'
@@ -41,15 +55,22 @@ import {
   PacingVisual,
 } from '../../components/plan/feature-visuals'
 import { BuysOnBanner, LisaQuote } from '../../components/plan/proof'
+import {
+  ChartsScene,
+  ExportScene,
+  FlowchartScene,
+  PlanTotalScene,
+  TableScene,
+} from '../../components/plan/planner-visuals'
 
 // The hero matches the ad group that sent the visitor. Search ads for the
 // reach and frequency ad group carry utm_content or utm_term naming it.
 const HERO = {
   default: {
     eyebrow: 'For agency and in-house media planners',
-    title: 'Hyper-fast',
-    accent: 'media planning.',
-    body: 'Paste a brief or drop in an RFP. In about six minutes Halliard drafts the audiences, strategy and channel plan, with reach modelled. Then you edit any line and test what-ifs on the spot.',
+    title: 'Media planning with the reach',
+    accent: 'in plain view.',
+    body: 'Paste a brief or drop in an RFP. In about six minutes Halliard drafts the audiences, strategy and channel plan. Then work it the way you already do: edit spend in one table, see where reach tops out, flight it week by week and export it to Excel.',
   },
   reach: {
     eyebrow: 'Free reach & frequency planner',
@@ -77,9 +98,66 @@ const FEATURES: Feature[] = [
 // The three planning problems agencies raised most on sales calls, each with
 // what Halliard does about it. Kept to a line each: this is a glance, not a read.
 const PROBLEMS: { icon: LucideIcon; before: string; after: string }[] = [
-  { icon: BarChart3, before: 'Reach and frequency lives in an old spreadsheet.', after: 'Modelled for the whole plan.' },
-  { icon: CircleDollarSign, before: 'How much should we spend? We guess.', after: 'Every budget checked against its job.' },
-  { icon: RefreshCw, before: 'The budget moved. Rebuild the plan.', after: 'Change one line and it rebalances.' },
+  { icon: BarChart3, before: 'Reach and frequency lives in an old spreadsheet.', after: 'Every line modelled as you edit it.' },
+  { icon: CalendarRange, before: 'The flowchart is a separate file.', after: 'Flight it in the plan, with reach under every week.' },
+  { icon: CircleDollarSign, before: 'How much is enough? We guess.', after: 'The reach curve shows where more spend stops paying.' },
+]
+
+// The planner's own views, each with what it does for a planner. Labels name
+// the portal tab; they double as the `feature` on plan_feature_viewed.
+const PLANNER: Step[] = [
+  {
+    icon: Table2,
+    label: 'Table',
+    title: 'Every line of the plan, in one grid.',
+    body: 'Each strategy, channel and property sits in one table with its spend, CPM, impressions, reach and frequency. Type a new spend into any line and reach recalculates for that line and its strategy.',
+    points: [
+      { icon: BarChart3, text: 'Reach at every level from 1+ to 10+, with frequency beside it' },
+      { icon: Tv, text: 'TV and radio start on a recommended demo guarantee' },
+      { icon: Users, text: 'Set the buying audience and frequency cap line by line' },
+    ],
+    frame: 'Plan · Table',
+    Scene: TableScene,
+  },
+  {
+    icon: PieChart,
+    label: 'Charts',
+    title: 'See where more spend stops buying reach.',
+    body: 'The reach curve shows what each extra dollar adds. Pick any spend on it to see the reach it buys, so you can defend the budget, or find the point where more money mostly buys frequency.',
+    points: [
+      { icon: MousePointerClick, text: 'A reach curve you can pick a spend on' },
+      { icon: Layers, text: 'Audience overlap between channels' },
+      { icon: SlidersHorizontal, text: 'Spend and frequency breakdowns' },
+      { icon: Download, text: 'Download any chart as an image or a CSV for the deck' },
+    ],
+    frame: 'Plan · Charts',
+    Scene: ChartsScene,
+  },
+  {
+    icon: CalendarRange,
+    label: 'Flowchart',
+    title: 'Flight it week by week, and watch reach move.',
+    body: 'Drag a block to move it, drag its ends to resize it, drag across empty weeks to add one, and right-click to split or delete. Each block keeps its budget, and the weekly dollars show while you drag. Make several changes: they are recalculated together once you pause.',
+    points: [
+      { icon: GripHorizontal, text: 'Live weekly dollars while you drag' },
+      { icon: BarChart3, text: 'Reach under each channel by week, month or quarter' },
+      { icon: Target, text: 'Totals per strategy and for the whole plan, each person counted once' },
+    ],
+    frame: 'Plan · Flowchart',
+    Scene: FlowchartScene,
+  },
+  {
+    icon: FileSpreadsheet,
+    label: 'Export',
+    title: 'Hand it over in Excel.',
+    body: 'Export the plan as an Excel workbook. Its Flighting sheet matches the Flowchart, block for block, so the client, the buyers and finance all work from the same weeks.',
+    points: [
+      { icon: CalendarRange, text: 'The Flighting sheet mirrors the Flowchart' },
+      { icon: RefreshCw, text: 'Change the plan, export again' },
+    ],
+    frame: 'Plan · Export',
+    Scene: ExportScene,
+  },
 ]
 
 /**
@@ -88,7 +166,7 @@ const PROBLEMS: { icon: LucideIcon; before: string; after: string }[] = [
  * homepage's visitors read as one page.
  */
 export function PlanLanding({ path }: { path: '/' | '/plan' }) {
-  const { utms, track, href } = useLandingAttribution(path, { event: 'plan' })
+  const { utms, track, capture, href } = useLandingAttribution(path, { event: 'plan' })
   const heroKey = heroFor(utms)
 
   const hero = HERO[heroKey]
@@ -99,7 +177,7 @@ export function PlanLanding({ path }: { path: '/' | '/plan' }) {
         <title>Media Planning Tool and Software, Free to Start | Halliard</title>
         <meta
           name="description"
-          content="Plan TV, streaming, social and outdoor in one place, with reach and frequency modelled before you spend. Paste a brief, edit any line. Free to start."
+          content="Plan TV, radio, streaming and social in one table, with reach and frequency modelled as you edit. Flight it week by week and export to Excel. Free to start."
         />
         <link rel="canonical" href="https://www.halliardmedia.com/" />
         <meta property="og:type" content="website" />
@@ -107,7 +185,7 @@ export function PlanLanding({ path }: { path: '/' | '/plan' }) {
         <meta property="og:title" content="Media Planning Tool and Software, Free to Start | Halliard" />
         <meta
           property="og:description"
-          content="Paste a brief. Halliard drafts the plan with reach modelled in minutes, and you make the calls."
+          content="Paste a brief. Halliard drafts the plan in minutes; you edit it in one table, flight it week by week and see the reach move."
         />
       </Head>
       <LandingHeader href={href} cta="Start planning free" onClick={() => track('header')} />
@@ -147,12 +225,12 @@ export function PlanLanding({ path }: { path: '/' | '/plan' }) {
                     Edit every line
                   </li>
                   <li className="inline-flex items-center gap-2">
-                    <BarChart3 className="h-4 w-4 text-primary" aria-hidden />
-                    Reach &amp; frequency built in
+                    <CalendarRange className="h-4 w-4 text-primary" aria-hidden />
+                    Week-by-week flowchart
                   </li>
                   <li className="inline-flex items-center gap-2">
-                    <MapPin className="h-4 w-4 text-primary" aria-hidden />
-                    Down to the ZIP
+                    <FileSpreadsheet className="h-4 w-4 text-primary" aria-hidden />
+                    Exports to Excel
                   </li>
                 </ul>
               </div>
@@ -200,6 +278,48 @@ export function PlanLanding({ path }: { path: '/' | '/plan' }) {
           </Container>
         </section>
 
+        {/* INSIDE THE PLANNER */}
+        <section className="py-20 sm:py-28" style={SOFT_BAND}>
+          <Container className="max-w-6xl">
+            <SectionHeading
+              eyebrow="Inside the planner"
+              title="The plan, worked the way planners work."
+              body="A table to edit, charts to defend the budget, a flowchart to flight it and a workbook to hand over."
+            />
+            <StepRows
+              steps={PLANNER}
+              numbered={false}
+              onSeen={feature => capture('plan_feature_viewed', { feature })}
+            />
+          </Container>
+        </section>
+
+        {/* THE PLAN TOTAL */}
+        <section className="py-16 sm:py-24">
+          <Container className="max-w-6xl">
+            <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
+              <div>
+                <p className="inline-flex items-center rounded-full bg-tint px-4 py-1.5 text-sm font-medium text-primary">
+                  The plan total
+                </p>
+                <h2 className="mt-5 font-display text-3xl tracking-tight text-slate-900 sm:text-4xl">
+                  One reach number for the whole plan.
+                </h2>
+                <p className="mt-4 text-lg tracking-tight text-slate-700">
+                  Add up each strategy&rsquo;s reach and you count the same people twice. Halliard gives the plan&rsquo;s 1+
+                  reach across every strategy, counting each person once, next to its average frequency, impressions and
+                  blended CPM. It&rsquo;s the number to put in front of the client.
+                </p>
+              </div>
+              <div className="min-w-0">
+                <Frame label="Plan · Total">
+                  <PlanTotalScene />
+                </Frame>
+              </div>
+            </div>
+          </Container>
+        </section>
+
         {/* HOW IT WORKS */}
         <section className="py-20 sm:py-28" style={SOFT_BAND}>
           <Container className="max-w-6xl">
@@ -226,7 +346,7 @@ export function PlanLanding({ path }: { path: '/' | '/plan' }) {
 
         <ClosingCta
           title="Your next plan, drafted in minutes."
-          subtitle="You make the calls. Have us buy it if you want."
+          subtitle="Edit it, flight it, export it. You make the calls."
           cta="Start planning free"
           href={href}
           onClick={() => track('closing')}
