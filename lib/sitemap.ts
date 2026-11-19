@@ -26,6 +26,8 @@ export const SITEMAP_PATHS = [
   '/guide/media-planning-guide',
   '/media-planning-templates',
   '/manifesto/the-independents-agent',
+  '/docs/chatgpt-claude',
+  '/support',
   '/privacy',
   '/terms',
 ]

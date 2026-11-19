@@ -4,7 +4,7 @@ import { Lock } from 'lucide-react'
 import { Container } from '../components/mmm/Container'
 import { HeroBackdrop, LandingHeader, SIGN_UP_URL } from '../components/landing/kit'
 
-const EFFECTIVE_DATE = 'October 20, 2026'
+const EFFECTIVE_DATE = 'November 19, 2026'
 const CONTACT_EMAIL = 'privacy@halliardmedia.com'
 
 function Hero() {
@@ -57,8 +57,9 @@ function Body() {
               <li><strong>Usage data</strong> — pages visited, features used, clicks, session duration, referrer, browser, device, and IP address. Collected via PostHog and standard web logs.</li>
               <li><strong>Marketing attribution</strong> — UTM parameters, Google click IDs (gclid), and ad-platform identifiers when you arrive from a paid campaign.</li>
               <li><strong>Data from connected ad platforms</strong> — campaign settings, creative, and performance data from ad accounts you connect. See Section 4.</li>
+              <li><strong>Requests from AI assistants</strong> — what an assistant such as ChatGPT or Claude sends Halliard when you connect it. See Section 5.</li>
               <li><strong>Communications</strong> — emails, messages, and meeting notes you exchange with us, including any feedback or support requests.</li>
-              <li><strong>Cookies & similar technologies</strong> — used for authentication, analytics, and marketing attribution. See Section 7.</li>
+              <li><strong>Cookies & similar technologies</strong> — used for authentication, analytics, and marketing attribution. See Section 8.</li>
             </ul>
           </Section>
 
@@ -96,19 +97,25 @@ function Body() {
             <p className="mt-3"><strong>Disconnecting and deletion.</strong> You can disconnect at any time in Halliard&apos;s settings, or by removing Halliard from your platform&apos;s business settings (for Meta, Business integrations or Partners). When you disconnect, we delete the access token from our secrets manager and stop reading from the account. To have data read from a connected account deleted, email <a href={`mailto:${CONTACT_EMAIL}`} className="text-primary underline">{CONTACT_EMAIL}</a> with the account name. We will delete it within 30 days and confirm by email. The exception is the activity log of changes we made in your account on your behalf, which we keep as an audit record for as long as your Halliard account exists, or longer where the law requires.</p>
           </Section>
 
-          <Section title="5. Data Retention">
+          <Section id="ai-assistants" title="5. Using Halliard from ChatGPT or Claude">
+            <p>
+              If you connect Halliard to an AI assistant such as ChatGPT or Claude, the assistant sends Halliard what each Halliard tool needs: the text of a brief, a question for a campaign&apos;s agent, a proposed change. We store those as part of your Halliard account, like the same actions in the portal, and record which assistant they came from. We don&apos;t receive or store the rest of your conversation, your assistant&apos;s memory, or your files. The assistant&apos;s provider handles your conversation under its own privacy policy. You can disconnect at any time in the assistant&apos;s settings.
+            </p>
+          </Section>
+
+          <Section title="6. Data Retention">
             <p>
               We retain account and plan data for as long as your account is active, and for a reasonable period afterward to meet legal, tax, and audit obligations. You can request deletion of your account at any time by emailing <a href={`mailto:${CONTACT_EMAIL}`} className="text-primary underline">{CONTACT_EMAIL}</a>. Backup copies may persist for up to 90 days after deletion.
             </p>
           </Section>
 
-          <Section title="6. Security">
+          <Section title="7. Security">
             <p>
               We use industry-standard security practices including TLS in transit, encryption at rest for sensitive fields, access controls, and least-privilege internal access. No system is 100% secure; if you believe your account has been compromised, contact us immediately.
             </p>
           </Section>
 
-          <Section title="7. Cookies and Tracking">
+          <Section title="8. Cookies and Tracking">
             <p>
               We use first-party and third-party cookies for authentication, analytics, and advertising. Specifically:
             </p>
@@ -122,31 +129,31 @@ function Body() {
             </p>
           </Section>
 
-          <Section title="8. Your Rights">
+          <Section title="9. Your Rights">
             <p>
               Depending on your location, you may have rights to access, correct, delete, port, or restrict processing of your personal information. California residents have rights under the CCPA/CPRA, and EU/UK residents have rights under the GDPR/UK GDPR. To exercise these rights, email <a href={`mailto:${CONTACT_EMAIL}`} className="text-primary underline">{CONTACT_EMAIL}</a>. We will respond within the legally required timeframe.
             </p>
           </Section>
 
-          <Section title="9. International Data Transfers">
+          <Section title="10. International Data Transfers">
             <p>
               Halliard is based in the United States, and your information will be processed in the U.S. If you access the Services from outside the U.S., you consent to this transfer. Where required, we use standard contractual clauses or other lawful transfer mechanisms.
             </p>
           </Section>
 
-          <Section title="10. Children's Privacy">
+          <Section title="11. Children's Privacy">
             <p>
               The Services are not directed to children under 16. We do not knowingly collect personal information from children under 16. If you believe we have, contact us and we will delete it.
             </p>
           </Section>
 
-          <Section title="11. Changes to This Policy">
+          <Section title="12. Changes to This Policy">
             <p>
               We may update this Privacy Policy from time to time. Material changes will be announced on this page with an updated effective date, and for significant changes we will notify account holders by email.
             </p>
           </Section>
 
-          <Section title="12. Contact Us">
+          <Section title="13. Contact Us">
             <p>
               Questions or requests? Contact us at <a href={`mailto:${CONTACT_EMAIL}`} className="text-primary underline">{CONTACT_EMAIL}</a>.
             </p>

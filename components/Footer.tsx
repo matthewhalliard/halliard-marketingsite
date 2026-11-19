@@ -48,6 +48,8 @@ const COLUMNS: { title: string; links: { href: string; label: string }[] }[] = [
       { href: '/solutions/in-house', label: 'For in-house teams' },
       { href: '/demo', label: 'Book a demo' },
       { href: 'https://client.halliardmedia.com/sign-in', label: 'Sign in' },
+      { href: '/docs/chatgpt-claude', label: 'ChatGPT and Claude' },
+      { href: '/support', label: 'Support' },
       { href: '/terms', label: 'Terms' },
       { href: '/privacy', label: 'Privacy' },
     ],
