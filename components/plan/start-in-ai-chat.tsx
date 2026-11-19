@@ -72,58 +72,77 @@ export function aiChatUrl(assistant: AiAssistant, prompt: StarterPrompt): string
 }
 
 /**
- * The visitor picks who they are (agency planner by default, the homepage's
- * audience), then an assistant. `onStart` reports the click; the link opens
- * in a new tab so the page stays where it was.
+ * Two buttons, nothing else, until one is clicked: the hero stays uncluttered.
+ * Clicking an assistant opens a short "I'm a..." row underneath; each choice
+ * there is the link that opens the chat, in a new tab, with that visitor's
+ * starter prompt. Clicking the same assistant again closes the row.
+ *
+ * `onOpen` reports the first click and `onStart` the chat actually opened, so
+ * the drop-off between them shows whether the extra question costs starts.
  */
 export function StartInAiChat({
+  onOpen,
   onStart,
   className = '',
 }: {
+  onOpen: (assistant: AiAssistant) => void
   onStart: (assistant: AiAssistant, prompt: StarterPrompt) => void
   className?: string
 }) {
-  const [prompt, setPrompt] = useState<StarterPrompt>('agency')
+  const [assistant, setAssistant] = useState<AiAssistant | null>(null)
+  const chosen = ASSISTANTS.find(a => a.key === assistant)
 
   return (
     <div className={className}>
-      <p className="text-sm font-medium text-slate-700">Rather start in an AI chat? I&rsquo;m a&hellip;</p>
-      <div role="radiogroup" aria-label="I am a" className="mt-2 flex flex-wrap justify-center lg:justify-start gap-2">
-        {(Object.keys(STARTER_PROMPTS) as StarterPrompt[]).map(key => {
-          const selected = key === prompt
+      <p className="text-sm font-medium text-slate-700">Rather start in an AI chat?</p>
+      <div className="mt-2 flex flex-wrap justify-center lg:justify-start gap-3">
+        {ASSISTANTS.map(a => {
+          const open = a.key === assistant
           return (
             <button
-              key={key}
+              key={a.key}
               type="button"
-              role="radio"
-              aria-checked={selected}
-              onClick={() => setPrompt(key)}
+              data-assistant={a.key}
+              aria-expanded={open}
+              aria-controls="ai-chat-roles"
+              onClick={() => {
+                if (open) return setAssistant(null)
+                setAssistant(a.key)
+                onOpen(a.key)
+              }}
               className={
-                'rounded-full px-3 py-1 text-sm ring-1 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary ' +
-                (selected ? 'bg-tint text-primary ring-primary/40 font-medium' : 'text-slate-600 ring-slate-200 hover:ring-slate-300 hover:text-slate-900')
+                'group inline-flex items-center justify-center rounded-full px-4 py-2 text-sm font-semibold ring-1 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary ' +
+                (open
+                  ? 'bg-tint text-slate-900 ring-primary/40'
+                  : 'bg-white text-slate-700 ring-slate-200 hover:text-slate-900 hover:ring-slate-300 active:bg-slate-100')
               }
             >
-              {STARTER_PROMPTS[key].label}
+              <AssistantLogo assistant={a.key} />
+              {a.label}
             </button>
           )
         })}
       </div>
-      <div className="mt-3 flex flex-wrap justify-center lg:justify-start gap-3">
-        {ASSISTANTS.map(a => (
-          <a
-            key={a.key}
-            href={aiChatUrl(a.key, prompt)}
-            target="_blank"
-            rel="noopener noreferrer"
-            data-assistant={a.key}
-            onClick={() => onStart(a.key, prompt)}
-            className="group inline-flex items-center justify-center rounded-full bg-white px-4 py-2 text-sm font-semibold text-slate-700 ring-1 ring-slate-200 hover:text-slate-900 hover:ring-slate-300 active:bg-slate-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-          >
-            <AssistantLogo assistant={a.key} />
-            {a.label}
-          </a>
-        ))}
-      </div>
+      {chosen && (
+        <div id="ai-chat-roles" className="mt-3">
+          <p className="text-sm text-slate-600">I&rsquo;m a&hellip;</p>
+          <div className="mt-2 flex flex-wrap justify-center lg:justify-start gap-2">
+            {(Object.keys(STARTER_PROMPTS) as StarterPrompt[]).map(key => (
+              <a
+                key={key}
+                href={aiChatUrl(chosen.key, key)}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-prompt={key}
+                onClick={() => onStart(chosen.key, key)}
+                className="rounded-full px-3 py-1 text-sm text-slate-700 ring-1 ring-slate-200 hover:text-primary hover:ring-primary/40 hover:bg-tint transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+              >
+                {STARTER_PROMPTS[key].label}
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   )
 }

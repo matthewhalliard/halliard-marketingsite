@@ -222,6 +222,7 @@ export function PlanLanding({ path }: { path: '/' | '/plan' }) {
                 </p>
                 <StartInAiChat
                   className="mt-6"
+                  onOpen={assistant => capture('plan_ai_chat_opened', { assistant, location: 'hero' })}
                   onStart={(assistant, prompt) => capture('plan_ai_chat_started', { assistant, prompt, location: 'hero' })}
                 />
                 <ul className="mt-6 flex flex-wrap justify-center lg:justify-start gap-x-6 gap-y-3 text-sm text-slate-600">
