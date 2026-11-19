@@ -45,6 +45,7 @@ import {
   type Step,
 } from '../../components/landing/kit'
 import { PlanGridHero } from '../../components/plan/plan-grid-hero'
+import { StartInAiChat } from '../../components/plan/start-in-ai-chat'
 import { PLAN_STEPS } from '../../components/plan/steps'
 import {
   ApproveVisual,
@@ -219,6 +220,10 @@ export function PlanLanding({ path }: { path: '/' | '/plan' }) {
                 <p className="mt-4 text-sm text-slate-600">
                   Free. No credit card. Try it on a past brief or a made-up one.
                 </p>
+                <StartInAiChat
+                  className="mt-6"
+                  onStart={(assistant, prompt) => capture('plan_ai_chat_started', { assistant, prompt, location: 'hero' })}
+                />
                 <ul className="mt-6 flex flex-wrap justify-center lg:justify-start gap-x-6 gap-y-3 text-sm text-slate-600">
                   <li className="inline-flex items-center gap-2">
                     <Pencil className="h-4 w-4 text-primary" aria-hidden />
