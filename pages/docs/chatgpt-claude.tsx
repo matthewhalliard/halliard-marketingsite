@@ -98,9 +98,10 @@ function Body() {
 
           <Section id="troubleshooting" title="Troubleshooting">
             <ul className="list-disc pl-6 space-y-2">
-              <li><strong>A tool says you&apos;re not set up for a company.</strong> Finish setup at <a href={PORTAL_URL} className="text-primary underline">client.halliardmedia.com</a>, then try again.</li>
+              <li><strong>A tool says you&apos;re not set up for a company.</strong> Disconnect Halliard and connect again, and finish setting up your company and brand in the sign-in window. You can also finish setup at <a href={PORTAL_URL} className="text-primary underline">client.halliardmedia.com</a>, then try again.</li>
               <li><strong>Drafting seems slow.</strong> Drafting audiences, strategies, or a plan takes a minute or more. Give it time before asking again.</li>
               <li><strong>Something isn&apos;t working after you connected.</strong> Disconnect Halliard in your assistant&apos;s settings, then connect again.</li>
+              <li><strong>Halliard&apos;s tools look out of date in ChatGPT.</strong> After Halliard updates, open ChatGPT&apos;s settings, choose Halliard, and refresh its tools.</li>
               <li><strong>An export link stopped working.</strong> Export links last one hour. Ask for the plan again to get a new link.</li>
             </ul>
             <p className="mt-3">
