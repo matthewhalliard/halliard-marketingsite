@@ -16,7 +16,7 @@ import {
   useLandingAttribution,
   type Step,
 } from '../components/landing/kit'
-import { AuditScene, ConnectScene, PlanScene, PlatformLogo, ReceiptsScene } from '../components/brand/scenes'
+import { AuditScene, ConnectScene, ConnectorsStrip, PlanScene, PlatformLogo, ReceiptsScene } from '../components/brand/scenes'
 
 /**
  * The homepage: Halliard for brands, where Halliard is the agency. It sells
@@ -29,8 +29,8 @@ const STEPS: Step[] = [
   {
     icon: Link2,
     label: 'Connect',
-    title: 'Connect Google Ads. We only read.',
-    body: 'Sign in with Google and pick your account. Nothing in it changes until you approve a plan. No account yet? Skip it: we can run your ads in ours.',
+    title: 'Connect your ad accounts. We only read.',
+    body: 'Sign in to Google Ads and Meta, and to Snapchat, Reddit or Spotify Ads if you advertise there too. Nothing changes until you approve a plan. No accounts yet? Skip it: we can run your ads in ours.',
     points: [
       { icon: ShieldCheck, text: 'Read-only until you approve' },
       { icon: CalendarCheck, text: 'Takes about a minute' },
@@ -166,6 +166,8 @@ export default function BrandHome() {
         <section className="py-20 sm:py-28" style={SOFT_BAND}>
           <Container className="max-w-6xl">
             <SectionHeading eyebrow="How it works" title="From a free audit to ads that run, with you in charge." />
+            <p className="mt-8 text-center text-sm text-slate-500">Connect by signing in</p>
+            <ConnectorsStrip className="mt-3" />
             <StepRows steps={STEPS} />
           </Container>
         </section>

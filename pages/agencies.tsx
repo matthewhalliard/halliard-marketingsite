@@ -2,6 +2,7 @@ import React from 'react'
 import { BarChart3, Building2, FileSpreadsheet, LayoutGrid, Percent, ScrollText } from 'lucide-react'
 import { Accent } from '../components/landing/kit'
 import { LisaQuote } from '../components/plan/proof'
+import { ConnectorsStrip } from '../components/brand/scenes'
 import { AudiencePage, type Audience } from '../components/solutions/AudiencePage'
 
 // Halliard for agencies, the top-bar page now that the home sells to brands.
@@ -54,7 +55,13 @@ const DATA: Audience = {
     { what: 'Brand study', price: 'From $5,500' },
   ],
   priceNote: 'Buying and measurement are client costs, so you can bill them through.',
-  proof: <LisaQuote />,
+  proof: (
+    <>
+      <p className="mb-3 text-center text-sm text-slate-500">Your clients connect their accounts by signing in</p>
+      <ConnectorsStrip className="mb-12" />
+      <LisaQuote />
+    </>
+  ),
   faq: [
     {
       q: 'Halliard runs ads for brands too. Will you compete with us?',

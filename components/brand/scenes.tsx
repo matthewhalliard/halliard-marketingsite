@@ -76,7 +76,7 @@ function useCount(target: number, ms = 900) {
   return value
 }
 
-type LogoName = 'google' | 'meta' | 'facebook' | 'instagram'
+type LogoName = 'google' | 'googleads' | 'meta' | 'facebook' | 'instagram' | 'snapchat' | 'reddit' | 'spotify'
 
 /** Google's mark is drawn here; Meta's family come from the plan grid's icons. */
 export function PlatformLogo({ name, size = 18 }: { name: LogoName; size?: number }) {
@@ -104,46 +104,75 @@ export function PlatformLogo({ name, size = 18 }: { name: LogoName; size?: numbe
 
 /* ---------------------------------------------------------------- connect */
 
+/**
+ * Every platform a client can connect by signing in, as the portal's connect
+ * wall offers them. Google and Meta are where Halliard runs a brand's ads;
+ * Snapchat, Reddit and Spotify connect read-only to start.
+ */
+export const CONNECTORS: { name: string; logo: LogoName; readOnly?: boolean }[] = [
+  { name: 'Google Ads', logo: 'googleads' },
+  { name: 'Meta', logo: 'meta' },
+  { name: 'Snapchat', logo: 'snapchat', readOnly: true },
+  { name: 'Reddit', logo: 'reddit', readOnly: true },
+  { name: 'Spotify Ads', logo: 'spotify', readOnly: true },
+]
+
 export function ConnectScene() {
-  // 0 idle · 1 Google signing in · 2 Google connected · 3 reading · 4 held
-  const { ref, step } = useSteps(5, { every: 1100, hold: 3200 })
-  const google = step === 0 ? 'idle' : step === 1 ? 'busy' : 'done'
+  // 0 idle · 1 Google signing in · 2 Google connected · 3 Meta signing in · 4 Meta connected · 5 reading · 6 held
+  const { ref, step } = useSteps(7, { every: 1000, hold: 3200 })
+  const state = (i: number) => {
+    if (i === 0) return step === 0 ? 'idle' : step === 1 ? 'busy' : 'done'
+    if (i === 1) return step < 3 ? 'idle' : step === 3 ? 'busy' : 'done'
+    return 'idle'
+  }
   return (
-    <div ref={ref} className="flex flex-col gap-2.5 text-left">
-      {(
-        [
-          { name: 'Google Ads', logo: 'google' as const, state: google },
-          { name: 'Meta', logo: 'meta' as const, state: 'idle' as const },
-        ] as const
-      ).map(p => (
-        <div
-          key={p.name}
-          className={`flex items-center justify-between rounded-lg border px-3 py-3 transition-colors duration-500 ${
-            p.state === 'done' ? 'border-primary/40 bg-tint/40' : 'border-slate-200 bg-white'
-          }`}
-        >
-          <span className="flex items-center gap-2.5">
-            <PlatformLogo name={p.logo} size={22} />
-            <span className="text-[13px] font-medium text-slate-900">{p.name}</span>
-          </span>
-          {p.state === 'done' ? (
-            <span className="inline-flex items-center gap-1.5 text-[12px] font-medium text-primary">
-              <Check className="h-3.5 w-3.5" aria-hidden /> Connected · read-only
-            </span>
-          ) : p.state === 'busy' ? (
-            <span className="inline-flex items-center gap-1.5 text-[12px] text-slate-500">
-              <Loader2 className="h-3.5 w-3.5 animate-spin" aria-hidden /> Signing in with Google
-            </span>
-          ) : (
-            <span className="rounded-full border border-slate-200 px-2.5 py-0.5 text-[12px] text-slate-600">Sign in</span>
-          )}
-        </div>
-      ))}
-      <div className={`flex items-center gap-2 rounded-lg bg-slate-50 px-3 py-2 text-[12px] text-slate-600 transition-opacity duration-500 ${step >= 3 ? 'opacity-100' : 'opacity-0'}`}>
+    <div ref={ref} className="flex flex-col gap-2 text-left">
+      <div className="grid grid-cols-1 gap-2">
+        {CONNECTORS.map((p, i) => {
+          const st = state(i)
+          return (
+            <div
+              key={p.name}
+              className={`flex items-center justify-between gap-2 rounded-lg border px-3 py-2.5 transition-colors duration-500 ${
+                st === 'done' ? 'border-primary/40 bg-tint/40' : 'border-slate-200 bg-white'
+              }`}
+            >
+              <span className="flex min-w-0 items-center gap-2">
+                <PlatformLogo name={p.logo} size={20} />
+                <span className="truncate text-[13px] font-medium text-slate-900">{p.name}</span>
+              </span>
+              {st === 'done' ? (
+                <span className="inline-flex shrink-0 items-center gap-1 text-[11px] font-medium text-primary">
+                  <Check className="h-3.5 w-3.5" aria-hidden /> Connected
+                </span>
+              ) : st === 'busy' ? (
+                <Loader2 className="h-3.5 w-3.5 shrink-0 animate-spin text-slate-500" aria-hidden />
+              ) : (
+                <span className="shrink-0 text-[11px] text-slate-500">{p.readOnly ? 'Read-only' : 'Sign in'}</span>
+              )}
+            </div>
+          )
+        })}
+      </div>
+      <div className={`flex items-center gap-2 rounded-lg bg-slate-50 px-3 py-2 text-[12px] text-slate-600 transition-opacity duration-500 ${step >= 5 ? 'opacity-100' : 'opacity-0'}`}>
         <Lock className="h-3.5 w-3.5 text-primary" aria-hidden />
         Reading the last 90 days. Nothing changes without your approval.
       </div>
     </div>
+  )
+}
+
+/** The platforms a client connects by signing in, as a strip of logos. */
+export function ConnectorsStrip({ className = '' }: { className?: string }) {
+  return (
+    <ul className={`flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-sm text-slate-700 ${className}`}>
+      {CONNECTORS.map(c => (
+        <li key={c.name} className="inline-flex items-center gap-2 font-medium">
+          <PlatformLogo name={c.logo} size={22} />
+          {c.name}
+        </li>
+      ))}
+    </ul>
   )
 }
 
