@@ -195,7 +195,7 @@ const NAV: { label: string; href?: string; items?: { href: string; label: string
       { href: '/media-planning-templates', label: 'Media plan templates' },
       { href: '/guide/media-planning-guide', label: 'Media planning guide' },
       { href: '/manifesto/the-independents-agent', label: 'The independents\u2019 agent' },
-      { href: '/docs/chatgpt-claude', label: 'Use Halliard in ChatGPT or Claude' },
+      { href: '/docs/chatgpt-claude', label: 'Use Halliard in Claude' },
     ],
   },
 ]
