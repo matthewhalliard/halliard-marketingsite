@@ -465,7 +465,7 @@ export default function BuyingDeskPage() {
                 </summary>
                 <p className="mt-3 text-slate-600">
                   Yes. If you have buyers and want them to plan faster, see{' '}
-                  <Link href="/" className="font-medium text-primary hover:underline">
+                  <Link href="/planning" className="font-medium text-primary hover:underline">
                     Halliard for planners
                   </Link>
                   .

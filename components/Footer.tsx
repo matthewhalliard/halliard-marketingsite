@@ -6,9 +6,19 @@ import { Container } from './mmm/Container'
 // one click from every landing page.
 const COLUMNS: { title: string; links: { href: string; label: string }[] }[] = [
   {
+    title: 'For brands',
+    links: [
+      { href: '/', label: 'We run your ads' },
+      { href: '/audit', label: 'Free Google Ads audit' },
+      { href: '/compare/mai', label: 'Halliard vs MAI' },
+      { href: '/pricing', label: 'Pricing' },
+    ],
+  },
+  {
     title: 'Planning tool',
     links: [
-      { href: '/', label: 'Overview' },
+      { href: '/agencies', label: 'For agencies' },
+      { href: '/planning', label: 'Overview' },
       { href: '/how-it-works', label: 'How it works' },
       { href: '/sample', label: 'Sample plan' },
       { href: '/pricing', label: 'Pricing' },
@@ -60,7 +70,7 @@ export default function Footer() {
   return (
     <footer className="border-t border-slate-200">
       <Container className="py-12">
-        <nav aria-label="Site" className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:grid-cols-5">
+        <nav aria-label="Site" className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:grid-cols-6">
           {COLUMNS.map(col => (
             <div key={col.title}>
               <p className="text-sm font-medium text-slate-900">{col.title}</p>

@@ -162,11 +162,12 @@ const PLANNER: Step[] = [
 ]
 
 /**
- * The planning landing page. It is also the homepage: `/` renders it with its
- * own path, keeping the `plan_*` event names, so search ads on /plan and the
- * homepage's visitors read as one page.
+ * The planning landing page, at /planning (it was the homepage until the home
+ * became the brand page). /plan renders it too, for older ads, with /planning
+ * as its canonical; both keep the `plan_*` event names, so the planning ads'
+ * visitors read as one page.
  */
-export function PlanLanding({ path }: { path: '/' | '/plan' }) {
+export function PlanLanding({ path }: { path: '/planning' | '/plan' }) {
   const { utms, track, capture, href } = useLandingAttribution(path, { event: 'plan' })
   const heroKey = heroFor(utms)
 
@@ -180,9 +181,9 @@ export function PlanLanding({ path }: { path: '/' | '/plan' }) {
           name="description"
           content="Plan TV, radio, streaming and social in one table, with reach and frequency modelled as you edit. Flight it week by week and export to Excel. Free to start."
         />
-        <link rel="canonical" href="https://www.halliardmedia.com/" />
+        <link rel="canonical" href="https://www.halliardmedia.com/planning" />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://www.halliardmedia.com/" />
+        <meta property="og:url" content="https://www.halliardmedia.com/planning" />
         <meta property="og:title" content="Media Planning Tool and Software, Free to Start | Halliard" />
         <meta
           property="og:description"

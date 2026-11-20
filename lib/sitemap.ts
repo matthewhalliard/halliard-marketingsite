@@ -8,6 +8,10 @@ export const SITE_URL = 'https://www.halliardmedia.com'
 
 export const SITEMAP_PATHS = [
   '/',
+  '/planning',
+  '/audit',
+  '/agencies',
+  '/compare/mai',
   '/how-it-works',
   '/sample',
   '/pricing',
