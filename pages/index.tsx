@@ -19,7 +19,7 @@ import {
 import { AuditScene, ConnectScene, ConnectorsStrip, PlanScene, PlatformLogo, ReceiptsScene } from '../components/brand/scenes'
 
 /**
- * The homepage: Halliard for brands, where Halliard is the agency. It sells
+ * The homepage: Halliard for brands, which runs their Google and Meta ads. It sells
  * one outcome, the ads taken off the brand's plate with every dollar
  * accounted for, and starts with the free Google Ads audit. The planning tool
  * that was the homepage is at /planning; agencies have /agencies.
@@ -174,7 +174,7 @@ export default function BrandHome() {
 
         <section className="py-16 sm:py-24">
           <Container className="max-w-5xl">
-            <SectionHeading eyebrow="Why brands switch" title="An agency that shows its work." />
+            <SectionHeading eyebrow="Why brands switch" title="Your ads run for you, with the work shown." />
             <ul className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-3">
               {WHY.map(w => (
                 <li key={w.title} className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-900/5">
