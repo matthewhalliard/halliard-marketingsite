@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-// "Start in ChatGPT / Claude": a cheap test of whether visitors want to start
+// "Start in Claude" (ChatGPT is off until Halliard is listed there): a cheap test of whether visitors want to start
 // planning inside an AI chat. Each button opens a new chat with a starter
 // prompt already typed. Until Halliard has its own connector the chat can only
 // read this public site, so every prompt asks for a rough draft and ends by
@@ -62,7 +62,6 @@ function AssistantLogo({ assistant }: { assistant: AiAssistant }) {
 }
 
 const ASSISTANTS: { key: AiAssistant; label: string; url: (q: string) => string }[] = [
-  { key: 'chatgpt', label: 'Start in ChatGPT', url: q => `https://chatgpt.com/?q=${encodeURIComponent(q)}` },
   { key: 'claude', label: 'Start in Claude', url: q => `https://claude.ai/new?q=${encodeURIComponent(q)}` },
 ]
 

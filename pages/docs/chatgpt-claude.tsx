@@ -4,7 +4,7 @@ import { BookOpen } from 'lucide-react'
 import { Container } from '../../components/mmm/Container'
 import { HeroBackdrop, LandingHeader, SIGN_UP_URL } from '../../components/landing/kit'
 
-// Public documentation for Halliard's connector in the Claude and ChatGPT
+// Public documentation for Halliard's connector in the Claude (and, once listed, ChatGPT)
 // directories. Keep pricing and "free" claims off this page, and say "market"
 // rather than naming audience data vendors.
 const SERVER_URL = 'https://client.halliardmedia.com/mcp'
@@ -29,10 +29,10 @@ function Hero() {
             Docs
           </p>
           <h1 className="font-display text-5xl font-medium tracking-tight text-slate-900 sm:text-6xl">
-            Halliard in ChatGPT and Claude
+            Halliard in Claude
           </h1>
           <p className="mt-4 text-lg text-slate-600">
-            Plan paid media and check on live campaigns from your AI assistant.
+            Plan paid media and check on live campaigns from Claude.
           </p>
         </div>
       </Container>
@@ -57,7 +57,7 @@ function Body() {
       <Container className="">
         <div className="mx-auto max-w-3xl rounded-2xl border border-tint bg-white p-6 shadow-lg shadow-primary/5 sm:p-12">
           <Section id="what-it-is" title="What it is">
-            <p>Halliard is a media planning and buying service. Connected to ChatGPT or Claude, it lets you:</p>
+            <p>Halliard is a media planning and buying service. Connected to Claude, it lets you:</p>
             <ul className="list-disc pl-6 mt-3 space-y-2">
               <li><strong>Plan paid media from a brief.</strong> Halliard drafts audiences and strategies, simulates a reach and frequency estimate from market audience data, builds a media plan, and exports it to Excel.</li>
               <li><strong>Read live campaigns.</strong> See settings and results for your live Meta and Google campaigns.</li>
@@ -70,11 +70,10 @@ function Body() {
             <p>The server URL is:</p>
             <pre className="mt-3 overflow-x-auto rounded-lg bg-slate-50 px-4 py-3 text-sm text-slate-900"><code>{SERVER_URL}</code></pre>
             <ul className="list-disc pl-6 mt-3 space-y-2">
-              <li><strong>Claude:</strong> open Settings, then Connectors, then Add custom connector, and paste the URL. Or install Halliard from the connectors directory once it is listed.</li>
-              <li><strong>ChatGPT:</strong> open Plugins and add Halliard with the URL. Or install Halliard from the directory once it is listed.</li>
+              <li>In Claude, open Settings, then Connectors, then Add custom connector, and paste the URL.</li>
             </ul>
             <p className="mt-3">
-              Connecting opens Halliard&apos;s sign-in. If you are new, you can sign up there. You name your company and first brand, and accept the terms. Then you return to your assistant.
+              Connecting opens Halliard&apos;s sign-in. If you are new, you can sign up there. You name your company and first brand, and accept the terms. Then you return to Claude.
             </p>
           </Section>
 
@@ -92,7 +91,7 @@ function Body() {
 
           <Section id="privacy" title="Privacy">
             <p>
-              Your assistant sends Halliard only what each Halliard tool needs, such as the text of a brief, a question for a campaign&apos;s agent, or a proposed change. We store those in your Halliard account and note which assistant they came from. We don&apos;t receive the rest of your conversation, your assistant&apos;s memory, or your files. Read the full <Link href="/privacy#ai-assistants" className="text-primary underline">Privacy Policy</Link>.
+              Claude sends Halliard only what each Halliard tool needs, such as the text of a brief, a question for a campaign&apos;s agent, or a proposed change. We store those in your Halliard account and note that they came from Claude. We don&apos;t receive the rest of your conversation, Claude&apos;s memory, or your files. Read the full <Link href="/privacy#ai-assistants" className="text-primary underline">Privacy Policy</Link>.
             </p>
           </Section>
 
@@ -100,7 +99,7 @@ function Body() {
             <ul className="list-disc pl-6 space-y-2">
               <li><strong>A tool says you&apos;re not set up for a company.</strong> Finish setup at <a href={PORTAL_URL} className="text-primary underline">client.halliardmedia.com</a>, then try again.</li>
               <li><strong>Drafting seems slow.</strong> Drafting audiences, strategies, or a plan takes a minute or more. Give it time before asking again.</li>
-              <li><strong>Something isn&apos;t working after you connected.</strong> Disconnect Halliard in your assistant&apos;s settings, then connect again.</li>
+              <li><strong>Something isn&apos;t working after you connected.</strong> Disconnect Halliard in Claude&apos;s settings, then connect again.</li>
               <li><strong>An export link stopped working.</strong> Export links last one hour. Ask for the plan again to get a new link.</li>
             </ul>
             <p className="mt-3">
@@ -117,8 +116,8 @@ function DocsPage() {
   return (
     <>
       <Head>
-        <title>Halliard in ChatGPT and Claude — Halliard</title>
-        <meta name="description" content="Connect Halliard to ChatGPT or Claude to plan paid media from a brief, read live Meta and Google campaigns, and propose changes for the Halliard team to approve." />
+        <title>Halliard in Claude — Halliard</title>
+        <meta name="description" content="Connect Halliard to Claude to plan paid media from a brief, read live Meta and Google campaigns, and propose changes for the Halliard team to approve." />
         <link rel="canonical" href="https://www.halliardmedia.com/docs/chatgpt-claude" />
       </Head>
       <LandingHeader href={SIGN_UP_URL} cta="Get started" />
