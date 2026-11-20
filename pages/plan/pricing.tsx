@@ -132,8 +132,76 @@ function Checklist({ items }: { items: string[] }) {
 }
 
 /** Served at /pricing, and at /plan/pricing for the ads and sitelinks that link there. */
+/** Brand plans: a flat monthly fee by ad budget. The prices Halliard3's billing charges. */
+const BRAND_PLANS: { name: string; budget: string; price: string; includes: string }[] = [
+  { name: 'Free', budget: 'Any', price: '$0', includes: 'Connect your accounts, the Google Ads audit and a drafted plan' },
+  { name: 'Run it for me', budget: 'Under $2,000 a month', price: '$149 a month', includes: 'We run Google Search and Meta; you approve the plan' },
+  { name: 'Grow', budget: '$2,000 to $10,000', price: '$399 a month', includes: 'The same service, priced for the budget' },
+  { name: 'Scale up', budget: '$10,000 to $30,000', price: '$999 a month', includes: 'The same service, priced for the budget' },
+  { name: 'Scale', budget: '$30,000 and up', price: 'Talk to us', includes: 'An agreed fee, plus measurement projects' },
+]
+
+type PricingTab = 'brands' | 'agencies'
+
+/** The sign-up link with the tab's track, so a brand that switched tabs signs up as one. */
+function withTrack(href: string, track: string): string {
+  const [base, query = ''] = href.split('?')
+  const params = new URLSearchParams(query)
+  params.set('track', track)
+  return `${base}?${params.toString()}`
+}
+
+function BrandPlans({ href, onClick }: { href: string; onClick: () => void }) {
+  return (
+    <section className="pb-16 sm:pb-24">
+      <Container className="max-w-4xl">
+        <div className="overflow-x-auto rounded-2xl bg-white shadow-sm ring-1 ring-slate-900/5">
+          <table className="w-full min-w-[560px] text-left text-sm">
+            <thead>
+              <tr className="border-b border-slate-100 text-xs uppercase tracking-wider text-slate-500">
+                <th className="px-5 py-3 font-medium">Plan</th>
+                <th className="px-5 py-3 font-medium">Monthly ad budget</th>
+                <th className="px-5 py-3 font-medium">Price</th>
+                <th className="px-5 py-3 font-medium">What&rsquo;s included</th>
+              </tr>
+            </thead>
+            <tbody>
+              {BRAND_PLANS.map(p => (
+                <tr key={p.name} className="border-b border-slate-100 last:border-0">
+                  <td className="px-5 py-4 font-semibold text-slate-900">{p.name}</td>
+                  <td className="px-5 py-4 text-slate-600">{p.budget}</td>
+                  <td className="px-5 py-4 font-display text-lg text-slate-900">{p.price}</td>
+                  <td className="px-5 py-4 text-slate-600">{p.includes}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p className="mt-5 text-center text-sm text-slate-600">
+          Flat fee, never a cut of your ad spend. Your ad budget goes to Google and Meta at cost. Monthly; cancel any time.
+        </p>
+        <div className="mt-8 flex justify-center">
+          <Button href={href} color="blue" className="px-6 py-3 text-base" onClick={onClick}>
+            Get your free audit
+            <ArrowRight className="ml-2 h-4 w-4" aria-hidden />
+          </Button>
+        </div>
+      </Container>
+    </section>
+  )
+}
+
 export function PricingLanding({ path }: { path: '/pricing' | '/plan/pricing' }) {
-  const { track, href } = useLandingAttribution(path, { event: 'plan_pricing' })
+  const { track, href: signUp, signupTrack } = useLandingAttribution(path, { event: 'plan_pricing' })
+  // Opens on the visitor's track: brands from the brand pages, agencies otherwise.
+  // A link to #buying-fee is about agency buying, so it opens there.
+  const [tab, setTab] = React.useState<PricingTab>('agencies')
+  React.useEffect(() => {
+    if (window.location.hash === '#buying-fee') return
+    if (signupTrack === 'brand') setTab('brands')
+  }, [signupTrack])
+  const brands = tab === 'brands'
+  const href = withTrack(signUp, brands ? 'brand' : signupTrack && signupTrack !== 'brand' ? signupTrack : 'planning')
   return (
     <>
       <Head>
@@ -141,10 +209,10 @@ export function PricingLanding({ path }: { path: '/pricing' | '/plan/pricing' })
         <link rel="canonical" href="https://www.halliardmedia.com/pricing" />
         <meta
           name="description"
-          content="Planning is free on your own, or $13,000 a year across an agency. Buying is a fee per campaign. Brand studies from $5,500, mix models $25,000."
+          content="Brands: Google and Meta ads run for you from $149 a month, never a cut of spend. Agencies: planning free on your own, or $13,000 a year; buying a fee per campaign."
         />
       </Head>
-      <LandingHeader href={href} cta="Start planning free" onClick={() => track('header')} />
+      <LandingHeader href={href} cta={brands ? 'Get your free audit' : 'Start planning free'} onClick={() => track('header')} />
       <main>
         {/* HERO */}
         <section className="relative">
@@ -155,17 +223,48 @@ export function PricingLanding({ path }: { path: '/pricing' | '/plan/pricing' })
                 <BadgeDollarSign className="h-4 w-4" aria-hidden />
                 Pricing
               </p>
-              <h1 className="font-display text-4xl font-medium tracking-tight text-slate-900 sm:text-6xl">
-                Plan free. <Accent>Pay when it runs.</Accent>
-              </h1>
-              <p className="mx-auto mt-6 max-w-2xl text-lg tracking-tight text-slate-700">
-                Planning is free for any team planning on its own. Buying and measurement are client costs: you pay per
-                campaign we buy or per study we run, and you can bill it through.
-              </p>
+              <div role="tablist" aria-label="Pricing for" className="mb-8 inline-flex rounded-full bg-white p-1 shadow-sm ring-1 ring-slate-900/5">
+                {(['brands', 'agencies'] as const).map(t => (
+                  <button
+                    key={t}
+                    type="button"
+                    role="tab"
+                    aria-selected={tab === t}
+                    onClick={() => setTab(t)}
+                    className={`rounded-full px-5 py-2 text-sm font-medium ${tab === t ? 'bg-primary text-white' : 'text-slate-700 hover:text-slate-900'}`}
+                  >
+                    {t === 'brands' ? 'For brands' : 'For agencies and planners'}
+                  </button>
+                ))}
+              </div>
+              {brands ? (
+                <>
+                  <h1 className="font-display text-4xl font-medium tracking-tight text-slate-900 sm:text-6xl">
+                    One flat price. <Accent>Never a cut.</Accent>
+                  </h1>
+                  <p className="mx-auto mt-6 max-w-2xl text-lg tracking-tight text-slate-700">
+                    We run your Google and Meta ads for a flat monthly fee set by your ad budget. Start with a free audit and a
+                    drafted plan.
+                  </p>
+                </>
+              ) : (
+                <>
+                  <h1 className="font-display text-4xl font-medium tracking-tight text-slate-900 sm:text-6xl">
+                    Plan free. <Accent>Pay when it runs.</Accent>
+                  </h1>
+                  <p className="mx-auto mt-6 max-w-2xl text-lg tracking-tight text-slate-700">
+                    Planning is free for any team planning on its own. Buying and measurement are client costs: you pay per
+                    campaign we buy or per study we run, and you can bill it through.
+                  </p>
+                </>
+              )}
             </div>
           </Container>
         </section>
 
+        {brands ? <BrandPlans href={href} onClick={() => track('brand_plans')} /> : null}
+        {brands ? null : (
+        <>
         {/* THE THREE PRICES */}
         <section className="pb-16 sm:pb-24">
           <Container className="max-w-6xl">
@@ -289,14 +388,27 @@ export function PricingLanding({ path }: { path: '/pricing' | '/plan/pricing' })
             <LisaQuote />
           </Container>
         </section>
+        </>
+        )}
 
-        <ClosingCta
-          title="Send your first brief to Halliard."
-          subtitle="Plan it free. Have us buy or measure it when you're ready."
-          cta="Start planning free"
-          href={href}
-          onClick={() => track('closing')}
-        />
+        {brands ? (
+          <ClosingCta
+            title="See what your ads wasted."
+            subtitle="Then let us fix it."
+            cta="Get your free audit"
+            href={href}
+            onClick={() => track('closing')}
+            note="Read-only. No card."
+          />
+        ) : (
+          <ClosingCta
+            title="Send your first brief to Halliard."
+            subtitle="Plan it free. Have us buy or measure it when you're ready."
+            cta="Start planning free"
+            href={href}
+            onClick={() => track('closing')}
+          />
+        )}
       </main>
     </>
   )

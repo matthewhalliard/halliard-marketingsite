@@ -28,6 +28,8 @@ export interface Comparison {
   faq: { q: string; a: string }[]
   sources: { label: string; href: string }[]
   checked: string
+  /** The buttons' label, when the page isn't selling the planning tool. */
+  cta?: string
 }
 
 export function ComparePage({ data }: { data: Comparison }) {
@@ -56,7 +58,7 @@ export function ComparePage({ data }: { data: Comparison }) {
         <meta property="og:url" content={url} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       </Head>
-      <LandingHeader href={href} cta="Start planning free" onClick={() => track('header')} />
+      <LandingHeader href={href} cta={data.cta ?? 'Start planning free'} onClick={() => track('header')} />
       <main>
         <PixelViewContent name={`compare-${data.slug}`} category="comparison" />
 
@@ -72,7 +74,7 @@ export function ComparePage({ data }: { data: Comparison }) {
               <p className="mx-auto mt-6 max-w-2xl text-lg tracking-tight text-slate-700">{data.intro}</p>
               <div className="mt-8 flex justify-center">
                 <Button href={href} color="blue" className="px-6 py-3 text-base" onClick={() => track('hero')}>
-                  Start planning free
+                  {data.cta ?? 'Start planning free'}
                   <ArrowRight className="ml-2 h-4 w-4" aria-hidden />
                 </Button>
               </div>
@@ -153,7 +155,7 @@ export function ComparePage({ data }: { data: Comparison }) {
         <ClosingCta
           title="Try it on a brief you already have."
           subtitle="See the plan before you decide."
-          cta="Start planning free"
+          cta={data.cta ?? 'Start planning free'}
           href={href}
           onClick={() => track('closing')}
         />

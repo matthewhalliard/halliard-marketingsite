@@ -30,6 +30,47 @@ export const SOFT_BAND: React.CSSProperties = {
 }
 
 const ATTRIBUTION_KEY = 'halliard_landing_attribution'
+const TRACK_KEY = 'halliard_track'
+
+/**
+ * Which way a visitor is headed, carried to sign-up as `track` so the portal's
+ * onboarding can pick their answer in advance (Halliard3's lib/signup-intent.ts):
+ * `brand` for the pages that sell running the ads, `agency` and `inhouse` for
+ * the two audience pages, `planning` for the rest of the planning, buying and
+ * measurement pages. Shared pages (pricing, demo, guides, templates, support,
+ * docs) have none of their own and carry the last one seen this session.
+ */
+export type Track = 'brand' | 'planning' | 'agency' | 'inhouse'
+
+const BRAND_PAGES = ['/', '/audit', '/compare/mai']
+const SHARED_PAGES = ['/pricing', '/demo', '/media-planning-templates', '/support']
+const SHARED_PREFIXES = ['/guide/', '/docs/']
+
+export function trackForPage(page: string): Track | null {
+  if (BRAND_PAGES.includes(page)) return 'brand'
+  if (page === '/agencies' || page === '/solutions/independent-agencies') return 'agency'
+  if (page === '/solutions/in-house') return 'inhouse'
+  if (SHARED_PAGES.includes(page) || SHARED_PREFIXES.some(p => page.startsWith(p))) return null
+  return 'planning'
+}
+
+/** The page's own track, or the last one this session saw; remembered for the shared pages after it. */
+export function useTrack(page: string): Track | null {
+  const own = trackForPage(page)
+  const [track, setTrack] = useState<Track | null>(own)
+  useEffect(() => {
+    try {
+      if (own) sessionStorage.setItem(TRACK_KEY, own)
+      else {
+        const seen = sessionStorage.getItem(TRACK_KEY)
+        if (seen === 'brand' || seen === 'planning' || seen === 'agency' || seen === 'inhouse') setTrack(seen)
+      }
+    } catch {
+      // No storage (private windows): the page's own track, or none.
+    }
+  }, [own])
+  return track
+}
 
 /** The page's PostHog instance (Halliard3, started in _document), if it has loaded. */
 function posthogs(): any[] {
@@ -50,6 +91,7 @@ export function useLandingAttribution(
 ) {
   const utmRef = useRef<Record<string, string>>({})
   const [utms, setUtms] = useState<Record<string, string>>({})
+  const signupTrack = useTrack(page)
   const event = eventName ?? page.replace(/^\//, '').replace(/[^a-z0-9]+/gi, '_')
 
   useEffect(() => {
@@ -106,55 +148,103 @@ export function useLandingAttribution(
   // `from` names the landing page (plan, buying-desk), so sign-up can say what
   // that page promised even when the visit carries no UTMs.
   const from = page.split('/')[1] || 'home'
-  const qs = new URLSearchParams({ ...utms, from }).toString()
-  return { utms, track, capture, href: `${SIGN_UP_URL}?${qs}` }
+  const qs = new URLSearchParams({ ...utms, from, ...(signupTrack ? { track: signupTrack } : {}) }).toString()
+  return { utms, track, capture, href: `${SIGN_UP_URL}?${qs}`, signupTrack }
 }
 
 /** The site's sections, the same in every page's header. */
 const NAV: { label: string; href?: string; items?: { href: string; label: string }[] }[] = [
   {
-    label: 'Plan',
+    label: 'Product',
     items: [
-      { href: '/', label: 'Planning tool' },
+      { href: '/', label: 'We run your ads' },
+      { href: '/audit', label: 'Free Google Ads audit' },
+      { href: '/pricing', label: 'Plans for brands' },
+    ],
+  },
+  {
+    label: 'For agencies',
+    items: [
+      { href: '/agencies', label: 'Halliard for agencies' },
+      { href: '/planning', label: 'Planning tool' },
       { href: '/how-it-works', label: 'How planning works' },
-      { href: '/plan/import-audience', label: 'Bring your own audience' },
-      { href: '/sample', label: 'Sample media plan' },
-      { href: '/media-planning-templates', label: 'Media plan templates' },
-      { href: '/guide/media-planning-guide', label: 'Media planning guide' },
-    ],
-  },
-  {
-    label: 'Buy and run',
-    items: [
       { href: '/buying-desk', label: 'Buying desk' },
-      { href: '/buying-desk/how-it-works', label: 'How it works, and where you approve' },
-      { href: '/buying-desk/running', label: 'After launch' },
-    ],
-  },
-  {
-    label: 'Measure',
-    items: [
+      { href: '/buying-desk/how-it-works', label: 'How buying works, and where you approve' },
       { href: '/mmm', label: 'Marketing mix modeling' },
       { href: '/brand-studies', label: 'Brand studies' },
       { href: '/incrementality-testing', label: 'Incrementality testing' },
-    ],
-  },
-  {
-    label: 'Who it\u2019s for',
-    items: [
       { href: '/solutions/independent-agencies', label: 'Independent agencies' },
       { href: '/solutions/in-house', label: 'In-house teams' },
-      { href: '/compare/bionic', label: 'Halliard vs Bionic' },
-      { href: '/compare/camphouse', label: 'Halliard vs Camphouse' },
-      { href: '/compare/nielsen-media-impact', label: 'Nielsen Media Impact alternative' },
-      { href: '/manifesto/the-independents-agent', label: 'The independents\u2019 agent' },
     ],
   },
   { label: 'Pricing', href: '/pricing' },
+  {
+    label: 'Compare',
+    items: [
+      { href: '/compare/mai', label: 'Halliard vs MAI' },
+      { href: '/compare/bionic', label: 'Halliard vs Bionic' },
+      { href: '/compare/camphouse', label: 'Halliard vs Camphouse' },
+      { href: '/compare/nielsen-media-impact', label: 'Reach planning alternative' },
+    ],
+  },
+  {
+    label: 'Resources',
+    items: [
+      { href: '/sample', label: 'Sample media plan' },
+      { href: '/plan/import-audience', label: 'Bring your own audience' },
+      { href: '/media-planning-templates', label: 'Media plan templates' },
+      { href: '/guide/media-planning-guide', label: 'Media planning guide' },
+      { href: '/manifesto/the-independents-agent', label: 'The independents\u2019 agent' },
+      { href: '/docs/chatgpt-claude', label: 'Use Halliard in ChatGPT or Claude' },
+    ],
+  },
 ]
 
+/**
+ * The line under the header that sends a visitor on the wrong track to the
+ * right one: brand pages point planners at the planning tool, planning pages
+ * point brands at having their ads run.
+ */
+function CrossTrackBar({ track }: { track: Track | null }) {
+  if (!track || track === 'agency') return null
+  const brand = track === 'brand'
+  return (
+    <div className="border-t border-tint/40 bg-tint/30 text-center text-sm text-slate-700">
+      <Container className="py-2">
+        {brand ? (
+          <>
+            Agency or in-house team?{' '}
+            <Link href="/planning" className="font-medium text-primary hover:underline">
+              See the planning tool &rarr;
+            </Link>
+          </>
+        ) : (
+          <>
+            Want us to run your ads instead?{' '}
+            <Link href="/" className="font-medium text-primary hover:underline">
+              See how Halliard works for brands &rarr;
+            </Link>
+          </>
+        )}
+      </Container>
+    </div>
+  )
+}
+
 /** The header every page shares: the site's sections, sign in, and the page's own call to action. */
-export function LandingHeader({ href, cta, onClick }: { href: string; cta: string; onClick?: () => void }) {
+export function LandingHeader({
+  href,
+  cta,
+  onClick,
+  track,
+}: {
+  href: string
+  cta: string
+  onClick?: () => void
+  /** The page's track, for the line pointing the other way. Read from the sign-up link when not given. */
+  track?: Track | null
+}) {
+  const shown = track !== undefined ? track : trackFromHref(href)
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white/50 backdrop-blur-md border-b border-tint/40">
       <Container className="">
@@ -207,8 +297,15 @@ export function LandingHeader({ href, cta, onClick }: { href: string; cta: strin
           </div>
         </nav>
       </Container>
+      <CrossTrackBar track={shown} />
     </header>
   )
+}
+
+/** The track a sign-up link carries, for headers that were only given the link. */
+function trackFromHref(href: string): Track | null {
+  const value = href.split('?')[1] ? new URLSearchParams(href.split('?')[1]).get('track') : null
+  return value === 'brand' || value === 'planning' || value === 'agency' || value === 'inhouse' ? value : null
 }
 
 /** The homepage's plus pattern and tint glow, fading out at the bottom into the site background. */
