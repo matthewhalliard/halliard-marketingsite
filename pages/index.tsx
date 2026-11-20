@@ -16,7 +16,7 @@ import {
   useLandingAttribution,
   type Step,
 } from '../components/landing/kit'
-import { AuditScene, PlanScene, ReceiptsScene } from '../components/brand/scenes'
+import { AuditScene, ConnectScene, PlanScene, PlatformLogo, ReceiptsScene } from '../components/brand/scenes'
 
 /**
  * The homepage: Halliard for brands, where Halliard is the agency. It sells
@@ -36,16 +36,7 @@ const STEPS: Step[] = [
       { icon: CalendarCheck, text: 'Takes about a minute' },
     ],
     frame: 'Connect',
-    Scene: () => (
-      <div className="flex flex-col gap-2 text-left">
-        {['Google Ads', 'Meta'].map((p, i) => (
-          <div key={p} className="flex items-center justify-between rounded-lg border border-slate-200 bg-white px-3 py-2.5">
-            <span className="text-[13px] font-medium text-slate-900">{p}</span>
-            <span className={`text-[12px] ${i === 0 ? 'text-emerald-700' : 'text-slate-500'}`}>{i === 0 ? 'Connected · read-only' : 'Sign in'}</span>
-          </div>
-        ))}
-      </div>
-    ),
+    Scene: ConnectScene,
   },
   {
     icon: Search,
@@ -149,6 +140,21 @@ export default function BrandHome() {
                   </Link>
                 </div>
                 <p className="mt-4 text-sm text-slate-600">Read-only. No card. Results in a couple of minutes.</p>
+                <ul className="mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm text-slate-600 lg:justify-start">
+                  <li className="text-slate-500">We run your ads on</li>
+                  {(
+                    [
+                      ['google', 'Google Search'],
+                      ['facebook', 'Facebook'],
+                      ['instagram', 'Instagram'],
+                    ] as const
+                  ).map(([logo, name]) => (
+                    <li key={name} className="inline-flex items-center gap-2 font-medium text-slate-800">
+                      <PlatformLogo name={logo} size={20} />
+                      {name}
+                    </li>
+                  ))}
+                </ul>
               </div>
               <HeroVisual label="Audit · example">
                 <AuditScene />
