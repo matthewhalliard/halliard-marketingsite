@@ -28,6 +28,15 @@ export default function Document() {
             posthog.init('${HALLIARD3_KEY}',{api_host:'https://us.i.posthog.com',defaults:'2026-08-30',person_profiles:'identified_only',capture_exceptions:true});`,
           }}
         />
+        {/* PostHog's support chat widget hard-codes "Support chat" and
+            "Support" in its header; prospects should see who they are talking
+            to. Rewrites those labels inside the widget, and only there, each
+            time it renders. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){var T={'Support chat':'Chat with Halliard','Support':'Halliard'};function fix(){var c=document.getElementById('ph-conversations-widget-container');if(!c)return;var w=document.createTreeWalker(c,NodeFilter.SHOW_TEXT),n;while((n=w.nextNode())){var t=T[n.nodeValue.trim()];if(t)n.nodeValue=t}}function start(){new MutationObserver(fix).observe(document.body,{childList:true,subtree:true,characterData:true});fix()}document.body?start():document.addEventListener('DOMContentLoaded',start)})();`,
+          }}
+        />
         {/* Trybe attribution pixel: credits a creator when someone they sent
             signs up. Loads from track.halliardmedia.com, which covers
             client.halliardmedia.com too. Pixel code and store ID are public. */}
