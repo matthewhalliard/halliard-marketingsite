@@ -4,7 +4,7 @@ import { Lock } from 'lucide-react'
 import { Container } from '../components/mmm/Container'
 import { HeroBackdrop, LandingHeader, SIGN_UP_URL } from '../components/landing/kit'
 
-const EFFECTIVE_DATE = 'November 19, 2026'
+const EFFECTIVE_DATE = 'November 24, 2026'
 const CONTACT_EMAIL = 'privacy@halliardmedia.com'
 
 function Hero() {
@@ -99,7 +99,7 @@ function Body() {
 
           <Section id="ai-assistants" title="5. Using Halliard from ChatGPT or Claude">
             <p>
-              If you connect Halliard to an AI assistant such as ChatGPT or Claude, the assistant sends Halliard what each Halliard tool needs: the text of a brief, a question for a campaign&apos;s agent, a proposed change. We store those as part of your Halliard account, like the same actions in the portal, and record which assistant they came from. We don&apos;t receive or store the rest of your conversation, your assistant&apos;s memory, or your files. The assistant&apos;s provider handles your conversation under its own privacy policy. You can disconnect at any time in the assistant&apos;s settings.
+              If you connect Halliard to an AI assistant such as ChatGPT or Claude, the assistant sends Halliard what each Halliard tool needs: the text of a brief, a question for a campaign&apos;s agent, a proposed change. We store those as part of your Halliard account, like the same actions in the portal, and record which assistant they came from. We also record each tool call in PostHog, our product analytics provider, to understand and improve how Halliard is used: which tool was used, what the assistant sent it, how long it took and whether it failed, along with your name, email address and company. What the tool sends back is not recorded there. We don&apos;t receive or store the rest of your conversation, your assistant&apos;s memory, or your files. The assistant&apos;s provider handles your conversation under its own privacy policy. You can disconnect at any time in the assistant&apos;s settings.
             </p>
           </Section>
 

@@ -91,7 +91,7 @@ function Body() {
 
           <Section id="privacy" title="Privacy">
             <p>
-              Claude sends Halliard only what each Halliard tool needs, such as the text of a brief, a question for a campaign&apos;s agent, or a proposed change. We store those in your Halliard account and note that they came from Claude. We don&apos;t receive the rest of your conversation, Claude&apos;s memory, or your files. Read the full <Link href="/privacy#ai-assistants" className="text-primary underline">Privacy Policy</Link>.
+              Claude sends Halliard only what each Halliard tool needs, such as the text of a brief, a question for a campaign&apos;s agent, or a proposed change. We store those in your Halliard account and note that they came from Claude. We also record tool calls, including what Claude sent, in our product analytics to improve Halliard. We don&apos;t receive the rest of your conversation, Claude&apos;s memory, or your files. Read the full <Link href="/privacy#ai-assistants" className="text-primary underline">Privacy Policy</Link>.
             </p>
           </Section>
 
