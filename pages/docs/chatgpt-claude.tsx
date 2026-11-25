@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { BookOpen } from 'lucide-react'
 import { Container } from '../../components/mmm/Container'
 import { HeroBackdrop, LandingHeader, SIGN_UP_URL } from '../../components/landing/kit'
+import { CLAUDE_LISTING_URL } from '../../components/plan/add-to-assistant'
 
 // Public documentation for Halliard's connector in the Claude (and, once listed, ChatGPT)
 // directories. Keep pricing and "free" claims off this page, and say "market"
@@ -67,11 +68,13 @@ function Body() {
           </Section>
 
           <Section id="connect" title="How to connect">
-            <p>The server URL is:</p>
+            <p>
+              <a href={CLAUDE_LISTING_URL} className="text-primary underline" target="_blank" rel="noopener noreferrer">Open Halliard in Claude&apos;s connector directory</a> and connect it.
+            </p>
+            <p className="mt-3">
+              To add it by URL instead, open Settings in Claude, then Connectors, then Add custom connector, and paste the server URL:
+            </p>
             <pre className="mt-3 overflow-x-auto rounded-lg bg-slate-50 px-4 py-3 text-sm text-slate-900"><code>{SERVER_URL}</code></pre>
-            <ul className="list-disc pl-6 mt-3 space-y-2">
-              <li>In Claude, open Settings, then Connectors, then Add custom connector, and paste the URL.</li>
-            </ul>
             <p className="mt-3">
               Connecting opens Halliard&apos;s sign-in. If you are new, you can sign up there. You name your company and first brand, and accept the terms. Then you return to Claude.
             </p>

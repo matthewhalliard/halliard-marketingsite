@@ -24,6 +24,7 @@ const DATA: Audience = {
   ),
   intro:
     'Halliard drafts the plan, the media mix and the client deck from the brief, buys it on Meta and streaming TV through PubMatic when you want, and reports what each client’s money earned.',
+  addToAssistant: true,
   problemsTitle: 'What agencies get that tools for brands leave out',
   problems: [
     { icon: LayoutGrid, before: 'One workspace per client, nothing across them.', after: 'Every client in one account. Switch in one click.' },
