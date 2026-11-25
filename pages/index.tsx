@@ -17,6 +17,7 @@ import {
   type Step,
 } from '../components/landing/kit'
 import { AuditScene, ConnectScene, ConnectorsStrip, PlanScene, PlatformLogo, ReceiptsScene } from '../components/brand/scenes'
+import { AddToAssistant } from '../components/plan/add-to-assistant'
 
 /**
  * The homepage: Halliard for brands, which runs their Google and Meta ads. It sells
@@ -100,7 +101,7 @@ const FAQ: { q: string; a: string }[] = [
 ]
 
 export default function BrandHome() {
-  const { track, href } = useLandingAttribution('/', { event: 'home' })
+  const { track, capture, href } = useLandingAttribution('/', { event: 'home' })
   return (
     <>
       <Head>
@@ -183,6 +184,19 @@ export default function BrandHome() {
                 </li>
               ))}
             </ul>
+            <div className="mx-auto mt-14 max-w-2xl text-center">
+              <h3 className="font-display text-2xl tracking-tight text-slate-900">Ask about your ads from Claude.</h3>
+              <p className="mt-3 text-slate-600">
+                Connect Halliard to Claude to see how your live campaigns are doing, ask our agent why, or suggest a change. Changes
+                you suggest there wait for our team to approve them.
+              </p>
+              <AddToAssistant
+                center
+                className="mt-5"
+                label="Once your ads are running with us"
+                onAdd={assistant => capture('add_to_assistant_clicked', { assistant, location: 'why' })}
+              />
+            </div>
           </Container>
         </section>
 

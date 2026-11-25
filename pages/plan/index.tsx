@@ -223,7 +223,7 @@ export function PlanLanding({ path }: { path: '/planning' | '/plan' }) {
                 </p>
                 <AddToAssistant
                   className="mt-6"
-                  onAdd={assistant => capture('plan_add_to_assistant_clicked', { assistant, location: 'hero' })}
+                  onAdd={assistant => capture('add_to_assistant_clicked', { assistant, location: 'hero' })}
                 />
                 <ul className="mt-6 flex flex-wrap justify-center lg:justify-start gap-x-6 gap-y-3 text-sm text-slate-600">
                   <li className="inline-flex items-center gap-2">

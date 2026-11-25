@@ -35,15 +35,20 @@ const ASSISTANTS: { key: AiAssistant; label: string; url: string }[] = [
 /** One link per assistant that lists Halliard, opening its listing in a new tab. */
 export function AddToAssistant({
   onAdd,
+  label = 'Rather plan in an AI chat?',
+  center = false,
   className = '',
 }: {
   onAdd: (assistant: AiAssistant) => void
+  label?: string
+  /** Centred at every width, for heroes that are not two columns. */
+  center?: boolean
   className?: string
 }) {
   return (
     <div className={className}>
-      <p className="text-sm font-medium text-slate-700">Rather plan in an AI chat?</p>
-      <div className="mt-2 flex flex-wrap justify-center lg:justify-start gap-3">
+      <p className="text-sm font-medium text-slate-700">{label}</p>
+      <div className={'mt-2 flex flex-wrap justify-center gap-3' + (center ? '' : ' lg:justify-start')}>
         {ASSISTANTS.map(a => (
           <a
             key={a.key}

@@ -7,6 +7,7 @@ import { Button } from '../mmm/Button'
 import { PixelViewContent } from '@/components/PixelViewContent'
 import { ClosingCta, HeroBackdrop, LandingHeader, SOFT_BAND, SectionHeading, useLandingAttribution } from '../landing/kit'
 import { Faq, NumberedSteps } from '../measurement/kit'
+import { AddToAssistant } from '../plan/add-to-assistant'
 
 /**
  * A "Halliard for <audience>" page: the same product, told through the
@@ -27,6 +28,8 @@ export interface Audience {
   description: string
   heading: React.ReactNode
   intro: string
+  /** Show "Add Halliard to Claude" under the hero's buttons. */
+  addToAssistant?: boolean
   problemsTitle: string
   /** A few words each: what happens today, then what happens with Halliard. */
   problems: { icon: LucideIcon; before: string; after: string }[]
@@ -42,7 +45,7 @@ export interface Audience {
 
 export function AudiencePage({ data }: { data: Audience }) {
   const path = data.path ?? `/solutions/${data.slug}`
-  const { href: signUp, track } = useLandingAttribution(path)
+  const { href: signUp, track, capture } = useLandingAttribution(path)
   const href = data.cta?.href ?? signUp
   const cta = data.cta?.label ?? 'Start planning free'
   const url = `https://www.halliardmedia.com${path}`
@@ -88,6 +91,13 @@ export function AudiencePage({ data }: { data: Audience }) {
                   Or book a demo
                 </Link>
               </div>
+              {data.addToAssistant ? (
+                <AddToAssistant
+                  center
+                  className="mt-8"
+                  onAdd={assistant => capture('add_to_assistant_clicked', { assistant, location: 'hero' })}
+                />
+              ) : null}
             </div>
           </Container>
         </section>
